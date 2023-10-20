@@ -3,6 +3,10 @@ package de.dhbw.tinf22b6.world;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.maps.tiled.TiledMap;
+import com.badlogic.gdx.maps.tiled.TiledMapRenderer;
+import com.badlogic.gdx.maps.tiled.TmxMapLoader;
+import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.utils.Disposable;
 import de.dhbw.tinf22b6.util.Constants;
 
@@ -11,6 +15,8 @@ public class WorldRenderer implements Disposable {
     private OrthographicCamera camera;
     private SpriteBatch batch;
     private WorldController worldController;
+    private TiledMap map;
+    private TiledMapRenderer renderer;
 
     public WorldRenderer(WorldController worldController) {
         this.worldController = worldController;
@@ -22,10 +28,14 @@ public class WorldRenderer implements Disposable {
         camera = new OrthographicCamera(Constants.VIEWPORT_WIDTH, Constants.VIEWPORT_HEIGHT);
         camera.position.set(0, 0, 0);
         camera.update();
+        map = new TmxMapLoader().load("level/Sample.tmx");
+        renderer = new OrthogonalTiledMapRenderer(map);
     }
 
     public void render() {
         renderTestObjects();
+        renderer.setView(camera);
+        renderer.render();
     }
 
     private void renderTestObjects() {
