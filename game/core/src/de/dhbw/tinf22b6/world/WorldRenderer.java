@@ -33,9 +33,9 @@ public class WorldRenderer implements Disposable {
     }
 
     public void render() {
-        renderTestObjects();
         renderer.setView(camera);
         renderer.render();
+        renderTestObjects();
     }
 
     private void renderTestObjects() {

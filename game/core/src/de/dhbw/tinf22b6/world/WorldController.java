@@ -32,8 +32,8 @@ public class WorldController extends InputAdapter {
         // Create new array for 5 sprites
         testSprites = new Sprite[5];
         // Create empty POT-sized Pixmap with 8 bit RGBA pixel data
-        int width = 32;
-        int height = 32;
+        int width = 3200;
+        int height = 3200;
         Pixmap pixmap = createProceduralPixmap(width, height);
         // Create a new texture from pixmap data
         Texture texture = new Texture(pixmap);
@@ -91,14 +91,14 @@ public class WorldController extends InputAdapter {
         if (Gdx.app.getType() != Application.ApplicationType.Desktop) return;
 
         // Selected Sprite Controls
-        float sprMoveSpeed = 5 * deltaTime;
+        float sprMoveSpeed = 32 * deltaTime;
         if (Gdx.input.isKeyPressed(Input.Keys.A)) moveSelectedSprite(-sprMoveSpeed, 0);
         if (Gdx.input.isKeyPressed(Input.Keys.D)) moveSelectedSprite(sprMoveSpeed, 0);
         if (Gdx.input.isKeyPressed(Input.Keys.W)) moveSelectedSprite(0, sprMoveSpeed);
         if (Gdx.input.isKeyPressed(Input.Keys.S)) moveSelectedSprite(0, -sprMoveSpeed);
 
         // Camera Controls (move)
-        float camMoveSpeed = 5 * deltaTime;
+        float camMoveSpeed = 32 * deltaTime;
         float camMoveSpeedAccelerationFactor = 5;
         if (Gdx.input.isKeyPressed(Input.Keys.SHIFT_LEFT)) camMoveSpeed *= camMoveSpeedAccelerationFactor;
         if (Gdx.input.isKeyPressed(Input.Keys.LEFT)) moveCamera(-camMoveSpeed, 0);
