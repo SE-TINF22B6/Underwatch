@@ -1,13 +1,11 @@
 package de.dhbw.tinf22b6.world;
 
-import com.badlogic.gdx.Application;
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input;
-import com.badlogic.gdx.InputAdapter;
+import com.badlogic.gdx.*;
 import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.MathUtils;
+import de.dhbw.tinf22b6.screen.MenuScreen;
 import de.dhbw.tinf22b6.util.CameraHelper;
 
 public class WorldController extends InputAdapter {
@@ -17,8 +15,10 @@ public class WorldController extends InputAdapter {
     public int selectedSprite;
 
     public CameraHelper cameraHelper;
+    private Game game;
 
-    public WorldController() {
+    public WorldController(Game game) {
+        this.game = game;
         init();
     }
 
@@ -114,6 +114,9 @@ public class WorldController extends InputAdapter {
         if (Gdx.input.isKeyPressed(Input.Keys.COMMA)) cameraHelper.addZoom(camZoomSpeed);
         if (Gdx.input.isKeyPressed(Input.Keys.PERIOD)) cameraHelper.addZoom(-camZoomSpeed);
         if (Gdx.input.isKeyPressed(Input.Keys.SLASH)) cameraHelper.setZoom(1);
+
+        // Back to menu
+        if (Gdx.input.isKeyPressed(Input.Keys.ESCAPE)) backToMainMenu();
     }
 
     private void moveSelectedSprite(float x, float y) {
@@ -124,6 +127,10 @@ public class WorldController extends InputAdapter {
         x += cameraHelper.getPosition().x;
         y += cameraHelper.getPosition().y;
         cameraHelper.setPosition(x, y);
+    }
+
+    private void backToMainMenu() {
+        game.setScreen(new MenuScreen(game));
     }
 
     @Override

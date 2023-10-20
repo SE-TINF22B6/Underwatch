@@ -2,6 +2,7 @@ package de.dhbw.tinf22b6.screen;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.GL20;
 import de.dhbw.tinf22b6.world.WorldController;
 import de.dhbw.tinf22b6.world.WorldRenderer;
@@ -13,9 +14,13 @@ public class GameScreen extends AbstractGameScreen {
     private WorldRenderer worldRenderer;
 
     private boolean paused;
+    Music m = Gdx.audio.newMusic(Gdx.files.internal("music/downfall.mp3"));
 
     public GameScreen (Game game) {
         super(game);
+        m.setLooping(true);
+        m.setVolume(0.5f);
+        m.play();
     }
 
     @Override
@@ -43,13 +48,13 @@ public class GameScreen extends AbstractGameScreen {
 
     @Override
     public void show () {
-        worldController = new WorldController();
+        worldController = new WorldController(game);
         worldRenderer = new WorldRenderer(worldController);
     }
 
     @Override
     public void hide () {
-        worldRenderer.dispose();
+        m.dispose();
     }
 
     @Override
