@@ -1,0 +1,48 @@
+{
+    "Map/SizeTest": {
+        "height": 4300,
+        "width": 2
+    },
+    "activeFile": "Sample.tmx",
+    "expandedProjectPaths": [
+        "."
+    ],
+    "fileStates": {
+        "Dungeon_Tileset.tsx": {
+            "scaleInDock": 3,
+            "scaleInEditor": 5.5
+        },
+        "Interior.tsx": {
+            "scaleInDock": 1.5,
+            "scaleInEditor": 1
+        },
+        "Sample.tmx": {
+            "scale": 3.70796875,
+            "selectedLayer": 1,
+            "viewCenter": {
+                "x": 164.78024524883062,
+                "y": 158.1728540727319
+            }
+        }
+    },
+    "last.imagePath": "/home/martin/repos/Underwatch/tiled/2D Pixel Dungeon Asset Pack/character and tileset",
+    "map.lastUsedFormat": "tmx",
+    "map.tileHeight": 16,
+    "map.tileWidth": 16,
+    "map.width": 20,
+    "openFiles": [
+        "Dungeon_Tileset.tsx",
+        "Sample.tmx"
+    ],
+    "project": "Underwatch.tiled-project",
+    "recentFiles": [
+        "Dungeon_Tileset.tsx",
+        "Sample.tmx",
+        "Interior.tsx"
+    ],
+    "tileset.lastUsedFormat": "tsx",
+    "tileset.tileSize": {
+        "height": 16,
+        "width": 16
+    }
+}
