@@ -1,31 +1,23 @@
 package de.dhbw.tinf22b6;
 
-import com.badlogic.gdx.ApplicationAdapter;
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.utils.ScreenUtils;
+import com.badlogic.gdx.Application;
+import com.badlogic.gdx.Game;
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.assets.AssetManager;
+import de.dhbw.tinf22b6.screen.MenuScreen;
+import de.dhbw.tinf22b6.util.Assets;
 
-public class UnderwatchGame extends ApplicationAdapter {
-	SpriteBatch batch;
-	Texture img;
-	
-	@Override
-	public void create () {
-		batch = new SpriteBatch();
-		img = new Texture("badlogic.jpg");
-	}
+public class UnderwatchGame extends Game {
+    @Override
+    public void create () {
+        // Set Libgdx log level
+        Gdx.app.setLogLevel(Application.LOG_DEBUG);
 
-	@Override
-	public void render () {
-		ScreenUtils.clear(0.34f, 0.52f, 0, 1);
-		batch.begin();
-		batch.draw(img, 0, 0);
-		batch.end();
-	}
-	
-	@Override
-	public void dispose () {
-		batch.dispose();
-		img.dispose();
-	}
+        // Load assets
+        Assets.instance.init(new AssetManager());
+
+        // Start game at menu screen
+        setScreen(new MenuScreen(this));
+    }
 }
+
