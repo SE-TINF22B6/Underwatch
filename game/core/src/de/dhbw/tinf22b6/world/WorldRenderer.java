@@ -1,7 +1,7 @@
 package de.dhbw.tinf22b6.world;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapRenderer;
@@ -17,6 +17,7 @@ public class WorldRenderer implements Disposable {
     private WorldController worldController;
     private TiledMap map;
     private TiledMapRenderer renderer;
+    private float stateTime = 0;
 
     public WorldRenderer(WorldController worldController) {
         this.worldController = worldController;
@@ -39,12 +40,12 @@ public class WorldRenderer implements Disposable {
     }
 
     private void renderTestObjects() {
+        stateTime += Gdx.graphics.getDeltaTime();
         worldController.cameraHelper.applyTo(camera);
         batch.setProjectionMatrix(camera.combined);
         batch.begin();
-        for (Sprite sprite : worldController.testSprites) {
-            sprite.draw(batch);
-        }
+        // draw Player
+        batch.draw(worldController.getPlayer().getCurrentAnimation().getKeyFrame(stateTime, true), worldController.getPlayer().getX(), worldController.getPlayer().getY());
         batch.end();
     }
 
