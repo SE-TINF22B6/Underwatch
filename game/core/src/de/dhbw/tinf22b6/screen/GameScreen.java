@@ -9,7 +9,6 @@ import de.dhbw.tinf22b6.world.WorldRenderer;
 
 public class GameScreen extends AbstractGameScreen {
     private static final String TAG = GameScreen.class.getName();
-
     private WorldController worldController;
     private WorldRenderer worldRenderer;
 

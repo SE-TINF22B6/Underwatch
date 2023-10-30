@@ -29,7 +29,6 @@ public class WorldRenderer implements Disposable {
     private TiledMap map;
     private TiledMapRenderer renderer;
     private float stateTime = 0;
-
     private final World world;
     private Box2DDebugRenderer worldRenderer;
 
@@ -66,8 +65,9 @@ public class WorldRenderer implements Disposable {
         batch.setProjectionMatrix(camera.combined);
         batch.begin();
         // draw Player
-        batch.draw(worldController.getPlayer().getCurrentAnimation().getKeyFrame(stateTime, true), worldController.getPlayer().getX(), worldController.getPlayer().getY());
+        batch.draw(worldController.getPlayer().getCurrentAnimation().getKeyFrame(stateTime, true), worldController.getPlayer().getPos().x, worldController.getPlayer().getPos().y);
         batch.end();
+        world.clearForces();
     }
 
     public void resize(int width, int height) {

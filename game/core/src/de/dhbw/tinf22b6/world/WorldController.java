@@ -25,8 +25,8 @@ public class WorldController extends InputAdapter {
 
     private void init() {
         this.world = new World(new Vector2(0,0), true);
-        Gdx.input.setInputProcessor(this);
         objects = new ArrayList<>();
+        Gdx.input.setInputProcessor(this);
         player = new Player(world);
         objects.add(player);
         cameraHelper = new CameraHelper();
@@ -39,15 +39,26 @@ public class WorldController extends InputAdapter {
         cameraHelper.update(deltaTime);
     }
 
+    private Vector2 motion = new Vector2(0,0);
     private void handleDebugInput(float deltaTime) {
         if (Gdx.app.getType() != Application.ApplicationType.Desktop) return;
 
-        // Selected Sprite Controls
-        float sprMoveSpeed = 32 * deltaTime;
-        if (Gdx.input.isKeyPressed(Input.Keys.A)) moveSelectedSprite(-sprMoveSpeed, 0);
-        if (Gdx.input.isKeyPressed(Input.Keys.D)) moveSelectedSprite(sprMoveSpeed, 0);
-        if (Gdx.input.isKeyPressed(Input.Keys.W)) moveSelectedSprite(0, sprMoveSpeed);
-        if (Gdx.input.isKeyPressed(Input.Keys.S)) moveSelectedSprite(0, -sprMoveSpeed);
+        if (Gdx.input.isKeyPressed(Input.Keys.A)) {
+            motion.x = -1;
+            player.applyForce(motion);
+        }
+        if (Gdx.input.isKeyPressed(Input.Keys.D)) {
+            motion.x = 1;
+            player.applyForce(motion);
+        }
+        if (Gdx.input.isKeyPressed(Input.Keys.W)) {
+            motion.y = 1;
+            player.applyForce(motion);
+        }
+        if (Gdx.input.isKeyPressed(Input.Keys.S)) {
+            motion.y = -1;
+            player.applyForce(motion);
+        }
 
         // Camera Controls (move)
         float camMoveSpeed = 32 * deltaTime;
@@ -71,10 +82,6 @@ public class WorldController extends InputAdapter {
         if (Gdx.input.isKeyPressed(Input.Keys.ESCAPE)) backToMainMenu();
     }
 
-    private void moveSelectedSprite(float x, float y) {
-        player.translate(x, y);
-    }
-
     private void moveCamera(float x, float y) {
         x += cameraHelper.getPosition().x;
         y += cameraHelper.getPosition().y;
@@ -87,15 +94,22 @@ public class WorldController extends InputAdapter {
 
     @Override
     public boolean keyUp(int keycode) {
-        // Reset game world
-        if (keycode == Input.Keys.R) {
-            init();
-            Gdx.app.debug(TAG, "Game world reset");
-        }
-        // Toggle camera follow
-        else if (keycode == Input.Keys.ENTER) {
-            cameraHelper.setTarget(cameraHelper.hasTarget() ? null : player);
-            Gdx.app.debug(TAG, "Camera follow enabled: " + cameraHelper.hasTarget());
+        switch (keycode) {
+            case Input.Keys.A:
+            case Input.Keys.S:
+            case Input.Keys.W:
+            case Input.Keys.D:
+                motion.set(0,0);
+                player.applyForce(motion);
+                break;
+            case Input.Keys.R:
+                init();
+                Gdx.app.debug(TAG, "Game world reset");
+                break;
+            case Input.Keys.ENTER:
+                cameraHelper.setTarget(cameraHelper.hasTarget() ? null : player);
+                Gdx.app.debug(TAG, "Camera follow enabled: " + cameraHelper.hasTarget());
+                break;
         }
         return false;
     }

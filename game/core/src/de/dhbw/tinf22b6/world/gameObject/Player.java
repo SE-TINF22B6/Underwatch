@@ -1,45 +1,39 @@
 package de.dhbw.tinf22b6.world.gameObject;
 
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.*;
 
+import static de.dhbw.tinf22b6.util.Constants.TILE_SIZE;
+
 public class Player extends AnimatedGameObject {
-    private Body body;
+    private static final String TAG = Player.class.getName();
+    private final Body body;
+    private int speed = 50;
 
     public Player(World world) {
         super("priest1_v1");
-        this.x = 16*10;
-        this.y = 16*10;
-        // First we create a body definition
+        this.pos.set(TILE_SIZE * 10, TILE_SIZE * 10);
         BodyDef bodyDef = new BodyDef();
-        // We set our body to dynamic, for something like ground which doesn't move we would set it to StaticBody
+        bodyDef.position.set(pos.x + (float) TILE_SIZE / 2, pos.y + (float) TILE_SIZE / 4);
+        bodyDef.angle = 0;
+        bodyDef.fixedRotation = true;
         bodyDef.type = BodyDef.BodyType.DynamicBody;
-        // Set our body's starting position in the world
-        bodyDef.position.set(16*10, 16*10);
-
-        // Create our body in the world using our body definition
         body = world.createBody(bodyDef);
 
-        // Create a circle shape and set its radius to 6
-        CircleShape circle = new CircleShape();
-        circle.setRadius(6f);
-
-        // Create a fixture definition to apply our shape to
         FixtureDef fixtureDef = new FixtureDef();
-        fixtureDef.shape = circle;
-        fixtureDef.density = 0.5f;
-        fixtureDef.friction = 0.4f;
-        fixtureDef.restitution = 0.6f; // Make it bounce a little bit
+        PolygonShape boxShape = new PolygonShape();
+        boxShape.setAsBox((float) TILE_SIZE / 2, (float) TILE_SIZE / 4);
 
-        // Create our fixture and attach it to the body
-        Fixture fixture = body.createFixture(fixtureDef);
+        fixtureDef.shape = boxShape;
+        fixtureDef.restitution = 0.0f;
 
-        // Remember to dispose of any shapes after you're done with them!
-        // BodyDef and FixtureDef don't need disposing, but shapes do.
-        circle.dispose();
+        body.createFixture(fixtureDef);
+        boxShape.dispose();
     }
 
-    public void translate(float x, float y) {
-        this.x += x;
-        this.y += y;
+    public void applyForce(Vector2 motionVector) {
+        body.setLinearVelocity(motionVector.x * speed, motionVector.y * speed);
+        pos.x = body.getPosition().x - (float) TILE_SIZE /2;
+        pos.y = body.getPosition().y - (float) TILE_SIZE /4;
     }
 }
