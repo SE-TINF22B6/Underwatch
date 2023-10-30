@@ -1,26 +1,34 @@
 package de.dhbw.tinf22b6.world;
 
 import com.badlogic.gdx.*;
+import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.physics.box2d.World;
 import de.dhbw.tinf22b6.screen.MenuScreen;
 import de.dhbw.tinf22b6.util.CameraHelper;
+import de.dhbw.tinf22b6.world.gameObject.AnimatedGameObject;
 import de.dhbw.tinf22b6.world.gameObject.Player;
+
+import java.util.ArrayList;
 
 public class WorldController extends InputAdapter {
     private static final String TAG = WorldController.class.getName();
-
     public CameraHelper cameraHelper;
     private Game game;
-
+    private ArrayList<AnimatedGameObject> objects;
     private Player player;
+    private World world;
 
     public WorldController(Game game) {
         this.game = game;
-        player = new Player();
         init();
     }
 
     private void init() {
+        this.world = new World(new Vector2(0,0), true);
         Gdx.input.setInputProcessor(this);
+        objects = new ArrayList<>();
+        player = new Player(world);
+        objects.add(player);
         cameraHelper = new CameraHelper();
         cameraHelper.setPosition(16 * 10, 16 * 10);
     }
@@ -82,7 +90,7 @@ public class WorldController extends InputAdapter {
         // Reset game world
         if (keycode == Input.Keys.R) {
             init();
-            Gdx.app.debug(TAG, "Game world resetted");
+            Gdx.app.debug(TAG, "Game world reset");
         }
         // Toggle camera follow
         else if (keycode == Input.Keys.ENTER) {
@@ -94,5 +102,17 @@ public class WorldController extends InputAdapter {
 
     public Player getPlayer() {
         return player;
+    }
+
+    public World getWorld() {
+        return world;
+    }
+
+    public ArrayList<AnimatedGameObject> getObjects() {
+        return objects;
+    }
+
+    public void addObject(AnimatedGameObject object) {
+        this.objects.add(object);
     }
 }
