@@ -18,21 +18,20 @@ import com.badlogic.gdx.math.Polygon;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.physics.box2d.*;
 import com.badlogic.gdx.utils.Disposable;
-import de.dhbw.tinf22b6.util.Constants;
+
+import static de.dhbw.tinf22b6.util.Constants.*;
 
 public class WorldRenderer implements Disposable {
     private static final String TAG = WorldRenderer.class.getName();
     private OrthographicCamera camera;
     private SpriteBatch batch;
-    private WorldController worldController;
+    private final WorldController worldController;
     private TiledMap map;
     private TiledMapRenderer renderer;
     private float stateTime = 0;
 
-    private World world;
+    private final World world;
     private Box2DDebugRenderer worldRenderer;
-
-    private int tileSize = 16;
 
     public WorldRenderer(WorldController worldController) {
         this.worldController = worldController;
@@ -44,7 +43,7 @@ public class WorldRenderer implements Disposable {
         worldRenderer = new Box2DDebugRenderer();
 
         batch = new SpriteBatch();
-        camera = new OrthographicCamera(Constants.VIEWPORT_WIDTH, Constants.VIEWPORT_HEIGHT);
+        camera = new OrthographicCamera(VIEWPORT_WIDTH, VIEWPORT_HEIGHT);
         camera.position.set(0, 0, 0);
         camera.update();
         map = new TmxMapLoader().load("level/Sample.tmx");
@@ -72,7 +71,7 @@ public class WorldRenderer implements Disposable {
     }
 
     public void resize(int width, int height) {
-        camera.viewportWidth = (Constants.VIEWPORT_HEIGHT / height) * width;
+        camera.viewportWidth = (VIEWPORT_HEIGHT / height) * width;
         camera.update();
     }
 
@@ -100,7 +99,7 @@ public class WorldRenderer implements Disposable {
                         RectangleMapObject rectangleObject = (RectangleMapObject) mapObject;
                         Rectangle rectangle = rectangleObject.getRectangle();
 
-                        BodyDef bodyDef = getBodyDef(x * tileSize + tileSize / 2f + rectangle.getX() - (tileSize - rectangle.getWidth()) / 2f, y * tileSize + tileSize / 2f + rectangle.getY() - (tileSize - rectangle.getHeight()) / 2f);
+                        BodyDef bodyDef = getBodyDef(x * TILE_SIZE + TILE_SIZE / 2f + rectangle.getX() - (TILE_SIZE - rectangle.getWidth()) / 2f, y * TILE_SIZE + TILE_SIZE / 2f + rectangle.getY() - (TILE_SIZE - rectangle.getHeight()) / 2f);
 
                         Body body = world.createBody(bodyDef);
                         PolygonShape polygonShape = new PolygonShape();
@@ -111,10 +110,10 @@ public class WorldRenderer implements Disposable {
                         EllipseMapObject circleMapObject = (EllipseMapObject) mapObject;
                         Ellipse ellipse = circleMapObject.getEllipse();
 
-                        BodyDef bodyDef = getBodyDef(x * tileSize + tileSize / 2f + ellipse.x, y * tileSize + tileSize / 2f + ellipse.y);
+                        BodyDef bodyDef = getBodyDef(x * TILE_SIZE + TILE_SIZE / 2f + ellipse.x, y * TILE_SIZE + TILE_SIZE / 2f + ellipse.y);
 
                         if (ellipse.width != ellipse.height)
-                            throw new IllegalArgumentException("Only circles are allowed.");
+                            Gdx.app.error(TAG, "Only circles are allowed." ,new IllegalArgumentException("Only circles are allowed."));
 
                         Body body = world.createBody(bodyDef);
                         CircleShape circleShape = new CircleShape();
@@ -125,7 +124,7 @@ public class WorldRenderer implements Disposable {
                         PolygonMapObject polygonMapObject = (PolygonMapObject) mapObject;
                         Polygon polygon = polygonMapObject.getPolygon();
 
-                        BodyDef bodyDef = getBodyDef(x * tileSize + polygon.getX(), y * tileSize + polygon.getY());
+                        BodyDef bodyDef = getBodyDef(x * TILE_SIZE + polygon.getX(), y * TILE_SIZE + polygon.getY());
 
                         Body body = world.createBody(bodyDef);
                         PolygonShape polygonShape = new PolygonShape();
