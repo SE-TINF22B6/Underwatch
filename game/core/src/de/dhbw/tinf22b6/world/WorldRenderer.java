@@ -81,71 +81,64 @@ public class WorldRenderer implements Disposable {
         batch.dispose();
     }
 
-    private void parseMap()
-    {
-        TiledMapTileLayer layer = (TiledMapTileLayer) map.getLayers().get(3);
-        for (int x = 0; x < layer.getWidth(); x++)
-        {
-            for (int y = 0; y < layer.getHeight(); y++)
-            {
-                TiledMapTileLayer.Cell cell = layer.getCell(x, y);
-                if (cell == null)
-                    continue;
+    private void parseMap() {
+        for (int i = 0; i < map.getLayers().size(); i++) {
+            TiledMapTileLayer layer = (TiledMapTileLayer) map.getLayers().get(i);
+            for (int x = 0; x < layer.getWidth(); x++) {
+                for (int y = 0; y < layer.getHeight(); y++) {
+                    TiledMapTileLayer.Cell cell = layer.getCell(x, y);
+                    if (cell == null)
+                        continue;
 
-                MapObjects cellObjects = cell.getTile().getObjects();
-                if (cellObjects.getCount() != 1)
-                    continue;
+                    MapObjects cellObjects = cell.getTile().getObjects();
+                    if (cellObjects.getCount() != 1)
+                        continue;
 
-                MapObject mapObject = cellObjects.get(0);
+                    MapObject mapObject = cellObjects.get(0);
 
-                if (mapObject instanceof RectangleMapObject)
-                {
-                    RectangleMapObject rectangleObject = (RectangleMapObject) mapObject;
-                    Rectangle rectangle = rectangleObject.getRectangle();
+                    if (mapObject instanceof RectangleMapObject) {
+                        RectangleMapObject rectangleObject = (RectangleMapObject) mapObject;
+                        Rectangle rectangle = rectangleObject.getRectangle();
 
-                    BodyDef bodyDef = getBodyDef(x * tileSize + tileSize / 2f + rectangle.getX() - (tileSize - rectangle.getWidth()) / 2f, y * tileSize + tileSize / 2f + rectangle.getY() - (tileSize - rectangle.getHeight()) / 2f);
+                        BodyDef bodyDef = getBodyDef(x * tileSize + tileSize / 2f + rectangle.getX() - (tileSize - rectangle.getWidth()) / 2f, y * tileSize + tileSize / 2f + rectangle.getY() - (tileSize - rectangle.getHeight()) / 2f);
 
-                    Body body = world.createBody(bodyDef);
-                    PolygonShape polygonShape = new PolygonShape();
-                    polygonShape.setAsBox(rectangle.getWidth() / 2f, rectangle.getHeight() / 2f);
-                    body.createFixture(polygonShape, 0.0f);
-                    polygonShape.dispose();
-                }
-                else if (mapObject instanceof EllipseMapObject)
-                {
-                    EllipseMapObject circleMapObject = (EllipseMapObject) mapObject;
-                    Ellipse ellipse = circleMapObject.getEllipse();
+                        Body body = world.createBody(bodyDef);
+                        PolygonShape polygonShape = new PolygonShape();
+                        polygonShape.setAsBox(rectangle.getWidth() / 2f, rectangle.getHeight() / 2f);
+                        body.createFixture(polygonShape, 0.0f);
+                        polygonShape.dispose();
+                    } else if (mapObject instanceof EllipseMapObject) {
+                        EllipseMapObject circleMapObject = (EllipseMapObject) mapObject;
+                        Ellipse ellipse = circleMapObject.getEllipse();
 
-                    BodyDef bodyDef = getBodyDef(x * tileSize + tileSize / 2f + ellipse.x, y * tileSize + tileSize / 2f + ellipse.y);
+                        BodyDef bodyDef = getBodyDef(x * tileSize + tileSize / 2f + ellipse.x, y * tileSize + tileSize / 2f + ellipse.y);
 
-                    if (ellipse.width != ellipse.height)
-                        throw new IllegalArgumentException("Only circles are allowed.");
+                        if (ellipse.width != ellipse.height)
+                            throw new IllegalArgumentException("Only circles are allowed.");
 
-                    Body body = world.createBody(bodyDef);
-                    CircleShape circleShape = new CircleShape();
-                    circleShape.setRadius(ellipse.width / 2f);
-                    body.createFixture(circleShape, 0.0f);
-                    circleShape.dispose();
-                }
-                else if (mapObject instanceof PolygonMapObject)
-                {
-                    PolygonMapObject polygonMapObject = (PolygonMapObject) mapObject;
-                    Polygon polygon = polygonMapObject.getPolygon();
+                        Body body = world.createBody(bodyDef);
+                        CircleShape circleShape = new CircleShape();
+                        circleShape.setRadius(ellipse.width / 2f);
+                        body.createFixture(circleShape, 0.0f);
+                        circleShape.dispose();
+                    } else if (mapObject instanceof PolygonMapObject) {
+                        PolygonMapObject polygonMapObject = (PolygonMapObject) mapObject;
+                        Polygon polygon = polygonMapObject.getPolygon();
 
-                    BodyDef bodyDef = getBodyDef(x * tileSize + polygon.getX(), y * tileSize + polygon.getY());
+                        BodyDef bodyDef = getBodyDef(x * tileSize + polygon.getX(), y * tileSize + polygon.getY());
 
-                    Body body = world.createBody(bodyDef);
-                    PolygonShape polygonShape = new PolygonShape();
-                    polygonShape.set(polygon.getVertices());
-                    body.createFixture(polygonShape, 0.0f);
-                    polygonShape.dispose();
+                        Body body = world.createBody(bodyDef);
+                        PolygonShape polygonShape = new PolygonShape();
+                        polygonShape.set(polygon.getVertices());
+                        body.createFixture(polygonShape, 0.0f);
+                        polygonShape.dispose();
+                    }
                 }
             }
         }
     }
 
-    private BodyDef getBodyDef(float x, float y)
-    {
+    private BodyDef getBodyDef(float x, float y) {
         BodyDef bodyDef = new BodyDef();
         bodyDef.type = BodyDef.BodyType.StaticBody;
         bodyDef.position.set(x, y);
