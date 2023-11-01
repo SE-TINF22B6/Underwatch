@@ -8,35 +8,36 @@
         "."
     ],
     "fileStates": {
-        "": {
-            "scaleInEditor": 1
-        },
-        "/Users/martin/repos/LibgdxTiledBox2DExample/assets/TileCollisions.tmx": {
-            "scale": 1.67,
-            "selectedLayer": 0,
+        "/Users/benny/software-engeneering/50x50map mit hitbox.tmx": {
+            "scale": 1.31,
+            "selectedLayer": 4,
             "viewCenter": {
-                "x": 255.68862275449104,
-                "y": 144.01197604790417
+                "x": 279.7709923664122,
+                "y": 546.1832061068701
             }
         },
-        "/Users/martin/repos/LibgdxTiledBox2DExample/assets/TileCollisions.tmx#Tilemap": {
-            "scaleInDock": 1,
-            "scaleInEditor": 1
+        "2.0Map.tmx": {
+            "scale": 0.7298,
+            "selectedLayer": 5,
+            "viewCenter": {
+                "x": 421.3483146067416,
+                "y": 337.7637708961359
+            }
         },
         "Dungeon_Tileset.tsx": {
-            "scaleInDock": 1.5831,
-            "scaleInEditor": 4.27
+            "scaleInDock": 3,
+            "scaleInEditor": 5.5
         },
         "Interior.tsx": {
             "scaleInDock": 1.5,
             "scaleInEditor": 1
         },
         "Sample.tmx": {
-            "scale": 1.79,
-            "selectedLayer": 2,
+            "scale": 1.85,
+            "selectedLayer": 1,
             "viewCenter": {
-                "x": 208.9385474860335,
-                "y": 174.02234636871506
+                "x": 150,
+                "y": 162.43243243243242
             }
         }
     },
@@ -46,14 +47,14 @@
     "map.tileWidth": 16,
     "map.width": 20,
     "openFiles": [
-        "Sample.tmx",
-        "Dungeon_Tileset.tsx"
+        "Dungeon_Tileset.tsx",
+        "Sample.tmx"
     ],
     "project": "Underwatch.tiled-project",
     "recentFiles": [
+        "2.0Map.tmx",
         "Dungeon_Tileset.tsx",
         "Sample.tmx",
-        "/Users/martin/repos/LibgdxTiledBox2DExample/assets/TileCollisions.tmx",
         "Interior.tsx"
     ],
     "tileset.lastUsedFormat": "tsx",

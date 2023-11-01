@@ -45,7 +45,7 @@ public class WorldRenderer implements Disposable {
         camera = new OrthographicCamera(VIEWPORT_WIDTH, VIEWPORT_HEIGHT);
         camera.position.set(0, 0, 0);
         camera.update();
-        map = new TmxMapLoader().load("level/Sample.tmx");
+        map = new TmxMapLoader().load("level/2.0Map.tmx");
         renderer = new OrthogonalTiledMapRenderer(map);
         parseMap();
     }

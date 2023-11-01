@@ -8,11 +8,11 @@ import static de.dhbw.tinf22b6.util.Constants.TILE_SIZE;
 public class Player extends AnimatedGameObject {
     private static final String TAG = Player.class.getName();
     private final Body body;
-    private int speed = 50;
+    private int speed = 500;
 
     public Player(World world) {
         super("priest1_v1");
-        this.pos.set(TILE_SIZE * 10, TILE_SIZE * 10);
+        this.pos.set(TILE_SIZE * 25, TILE_SIZE * 25);
         BodyDef bodyDef = new BodyDef();
         bodyDef.position.set(pos.x + (float) TILE_SIZE / 2, pos.y + (float) TILE_SIZE / 4);
         bodyDef.angle = 0;
@@ -22,7 +22,7 @@ public class Player extends AnimatedGameObject {
 
         FixtureDef fixtureDef = new FixtureDef();
         PolygonShape boxShape = new PolygonShape();
-        boxShape.setAsBox((float) TILE_SIZE / 2, (float) TILE_SIZE / 4);
+        boxShape.setAsBox((float) TILE_SIZE / 3, (float) TILE_SIZE / 4);
 
         fixtureDef.shape = boxShape;
         fixtureDef.restitution = 0.0f;
