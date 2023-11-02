@@ -11,7 +11,7 @@ public class UnderwatchGame extends ApplicationAdapter {
 	
 	@Override
 	public void create () {
-		batch = new SpriteBatch();
+		batch = new SpritBatch();
 		img = new Texture("badlogic.jpg");
 	}
 
