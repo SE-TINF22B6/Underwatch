@@ -24,9 +24,9 @@ jobs:
       runs-on: ubuntu-latest
       steps:
         - name: Clone repository
-          uses: actions/checkout@v2
+          uses: actions/checkout@v3
         - name: Use Node.js 18.x
-          uses: actions/setup-node@v1
+          uses: actions/setup-node@v2
           with:
             node-version: 18.x
         - name: Install dependencies
@@ -37,7 +37,7 @@ jobs:
           working-directory: website
         # Share artifact inside workflow
         - name: Upload Juicy J's Webpage Artifact
-          uses: actions/upload-artifact@v1
+          uses: actions/upload-artifact@v3
           with:
             name: website
             path: website/build
