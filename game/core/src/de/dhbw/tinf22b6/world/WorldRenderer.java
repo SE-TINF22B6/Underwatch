@@ -1,6 +1,9 @@
 package de.dhbw.tinf22b6.world;
 
+import box2dLight.PointLight;
+import box2dLight.RayHandler;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.maps.MapObject;
@@ -31,6 +34,7 @@ public class WorldRenderer implements Disposable {
     private float stateTime = 0;
     private final World world;
     private Box2DDebugRenderer worldRenderer;
+    private RayHandler rayHandler;
 
     public WorldRenderer(WorldController worldController) {
         this.worldController = worldController;
@@ -40,13 +44,14 @@ public class WorldRenderer implements Disposable {
 
     private void init() {
         worldRenderer = new Box2DDebugRenderer();
-
+        rayHandler = new RayHandler(world);
         batch = new SpriteBatch();
         camera = new OrthographicCamera(VIEWPORT_WIDTH, VIEWPORT_HEIGHT);
         camera.position.set(0, 0, 0);
         camera.update();
         map = new TmxMapLoader().load("level/Sample.tmx");
         renderer = new OrthogonalTiledMapRenderer(map);
+        new PointLight(rayHandler, 10, new Color(1,0.5f,0.5f,1), 16*5, worldController.getPlayer().getPos().x, worldController.getPlayer().getPos().y);
         parseMap();
     }
 
@@ -57,6 +62,8 @@ public class WorldRenderer implements Disposable {
 
         world.step(Gdx.graphics.getDeltaTime(), 6, 2);
         worldRenderer.render(world, camera.combined);
+        rayHandler.setCombinedMatrix(camera);
+        rayHandler.updateAndRender();
     }
 
     private void renderTestObjects() {
@@ -78,6 +85,7 @@ public class WorldRenderer implements Disposable {
     @Override
     public void dispose() {
         batch.dispose();
+        rayHandler.dispose();
     }
 
     private void parseMap() {
