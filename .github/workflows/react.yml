@@ -1,0 +1,40 @@
+# They are provided by a third-party and are governed by
+# separate terms of service, privacy policy, and support
+# documentation.
+# This workflow will build a Java project with Gradle and cache/restore any dependencies to improve the workflow execution time
+# For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-java-with-gradle
+
+name: React CI
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+permissions:
+  contents: read
+
+
+jobs:
+    build:
+      runs-on: ubuntu-latest
+      steps:
+        - name: Clone repository
+          uses: actions/checkout@v2
+        - name: Use Node.js 18.x
+          uses: actions/setup-node@v1
+          with:
+            node-version: 18.x
+        - name: Install dependencies
+          run: npm install
+          working-directory: website
+        - name: Generate build
+          run: npm run build
+          working-directory: website
+        # Share artifact inside workflow
+        - name: Upload Juicy J's Webpage Artifact
+          uses: actions/upload-artifact@v1
+          with:
+            name: website
+            path: website/build
