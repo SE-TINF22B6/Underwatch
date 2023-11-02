@@ -35,14 +35,12 @@ public class WorldController extends InputAdapter {
 
 
     public void update(float deltaTime) {
-        handleDebugInput(deltaTime);
+        handleInput(deltaTime);
         cameraHelper.update(deltaTime);
     }
 
-    private Vector2 motion = new Vector2(0,0);
-    private void handleDebugInput(float deltaTime) {
-        if (Gdx.app.getType() != Application.ApplicationType.Desktop) return;
-
+    private final Vector2 motion = new Vector2(0,0);
+    private void handleInput(float deltaTime) {
         if (Gdx.input.isKeyPressed(Input.Keys.A)) {
             motion.x = -1;
             player.applyForce(motion);
@@ -120,13 +118,5 @@ public class WorldController extends InputAdapter {
 
     public World getWorld() {
         return world;
-    }
-
-    public ArrayList<AnimatedGameObject> getObjects() {
-        return objects;
-    }
-
-    public void addObject(AnimatedGameObject object) {
-        this.objects.add(object);
     }
 }

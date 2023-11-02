@@ -19,7 +19,7 @@ public class GameScreen extends AbstractGameScreen {
         super(game);
         m.setLooping(true);
         m.setVolume(0.5f);
-        //m.play();
+        m.play();
     }
 
     @Override
