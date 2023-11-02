@@ -1,0 +1,64 @@
+{
+    "Map/SizeTest": {
+        "height": 4300,
+        "width": 2
+    },
+    "activeFile": "Sample.tmx",
+    "expandedProjectPaths": [
+        "."
+    ],
+    "fileStates": {
+        "": {
+            "scaleInEditor": 1
+        },
+        "/Users/martin/repos/LibgdxTiledBox2DExample/assets/TileCollisions.tmx": {
+            "scale": 1.67,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 255.68862275449104,
+                "y": 144.01197604790417
+            }
+        },
+        "/Users/martin/repos/LibgdxTiledBox2DExample/assets/TileCollisions.tmx#Tilemap": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "Dungeon_Tileset.tsx": {
+            "scaleInDock": 1.5831,
+            "scaleInEditor": 4.27
+        },
+        "Interior.tsx": {
+            "scaleInDock": 1.5,
+            "scaleInEditor": 1
+        },
+        "Sample.tmx": {
+            "scale": 1.79,
+            "selectedLayer": 2,
+            "viewCenter": {
+                "x": 208.9385474860335,
+                "y": 174.02234636871506
+            }
+        }
+    },
+    "last.imagePath": "/home/martin/repos/Underwatch/tiled/2D Pixel Dungeon Asset Pack/character and tileset",
+    "map.lastUsedFormat": "tmx",
+    "map.tileHeight": 16,
+    "map.tileWidth": 16,
+    "map.width": 20,
+    "openFiles": [
+        "Sample.tmx",
+        "Dungeon_Tileset.tsx"
+    ],
+    "project": "Underwatch.tiled-project",
+    "recentFiles": [
+        "Dungeon_Tileset.tsx",
+        "Sample.tmx",
+        "/Users/martin/repos/LibgdxTiledBox2DExample/assets/TileCollisions.tmx",
+        "Interior.tsx"
+    ],
+    "tileset.lastUsedFormat": "tsx",
+    "tileset.tileSize": {
+        "height": 16,
+        "width": 16
+    }
+}

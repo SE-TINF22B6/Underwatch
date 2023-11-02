@@ -3,22 +3,26 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
 import Scoreboard from './Scoreboard';
-import NotFound from './NotFound';
-import { BrowserRouter, Route, Routes} from 'react-router-dom';
+import { RouterProvider, createBrowserRouter } from 'react-router-dom';
 
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
 
-
+const router = createBrowserRouter([
+  {
+    path: '/',
+    element: <App />
+  },
+  {
+    path: '/scoreboard/',
+    element: <Scoreboard />
+  }
+]);
 
 root.render(
-<BrowserRouter>
-  <Routes>
-    <Route path="*" element={<NotFound/>}/>
-    <Route path="/" element={<App/>}/>
-    <Route path="/scoreboard/" element={<Scoreboard/>}/>
-  </Routes>
-</BrowserRouter>
+  <React.StrictMode>
+    <RouterProvider router={router}/>
+  </React.StrictMode>
 );
