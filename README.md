@@ -1,6 +1,6 @@
 # Underwatch
 
-[![LICENSE](https://img.shields.io/github/license/mashape/apistatus.svg?style=flat-square&label=LICENSE)](https://github.com/SE-TINF22B6/Underwatch/blob/main/LICENSE)
+[![License](https://img.shields.io/github/license/SE-TINF22B6/Underwatch)](https://github.com/SE-TINF22B6/Underwatch/blob/main/LICENSE)
 [![Java CI with Gradle](https://github.com/SE-TINF22B6/Underwatch/actions/workflows/gradle.yml/badge.svg)](https://github.com/SE-TINF22B6/Underwatch/actions/workflows/gradle.yml)
 [![React CI](https://github.com/SE-TINF22B6/Underwatch/actions/workflows/react.yml/badge.svg)](https://github.com/SE-TINF22B6/Underwatch/actions/workflows/react.yml)
 [![Spring Boot CI](https://github.com/SE-TINF22B6/Underwatch/actions/workflows/spring.yml/badge.svg)](https://github.com/SE-TINF22B6/Underwatch/actions/workflows/spring.yml)
