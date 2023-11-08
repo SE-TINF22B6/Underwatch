@@ -1,1 +1,17 @@
-h1 {margin-top: 0;}
+.toolBar{
+    background-color: red;
+}
+
+.logo{
+    height:60px;
+}
+
+.link{
+    height:60px;
+}
+
+.sc-heading{
+    color: black;
+    font-size: 30px;
+    margin:auto;
+}
