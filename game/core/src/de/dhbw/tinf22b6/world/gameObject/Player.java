@@ -10,9 +10,8 @@ public class Player extends AnimatedGameObject {
     private final Body body;
     private int speed = 50;
 
-    public Player(World world) {
-        super("priest1_v1");
-        this.pos.set(TILE_SIZE * 10, TILE_SIZE * 10);
+    public Player(World world, Vector2 position) {
+        super("priest1_v1", position);
         BodyDef bodyDef = new BodyDef();
         bodyDef.position.set(pos.x + (float) TILE_SIZE / 2, pos.y + (float) TILE_SIZE / 4);
         bodyDef.angle = 0;
@@ -30,6 +29,8 @@ public class Player extends AnimatedGameObject {
         body.createFixture(fixtureDef);
         boxShape.dispose();
     }
+
+
 
     public void applyForce(Vector2 motionVector) {
         body.setLinearVelocity(motionVector.x * speed, motionVector.y * speed);

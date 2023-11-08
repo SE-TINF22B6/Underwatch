@@ -1,10 +1,14 @@
 package de.dhbw.tinf22b6.world;
 
-import com.badlogic.gdx.*;
+import com.badlogic.gdx.Game;
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
+import com.badlogic.gdx.InputAdapter;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.World;
 import de.dhbw.tinf22b6.screen.MenuScreen;
 import de.dhbw.tinf22b6.util.CameraHelper;
+import de.dhbw.tinf22b6.util.Constants;
 import de.dhbw.tinf22b6.world.gameObject.AnimatedGameObject;
 import de.dhbw.tinf22b6.world.gameObject.Player;
 
@@ -24,10 +28,10 @@ public class WorldController extends InputAdapter {
     }
 
     private void init() {
-        this.world = new World(new Vector2(0,0), true);
+        this.world = new World(new Vector2(0, 0), true);
         objects = new ArrayList<>();
         Gdx.input.setInputProcessor(this);
-        player = new Player(world);
+        player = new Player(world, new Vector2(10 * Constants.TILE_SIZE, 10 * Constants.TILE_SIZE));
         objects.add(player);
         cameraHelper = new CameraHelper();
         cameraHelper.setPosition(16 * 10, 16 * 10);
@@ -39,7 +43,8 @@ public class WorldController extends InputAdapter {
         cameraHelper.update(deltaTime);
     }
 
-    private final Vector2 motion = new Vector2(0,0);
+    private final Vector2 motion = new Vector2(0, 0);
+
     private void handleInput(float deltaTime) {
         if (Gdx.input.isKeyPressed(Input.Keys.A)) {
             motion.x = -1;
@@ -97,7 +102,7 @@ public class WorldController extends InputAdapter {
             case Input.Keys.S:
             case Input.Keys.W:
             case Input.Keys.D:
-                motion.set(0,0);
+                motion.set(0, 0);
                 player.applyForce(motion);
                 break;
             case Input.Keys.R:
