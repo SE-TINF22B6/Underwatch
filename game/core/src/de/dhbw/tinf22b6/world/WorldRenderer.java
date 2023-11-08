@@ -36,6 +36,8 @@ public class WorldRenderer implements Disposable {
     private Box2DDebugRenderer worldRenderer;
     private RayHandler rayHandler;
 
+    private PointLight playerRay;
+
     public WorldRenderer(WorldController worldController) {
         this.worldController = worldController;
         this.world = worldController.getWorld();
@@ -51,7 +53,8 @@ public class WorldRenderer implements Disposable {
         camera.update();
         map = new TmxMapLoader().load("level/Sample.tmx");
         renderer = new OrthogonalTiledMapRenderer(map);
-        new PointLight(rayHandler, 10, new Color(1,0.5f,0.5f,1), 16*5, worldController.getPlayer().getPos().x, worldController.getPlayer().getPos().y);
+        playerRay = new PointLight(rayHandler, 10, new Color(1, 1, 1, 0.5f), 16 * 10, worldController.getPlayer().getPos().x + 8, worldController.getPlayer().getPos().y + 4);
+        parseTorches();
         parseMap();
     }
 
@@ -61,6 +64,7 @@ public class WorldRenderer implements Disposable {
         renderTestObjects();
 
         world.step(Gdx.graphics.getDeltaTime(), 6, 2);
+        playerRay.setPosition(worldController.getPlayer().getPos().x + 8, worldController.getPlayer().getPos().y + 4);
         worldRenderer.render(world, camera.combined);
         rayHandler.setCombinedMatrix(camera);
         rayHandler.updateAndRender();
@@ -121,7 +125,7 @@ public class WorldRenderer implements Disposable {
                         BodyDef bodyDef = getBodyDef(x * TILE_SIZE + TILE_SIZE / 2f + ellipse.x, y * TILE_SIZE + TILE_SIZE / 2f + ellipse.y);
 
                         if (ellipse.width != ellipse.height)
-                            Gdx.app.error(TAG, "Only circles are allowed." ,new IllegalArgumentException("Only circles are allowed."));
+                            Gdx.app.error(TAG, "Only circles are allowed.", new IllegalArgumentException("Only circles are allowed."));
 
                         Body body = world.createBody(bodyDef);
                         CircleShape circleShape = new CircleShape();
@@ -141,6 +145,23 @@ public class WorldRenderer implements Disposable {
                         polygonShape.dispose();
                     }
                 }
+            }
+        }
+    }
+
+    private void parseTorches() {
+        TiledMapTileLayer layer = (TiledMapTileLayer) map.getLayers().get("torch");
+        for (int x = 0; x < layer.getWidth(); x++) {
+            for (int y = 0; y < layer.getHeight(); y++) {
+                TiledMapTileLayer.Cell cell = layer.getCell(x, y);
+                if (cell == null)
+                    continue;
+
+                MapObjects cellObjects = cell.getTile().getObjects();
+                if (cellObjects.getCount() != 1)
+                    continue;
+                Gdx.app.debug(TAG, "Adding torch to: " + x + " " + y);
+                new PointLight(rayHandler, 10, new Color(0.95f, 0.37f, 0.07f, 1), TILE_SIZE * 10, x * TILE_SIZE + 8, y * TILE_SIZE + 8);
             }
         }
     }
