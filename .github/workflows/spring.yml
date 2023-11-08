@@ -30,11 +30,15 @@ jobs:
           distribution: 'temurin'
       - name: Setup Gradle
         uses: gradle/gradle-build-action@bd5760595778326ba7f1441bcf7e88b49de61a25 # v2.6.0
-  
+
+      - name: Running Unit Tests
+        working-directory: backend
+        run: ./gradlew test
+
       - name: Execute Gradle build
         working-directory: backend
         run: ./gradlew bootJAR
-  
+
       - name: Archive Game Build
         uses: actions/upload-artifact@v3
         with:
