@@ -51,7 +51,7 @@ public class WorldRenderer implements Disposable {
         camera = new OrthographicCamera(VIEWPORT_WIDTH, VIEWPORT_HEIGHT);
         camera.position.set(0, 0, 0);
         camera.update();
-        map = new TmxMapLoader().load("level/Sample.tmx");
+        map = new TmxMapLoader().load("level/2.0Map.tmx");
         renderer = new OrthogonalTiledMapRenderer(map);
         playerRay = new PointLight(rayHandler, 10, new Color(1, 1, 1, 0.5f), 16 * 10, worldController.getPlayer().getPos().x + 8, worldController.getPlayer().getPos().y + 4);
         parseTorches();

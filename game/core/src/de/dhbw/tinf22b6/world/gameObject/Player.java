@@ -21,7 +21,7 @@ public class Player extends AnimatedGameObject {
 
         FixtureDef fixtureDef = new FixtureDef();
         PolygonShape boxShape = new PolygonShape();
-        boxShape.setAsBox((float) TILE_SIZE / 2, (float) TILE_SIZE / 4);
+        boxShape.setAsBox((float) TILE_SIZE / 3, (float) TILE_SIZE / 4);
 
         fixtureDef.shape = boxShape;
         fixtureDef.restitution = 0.0f;
@@ -29,8 +29,6 @@ public class Player extends AnimatedGameObject {
         body.createFixture(fixtureDef);
         boxShape.dispose();
     }
-
-
 
     public void applyForce(Vector2 motionVector) {
         body.setLinearVelocity(motionVector.x * speed, motionVector.y * speed);
