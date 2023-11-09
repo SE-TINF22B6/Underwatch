@@ -11,12 +11,13 @@
 
 ## Introduction
 
-This is the early beta version of Top-Down Dungeon Crawler game made with [libgdx](https://libgdx.com/).
+This is the early beta version of Top-Down Dungeon Crawler game made with [libgdx](https://libgdx.com/).</br>
+For some more documents, please read [wiki](https://github.com/SE-TINF22B6/Underwatch/wiki/System-Architecture-Documentation)
 
 ## Features
 
 - exquisite maps
-- high score webpage
+- leaderboard webpage
 - in-game shop
 - pay2win system(in future release)
 
