@@ -22,27 +22,7 @@ For some more documents, please read [wiki](https://github.com/SE-TINF22B6/Under
 - pay2win system(in future release)
 
 ## Project status
-**Implemented:**
-- [X] Setup workaround
-- [X] Select image for the game
-- [X] Basic CI/CD
-- [X] Setup webpage
-- [X] Build test map
-- [X] Create Wikipage for the arc42 documentation
-
-**Still working:**
-- [ ] Better readme
-- [ ] Webpage for highscore
-- [ ] website 404 Page
-- [ ] Create Personas
-- [ ] Create database to store highscore
-- [ ] Better Map
-
-**Not implemented:**
-- [ ] In-game shop
-- [ ] Pay2win
-- [ ] Tutorial
-- [ ] Menu options
+[Project Backlog](https://github.com/orgs/SE-TINF22B6/projects/12/)
 
 
 ## Tech Stack
