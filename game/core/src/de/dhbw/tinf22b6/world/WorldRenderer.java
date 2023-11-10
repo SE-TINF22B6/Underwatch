@@ -36,8 +36,6 @@ public class WorldRenderer implements Disposable {
     private Box2DDebugRenderer worldRenderer;
     private RayHandler rayHandler;
 
-    private PointLight playerRay;
-
     public WorldRenderer(WorldController worldController) {
         this.worldController = worldController;
         this.world = worldController.getWorld();
@@ -47,13 +45,14 @@ public class WorldRenderer implements Disposable {
     private void init() {
         worldRenderer = new Box2DDebugRenderer();
         rayHandler = new RayHandler(world);
+        rayHandler.setAmbientLight(0.5f);
+        rayHandler.setBlurNum(1);
         batch = new SpriteBatch();
         camera = new OrthographicCamera(VIEWPORT_WIDTH, VIEWPORT_HEIGHT);
         camera.position.set(0, 0, 0);
         camera.update();
         map = new TmxMapLoader().load("level/2.0Map.tmx");
         renderer = new OrthogonalTiledMapRenderer(map);
-        playerRay = new PointLight(rayHandler, 10, new Color(1, 1, 1, 0.3f), TILE_SIZE * 50, worldController.getPlayer().getPos().x + 8, worldController.getPlayer().getPos().y + 4);
         parseTorches();
         parseMap();
     }
@@ -64,7 +63,6 @@ public class WorldRenderer implements Disposable {
         renderTestObjects();
 
         world.step(Gdx.graphics.getDeltaTime(), 6, 2);
-        playerRay.setPosition(worldController.getPlayer().getPos().x + 8, worldController.getPlayer().getPos().y + 4);
         worldRenderer.render(world, camera.combined);
         rayHandler.setCombinedMatrix(camera);
         rayHandler.updateAndRender();
@@ -161,7 +159,7 @@ public class WorldRenderer implements Disposable {
                 if (cellObjects.getCount() != 1)
                     continue;
                 Gdx.app.debug(TAG, "Adding torch to: " + x + " " + y);
-                new PointLight(rayHandler, 10, new Color(0.95f, 0.37f, 0.07f, 1), TILE_SIZE * 10, x * TILE_SIZE + 8, y * TILE_SIZE + 8);
+                new PointLight(rayHandler, 100, new Color(0.95f, 0.37f, 0.07f, 1f), TILE_SIZE * 5, x * TILE_SIZE + 8, y * TILE_SIZE + 8).setSoftnessLength(10);
             }
         }
     }

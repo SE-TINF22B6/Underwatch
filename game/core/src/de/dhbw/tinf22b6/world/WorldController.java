@@ -37,7 +37,6 @@ public class WorldController extends InputAdapter {
         cameraHelper.setPosition(16 * 10, 16 * 10);
     }
 
-
     public void update(float deltaTime) {
         handleInput(deltaTime);
         cameraHelper.update(deltaTime);
