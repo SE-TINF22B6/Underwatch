@@ -12,6 +12,7 @@ public class Player extends AnimatedGameObject {
 
     public Player(World world, Vector2 position) {
         super("priest1_v1", position);
+        this.weapon = new Bow();
         BodyDef bodyDef = new BodyDef();
         bodyDef.position.set(pos.x + (float) TILE_SIZE / 2, pos.y + (float) TILE_SIZE / 4);
         bodyDef.angle = 0;

@@ -3,7 +3,7 @@ package de.dhbw.tinf22b6.util;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
-import de.dhbw.tinf22b6.world.gameObject.Player;
+import de.dhbw.tinf22b6.gameobject.Player;
 
 public class CameraHelper {
 

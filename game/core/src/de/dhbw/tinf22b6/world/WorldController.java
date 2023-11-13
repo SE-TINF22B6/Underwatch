@@ -9,8 +9,8 @@ import com.badlogic.gdx.physics.box2d.World;
 import de.dhbw.tinf22b6.screen.MenuScreen;
 import de.dhbw.tinf22b6.util.CameraHelper;
 import de.dhbw.tinf22b6.util.Constants;
-import de.dhbw.tinf22b6.world.gameObject.AnimatedGameObject;
-import de.dhbw.tinf22b6.world.gameObject.Player;
+import de.dhbw.tinf22b6.gameobject.AnimatedGameObject;
+import de.dhbw.tinf22b6.gameobject.Player;
 
 import java.util.ArrayList;
 

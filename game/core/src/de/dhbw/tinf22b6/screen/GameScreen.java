@@ -4,6 +4,7 @@ import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.GL20;
+import de.dhbw.tinf22b6.overlay.ScreenOverlay;
 import de.dhbw.tinf22b6.world.WorldController;
 import de.dhbw.tinf22b6.world.WorldRenderer;
 
@@ -11,6 +12,7 @@ public class GameScreen extends AbstractGameScreen {
     private static final String TAG = GameScreen.class.getName();
     private WorldController worldController;
     private WorldRenderer worldRenderer;
+    private ScreenOverlay overlay;
 
     private boolean paused;
     Music m = Gdx.audio.newMusic(Gdx.files.internal("music/downfall.mp3"));
