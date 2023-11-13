@@ -2,6 +2,8 @@ package de.dhbw.tinf22b6.world.gameObject;
 
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.*;
+import de.dhbw.tinf22b6.weapon.Bow;
+import de.dhbw.tinf22b6.weapon.Weapon;
 
 import static de.dhbw.tinf22b6.util.Constants.TILE_SIZE;
 
@@ -9,6 +11,7 @@ public class Player extends AnimatedGameObject {
     private static final String TAG = Player.class.getName();
     private final Body body;
     private int speed = 50;
+    private Weapon weapon;
 
     public Player(World world, Vector2 position) {
         super("priest1_v1", position);
