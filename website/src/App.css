@@ -1,1 +1,10 @@
-h1 {margin-top: 0;}
+.lp-heading{
+    font-size: 15vw;
+    margin-top: 20vh;
+    margin-bottom: 0;
+}
+
+.lp-subheading{
+    font-size:5vw;
+    margin-top: 0;
+}
