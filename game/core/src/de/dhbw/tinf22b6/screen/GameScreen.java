@@ -56,7 +56,7 @@ public class GameScreen extends AbstractGameScreen {
     public void show() {
         world = new World(new Vector2(0,0), false);
         WorldParser.parseWalls(map, world);
-        world.setContactListener(new WorldListener(world));
+        world.setContactListener(new WorldListener());
         worldController = new WorldController(game, world, WorldParser.parseGameObjects(map, world));
         worldRenderer = new WorldRenderer(worldController, world, map);
     }

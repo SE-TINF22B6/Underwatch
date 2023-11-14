@@ -9,15 +9,9 @@ import static de.dhbw.tinf22b6.util.Constants.*;
 
 public class WorldListener implements ContactListener {
     private static final String TAG = GameScreen.class.getName();
-    private final World world;
-
-    public WorldListener(World world) {
-        this.world = world;
-    }
 
     @Override
     public void endContact(Contact contact) {
-
     }
 
     @Override
@@ -43,12 +37,10 @@ public class WorldListener implements ContactListener {
 
     @Override
     public void preSolve(Contact contact, Manifold oldManifold) {
-
     }
 
     @Override
     public void postSolve(Contact contact, ContactImpulse impulse) {
-
     }
 };
 
