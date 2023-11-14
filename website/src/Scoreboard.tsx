@@ -91,9 +91,9 @@ const Scoreboard = () => {
             <Paper elevation={1} sx={{margin: '20px 20px 0 0', padding:'10px'}}>
                 <b>Filter</b><br/>
                 Username<br/>
-                <TextField id="username-input" label="Outlined" variant="outlined" multiline={false}/>
+                <TextField variant="outlined" multiline={false} rows={1}/>
                 Date<br/>
-
+                <TextField variant="outlined" multiline={false} rows={1}/>
                 min.score<br/>
                 <div style={{padding:'10px'}}>
                     <Slider aria-label="min-score" />
