@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './Scoreboard.css';
 import { Link } from 'react-router-dom';
 import {
@@ -11,10 +11,11 @@ import {
   TableHead,
   TableRow,
   Paper,
-  ThemeProvider,
   createTheme,
+  Button,
+  TextField,
+  Slider,
 } from '@mui/material';
-import { makeStyles } from '@mui/styles';
 
 const theme = createTheme();
 
@@ -24,16 +25,22 @@ let data = [
   { name: 'TheDestroyer', date: '2023-11-04', score: '241' },
 ];
 
-const useStyles = makeStyles({
-  cell: {
-    width: '33.33%', // Teile den verfügbaren Platz gleichmäßig auf drei Spalten auf
-  },
-});
-
 
 
 const Scoreboard = () => {
-  const classes = useStyles();
+    const [showFilterMask, setShowSecondElement] = useState(false);
+    const [filterButtonText, setFilterButtonText] = useState('Filter');
+
+    const clickFilterButton = () => {
+        if (showFilterMask === true){
+            setShowSecondElement(false);
+            setFilterButtonText("Filter")
+        }
+        else{
+            setShowSecondElement(true);
+            setFilterButtonText("Don't  Filter")
+        }
+    };
 
   return (
     <div className="Scoreboard">
@@ -46,40 +53,60 @@ const Scoreboard = () => {
         </Toolbar>
       </AppBar>
 
-      <ThemeProvider theme={theme}>
-        <TableContainer component={Paper} sx={{ width: 1 / 2 }}>
-          <Table sx={{ minWidth: 650, size: 'small' }} aria-label="simple table">
-            <TableHead>
-              <TableRow>
-                <TableCell >Username</TableCell>
-                <TableCell  align="right">
-                  Date
-                </TableCell>
-                <TableCell  align="right">
-                  Score
-                </TableCell>
-              </TableRow>
-            </TableHead>
+      <div style={{display: 'flex'}}>
+        <TableContainer component={Paper} sx={{ maxWidth: `calc(100% - 40px)`, maxHeight:'800px', margin: '20px' }}>
+        <Table sx={{ minWidth: 350, size: 'small'}} aria-label="simple table">
+        <TableHead>
+            <TableRow>
+            <TableCell >Username</TableCell>
+            <TableCell  align="right">
+                Date
+            </TableCell>
+            <TableCell  align="right">
+                Score
+            </TableCell>
+            </TableRow>
+        </TableHead>
 
-            <TableBody>
-              {data.map((row) => (
-                <TableRow
-                  key={row.date}
-                  sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-                >
-                  <TableCell>{row.name}</TableCell>
-                  <TableCell  align="right">
-                    {row.date}
-                  </TableCell>
-                  <TableCell align="right">
-                    {row.score}
-                  </TableCell>
-                </TableRow>
-              ))}
-            </TableBody>
-          </Table>
+        <TableBody>
+            {data.map((row) => (
+            <TableRow
+                key={row.date}
+                sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+            >
+                <TableCell>{row.name}</TableCell>
+                <TableCell  align="right">
+                {row.date}
+                </TableCell>
+                <TableCell align="right">
+                {row.score}
+                </TableCell>
+            </TableRow>
+            ))}
+        </TableBody>
+        </Table>
         </TableContainer>
-      </ThemeProvider>
+
+        {showFilterMask && (
+            <Paper elevation={1} sx={{margin: '20px 20px 0 0', padding:'10px'}}>
+                <b>Filter</b><br/>
+                Username<br/>
+                <TextField id="username-input" label="Outlined" variant="outlined" multiline={false}/>
+                Date<br/>
+
+                min.score<br/>
+                <div style={{padding:'10px'}}>
+                    <Slider aria-label="min-score" />
+                </div>
+            </Paper>
+        )}
+
+      </div>
+      <div style={{display: 'flex', justifyContent: 'center'}}>
+        <Button variant="contained" onClick={clickFilterButton} sx={{alignSelf: 'center'}}>
+                {filterButtonText}
+        </Button>
+      </div>
     </div>
   );
 }
