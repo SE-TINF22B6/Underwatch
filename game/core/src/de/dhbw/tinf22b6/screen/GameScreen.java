@@ -4,28 +4,32 @@ import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.maps.tiled.TiledMap;
+import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.physics.box2d.World;
 import de.dhbw.tinf22b6.overlay.ScreenOverlay;
 import de.dhbw.tinf22b6.world.WorldController;
+import de.dhbw.tinf22b6.world.WorldListener;
+import de.dhbw.tinf22b6.world.WorldParser;
 import de.dhbw.tinf22b6.world.WorldRenderer;
 
 public class GameScreen extends AbstractGameScreen {
-    private static final String TAG = GameScreen.class.getName();
     private WorldController worldController;
     private WorldRenderer worldRenderer;
     private ScreenOverlay overlay;
 
     private boolean paused;
     Music m = Gdx.audio.newMusic(Gdx.files.internal("music/downfall.mp3"));
+    private final TiledMap map;
+    private World world;
 
-    public GameScreen (Game game) {
+    public GameScreen(Game game, TiledMap map) {
         super(game);
-        m.setLooping(true);
-        m.setVolume(0.5f);
-        //m.play();
+        this.map = map;
     }
 
     @Override
-    public void render (float deltaTime) {
+    public void render(float deltaTime) {
         // Do not update game world when paused.
         if (!paused) {
             // Update game world by the time that has passed
@@ -42,29 +46,32 @@ public class GameScreen extends AbstractGameScreen {
         // Render game world to screen
         worldRenderer.render();
     }
+
     @Override
-    public void resize (int width, int height) {
+    public void resize(int width, int height) {
         worldRenderer.resize(width, height);
     }
 
     @Override
-    public void show () {
-        worldController = new WorldController(game);
-        worldRenderer = new WorldRenderer(worldController);
+    public void show() {
+        world = new World(new Vector2(0,0), false);
+        WorldParser.parseWalls(map, world);
+        world.setContactListener(new WorldListener(world));
+        worldController = new WorldController(game, world, WorldParser.parseGameObjects(map, world));
+        worldRenderer = new WorldRenderer(worldController, world, map);
     }
 
     @Override
-    public void hide () {
-        m.dispose();
+    public void hide() {
     }
 
     @Override
-    public void pause () {
+    public void pause() {
         paused = true;
     }
 
     @Override
-    public void resume () {
+    public void resume() {
         super.resume();
         // Only called on Android!
         paused = false;

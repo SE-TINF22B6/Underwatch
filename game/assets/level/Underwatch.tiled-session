@@ -7,6 +7,7 @@
     "expandedProjectPaths": [
         "."
     ],
+    "file.lastUsedOpenFilter": "All Files (*)",
     "fileStates": {
         "/Users/benny/software-engeneering/50x50map mit hitbox.tmx": {
             "scale": 1.31,
@@ -17,11 +18,11 @@
             }
         },
         "2.0Map.tmx": {
-            "scale": 0.9759,
-            "selectedLayer": 5,
+            "scale": 1.2568,
+            "selectedLayer": 3,
             "viewCenter": {
-                "x": 2466.953581309561,
-                "y": 378.6248591044165
+                "x": 321.4513049013368,
+                "y": 561.3462762571611
             }
         },
         "50x50MapMitHitbox.tmx": {
@@ -44,12 +45,13 @@
             "scale": 4.9457,
             "selectedLayer": 2,
             "viewCenter": {
-                "x": 223.12311705117577,
-                "y": 157.2072709626544
+                "x": 223.0220191277271,
+                "y": 157.20727096265443
             }
         },
         "neuesTileset.tsx": {
-            "scaleInDock": 1
+            "scaleInDock": 1.8723,
+            "scaleInEditor": 3.668
         }
     },
     "last.imagePath": "/home/martin/repos/Underwatch/tiled/2D Pixel Dungeon Asset Pack/character and tileset",
@@ -67,6 +69,7 @@
         "Dungeon_Tileset.tsx",
         "Sample.tmx",
         "2.0Map.tmx",
+        "neuesTileset.tsx",
         "50x50MapMitHitbox.tmx",
         "Interior.tsx"
     ],
