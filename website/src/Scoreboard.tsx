@@ -103,7 +103,7 @@ const Scoreboard = () => {
 
       </div>
       <div style={{display: 'flex', justifyContent: 'center'}}>
-        <Button variant="contained" onClick={clickFilterButton} sx={{alignSelf: 'center'}}>
+        <Button variant="contained" onClick={clickFilterButton}>
                 {filterButtonText}
         </Button>
       </div>
