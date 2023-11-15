@@ -16,6 +16,7 @@ import {
   TextField,
   Slider,
 } from '@mui/material';
+import { theme1 } from './theme';
 
 const theme = createTheme();
 
@@ -45,7 +46,7 @@ const Scoreboard = () => {
   return (
     <div className="Scoreboard">
       <AppBar position="static" className="appBar">
-        <Toolbar variant="dense" className="toolBar">
+        <Toolbar variant="dense">
           <Link to="/" className="link">
             <img src="../Logo.png" alt="Underwatch-logo" className="logo" />
           </Link>
@@ -54,7 +55,7 @@ const Scoreboard = () => {
       </AppBar>
 
       <div style={{display: 'flex'}}>
-        <TableContainer component={Paper} sx={{ maxWidth: `calc(100% - 40px)`, maxHeight:'800px', margin: '20px' }}>
+        <TableContainer component={Paper} sx={{ maxWidth: `calc(100% - 40px)`, maxHeight:'800px', margin: '20px', backgroundColor: '#3d253b'}}>
         <Table sx={{ minWidth: 350, size: 'small'}} aria-label="simple table">
         <TableHead>
             <TableRow>
@@ -63,7 +64,7 @@ const Scoreboard = () => {
                 Date
             </TableCell>
             <TableCell  align="right">
-                Score
+                Scores
             </TableCell>
             </TableRow>
         </TableHead>
@@ -88,7 +89,7 @@ const Scoreboard = () => {
         </TableContainer>
 
         {showFilterMask && (
-            <Paper elevation={1} sx={{margin: '20px 20px 0 0', padding:'10px'}}>
+            <Paper elevation={1} sx={{margin: '20px 20px 0 0', padding:'10px', backgroundColor: '#3d253b'}}>
                 <b>Filter</b><br/>
                 Username<br/>
                 <TextField variant="outlined" multiline={false} rows={1}/>

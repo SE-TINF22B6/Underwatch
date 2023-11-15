@@ -4,6 +4,8 @@ import './index.css';
 import App from './App';
 import Scoreboard from './Scoreboard';
 import { RouterProvider, createBrowserRouter } from 'react-router-dom';
+import { theme1 } from './theme';
+import { ThemeProvider } from '@mui/material';
 
 
 const root = ReactDOM.createRoot(
@@ -23,6 +25,8 @@ const router = createBrowserRouter([
 
 root.render(
   <React.StrictMode>
-    <RouterProvider router={router}/>
+    <ThemeProvider theme={theme1}>
+      <RouterProvider router={router}/>
+    </ThemeProvider>
   </React.StrictMode>
 );
