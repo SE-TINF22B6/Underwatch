@@ -16,7 +16,6 @@ import static de.dhbw.tinf22b6.util.Constants.VIEWPORT_HEIGHT;
 import static de.dhbw.tinf22b6.util.Constants.VIEWPORT_WIDTH;
 
 public class WorldRenderer implements Disposable {
-    private static final String TAG = WorldRenderer.class.getName();
     private final OrthographicCamera camera;
     private final SpriteBatch batch;
     private final WorldController worldController;
@@ -49,7 +48,8 @@ public class WorldRenderer implements Disposable {
         renderMapObjects();
 
         world.step(Gdx.graphics.getDeltaTime(), 6, 2);
-        box2DDebugRenderer.render(world, camera.combined);
+        if (worldController.debugBox2D)
+            box2DDebugRenderer.render(world, camera.combined);
         rayHandler.setCombinedMatrix(camera);
         rayHandler.updateAndRender();
     }

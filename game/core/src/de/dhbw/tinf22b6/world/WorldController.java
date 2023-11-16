@@ -23,6 +23,7 @@ public class WorldController extends InputAdapter {
     private Player player;
     private World world;
     private final Vector2 motion = new Vector2(0, 0);
+    public boolean debugBox2D = false;
 
     public WorldController(Game game, World world, List<AnimatedCollisionObject> objects) {
         this.game = game;
@@ -85,6 +86,9 @@ public class WorldController extends InputAdapter {
         if (Gdx.input.isKeyPressed(Input.Keys.COMMA)) cameraHelper.addZoom(camZoomSpeed);
         if (Gdx.input.isKeyPressed(Input.Keys.PERIOD)) cameraHelper.addZoom(-camZoomSpeed);
         if (Gdx.input.isKeyPressed(Input.Keys.SLASH)) cameraHelper.setZoom(1);
+
+        // Debugging
+        if (Gdx.input.isKeyJustPressed(Input.Keys.C)) debugBox2D = !debugBox2D;
 
         // Back to menu
         if (Gdx.input.isKeyPressed(Input.Keys.ESCAPE)) game.setScreen(new MenuScreen(game));
