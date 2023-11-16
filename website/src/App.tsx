@@ -17,7 +17,13 @@ function App() {
           <Button variant="contained">
                   Scoreboard
           </Button>
+        <li></li>
         </Link>
+          <Link to="/wiki">
+              <Button variant="contained">
+                  Wiki
+              </Button>
+          </Link>
       </div>
     </div>
   );
