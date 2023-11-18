@@ -22,7 +22,7 @@ public class WorldRenderer implements Disposable {
     private final TiledMapRenderer renderer;
     private final World world;
     private final Box2DDebugRenderer box2DDebugRenderer;
-    private RayHandler rayHandler;
+    private final RayHandler rayHandler;
     private float stateTime = 0;
 
     public WorldRenderer(WorldController worldController, World world, TiledMap map) {
