@@ -1,8 +1,9 @@
 package de.dhbw.tinf22b6.gameobject;
 
+import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.physics.box2d.CircleShape;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
-import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
 import de.dhbw.tinf22b6.util.Constants;
 
@@ -16,21 +17,30 @@ public class Bullet extends GameObject {
     protected float range = 150;
 
     public Bullet(Vector2 position, World world, Vector2 direction) {
-        super("coin", new Vector2(position.x / TILE_SIZE, position.y / TILE_SIZE), world, Constants.WEAPON_BIT);
+        super("Just_arrow", new Vector2(position.x / TILE_SIZE, position.y / TILE_SIZE), world, Constants.WEAPON_BIT);
 
-        body = world.createBody(getDynamicBodyDef(pos.x + TILE_SIZE / 2f, pos.y + TILE_SIZE / 2f));
-        PolygonShape polygonShape = new PolygonShape();
-        polygonShape.setAsBox(5, 5);
+        body = world.createBody(getDynamicBodyDef(pos.x, pos.y));
+        CircleShape circleShape = new CircleShape();
+        circleShape.setRadius(5);
 
         FixtureDef fixtureDef = new FixtureDef();
-        fixtureDef.shape = polygonShape;
+        fixtureDef.shape = circleShape;
         fixtureDef.filter.categoryBits = collisionMask;
+        fixtureDef.isSensor = true;
 
         body.createFixture(fixtureDef).setUserData(this);
-        polygonShape.dispose();
+        body.setBullet(true);
+        circleShape.dispose();
         this.vector = direction;
         active = true;
-        speed = 100;
+        speed = 50;
+        width = 16;
+        height = 16;
+    }
+
+    public void render(Batch batch) {
+        float rotation = 90 + vector.angleDeg();
+        batch.draw(currentAnimation.getKeyFrame(stateTime, true), pos.x, pos.y, width / 2, height / 2, width, height, 1, 1, rotation);
     }
 
     public void tick(float delta) {

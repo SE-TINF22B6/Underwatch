@@ -31,6 +31,7 @@ public class WorldListener implements ContactListener {
                 Gdx.app.debug(TAG, "Player picked up Coin");
                 break;
             case WALL_BIT | WEAPON_BIT:
+                // TODO the hit sound is not supposed to be here
                 Gdx.audio.newSound(Gdx.files.internal("sfx/hitSound.mp3")).play(1);
                 if (fixA.getFilterData().categoryBits == WEAPON_BIT) {
                     ((Bullet) fixA.getUserData()).setRemove(true);
