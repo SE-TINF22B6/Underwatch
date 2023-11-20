@@ -1,0 +1,81 @@
+{
+    "Map/SizeTest": {
+        "height": 4300,
+        "width": 2
+    },
+    "activeFile": "2.0Map.tmx",
+    "expandedProjectPaths": [
+        "."
+    ],
+    "file.lastUsedOpenFilter": "All Files (*)",
+    "fileStates": {
+        "/Users/benny/software-engeneering/50x50map mit hitbox.tmx": {
+            "scale": 1.31,
+            "selectedLayer": 4,
+            "viewCenter": {
+                "x": 279.7709923664122,
+                "y": 546.1832061068701
+            }
+        },
+        "2.0Map.tmx": {
+            "scale": 1.2568,
+            "selectedLayer": 3,
+            "viewCenter": {
+                "x": 322.2469764481222,
+                "y": 561.3462762571611
+            }
+        },
+        "50x50MapMitHitbox.tmx": {
+            "scale": 1.2025,
+            "selectedLayer": 1,
+            "viewCenter": {
+                "x": 254.4698544698545,
+                "y": 511.01871101871103
+            }
+        },
+        "Dungeon_Tileset.tsx": {
+            "scaleInDock": 1.8712,
+            "scaleInEditor": 5.5
+        },
+        "Interior.tsx": {
+            "scaleInDock": 1.5,
+            "scaleInEditor": 1
+        },
+        "Sample.tmx": {
+            "scale": 4.9457,
+            "selectedLayer": 2,
+            "viewCenter": {
+                "x": 159.93691489576804,
+                "y": 159.83581697231938
+            }
+        },
+        "neuesTileset.tsx": {
+            "scaleInDock": 1.8723,
+            "scaleInEditor": 3.668
+        }
+    },
+    "last.imagePath": "/home/martin/repos/Underwatch/tiled/2D Pixel Dungeon Asset Pack/character and tileset",
+    "map.lastUsedFormat": "tmx",
+    "map.tileHeight": 16,
+    "map.tileWidth": 16,
+    "map.width": 20,
+    "openFiles": [
+        "Dungeon_Tileset.tsx",
+        "Sample.tmx",
+        "2.0Map.tmx"
+    ],
+    "project": "Underwatch.tiled-project",
+    "recentFiles": [
+        "Dungeon_Tileset.tsx",
+        "Sample.tmx",
+        "2.0Map.tmx",
+        "neuesTileset.tsx",
+        "50x50MapMitHitbox.tmx",
+        "Interior.tsx"
+    ],
+    "tileset.lastUsedFormat": "tsx",
+    "tileset.tileSize": {
+        "height": 16,
+        "width": 16
+    }
+}
