@@ -4,8 +4,8 @@ import './index.css';
 import App from './App';
 import Scoreboard from './Scoreboard';
 import { RouterProvider, createBrowserRouter } from 'react-router-dom';
-import { theme1 } from './theme';
-import { ThemeProvider } from '@mui/material';
+import VideoBackground from './VideoBackground';
+import NotFound from './NotFound';
 
 
 const root = ReactDOM.createRoot(
@@ -20,13 +20,19 @@ const router = createBrowserRouter([
   {
     path: '/scoreboard/',
     element: <Scoreboard />
+  },
+  {
+    path: '/video/',
+    element: <VideoBackground/>
+  },
+  {
+    path: '*',
+    element: <NotFound/>
   }
 ]);
 
 root.render(
   <React.StrictMode>
-    <ThemeProvider theme={theme1}>
-      <RouterProvider router={router}/>
-    </ThemeProvider>
+    <RouterProvider router={router}/>
   </React.StrictMode>
 );
