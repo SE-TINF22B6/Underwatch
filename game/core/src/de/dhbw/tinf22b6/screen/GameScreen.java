@@ -4,6 +4,7 @@ import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.World;
@@ -12,6 +13,9 @@ import de.dhbw.tinf22b6.world.WorldController;
 import de.dhbw.tinf22b6.world.WorldListener;
 import de.dhbw.tinf22b6.world.WorldParser;
 import de.dhbw.tinf22b6.world.WorldRenderer;
+
+import static de.dhbw.tinf22b6.util.Constants.VIEWPORT_HEIGHT;
+import static de.dhbw.tinf22b6.util.Constants.VIEWPORT_WIDTH;
 
 public class GameScreen extends AbstractGameScreen {
     private WorldController worldController;
@@ -54,11 +58,13 @@ public class GameScreen extends AbstractGameScreen {
 
     @Override
     public void show() {
-        world = new World(new Vector2(0,0), false);
-        WorldParser.parseWalls(map, world);
+        world = new World(new Vector2(0, 0), false);
+        WorldParser.parseStaticObjects(map, world);
         world.setContactListener(new WorldListener());
-        worldController = new WorldController(game, world, WorldParser.parseGameObjects(map, world));
-        worldRenderer = new WorldRenderer(worldController, world, map);
+        OrthographicCamera camera =
+                new OrthographicCamera(VIEWPORT_WIDTH, VIEWPORT_HEIGHT);
+        worldController = new WorldController(game, world, WorldParser.parseGameObjects(map, world), camera);
+        worldRenderer = new WorldRenderer(worldController, world, map, camera);
     }
 
     @Override

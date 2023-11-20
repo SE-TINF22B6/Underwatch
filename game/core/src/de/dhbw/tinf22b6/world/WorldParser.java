@@ -16,7 +16,11 @@ import com.badlogic.gdx.math.Polygon;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.*;
-import de.dhbw.tinf22b6.gameobject.*;
+import de.dhbw.tinf22b6.gameobject.CandleStick;
+import de.dhbw.tinf22b6.gameobject.Chest;
+import de.dhbw.tinf22b6.gameobject.Coin;
+import de.dhbw.tinf22b6.gameobject.GameObject;
+import de.dhbw.tinf22b6.util.Constants;
 
 import java.util.ArrayList;
 
@@ -25,7 +29,7 @@ import static de.dhbw.tinf22b6.util.Constants.TILE_SIZE;
 public class WorldParser {
     private static final String TAG = WorldRenderer.class.getName();
 
-    public static void parseWalls(TiledMap map, World world) {
+    public static void parseStaticObjects(TiledMap map, World world) {
         TiledMapTileLayer layer = (TiledMapTileLayer) map.getLayers().get("walls");
 
         for (int x = 0; x < layer.getWidth(); x++) {
@@ -44,18 +48,18 @@ public class WorldParser {
                     RectangleMapObject rectangleObject = (RectangleMapObject) mapObject;
                     Rectangle rectangle = rectangleObject.getRectangle();
 
-                    BodyDef bodyDef = getBodyDef(x * TILE_SIZE + TILE_SIZE / 2f + rectangle.getX() - (TILE_SIZE - rectangle.getWidth()) / 2f, y * TILE_SIZE + TILE_SIZE / 2f + rectangle.getY() - (TILE_SIZE - rectangle.getHeight()) / 2f);
+                    BodyDef bodyDef = getStaticBodyDef(x * TILE_SIZE + TILE_SIZE / 2f + rectangle.getX() - (TILE_SIZE - rectangle.getWidth()) / 2f, y * TILE_SIZE + TILE_SIZE / 2f + rectangle.getY() - (TILE_SIZE - rectangle.getHeight()) / 2f);
 
                     Body body = world.createBody(bodyDef);
                     PolygonShape polygonShape = new PolygonShape();
                     polygonShape.setAsBox(rectangle.getWidth() / 2f, rectangle.getHeight() / 2f);
-                    body.createFixture(polygonShape, 0.0f);
+                    body.createFixture(getWallFixture(polygonShape));
                     polygonShape.dispose();
                 } else if (mapObject instanceof EllipseMapObject) {
                     EllipseMapObject circleMapObject = (EllipseMapObject) mapObject;
                     Ellipse ellipse = circleMapObject.getEllipse();
 
-                    BodyDef bodyDef = getBodyDef(x * TILE_SIZE + TILE_SIZE / 2f + ellipse.x, y * TILE_SIZE + TILE_SIZE / 2f + ellipse.y);
+                    BodyDef bodyDef = getStaticBodyDef(x * TILE_SIZE + TILE_SIZE / 2f + ellipse.x, y * TILE_SIZE + TILE_SIZE / 2f + ellipse.y);
 
                     if (ellipse.width != ellipse.height)
                         Gdx.app.error(TAG, "Only circles are allowed.", new IllegalArgumentException("Only circles are allowed."));
@@ -69,7 +73,7 @@ public class WorldParser {
                     PolygonMapObject polygonMapObject = (PolygonMapObject) mapObject;
                     Polygon polygon = polygonMapObject.getPolygon();
 
-                    BodyDef bodyDef = getBodyDef(x * TILE_SIZE + polygon.getX(), y * TILE_SIZE + polygon.getY());
+                    BodyDef bodyDef = getStaticBodyDef(x * TILE_SIZE + polygon.getX(), y * TILE_SIZE + polygon.getY());
 
                     Body body = world.createBody(bodyDef);
                     PolygonShape polygonShape = new PolygonShape();
@@ -78,11 +82,12 @@ public class WorldParser {
                     polygonShape.dispose();
                 }
             }
+
         }
     }
 
-    public static ArrayList<AnimatedCollisionObject> parseGameObjects(TiledMap map, World world) {
-        ArrayList<AnimatedCollisionObject> list = new ArrayList<>();
+    public static ArrayList<GameObject> parseGameObjects(TiledMap map, World world) {
+        ArrayList<GameObject> list = new ArrayList<>();
         //TODO refactor animated game objects using an enum
         String[] objects = new String[]{"coins", "torch", "chests"};
         for (String s : objects) {
@@ -97,13 +102,21 @@ public class WorldParser {
                     if (cellObjects.getCount() != 1)
                         continue;
 
-                    // TODO refactor this using an enum
-                    if (s.equals("torch")) {
-                        list.add(new CandleStick(new Vector2(x, y), world));
-                    } else if (s.equals("coins")) {
-                        list.add(new Coin(new Vector2(x, y), world));
-                    } else if (s.equals("chests")) {
-                        list.add(new Chest(new Vector2(x, y), world));
+                    MapObject cellObject = cellObjects.get(0);
+                    if (cellObject instanceof RectangleMapObject) {
+                        RectangleMapObject rectangleObject = (RectangleMapObject) cellObject;
+
+                        switch (s) {
+                            case "torch":
+                                list.add(new CandleStick(new Vector2(x, y), world, rectangleObject.getRectangle()));
+                                break;
+                            case "coins":
+                                list.add(new Coin(new Vector2(x, y), world, rectangleObject.getRectangle()));
+                                break;
+                            case "chests":
+                                list.add(new Chest(new Vector2(x, y), world));
+                                break;
+                        }
                     }
                 }
             }
@@ -127,11 +140,33 @@ public class WorldParser {
         }
     }
 
-    private static BodyDef getBodyDef(float x, float y) {
+    public static BodyDef getStaticBodyDef(float x, float y) {
         BodyDef bodyDef = new BodyDef();
         bodyDef.type = BodyDef.BodyType.StaticBody;
         bodyDef.position.set(x, y);
 
         return bodyDef;
+    }
+
+    public static BodyDef getDynamicBodyDef(Vector2 position) {
+        BodyDef bodyDef = new BodyDef();
+        bodyDef.type = BodyDef.BodyType.DynamicBody;
+        bodyDef.position.set(position);
+
+        return bodyDef;
+    }
+
+    public static BodyDef getDynamicBodyDef(float x, float y) {
+        return getDynamicBodyDef(new Vector2(x, y));
+    }
+
+    private static FixtureDef getWallFixture(Shape shape) {
+        FixtureDef fixtureDef = new FixtureDef();
+        fixtureDef.shape = shape;
+        fixtureDef.filter.categoryBits = Constants.WALL_BIT;
+        fixtureDef.restitution = 0.0f;
+        fixtureDef.density = 0f;
+
+        return fixtureDef;
     }
 }

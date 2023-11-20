@@ -4,9 +4,13 @@ import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputAdapter;
+import com.badlogic.gdx.graphics.Camera;
+import com.badlogic.gdx.graphics.Cursor;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.physics.box2d.World;
-import de.dhbw.tinf22b6.gameobject.AnimatedCollisionObject;
+import de.dhbw.tinf22b6.gameobject.Bullet;
+import de.dhbw.tinf22b6.gameobject.GameObject;
 import de.dhbw.tinf22b6.gameobject.Player;
 import de.dhbw.tinf22b6.screen.GameScreen;
 import de.dhbw.tinf22b6.screen.MenuScreen;
@@ -19,33 +23,41 @@ public class WorldController extends InputAdapter {
     private static final String TAG = WorldController.class.getName();
     public CameraHelper cameraHelper;
     private Game game;
-    private List<AnimatedCollisionObject> objects;
+    private List<GameObject> objects;
     private Player player;
     private World world;
     private final Vector2 motion = new Vector2(0, 0);
     public boolean debugBox2D = false;
+    private Camera camera;
 
-    public WorldController(Game game, World world, List<AnimatedCollisionObject> objects) {
+    public WorldController(Game game, World world, List<GameObject> objects, Camera camera) {
         this.game = game;
         this.world = world;
         this.objects = objects;
+        this.camera = camera;
         init();
     }
 
     private void init() {
         Gdx.input.setInputProcessor(this);
+        Gdx.graphics.setSystemCursor(Cursor.SystemCursor.Crosshair);
         player = new Player(world, new Vector2(5, 5));
         cameraHelper = new CameraHelper();
         cameraHelper.setTarget(player);
+        objects.add(player);
     }
 
     public void update(float deltaTime) {
         handleInput(deltaTime);
         cameraHelper.update(deltaTime);
+        world.step(deltaTime, 6, 2);
+
+        // tick objects
+        objects.forEach(gameObject -> gameObject.tick(deltaTime));
         // remove deleted objects from the World
-        objects.stream().filter(AnimatedCollisionObject::isDead).forEach(animatedCollisionObject -> world.destroyBody(animatedCollisionObject.getBody()));
+        objects.stream().filter(GameObject::isRemove).forEach(gameObject -> world.destroyBody(gameObject.getBody()));
         // remove deleted objects from the Map
-        objects = objects.stream().filter(animatedCollisionObject -> !animatedCollisionObject.isDead()).collect(Collectors.toList());
+        objects = objects.stream().filter(gameObject -> !gameObject.isRemove()).collect(Collectors.toList());
     }
 
     private void handleInput(float deltaTime) {
@@ -87,6 +99,12 @@ public class WorldController extends InputAdapter {
         if (Gdx.input.isKeyPressed(Input.Keys.PERIOD)) cameraHelper.addZoom(-camZoomSpeed);
         if (Gdx.input.isKeyPressed(Input.Keys.SLASH)) cameraHelper.setZoom(1);
 
+        if (Gdx.input.justTouched()) {
+            Vector3 unproject = camera.unproject(new Vector3(Gdx.input.getX(), Gdx.input.getY(), 0));
+            Vector2 reducedDimension = new Vector2(unproject.x - player.getPos().x, unproject.y - player.getPos().y);
+            objects.add(new Bullet(player.getPos(), world, reducedDimension.setLength(1)));
+        }
+
         // Debugging
         if (Gdx.input.isKeyJustPressed(Input.Keys.C)) debugBox2D = !debugBox2D;
 
@@ -122,11 +140,7 @@ public class WorldController extends InputAdapter {
         cameraHelper.setPosition(x, y);
     }
 
-    public Player getPlayer() {
-        return player;
-    }
-
-    public List<AnimatedCollisionObject> getGameObjects() {
+    public List<GameObject> getGameObjects() {
         return objects;
     }
 }

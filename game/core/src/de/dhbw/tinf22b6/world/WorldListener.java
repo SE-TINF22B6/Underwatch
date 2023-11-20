@@ -2,7 +2,8 @@ package de.dhbw.tinf22b6.world;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.physics.box2d.*;
-import de.dhbw.tinf22b6.gameobject.AnimatedCollisionObject;
+import de.dhbw.tinf22b6.gameobject.Bullet;
+import de.dhbw.tinf22b6.gameobject.GameObject;
 import de.dhbw.tinf22b6.screen.GameScreen;
 
 import static de.dhbw.tinf22b6.util.Constants.*;
@@ -24,13 +25,19 @@ public class WorldListener implements ContactListener {
         switch (cDef) {
             case PLAYER_BIT | COIN_BIT:
                 if (fixA.getFilterData().categoryBits == COIN_BIT)
-                    ((AnimatedCollisionObject) fixA.getUserData()).setDead(true);
+                    ((GameObject) fixA.getUserData()).setRemove(true);
                 else
-                    ((AnimatedCollisionObject) fixB.getUserData()).setDead(true);
+                    ((GameObject) fixB.getUserData()).setRemove(true);
                 Gdx.app.debug(TAG, "Player picked up Coin");
                 break;
-            case PLAYER_BIT | POTION_BIT:
-                Gdx.app.debug(TAG, "Player picked up Potion");
+            case WALL_BIT | WEAPON_BIT:
+                Gdx.audio.newSound(Gdx.files.internal("sfx/hitSound.mp3")).play(1);
+                if (fixA.getFilterData().categoryBits == WEAPON_BIT) {
+                    ((Bullet) fixA.getUserData()).setRemove(true);
+                }
+                else
+                    ((Bullet) fixB.getUserData()).setRemove(true);
+                Gdx.app.debug(TAG, "Weapon and wall");
                 break;
         }
     }
