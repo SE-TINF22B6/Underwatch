@@ -15,9 +15,7 @@ function App() {
         <VideoBackground/>
         <Typography variant='h1' style={{color: theme1.palette.primary.main, fontSize: '15vw', marginTop: '20vh', marginBottom: '0'}}>Underwatch</Typography>
         <Typography variant='subtitle2' style={{color: theme1.palette.primary.main, fontSize: '5vw', marginTop: '0', marginBottom: '30px'}}>The best game from TINF22B6</Typography>
-        {/*<h1 className='lp-heading'>Underwatch</h1>
-        <p className='lp-subheading'>The best game from TINF22B6</p>*/}
-        
+
         <div style={{display: 'flex', justifyContent: 'center'}}>
           <Link to="/scoreboard">
             <Button variant="contained">

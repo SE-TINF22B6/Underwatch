@@ -12,7 +12,6 @@ import {
   TableRow,
   Paper,
   Button,
-  TextField,
   Slider,
   ThemeProvider,
   Typography,
