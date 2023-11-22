@@ -19,6 +19,8 @@ import de.dhbw.tinf22b6.util.CameraHelper;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import static de.dhbw.tinf22b6.util.Constants.TILE_SIZE;
+
 public class WorldController extends InputAdapter {
     private static final String TAG = WorldController.class.getName();
     public CameraHelper cameraHelper;
@@ -101,7 +103,7 @@ public class WorldController extends InputAdapter {
 
         if (Gdx.input.justTouched()) {
             Vector3 unproject = camera.unproject(new Vector3(Gdx.input.getX(), Gdx.input.getY(), 0));
-            Vector2 reducedDimension = new Vector2(unproject.x - player.getPos().x, unproject.y - player.getPos().y);
+            Vector2 reducedDimension = new Vector2(unproject.x - player.getPos().x - TILE_SIZE / 2f, unproject.y - player.getPos().y - TILE_SIZE / 2f);
             Gdx.app.debug(TAG, reducedDimension.setLength(1) + "." + reducedDimension.angleDeg());
             objects.add(new Bullet(player.getPos(), world, reducedDimension.setLength(1)));
         }
