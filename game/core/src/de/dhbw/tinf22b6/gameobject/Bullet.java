@@ -19,7 +19,7 @@ public class Bullet extends GameObject {
     public Bullet(Vector2 position, World world, Vector2 direction) {
         super("Just_arrow", new Vector2(position.x / TILE_SIZE, position.y / TILE_SIZE), world, Constants.WEAPON_BIT);
         active = true;
-        speed = 50;
+        speed = 100;
         width = 16;
         height = 16;
         body = world.createBody(getDynamicBodyDef(pos.x + width / 2, pos.y + height / 2));
