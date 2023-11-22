@@ -18,8 +18,11 @@ public class Bullet extends GameObject {
 
     public Bullet(Vector2 position, World world, Vector2 direction) {
         super("Just_arrow", new Vector2(position.x / TILE_SIZE, position.y / TILE_SIZE), world, Constants.WEAPON_BIT);
-
-        body = world.createBody(getDynamicBodyDef(pos.x, pos.y));
+        active = true;
+        speed = 50;
+        width = 16;
+        height = 16;
+        body = world.createBody(getDynamicBodyDef(pos.x + width / 2, pos.y + height / 2));
         CircleShape circleShape = new CircleShape();
         circleShape.setRadius(5);
 
@@ -32,10 +35,6 @@ public class Bullet extends GameObject {
         body.setBullet(true);
         circleShape.dispose();
         this.vector = direction;
-        active = true;
-        speed = 50;
-        width = 16;
-        height = 16;
     }
 
     public void render(Batch batch) {
