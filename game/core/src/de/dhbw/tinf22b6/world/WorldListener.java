@@ -3,6 +3,7 @@ package de.dhbw.tinf22b6.world;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.physics.box2d.*;
 import de.dhbw.tinf22b6.gameobject.Bullet;
+import de.dhbw.tinf22b6.gameobject.Enemy;
 import de.dhbw.tinf22b6.gameobject.GameObject;
 import de.dhbw.tinf22b6.screen.GameScreen;
 
@@ -31,14 +32,22 @@ public class WorldListener implements ContactListener {
                 Gdx.app.debug(TAG, "Player picked up Coin");
                 break;
             case WALL_BIT | WEAPON_BIT:
-                // TODO the hit sound is not supposed to be here
-                Gdx.audio.newSound(Gdx.files.internal("sfx/hitSound.mp3")).play(1);
                 if (fixA.getFilterData().categoryBits == WEAPON_BIT) {
                     ((Bullet) fixA.getUserData()).setRemove(true);
-                }
-                else
+                } else
                     ((Bullet) fixB.getUserData()).setRemove(true);
+                Gdx.audio.newSound(Gdx.files.internal("sfx/arrow-impact.mp3")).play(1);
                 Gdx.app.debug(TAG, "Weapon and wall");
+                break;
+            case ENEMY_BIT | WEAPON_BIT:
+                if (fixA.getFilterData().categoryBits == WEAPON_BIT) {
+                    ((Bullet) fixA.getUserData()).setRemove(true);
+                    ((Enemy) fixB.getUserData()).hit();
+                } else {
+                    ((Bullet) fixB.getUserData()).setRemove(true);
+                    ((Enemy) fixA.getUserData()).hit();
+                }
+                Gdx.app.debug(TAG, "Weapon and Enemy");
                 break;
         }
     }

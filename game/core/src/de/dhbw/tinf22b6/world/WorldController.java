@@ -108,6 +108,8 @@ public class WorldController extends InputAdapter {
             objects.add(new Bullet(player.getPos(), world, reducedDimension.setLength(1)));
         }
 
+        if (Gdx.input.isKeyJustPressed(Input.Keys.SHIFT_LEFT)) player.dodge();
+
         // Debugging
         if (Gdx.input.isKeyJustPressed(Input.Keys.C)) debugBox2D = !debugBox2D;
 

@@ -1,10 +1,14 @@
 package de.dhbw.tinf22b6.gameobject;
 
+import com.badlogic.gdx.graphics.g2d.Animation;
+import com.badlogic.gdx.graphics.g2d.Batch;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
+import de.dhbw.tinf22b6.util.Assets;
 import de.dhbw.tinf22b6.util.Constants;
 import de.dhbw.tinf22b6.weapon.Weapon;
 
@@ -12,12 +16,17 @@ import static de.dhbw.tinf22b6.util.Constants.PLAYER_BIT;
 import static de.dhbw.tinf22b6.util.Constants.TILE_SIZE;
 
 public class Player extends GameObject {
+    private static final String TAG = Player.class.getName();
     private Weapon weapon;
+    private boolean dodging;
+    private final Animation<TextureAtlas.AtlasRegion> dodgeAnimation;
+    private float dodgeStateTime;
 
     public Player(World world, Vector2 position) {
         super("priest1_v1", position, world, Constants.PLAYER_BIT);
         // equip weapon
         //this.weapon = new HandGun();
+        this.dodgeAnimation = new Animation<>(0.1f, Assets.instance.getAnimationAtlasRegion("priest1_dash"));
         this.speed = 50;
         // create Body
         BodyDef bodyDef = new BodyDef();
@@ -39,10 +48,42 @@ public class Player extends GameObject {
         boxShape.dispose();
     }
 
+    @Override
+    public void render(Batch batch) {
+        if (!dodging) {
+            super.render(batch);
+            return;
+        }
+        batch.draw(currentAnimation.getKeyFrame(dodgeStateTime, true), pos.x, pos.y);
+    }
+
+    @Override
+    public void tick(float delta) {
+        super.tick(delta);
+        dodgeStateTime += delta;
+    }
+
+    private boolean movedDuringDash;
+
     public void applyForce(Vector2 motionVector) {
-        body.setLinearVelocity(motionVector.x * speed, motionVector.y * speed);
-        pos.x = body.getPosition().x - (float) TILE_SIZE / 2;
-        pos.y = body.getPosition().y - (float) TILE_SIZE / 4;
+        if (dodging) {
+            if (movedDuringDash) return;
+            movedDuringDash = true;
+            new Thread(() -> {
+                try {
+                    Thread.sleep(200);
+                    body.setLinearVelocity(motionVector.x * 1000, motionVector.y * 1000);
+                    pos.x = body.getPosition().x - (float) TILE_SIZE / 2;
+                    pos.y = body.getPosition().y - (float) TILE_SIZE / 4;
+                } catch (InterruptedException e) {
+                    throw new RuntimeException(e);
+                }
+            }).start();
+        } else {
+            body.setLinearVelocity(motionVector.x * speed, motionVector.y * speed);
+            pos.x = body.getPosition().x - (float) TILE_SIZE / 2;
+            pos.y = body.getPosition().y - (float) TILE_SIZE / 4;
+        }
     }
 
     public Weapon getWeapon() {
@@ -51,5 +92,27 @@ public class Player extends GameObject {
 
     public void setWeapon(Weapon weapon) {
         this.weapon = weapon;
+    }
+
+    public boolean isDodging() {
+        return dodging;
+    }
+
+    public void dodge() {
+        this.applyForce(new Vector2(0, 0));
+        this.dodging = true;
+        dodgeStateTime = 0;
+        this.currentAnimation = dodgeAnimation;
+        new Thread(() -> {
+            try {
+                Thread.sleep((long) (dodgeAnimation.getAnimationDuration() * 1000));
+                currentAnimation = idleAnimation;
+                this.dodging = false;
+                this.movedDuringDash = false;
+                this.applyForce(new Vector2(0, 0));
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+        }).start();
     }
 }
