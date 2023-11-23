@@ -21,6 +21,7 @@ import {
 } from '@mui/material';
 import { theme2 } from './theme';
 import VideoBackground from './VideoBackground';
+import NavigationMenu from './NavigationMenu';
 
 
 let data = [
@@ -56,8 +57,8 @@ const Scoreboard = () => {
             <Link to="/" className="link">
               <img src="../Logo.png" alt="Underwatch-logo" className="logo" />
             </Link>
-              <Typography variant='h1' style={{margin: 'auto', fontSize: '35px', fontWeight: 'bold'}}>Scoreboard</Typography>
-            {/*<p className="sc-heading">Scoreboard</p>*/}
+            <Typography variant='h1' style={{margin: 'auto', fontSize: '35px', fontWeight: 'bold'}}>Scoreboard</Typography>
+            <NavigationMenu/>
           </Toolbar>
         </AppBar>
 
