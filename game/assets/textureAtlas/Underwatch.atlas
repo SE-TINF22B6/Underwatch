@@ -39,6 +39,8 @@ bounds:164,202,16,16
 box_2
 index:2
 bounds:182,94,16,16
+bullet7x13
+bounds:246,241,7,13
 candlestick_1
 index:3
 bounds:110,220,16,16
