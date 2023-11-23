@@ -16,10 +16,7 @@ import com.badlogic.gdx.math.Polygon;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.*;
-import de.dhbw.tinf22b6.gameobject.CandleStick;
-import de.dhbw.tinf22b6.gameobject.Chest;
-import de.dhbw.tinf22b6.gameobject.Coin;
-import de.dhbw.tinf22b6.gameobject.GameObject;
+import de.dhbw.tinf22b6.gameobject.*;
 import de.dhbw.tinf22b6.util.Constants;
 
 import java.util.ArrayList;
@@ -89,7 +86,7 @@ public class WorldParser {
     public static ArrayList<GameObject> parseGameObjects(TiledMap map, World world) {
         ArrayList<GameObject> list = new ArrayList<>();
         //TODO refactor animated game objects using an enum
-        String[] objects = new String[]{"coins", "torch", "chests"};
+        String[] objects = new String[]{"coins", "torch", "chests", "enemy"};
         for (String s : objects) {
             TiledMapTileLayer layer = (TiledMapTileLayer) map.getLayers().get(s);
             for (int x = 0; x < layer.getWidth(); x++) {
@@ -115,6 +112,9 @@ public class WorldParser {
                                 break;
                             case "chests":
                                 list.add(new Chest(new Vector2(x, y), world));
+                                break;
+                            case "enemy":
+                                list.add(new Enemy(new Vector2(x, y), world));
                                 break;
                         }
                     }
