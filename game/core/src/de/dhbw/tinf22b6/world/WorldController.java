@@ -15,9 +15,8 @@ import de.dhbw.tinf22b6.gameobject.Player;
 import de.dhbw.tinf22b6.screen.GameScreen;
 import de.dhbw.tinf22b6.screen.MenuScreen;
 import de.dhbw.tinf22b6.util.CameraHelper;
-
-import java.util.List;
-import java.util.stream.Collectors;
+import de.dhbw.tinf22b6.util.Constants;
+import de.dhbw.tinf22b6.util.EntitySystem;
 
 import static de.dhbw.tinf22b6.util.Constants.TILE_SIZE;
 
@@ -25,17 +24,15 @@ public class WorldController extends InputAdapter {
     private static final String TAG = WorldController.class.getName();
     public CameraHelper cameraHelper;
     private Game game;
-    private List<GameObject> objects;
     private Player player;
     private World world;
     private final Vector2 motion = new Vector2(0, 0);
     public boolean debugBox2D = false;
     private Camera camera;
 
-    public WorldController(Game game, World world, List<GameObject> objects, Camera camera) {
+    public WorldController(Game game, World world, Camera camera) {
         this.game = game;
         this.world = world;
-        this.objects = objects;
         this.camera = camera;
         init();
     }
@@ -46,7 +43,7 @@ public class WorldController extends InputAdapter {
         player = new Player(world, new Vector2(5, 5));
         cameraHelper = new CameraHelper();
         cameraHelper.setTarget(player);
-        objects.add(player);
+        EntitySystem.instance.add(player);
     }
 
     public void update(float deltaTime) {
@@ -55,11 +52,11 @@ public class WorldController extends InputAdapter {
         world.step(deltaTime, 6, 2);
 
         // tick objects
-        objects.forEach(gameObject -> gameObject.tick(deltaTime));
+        EntitySystem.instance.getGameObjects().forEach(gameObject -> gameObject.tick(deltaTime));
         // remove deleted objects from the World
-        objects.stream().filter(GameObject::isRemove).forEach(gameObject -> world.destroyBody(gameObject.getBody()));
+        EntitySystem.instance.getGameObjects().stream().filter(GameObject::isRemove).forEach(gameObject -> world.destroyBody(gameObject.getBody()));
         // remove deleted objects from the Map
-        objects = objects.stream().filter(gameObject -> !gameObject.isRemove()).collect(Collectors.toList());
+        EntitySystem.instance.getGameObjects().stream().filter(GameObject::isRemove).forEach(EntitySystem.instance::remove);
     }
 
     private void handleInput(float deltaTime) {
@@ -80,7 +77,7 @@ public class WorldController extends InputAdapter {
             player.applyForce(motion);
         }
         if (Gdx.input.isKeyPressed(Input.Keys.I)) {
-            Gdx.app.debug(TAG, "Objects in List: " + objects.size());
+            Gdx.app.debug(TAG, "Objects in List: " + EntitySystem.instance.getGameObjects().size());
         }
 
         // Camera Controls (move)
@@ -105,7 +102,7 @@ public class WorldController extends InputAdapter {
             Vector3 unproject = camera.unproject(new Vector3(Gdx.input.getX(), Gdx.input.getY(), 0));
             Vector2 reducedDimension = new Vector2(unproject.x - player.getPos().x - TILE_SIZE / 2f, unproject.y - player.getPos().y - TILE_SIZE / 2f);
             Gdx.app.debug(TAG, reducedDimension.setLength(1) + "." + reducedDimension.angleDeg());
-            objects.add(new Bullet(player.getPos(), world, reducedDimension.setLength(1)));
+            EntitySystem.instance.add(new Bullet(player.getPos(), world, reducedDimension.setLength(1), Constants.WEAPON_BIT));
         }
 
         if (Gdx.input.isKeyJustPressed(Input.Keys.SHIFT_LEFT)) player.dodge();
@@ -143,9 +140,5 @@ public class WorldController extends InputAdapter {
         x += cameraHelper.getPosition().x;
         y += cameraHelper.getPosition().y;
         cameraHelper.setPosition(x, y);
-    }
-
-    public List<GameObject> getGameObjects() {
-        return objects;
     }
 }

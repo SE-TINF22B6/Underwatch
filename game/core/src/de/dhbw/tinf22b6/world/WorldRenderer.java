@@ -10,6 +10,7 @@ import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.Disposable;
 import de.dhbw.tinf22b6.gameobject.GameObject;
+import de.dhbw.tinf22b6.util.EntitySystem;
 
 import static de.dhbw.tinf22b6.util.Constants.VIEWPORT_HEIGHT;
 
@@ -55,7 +56,7 @@ public class WorldRenderer implements Disposable {
         worldController.cameraHelper.applyTo(camera);
         batch.setProjectionMatrix(camera.combined);
         batch.begin();
-        for (GameObject object : worldController.getGameObjects()) {
+        for (GameObject object : EntitySystem.instance.getGameObjects()) {
             object.render(batch);
         }
         batch.end();

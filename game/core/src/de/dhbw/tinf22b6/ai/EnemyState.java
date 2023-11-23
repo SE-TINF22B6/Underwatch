@@ -1,0 +1,7 @@
+package de.dhbw.tinf22b6.ai;
+
+public enum EnemyState {
+    IDLE,
+    SEARCHING,
+    FIGHTING;
+}

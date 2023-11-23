@@ -1,5 +1,6 @@
 package de.dhbw.tinf22b6.gameobject;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
@@ -19,6 +20,7 @@ public class Player extends GameObject {
     private static final String TAG = Player.class.getName();
     private Weapon weapon;
     private boolean dodging;
+    private int health;
     private final Animation<TextureAtlas.AtlasRegion> dodgeAnimation;
     private float dodgeStateTime;
 
@@ -28,6 +30,7 @@ public class Player extends GameObject {
         //this.weapon = new HandGun();
         this.dodgeAnimation = new Animation<>(0.1f, Assets.instance.getAnimationAtlasRegion("priest1_dash"));
         this.speed = 50;
+        this.health = 3;
         // create Body
         BodyDef bodyDef = new BodyDef();
         bodyDef.position.set(pos.x + TILE_SIZE / 2f, pos.y + TILE_SIZE / 4f);
@@ -44,7 +47,7 @@ public class Player extends GameObject {
         fixtureDef.filter.categoryBits = PLAYER_BIT;
         fixtureDef.restitution = 0.0f;
 
-        body.createFixture(fixtureDef);
+        body.createFixture(fixtureDef).setUserData(this);
         boxShape.dispose();
     }
 
@@ -61,6 +64,10 @@ public class Player extends GameObject {
     public void tick(float delta) {
         super.tick(delta);
         dodgeStateTime += delta;
+        if (!dodging) {
+            pos.x = body.getPosition().x - (float) TILE_SIZE / 2;
+            pos.y = body.getPosition().y - (float) TILE_SIZE / 4;
+        }
     }
 
     private boolean movedDuringDash;
@@ -72,7 +79,7 @@ public class Player extends GameObject {
             new Thread(() -> {
                 try {
                     Thread.sleep(200);
-                    body.setLinearVelocity(motionVector.x * 1000, motionVector.y * 1000);
+                    body.setLinearVelocity(motionVector.x * 3000, motionVector.y * 3000);
                     pos.x = body.getPosition().x - (float) TILE_SIZE / 2;
                     pos.y = body.getPosition().y - (float) TILE_SIZE / 4;
                 } catch (InterruptedException e) {
@@ -88,6 +95,12 @@ public class Player extends GameObject {
 
     public Weapon getWeapon() {
         return weapon;
+    }
+
+    public void hit() {
+        this.health--;
+        Gdx.audio.newSound(Gdx.files.internal("sfx/player_hit.mp3")).play(1);
+        Gdx.app.debug(TAG, "Hit, new live: " + health);
     }
 
     public void setWeapon(Weapon weapon) {

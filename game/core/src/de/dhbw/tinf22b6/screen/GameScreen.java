@@ -9,6 +9,7 @@ import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.World;
 import de.dhbw.tinf22b6.overlay.ScreenOverlay;
+import de.dhbw.tinf22b6.util.EntitySystem;
 import de.dhbw.tinf22b6.world.WorldController;
 import de.dhbw.tinf22b6.world.WorldListener;
 import de.dhbw.tinf22b6.world.WorldParser;
@@ -30,6 +31,7 @@ public class GameScreen extends AbstractGameScreen {
     public GameScreen(Game game, TiledMap map) {
         super(game);
         this.map = map;
+        //m.play();
     }
 
     @Override
@@ -61,9 +63,10 @@ public class GameScreen extends AbstractGameScreen {
         world = new World(new Vector2(0, 0), false);
         WorldParser.parseStaticObjects(map, world);
         world.setContactListener(new WorldListener());
+        EntitySystem.instance.init(WorldParser.parseGameObjects(map, world));
         OrthographicCamera camera =
                 new OrthographicCamera(VIEWPORT_WIDTH, VIEWPORT_HEIGHT);
-        worldController = new WorldController(game, world, WorldParser.parseGameObjects(map, world), camera);
+        worldController = new WorldController(game, world, camera);
         worldRenderer = new WorldRenderer(worldController, world, map, camera);
     }
 

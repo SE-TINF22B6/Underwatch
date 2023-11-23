@@ -3,6 +3,7 @@ package de.dhbw.tinf22b6.gameobject;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.*;
+import de.dhbw.tinf22b6.ai.EnemyStateMachine;
 import de.dhbw.tinf22b6.util.Constants;
 import de.dhbw.tinf22b6.weapon.Weapon;
 
@@ -12,12 +13,14 @@ public class Enemy extends GameObject {
     private static final String TAG = Enemy.class.getName();
     private Weapon weapon;
     private int health;
+    private final EnemyStateMachine enemyStateMachine;
 
     public Enemy(Vector2 position, World world) {
         super("skeleton_v2", position, world, Constants.ENEMY_BIT);
         // equip weapon
         //this.weapon = new HandGun();
         this.speed = 50;
+        this.enemyStateMachine = new EnemyStateMachine(this, world);
         this.health = 3;
         // create Body
         BodyDef bodyDef = new BodyDef();
@@ -42,6 +45,7 @@ public class Enemy extends GameObject {
     public void tick(float delta) {
         super.tick(delta);
         applyForce(new Vector2(-1,0));
+        enemyStateMachine.tick(delta);
     }
 
     public void applyForce(Vector2 motionVector) {

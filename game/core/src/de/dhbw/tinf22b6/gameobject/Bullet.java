@@ -5,7 +5,6 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
-import de.dhbw.tinf22b6.util.Constants;
 
 import static de.dhbw.tinf22b6.util.Constants.TILE_SIZE;
 import static de.dhbw.tinf22b6.world.WorldParser.getDynamicBodyDef;
@@ -16,8 +15,8 @@ public class Bullet extends GameObject {
     protected Vector2 vector;
     protected float range = 150;
 
-    public Bullet(Vector2 position, World world, Vector2 direction) {
-        super("bullet7x13", new Vector2(position.x / TILE_SIZE, position.y / TILE_SIZE), world, Constants.WEAPON_BIT);
+    public Bullet(Vector2 position, World world, Vector2 direction, short mask) {
+        super("bullet7x13", new Vector2(position.x / TILE_SIZE, position.y / TILE_SIZE), world, mask);
         active = true;
         this.vector = direction;
         speed = 100;
