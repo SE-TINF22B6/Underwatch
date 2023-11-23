@@ -102,6 +102,7 @@ public class WorldController extends InputAdapter {
         if (Gdx.input.isKeyPressed(Input.Keys.SLASH)) cameraHelper.setZoom(1);
 
         if (Gdx.input.justTouched()) {
+            Gdx.audio.newSound(Gdx.files.internal("sfx/gun-shot.mp3")).play(1);
             Vector3 unproject = camera.unproject(new Vector3(Gdx.input.getX(), Gdx.input.getY(), 0));
             Vector2 reducedDimension = new Vector2(unproject.x - player.getPos().x - TILE_SIZE / 2f, unproject.y - player.getPos().y - TILE_SIZE / 2f);
             Gdx.app.debug(TAG, reducedDimension.setLength(1) + "." + reducedDimension.angleDeg());

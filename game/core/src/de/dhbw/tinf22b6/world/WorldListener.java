@@ -30,6 +30,7 @@ public class WorldListener implements ContactListener {
                 else
                     ((GameObject) fixB.getUserData()).setRemove(true);
                 Gdx.app.debug(TAG, "Player picked up Coin");
+                Gdx.audio.newSound(Gdx.files.internal("sfx/coin_pickup.mp3")).play(1);
                 break;
             case WALL_BIT | WEAPON_BIT:
                 if (fixA.getFilterData().categoryBits == WEAPON_BIT) {
