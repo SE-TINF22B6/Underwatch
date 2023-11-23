@@ -135,7 +135,9 @@ public class WorldParser {
                 MapObjects cellObjects = cell.getTile().getObjects();
                 if (cellObjects.getCount() != 1)
                     continue;
-                new PointLight(rayHandler, 100, new Color(0.95f, 0.37f, 0.07f, 1f), TILE_SIZE * 5, x * TILE_SIZE + 8, y * TILE_SIZE + 8).setSoftnessLength(10);
+                PointLight light = new PointLight(rayHandler, 100, new Color(0.95f, 0.37f, 0.07f, 1f), TILE_SIZE * 5, x * TILE_SIZE + 8, y * TILE_SIZE + 8);
+                light.setSoftnessLength(10);
+                light.setContactFilter((short) 0b11111111111, (short) 0, (short) 0b11111111111);
             }
         }
     }

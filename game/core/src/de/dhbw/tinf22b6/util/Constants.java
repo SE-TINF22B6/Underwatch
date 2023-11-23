@@ -18,4 +18,5 @@ public class Constants {
     public static final short PLAYER_BIT = 512;
     public static final short WALL_BIT = 1024;
     public static final short WEAPON_ENEMY_BIT = 2048;
+    public static final short ENEMY_SIGHT_BIT = 4096;
 }

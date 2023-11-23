@@ -37,7 +37,15 @@ public class Enemy extends GameObject {
         fixtureDef.filter.categoryBits = collisionMask;
         fixtureDef.restitution = 0.0f;
 
+        PolygonShape sightShape = new PolygonShape();
+        sightShape.setAsBox(TILE_SIZE * 5, TILE_SIZE * 5);
+        FixtureDef sightDef = new FixtureDef();
+        sightDef.shape = sightShape;
+        sightDef.isSensor = true;
+        sightDef.filter.categoryBits = Constants.ENEMY_SIGHT_BIT;
+
         body.createFixture(fixtureDef).setUserData(this);
+        body.createFixture(sightDef).setUserData(this);
         boxShape.dispose();
     }
 
