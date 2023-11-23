@@ -4,8 +4,9 @@ import './index.css';
 import App from './App';
 import Scoreboard from './Scoreboard';
 import { RouterProvider, createBrowserRouter } from 'react-router-dom';
-import VideoBackground from './VideoBackground';
+import NavigationMenu from './NavigationMenu';
 import NotFound from './NotFound';
+import Wiki from './wiki';
 
 
 const root = ReactDOM.createRoot(
@@ -22,8 +23,12 @@ const router = createBrowserRouter([
     element: <Scoreboard />
   },
   {
-    path: '/video/',
-    element: <VideoBackground/>
+    path: '/test/',
+    element: <NavigationMenu />
+  },
+  {
+    path: '/wiki/',
+    element: <Wiki/>
   },
   {
     path: '*',
