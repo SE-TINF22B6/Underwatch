@@ -28,6 +28,8 @@ let data = [
   { name: 'TheDestroyer', date: '2023-11-08', score: '137' },
   { name: 'TheGamerPro', date: '2023-11-06', score: '98' },
   { name: 'TheDestroyer', date: '2023-11-04', score: '241' },
+  { name: 'ProGamerXx', date: '2023-11-24', score: '6541' },
+  { name: 'ProKillerXx', date: '2023-11-23', score: '684' },
 ];
 
 
@@ -48,6 +50,11 @@ const Scoreboard = () => {
         }
     };
 
+    const [inputValue, setInputValue] = useState('');
+    const handleInputChange = (event: { target: { value: React.SetStateAction<string>; }; }) => {
+      setInputValue(event.target.value);
+    }
+
   return (
     <ThemeProvider theme={theme2}>
       <div className="Scoreboard">
@@ -67,30 +74,28 @@ const Scoreboard = () => {
           <Table sx={{ minWidth: 350, size: 'small', color: theme2.palette.primary.contrastText}} aria-label="simple table">
           <TableHead style={{color: theme2.palette.primary.contrastText}}>
               <TableRow>
-              <TableCell style={{color: theme2.palette.primary.contrastText, fontWeight: 'bold'}}>Username</TableCell>
-              <TableCell align="right" style={{color: theme2.palette.primary.contrastText, fontWeight: 'bold'}}>
-                  Date
-              </TableCell>
-              <TableCell align="right" style={{color: theme2.palette.primary.contrastText, fontWeight: 'bold'}}>
-                  Scores
-              </TableCell>
+              <TableCell               style={{color: theme2.palette.primary.contrastText, fontWeight: 'bold'}}>Username</TableCell>
+              <TableCell align="right" style={{color: theme2.palette.primary.contrastText, fontWeight: 'bold'}}>Date</TableCell>
+              <TableCell align="right" style={{color: theme2.palette.primary.contrastText, fontWeight: 'bold'}}>Scores</TableCell>
               </TableRow>
           </TableHead>
 
           <TableBody>
               {data.map((row) => (
-              <TableRow
+                (inputValue === "" || row.name.toLowerCase().includes(inputValue.toLowerCase())) && (
+                  <TableRow
                   key={row.date}
                   sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-              >
-                  <TableCell style={{color: theme2.palette.primary.contrastText}}>{row.name}</TableCell>
-                  <TableCell align="right" style={{color: theme2.palette.primary.contrastText}}>
-                  {row.date}
-                  </TableCell>
-                  <TableCell align="right" style={{color: theme2.palette.primary.contrastText}}>
-                  {row.score}
-                  </TableCell>
-              </TableRow>
+                  >
+                    <TableCell style={{color: theme2.palette.primary.contrastText}}>{row.name}</TableCell>
+                    <TableCell align="right" style={{color: theme2.palette.primary.contrastText}}>
+                    {row.date}
+                    </TableCell>
+                    <TableCell align="right" style={{color: theme2.palette.primary.contrastText}}>
+                    {row.score}
+                    </TableCell>
+                  </TableRow>
+                )
               ))}
           </TableBody>
           </Table>
@@ -108,7 +113,10 @@ const Scoreboard = () => {
                       }}>
                   <InputLabel htmlFor="component-outlined" style={{color:theme2.palette.primary.contrastText}}>Username</InputLabel>
                   <OutlinedInput
+                    id="usernameInput"
                     label="Username"
+                    value={inputValue}
+                    onChange={handleInputChange}
                     autoComplete='new-password'
                     style={{color: theme2.palette.primary.contrastText}}
                     />
