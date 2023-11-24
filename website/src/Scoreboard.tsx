@@ -62,8 +62,8 @@ const Scoreboard = () => {
       setInputValue(event.target.value);
     }
 
-    const [order, setOrder] = useState<'asc' | 'desc' | undefined>(undefined);
-    const [orderBy, setOrderBy] = useState('');
+    const [order, setOrder] = useState<'asc' | 'desc' | undefined>('desc');
+    const [orderBy, setOrderBy] = useState('score');
     const sortedData = [...data].sort((a, b) => {
       if(orderBy === 'score'){
         if (order === 'asc') {
