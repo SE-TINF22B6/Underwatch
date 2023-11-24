@@ -18,18 +18,26 @@ import {
   InputLabel,
   FormControl,
   OutlinedInput,
+  TableSortLabel,
 } from '@mui/material';
 import { theme2 } from './theme';
 import VideoBackground from './VideoBackground';
 import NavigationMenu from './NavigationMenu';
 
 
-let data = [
-  { name: 'TheDestroyer', date: '2023-11-08', score: '137' },
-  { name: 'TheGamerPro', date: '2023-11-06', score: '98' },
-  { name: 'TheDestroyer', date: '2023-11-04', score: '241' },
-  { name: 'ProGamerXx', date: '2023-11-24', score: '6541' },
-  { name: 'ProKillerXx', date: '2023-11-23', score: '684' },
+type dataTypeDeklaration = {
+  username: string;
+  date: string;
+  score: string;
+  [key: string]: string;
+};
+
+let data: dataTypeDeklaration[] = [
+  { username: 'TheDestroyer', date: '2023-11-08', score: '137' },
+  { username: 'TheGamerPro', date: '2023-12-06', score: '98' },
+  { username: 'TheKillerXx', date: '2023-11-04', score: '241' },
+  { username: 'ProGamerXx', date: '2023-11-24', score: '6541' },
+  { username: 'ZeKillerXx', date: '2023-11-23', score: '684' },
 ];
 
 
@@ -38,7 +46,6 @@ let data = [
 const Scoreboard = () => {
     const [showFilterMask, setShowSecondElement] = useState(false);
     const [filterButtonText, setFilterButtonText] = useState('Filter');
-
     const clickFilterButton = () => {
         if (showFilterMask === true){
             setShowSecondElement(false);
@@ -54,6 +61,42 @@ const Scoreboard = () => {
     const handleInputChange = (event: { target: { value: React.SetStateAction<string>; }; }) => {
       setInputValue(event.target.value);
     }
+
+    const [order, setOrder] = useState<'asc' | 'desc' | undefined>(undefined);
+    const [orderBy, setOrderBy] = useState('');
+    const sortedData = [...data].sort((a, b) => {
+      if(orderBy === 'score'){
+        if (order === 'asc') {
+          return parseInt(a[orderBy]) > parseInt(b[orderBy]) ? 1 : -1;
+        } else {
+          return parseInt(a[orderBy]) < parseInt(b[orderBy]) ? 1 : -1;
+        }
+      }
+      else{
+        if (order === 'asc') {
+          return a[orderBy] > b[orderBy] ? 1 : -1;
+        } else {
+          return a[orderBy] < b[orderBy] ? 1 : -1;
+        }
+      }
+
+    });
+    
+
+  function handleSort(sortParam: string): void {
+    if (orderBy === sortParam){
+      if(order === 'desc'){
+        setOrder('asc');
+      }
+      else{
+        setOrderBy('');
+      }
+    }
+    else{
+      setOrder('desc')
+      setOrderBy(sortParam);
+    }
+  }
 
   return (
     <ThemeProvider theme={theme2}>
@@ -74,25 +117,68 @@ const Scoreboard = () => {
           <Table sx={{ minWidth: 350, size: 'small', color: theme2.palette.primary.contrastText}} aria-label="simple table">
           <TableHead style={{color: theme2.palette.primary.contrastText}}>
               <TableRow>
-              <TableCell               style={{color: theme2.palette.primary.contrastText, fontWeight: 'bold'}}>Username</TableCell>
-              <TableCell align="right" style={{color: theme2.palette.primary.contrastText, fontWeight: 'bold'}}>Date</TableCell>
-              <TableCell align="right" style={{color: theme2.palette.primary.contrastText, fontWeight: 'bold'}}>Scores</TableCell>
-              </TableRow>
+              <TableCell               style={{color: theme2.palette.primary.contrastText, fontWeight: 'bold'}}>
+                <TableSortLabel
+                  active={orderBy === 'username'}
+                  direction={orderBy === 'username' ? order: 'desc'}
+                  onClick={()=>handleSort('username')}
+                  sx={{
+                    '&.MuiTableSortLabel-root .MuiTableSortLabel-icon': {
+                      color: theme2.palette.primary.contrastText
+                    },
+                  }}
+                  style={{color: theme2.palette.primary.contrastText}}
+                >
+                  Username
+                </TableSortLabel>
+              </TableCell>
+              <TableCell align="right" style={{color: theme2.palette.primary.contrastText, fontWeight: 'bold'}}>
+                <TableSortLabel
+                  active={orderBy === 'date'}
+                  direction={orderBy === 'date' ? order: 'desc'}
+                  onClick={()=>handleSort('date')}
+                  sx={{
+                    '&.MuiTableSortLabel-root .MuiTableSortLabel-icon': {
+                      color: theme2.palette.primary.contrastText
+                    },
+                  }}
+                  style={{color: theme2.palette.primary.contrastText}}
+                >
+                  Date
+                </TableSortLabel>
+              </TableCell>
+              <TableCell align="right" style={{color: theme2.palette.primary.contrastText, fontWeight: 'bold'}}>
+                <TableSortLabel
+                  active={orderBy === 'score'}
+                  direction={orderBy === 'score' ? order : 'asc'}
+                  onClick={()=>handleSort('score')}
+                  sx={{
+                    '&.MuiTableSortLabel-root .MuiTableSortLabel-icon': {
+                      color: theme2.palette.primary.contrastText
+                    },
+                  }}
+                  style={{color: theme2.palette.primary.contrastText}}
+                >
+                  Scores
+                </TableSortLabel>
+              </TableCell>
+            </TableRow>
           </TableHead>
 
           <TableBody>
-              {data.map((row) => (
-                (inputValue === "" || row.name.toLowerCase().includes(inputValue.toLowerCase())) && (
+              {sortedData.map((row) => (
+                (inputValue === "" || row.username.toLowerCase().includes(inputValue.toLowerCase())) && (
                   <TableRow
-                  key={row.date}
-                  sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+                    sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
                   >
-                    <TableCell style={{color: theme2.palette.primary.contrastText}}>{row.name}</TableCell>
-                    <TableCell align="right" style={{color: theme2.palette.primary.contrastText}}>
-                    {row.date}
+                    <TableCell style={{color: theme2.palette.primary.contrastText}}>
+                      {row.username}
                     </TableCell>
                     <TableCell align="right" style={{color: theme2.palette.primary.contrastText}}>
-                    {row.score}
+                      {row.date}
+                    </TableCell>
+                    <TableCell align="right" style={{color: theme2.palette.primary.contrastText}}>
+                      {row.score}
                     </TableCell>
                   </TableRow>
                 )
@@ -117,7 +203,7 @@ const Scoreboard = () => {
                     label="Username"
                     value={inputValue}
                     onChange={handleInputChange}
-                    autoComplete='new-password'
+                    autoComplete='off'
                     style={{color: theme2.palette.primary.contrastText}}
                     />
                 </FormControl>
