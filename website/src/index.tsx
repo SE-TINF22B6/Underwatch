@@ -4,9 +4,9 @@ import './index.css';
 import App from './App';
 import Scoreboard from './Scoreboard';
 import { RouterProvider, createBrowserRouter } from 'react-router-dom';
-import NavigationMenu from './NavigationMenu';
 import NotFound from './NotFound';
 import Wiki from './wiki';
+import Champions from './Champions';
 
 
 const root = ReactDOM.createRoot(
@@ -23,8 +23,8 @@ const router = createBrowserRouter([
     element: <Scoreboard />
   },
   {
-    path: '/test/',
-    element: <NavigationMenu />
+    path: '/champions/',
+    element: <Champions/>
   },
   {
     path: '/wiki/',
