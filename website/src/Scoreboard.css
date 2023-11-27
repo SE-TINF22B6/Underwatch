@@ -19,3 +19,37 @@
 .dataTable{
     width: 600px;
 }
+
+.MuiDateRangeCalendar-root {
+    border-color: #F36437;
+}
+
+.MuiDateRangeCalendar-root > div:first-child{  /* display:none for the "no license" banner*/
+    display: none;
+}
+
+.MuiDateRangeCalendar-root > div:nth-of-type(2){  /* display:none for the "no license" banner*/
+    border-color: #F36437;
+}
+
+
+.MuiDateRangeCalendar-monthContainer { /* background color and color of the month */
+    background-color: #3d253b;
+    color: #F36437;
+}
+
+.MuiDateRangePickerDay-root {
+    border-color: #F36437;
+}
+
+.MuiSvgIcon-root {          /* Arrows to switch Months */
+    color: #F36437;
+}
+
+.MuiDayCalendar-root div span { /* days of the week */
+    color: #F36437;
+}
+
+.MuiDateRangePickerDay-root div button {  /* numbers of the days */
+    color: #F36437;
+ }

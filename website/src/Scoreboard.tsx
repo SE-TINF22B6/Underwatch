@@ -23,6 +23,10 @@ import {
 import { theme2 } from './theme';
 import VideoBackground from './VideoBackground';
 import NavigationMenu from './NavigationMenu';
+import { DatePicker, LocalizationProvider} from '@mui/x-date-pickers';
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+import { DateRangePicker } from '@mui/x-date-pickers-pro';
+import { borderColor } from '@mui/system';
 
 
 type dataTypeDeklaration = {
@@ -195,7 +199,8 @@ const Scoreboard = () => {
                         '& fieldset': {borderColor: theme2.palette.primary.contrastText}, 
                         '&:hover fieldset':{borderColor: theme2.palette.primary.contrastText}, 
                         '&.Mui-focused fieldset':{borderColor: theme2.palette.primary.contrastText}
-                       }
+                       },
+                       width:'100%'
                       }}>
                   <InputLabel htmlFor="component-outlined" style={{color:theme2.palette.primary.contrastText}}>Username</InputLabel>
                   <OutlinedInput
@@ -207,20 +212,27 @@ const Scoreboard = () => {
                     style={{color: theme2.palette.primary.contrastText}}
                     />
                 </FormControl>
-                <FormControl 
-                  sx={{'& .MuiOutlinedInput-root':{
-                        '& fieldset': {borderColor: theme2.palette.primary.contrastText}, 
-                        '&:hover fieldset':{borderColor: theme2.palette.primary.contrastText}, 
-                        '&.Mui-focused fieldset':{borderColor: theme2.palette.primary.contrastText}
-                       }
-                      }}>
-                  <InputLabel htmlFor="component-outlined" style={{color:theme2.palette.primary.contrastText}}>Date</InputLabel>
-                  <OutlinedInput
-                    label="Date"
-                    autoComplete='new-password'
-                    style={{color: theme2.palette.primary.contrastText}}
-                    />
-                </FormControl>
+                <LocalizationProvider dateAdapter={AdapterDayjs}>
+                <DateRangePicker 
+                  localeText={{ start: 'from', end: 'till' }} 
+                  sx={{color: theme2.palette.primary.contrastText,
+                    paddingTop: '10px',
+                    '& .MuiFormLabel-root':{
+                      color: theme2.palette.primary.contrastText
+                    },
+                    '& .MuiFormLabel-root:active':{
+                      color: theme2.palette.primary.contrastText
+                    },
+                    '& .MuiOutlinedInput-root':{
+                      color:theme2.palette.primary.contrastText,
+                      '& fieldset': {borderColor: theme2.palette.primary.contrastText}, 
+                      '&:hover fieldset':{borderColor: theme2.palette.primary.contrastText}, 
+                      '&.Mui-focused fieldset':{borderColor: theme2.palette.primary.contrastText}
+                     }
+                    }}
+                  onChange={(newValue) => console.log(newValue)}
+                />
+                </LocalizationProvider>
                 <Typography variant='body1' style={{color:theme2.palette.primary.contrastText}}>min.score</Typography>
                 <div style={{padding:'10px'}}>
                     <Slider aria-label="min-score" style={{color: theme2.palette.primary.contrastText}}/>
