@@ -36,7 +36,7 @@ let data: dataTypeDeklaration[] = [
   { username: 'TheDestroyer', date: '2023-11-08', score: '137' },
   { username: 'TheGamerPro', date: '2023-12-06', score: '98' },
   { username: 'TheKillerXx', date: '2023-11-04', score: '241' },
-  { username: 'ProGamerXx', date: '2023-11-24', score: '6541' },
+  { username: 'ProGamerXx', date: '2023-11-24', score: '798' },
   { username: 'ZeKillerXx', date: '2023-11-23', score: '684' },
 ];
 
@@ -60,6 +60,10 @@ const Scoreboard = () => {
     const [inputValue, setInputValue] = useState('');
     const handleInputChange = (event: { target: { value: React.SetStateAction<string>; }; }) => {
       setInputValue(event.target.value);
+    }
+    const [minScore, setMinScore] = useState(0);
+    const handleSlide = (event: Event, newValue: number | number[]) => {
+      setMinScore(newValue as number);
     }
 
     const [order, setOrder] = useState<'asc' | 'desc' | undefined>('desc');
@@ -97,6 +101,8 @@ const Scoreboard = () => {
       setOrderBy(sortParam);
     }
   }
+
+  const maxScore = data.reduce((max, obj) => (parseInt(obj.score) > max ? parseInt(obj.score) : max), parseInt(data[0].score))
 
   return (
     <ThemeProvider theme={theme2}>
@@ -167,7 +173,10 @@ const Scoreboard = () => {
 
           <TableBody>
               {sortedData.map((row) => (
-                (inputValue === "" || row.username.toLowerCase().includes(inputValue.toLowerCase())) && (
+                (
+                    ((row.username.toLowerCase().includes(inputValue.toLowerCase())) || inputValue === "") && 
+                    (parseInt(row.score) >= minScore)
+                ) && (
                   <TableRow
                     sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
                   >
@@ -197,7 +206,9 @@ const Scoreboard = () => {
                         '&.Mui-focused fieldset':{borderColor: theme2.palette.primary.contrastText}
                        }
                       }}>
-                  <InputLabel htmlFor="component-outlined" style={{color:theme2.palette.primary.contrastText}}>Username</InputLabel>
+                  <InputLabel htmlFor="component-outlined" style={{color:theme2.palette.primary.contrastText}}>
+                    Username
+                  </InputLabel>
                   <OutlinedInput
                     id="usernameInput"
                     label="Username"
@@ -214,7 +225,9 @@ const Scoreboard = () => {
                         '&.Mui-focused fieldset':{borderColor: theme2.palette.primary.contrastText}
                        }
                       }}>
-                  <InputLabel htmlFor="component-outlined" style={{color:theme2.palette.primary.contrastText}}>Date</InputLabel>
+                  <InputLabel htmlFor="component-outlined" style={{color:theme2.palette.primary.contrastText}}>
+                    Date
+                  </InputLabel>
                   <OutlinedInput
                     label="Date"
                     autoComplete='new-password'
@@ -223,7 +236,15 @@ const Scoreboard = () => {
                 </FormControl>
                 <Typography variant='body1' style={{color:theme2.palette.primary.contrastText}}>min.score</Typography>
                 <div style={{padding:'10px'}}>
-                    <Slider aria-label="min-score" style={{color: theme2.palette.primary.contrastText}}/>
+                    <Slider 
+                      aria-label="min-score"
+                      min={0}
+                      max={maxScore}
+                      value={minScore}
+                      onChange={handleSlide}
+                      valueLabelDisplay='auto'
+                      style={{color: theme2.palette.primary.contrastText}}
+                    />
                 </div>
               </Paper>
           )}
