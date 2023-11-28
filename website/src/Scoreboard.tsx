@@ -25,8 +25,9 @@ import VideoBackground from './VideoBackground';
 import NavigationMenu from './NavigationMenu';
 import { DatePicker, LocalizationProvider} from '@mui/x-date-pickers';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
-import { DateRangePicker } from '@mui/x-date-pickers-pro';
+import { DateRange, DateRangePicker } from '@mui/x-date-pickers-pro';
 import { borderColor } from '@mui/system';
+import { start } from 'repl';
 
 
 type dataTypeDeklaration = {
@@ -44,28 +45,24 @@ let data: dataTypeDeklaration[] = [
   { username: 'ZeKillerXx', date: '2023-11-23', score: '684' },
 ];
 
+let apiData = [
+  {"id":1,"playername":"ndeangelo0","score":529,"coins":9384,"kills":49,"damagedealt":5980,"dps":932,"timestamp":"2022-08-18T22:00:00.000+00:00","game_time":2981},
+  {"id":2,"playername":"lclaeskens1","score":989,"coins":6449,"kills":96,"damagedealt":3949,"dps":659,"timestamp":"2022-03-05T23:00:00.000+00:00","game_time":2121},
+  {"id":3,"playername":"owilkisson2","score":839,"coins":3371,"kills":60,"damagedealt":8608,"dps":80,"timestamp":"2022-01-11T23:00:00.000+00:00","game_time":2116},
+  {"id":4,"playername":"bcastanyer3","score":546,"coins":8889,"kills":63,"damagedealt":115,"dps":870,"timestamp":"2022-07-24T22:00:00.000+00:00","game_time":581},
+  {"id":5,"playername":"bhughson4","score":840,"coins":108,"kills":35,"damagedealt":3672,"dps":33,"timestamp":"2022-03-26T23:00:00.000+00:00","game_time":2416},
+  {"id":6,"playername":"efernao5","score":823,"coins":1743,"kills":25,"damagedealt":8491,"dps":492,"timestamp":"2022-07-12T22:00:00.000+00:00","game_time":1433},
+  {"id":7,"playername":"lollivierre6","score":157,"coins":9680,"kills":61,"damagedealt":5601,"dps":242,"timestamp":"2022-05-11T22:00:00.000+00:00","game_time":3162},
+  {"id":8,"playername":"lplayhill7","score":999,"coins":5876,"kills":51,"damagedealt":9087,"dps":694,"timestamp":"2022-06-26T22:00:00.000+00:00","game_time":1084},
+  {"id":9,"playername":"bciciura8","score":324,"coins":4965,"kills":97,"damagedealt":1983,"dps":564,"timestamp":"2022-05-29T22:00:00.000+00:00","game_time":279},
+  {"id":10,"playername":"ckippling9","score":895,"coins":2333,"kills":8,"damagedealt":7853,"dps":345,"timestamp":"2022-02-28T23:00:00.000+00:00","game_time":1502}
+]
+
 
 
 
 const Scoreboard = () => {
-    const [showFilterMask, setShowSecondElement] = useState(false);
-    const [filterButtonText, setFilterButtonText] = useState('Filter');
-    const clickFilterButton = () => {
-        if (showFilterMask === true){
-            setShowSecondElement(false);
-            setFilterButtonText("Filter")
-        }
-        else{
-            setShowSecondElement(true);
-            setFilterButtonText("Don't  Filter")
-        }
-    };
-
-    const [inputValue, setInputValue] = useState('');
-    const handleInputChange = (event: { target: { value: React.SetStateAction<string>; }; }) => {
-      setInputValue(event.target.value);
-    }
-
+    // ---------- Sortierung ----------
     const [order, setOrder] = useState<'asc' | 'desc' | undefined>('desc');
     const [orderBy, setOrderBy] = useState('score');
     const sortedData = [...data].sort((a, b) => {
@@ -83,24 +80,58 @@ const Scoreboard = () => {
           return a[orderBy] < b[orderBy] ? 1 : -1;
         }
       }
-
     });
-    
-
-  function handleSort(sortParam: string): void {
-    if (orderBy === sortParam){
-      if(order === 'desc'){
-        setOrder('asc');
+    function handleSort(sortParam: string): void {
+      if (orderBy === sortParam){
+        if(order === 'desc'){
+          setOrder('asc');
+        }
+        else{
+          setOrderBy('');
+        }
       }
       else{
-        setOrderBy('');
+        setOrder('desc')
+        setOrderBy(sortParam);
       }
     }
-    else{
-      setOrder('desc')
-      setOrderBy(sortParam);
+
+  // ---------- Filtermaske ----------
+  const [showFilterMask, setShowSecondElement] = useState(false);
+  const [filterButtonText, setFilterButtonText] = useState('Filter');
+  const clickFilterButton = () => {
+      if (showFilterMask === true){
+          setShowSecondElement(false);
+          setFilterButtonText("Filter")
+      }
+      else{
+          setShowSecondElement(true);
+          setFilterButtonText("Don't  Filter")
+      }
+  };
+
+  // ---------- Username ----------
+  const [inputValue, setInputValue] = useState('');
+  const handleInputChange = (event: { target: { value: React.SetStateAction<string>; }; }) => {
+    setInputValue(event.target.value);
+  }
+
+  // ---------- Date ----------
+  const [scoreStartDate, setScoreStartDate] = useState();
+  const [scoreEndDate, setScoreEndDate] = useState();
+  function handleDateInput(dateData: DateRange<unknown>) {
+    if(dateData[0]){
+      let startDate = dateData[0];
+      let startDateObject = new Date(JSON.stringify(startDate).toString().split('"')[1]); // das ist so schmu, aber ich hab den Fehler nicht gefunden
+      console.log(startDateObject.toISOString().split("T")[0]);
+    }
+    if(dateData[1]){
+      let endDate = dateData[1];
+      let endDateObject = new Date(JSON.stringify(endDate).toString().split('"')[1]); // das ist so schmu, aber ich hab den Fehler nicht gefunden
+      console.log(endDateObject.toISOString().split("T")[0]);
     }
   }
+
 
   return (
     <ThemeProvider theme={theme2}>
@@ -213,25 +244,28 @@ const Scoreboard = () => {
                     />
                 </FormControl>
                 <LocalizationProvider dateAdapter={AdapterDayjs}>
-                <DateRangePicker 
-                  localeText={{ start: 'from', end: 'till' }} 
-                  sx={{color: theme2.palette.primary.contrastText,
-                    paddingTop: '10px',
-                    '& .MuiFormLabel-root':{
-                      color: theme2.palette.primary.contrastText
-                    },
-                    '& .MuiFormLabel-root:active':{
-                      color: theme2.palette.primary.contrastText
-                    },
-                    '& .MuiOutlinedInput-root':{
-                      color:theme2.palette.primary.contrastText,
-                      '& fieldset': {borderColor: theme2.palette.primary.contrastText}, 
-                      '&:hover fieldset':{borderColor: theme2.palette.primary.contrastText}, 
-                      '&.Mui-focused fieldset':{borderColor: theme2.palette.primary.contrastText}
-                     }
-                    }}
-                  onChange={(newValue) => console.log(newValue)}
-                />
+                  <DateRangePicker 
+                    localeText={{ start: 'from', end: 'till' }}
+                    onChange={(newValue) => handleDateInput(newValue)}
+                    sx={{color: theme2.palette.primary.contrastText,
+                      paddingTop: '10px',
+                      '& .MuiFormLabel-root':{
+                        color: theme2.palette.primary.contrastText
+                      },
+                      '& .MuiFormLabel-root:active':{
+                        color: theme2.palette.primary.contrastText
+                      },
+                      '& .MuiFormLabel-root:selected':{
+                        color: theme2.palette.primary.contrastText
+                      },
+                      '& .MuiOutlinedInput-root':{
+                        color:theme2.palette.primary.contrastText,
+                        '& fieldset': {borderColor: theme2.palette.primary.contrastText}, 
+                        '&:hover fieldset':{borderColor: theme2.palette.primary.contrastText}, 
+                        '&.Mui-focused fieldset':{borderColor: theme2.palette.primary.contrastText}
+                      }
+                      }}
+                  />
                 </LocalizationProvider>
                 <Typography variant='body1' style={{color:theme2.palette.primary.contrastText}}>min.score</Typography>
                 <div style={{padding:'10px'}}>
