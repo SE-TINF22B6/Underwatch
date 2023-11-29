@@ -69,6 +69,16 @@ const Scoreboard = () => {
       if(orderBy === ''){
         return 1;
       }
+      else if(orderBy === 'timestamp'){
+        let dateA = new Date(a.timestamp);
+        let dateB = new Date(b.timestamp);
+        if (order === 'asc'){
+          return dateA > dateB ? 1 : -1;
+        }
+        else{
+          return dateA < dateB ? 1 : -1;
+        }
+      }
       else{
         if (order === 'asc') {
           return a[orderBy] > b[orderBy] ? 1 : -1;
