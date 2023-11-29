@@ -42,7 +42,6 @@ let data = [
   { username: 'TheGamerPro', date: '2023-12-06', score: 98 },
   { username: 'TheKillerXx', date: '2023-11-04', score: 241 },
   { username: 'ProGamerXx', date: '2023-11-24', score: 6541 },
-  { username: 'ZeKillerXx', date: '2023-11-23', score: 684 },
 ];
 
 let apiData = [
@@ -142,6 +141,7 @@ const Scoreboard = () => {
     }
   }
 
+  const maxScore = data.reduce((max, obj) => (parseInt(obj.score) > max ? parseInt(obj.score) : max), parseInt(data[0].score))
 
   return (
     <ThemeProvider theme={theme2}>
@@ -211,8 +211,10 @@ const Scoreboard = () => {
           </TableHead>
 
           <TableBody>
-              {sortedData.map((row) => (
-                (inputValue === "" || row.playername.toLowerCase().includes(inputValue.toLowerCase())) && (
+                (
+                    ((row.username.toLowerCase().includes(inputValue.toLowerCase())) || inputValue === "") && 
+                    (parseInt(row.score) >= minScore)
+                ) && (
                   <TableRow key={row.id}
                     sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
                   >
@@ -243,7 +245,9 @@ const Scoreboard = () => {
                        },
                        width:'100%'
                       }}>
-                  <InputLabel htmlFor="component-outlined" style={{color:theme2.palette.primary.contrastText}}>Username</InputLabel>
+                  <InputLabel htmlFor="component-outlined" style={{color:theme2.palette.primary.contrastText}}>
+                    Username
+                  </InputLabel>
                   <OutlinedInput
                     id="usernameInput"
                     label="Username"
@@ -276,10 +280,17 @@ const Scoreboard = () => {
                       }
                       }}
                   />
-                </LocalizationProvider>
                 <Typography variant='body1' style={{color:theme2.palette.primary.contrastText}}>min.score</Typography>
                 <div style={{padding:'10px'}}>
-                    <Slider aria-label="min-score" style={{color: theme2.palette.primary.contrastText}}/>
+                    <Slider 
+                      aria-label="min-score"
+                      min={0}
+                      max={maxScore}
+                      value={minScore}
+                      onChange={handleSlide}
+                      valueLabelDisplay='auto'
+                      style={{color: theme2.palette.primary.contrastText}}
+                    />
                 </div>
               </Paper>
           )}
