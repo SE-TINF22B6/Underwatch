@@ -28,34 +28,34 @@ import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { DateRange, DateRangePicker } from '@mui/x-date-pickers-pro';
 import { borderColor } from '@mui/system';
 import { start } from 'repl';
+import dayjs from 'dayjs';
 
 
 type dataTypeDeklaration = {
-  username: string;
-  date: string;
-  score: string;
-  [key: string]: string;
+  playername: string;
+  timestamp: string;
+  score: number;
 };
 
-let data: dataTypeDeklaration[] = [
-  { username: 'TheDestroyer', date: '2023-11-08', score: '137' },
-  { username: 'TheGamerPro', date: '2023-12-06', score: '98' },
-  { username: 'TheKillerXx', date: '2023-11-04', score: '241' },
-  { username: 'ProGamerXx', date: '2023-11-24', score: '6541' },
-  { username: 'ZeKillerXx', date: '2023-11-23', score: '684' },
+let data = [
+  { username: 'TheDestroyer', date: '2023-11-08', score: 137 },
+  { username: 'TheGamerPro', date: '2023-12-06', score: 98 },
+  { username: 'TheKillerXx', date: '2023-11-04', score: 241 },
+  { username: 'ProGamerXx', date: '2023-11-24', score: 6541 },
+  { username: 'ZeKillerXx', date: '2023-11-23', score: 684 },
 ];
 
 let apiData = [
-  {"id":1,"playername":"ndeangelo0","score":529,"coins":9384,"kills":49,"damagedealt":5980,"dps":932,"timestamp":"2022-08-18T22:00:00.000+00:00","game_time":2981},
-  {"id":2,"playername":"lclaeskens1","score":989,"coins":6449,"kills":96,"damagedealt":3949,"dps":659,"timestamp":"2022-03-05T23:00:00.000+00:00","game_time":2121},
-  {"id":3,"playername":"owilkisson2","score":839,"coins":3371,"kills":60,"damagedealt":8608,"dps":80,"timestamp":"2022-01-11T23:00:00.000+00:00","game_time":2116},
-  {"id":4,"playername":"bcastanyer3","score":546,"coins":8889,"kills":63,"damagedealt":115,"dps":870,"timestamp":"2022-07-24T22:00:00.000+00:00","game_time":581},
-  {"id":5,"playername":"bhughson4","score":840,"coins":108,"kills":35,"damagedealt":3672,"dps":33,"timestamp":"2022-03-26T23:00:00.000+00:00","game_time":2416},
-  {"id":6,"playername":"efernao5","score":823,"coins":1743,"kills":25,"damagedealt":8491,"dps":492,"timestamp":"2022-07-12T22:00:00.000+00:00","game_time":1433},
-  {"id":7,"playername":"lollivierre6","score":157,"coins":9680,"kills":61,"damagedealt":5601,"dps":242,"timestamp":"2022-05-11T22:00:00.000+00:00","game_time":3162},
-  {"id":8,"playername":"lplayhill7","score":999,"coins":5876,"kills":51,"damagedealt":9087,"dps":694,"timestamp":"2022-06-26T22:00:00.000+00:00","game_time":1084},
-  {"id":9,"playername":"bciciura8","score":324,"coins":4965,"kills":97,"damagedealt":1983,"dps":564,"timestamp":"2022-05-29T22:00:00.000+00:00","game_time":279},
-  {"id":10,"playername":"ckippling9","score":895,"coins":2333,"kills":8,"damagedealt":7853,"dps":345,"timestamp":"2022-02-28T23:00:00.000+00:00","game_time":1502}
+  {id:1,playername:"ndeangelo0",score:529,"coins":9384,"kills":49,"damagedealt":5980,"dps":932,"timestamp":"2022-08-18T22:00:00.000+00:00","game_time":2981},
+  {id:2,playername:"lclaeskens1",score:989,"coins":6449,"kills":96,"damagedealt":3949,"dps":659,"timestamp":"2022-03-05T23:00:00.000+00:00","game_time":2121},
+  {id:3,playername:"owilkisson2",score:839,"coins":3371,"kills":60,"damagedealt":8608,"dps":80,"timestamp":"2022-01-11T23:00:00.000+00:00","game_time":2116},
+  {id:4,playername:"bcastanyer3",score:546,"coins":8889,"kills":63,"damagedealt":115,"dps":870,"timestamp":"2022-07-24T22:00:00.000+00:00","game_time":581},
+  {id:5,playername:"bhughson4",score:840,"coins":108,"kills":35,"damagedealt":3672,"dps":33,"timestamp":"2022-03-26T23:00:00.000+00:00","game_time":2416},
+  {id:6,playername:"efernao5",score:823,"coins":1743,"kills":25,"damagedealt":8491,"dps":492,"timestamp":"2022-07-12T22:00:00.000+00:00","game_time":1433},
+  {id:7,playername:"lollivierre6",score:157,"coins":9680,"kills":61,"damagedealt":5601,"dps":242,"timestamp":"2022-05-11T22:00:00.000+00:00","game_time":3162},
+  {id:8,playername:"lplayhill7",score:999,"coins":5876,"kills":51,"damagedealt":9087,"dps":694,"timestamp":"2022-06-26T22:00:00.000+00:00","game_time":1084},
+  {id:9,playername:"bciciura8",score:324,"coins":4965,"kills":97,"damagedealt":1983,"dps":564,"timestamp":"2022-05-29T22:00:00.000+00:00","game_time":279},
+  {id:10,playername:"ckippling9",score:895,"coins":2333,"kills":8,"damagedealt":7853,"dps":345,"timestamp":"2022-02-28T23:00:00.000+00:00","game_time":1502}
 ]
 
 
@@ -64,14 +64,10 @@ let apiData = [
 const Scoreboard = () => {
     // ---------- Sortierung ----------
     const [order, setOrder] = useState<'asc' | 'desc' | undefined>('desc');
-    const [orderBy, setOrderBy] = useState('score');
-    const sortedData = [...data].sort((a, b) => {
-      if(orderBy === 'score'){
-        if (order === 'asc') {
-          return parseInt(a[orderBy]) > parseInt(b[orderBy]) ? 1 : -1;
-        } else {
-          return parseInt(a[orderBy]) < parseInt(b[orderBy]) ? 1 : -1;
-        }
+    const [orderBy, setOrderBy] = useState<'score' | 'playername' | 'timestamp' | ''>('score');
+    const sortedData = [...apiData].sort((a, b) => {
+      if(orderBy === ''){
+        return 1;
       }
       else{
         if (order === 'asc') {
@@ -92,7 +88,7 @@ const Scoreboard = () => {
       }
       else{
         setOrder('desc')
-        setOrderBy(sortParam);
+        setOrderBy(sortParam as 'score' | 'playername' | 'timestamp' | '');
       }
     }
 
@@ -117,18 +113,22 @@ const Scoreboard = () => {
   }
 
   // ---------- Date ----------
-  const [scoreStartDate, setScoreStartDate] = useState();
-  const [scoreEndDate, setScoreEndDate] = useState();
+  const [scoreStartDate, setScoreStartDate] = useState(new Date());
+  const [scoreEndDate, setScoreEndDate] = useState(new Date());
   function handleDateInput(dateData: DateRange<unknown>) {
     if(dateData[0]){
-      let startDate = dateData[0];
-      let startDateObject = new Date(JSON.stringify(startDate).toString().split('"')[1]); // das ist so schmu, aber ich hab den Fehler nicht gefunden
-      console.log(startDateObject.toISOString().split("T")[0]);
+      let startDate = dateData[0] as Date;
+      let startDateObject = new Date(startDate.toISOString());
+      console.log(startDate);
+      console.log(startDateObject);
+      console.log(startDateObject.toLocaleString('de-DE', {timeZone: 'Europe/Berlin'}))
+      setScoreStartDate(startDateObject);
     }
     if(dateData[1]){
-      let endDate = dateData[1];
-      let endDateObject = new Date(JSON.stringify(endDate).toString().split('"')[1]); // das ist so schmu, aber ich hab den Fehler nicht gefunden
-      console.log(endDateObject.toISOString().split("T")[0]);
+      let endDate = dateData[1] as Date;
+      let endDateObject = new Date(endDate.toISOString());
+      setScoreEndDate(endDateObject);
+      //console.log(endDateObject.toISOString().split("T")[0]);
     }
   }
 
@@ -154,9 +154,9 @@ const Scoreboard = () => {
               <TableRow>
               <TableCell               style={{color: theme2.palette.primary.contrastText, fontWeight: 'bold'}}>
                 <TableSortLabel
-                  active={orderBy === 'username'}
-                  direction={orderBy === 'username' ? order: 'desc'}
-                  onClick={()=>handleSort('username')}
+                  active={orderBy === 'playername'}
+                  direction={orderBy === 'playername' ? order: 'desc'}
+                  onClick={()=>handleSort('playername')}
                   sx={{
                     '&.MuiTableSortLabel-root .MuiTableSortLabel-icon': {
                       color: theme2.palette.primary.contrastText
@@ -169,9 +169,9 @@ const Scoreboard = () => {
               </TableCell>
               <TableCell align="right" style={{color: theme2.palette.primary.contrastText, fontWeight: 'bold'}}>
                 <TableSortLabel
-                  active={orderBy === 'date'}
-                  direction={orderBy === 'date' ? order: 'desc'}
-                  onClick={()=>handleSort('date')}
+                  active={orderBy === 'timestamp'}
+                  direction={orderBy === 'timestamp' ? order: 'desc'}
+                  onClick={()=>handleSort('timestamp')}
                   sx={{
                     '&.MuiTableSortLabel-root .MuiTableSortLabel-icon': {
                       color: theme2.palette.primary.contrastText
@@ -202,15 +202,15 @@ const Scoreboard = () => {
 
           <TableBody>
               {sortedData.map((row) => (
-                (inputValue === "" || row.username.toLowerCase().includes(inputValue.toLowerCase())) && (
-                  <TableRow
+                (inputValue === "" || row.playername.toLowerCase().includes(inputValue.toLowerCase())) && (
+                  <TableRow key={row.id}
                     sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
                   >
                     <TableCell style={{color: theme2.palette.primary.contrastText}}>
-                      {row.username}
+                      {row.playername}
                     </TableCell>
                     <TableCell align="right" style={{color: theme2.palette.primary.contrastText}}>
-                      {row.date}
+                      {new Date(row.timestamp).toLocaleString('de-DE', {timeZone: 'Europe/Berlin'}).split(',')[0]}
                     </TableCell>
                     <TableCell align="right" style={{color: theme2.palette.primary.contrastText}}>
                       {row.score}
