@@ -228,10 +228,6 @@ const Scoreboard = () => {
     const [score, setScore] = useState(0);
     const maxScore = data.reduce((max, obj) => (obj.score > max ? obj.score : max), data[0].score);
 
-    function handleSlide() {
-
-    }
-
     return (
         <ThemeProvider theme={theme2}>
             <div className="Scoreboard">
