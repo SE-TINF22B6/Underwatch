@@ -19,7 +19,7 @@ public class Enemy extends GameObject {
         super("skeleton_v2", position, world, Constants.ENEMY_BIT);
         // equip weapon
         //this.weapon = new HandGun();
-        this.speed = 50;
+        this.speed = 20;
         this.enemyStateMachine = new EnemyStateMachine(this, world);
         this.health = 3;
         // create Body
@@ -52,14 +52,13 @@ public class Enemy extends GameObject {
     @Override
     public void tick(float delta) {
         super.tick(delta);
-        applyForce(new Vector2(-1,0));
         enemyStateMachine.tick(delta);
+        pos.x = body.getPosition().x - (float) TILE_SIZE / 2;
+        pos.y = body.getPosition().y - (float) TILE_SIZE / 4;
     }
 
     public void applyForce(Vector2 motionVector) {
         body.setLinearVelocity(motionVector.x * speed, motionVector.y * speed);
-        pos.x = body.getPosition().x - (float) TILE_SIZE / 2;
-        pos.y = body.getPosition().y - (float) TILE_SIZE / 4;
     }
 
     public Weapon getWeapon() {
@@ -73,6 +72,12 @@ public class Enemy extends GameObject {
         }
         Gdx.audio.newSound(Gdx.files.internal("sfx/hitSound.mp3")).play(1);
     }
+
+    public void setTarget(Player player) {
+        enemyStateMachine.setTarget(player);
+    }
+
+
 
     public void setWeapon(Weapon weapon) {
         this.weapon = weapon;

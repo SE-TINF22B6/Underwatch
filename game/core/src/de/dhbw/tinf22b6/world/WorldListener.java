@@ -15,6 +15,19 @@ public class WorldListener implements ContactListener {
 
     @Override
     public void endContact(Contact contact) {
+        Fixture fixA = contact.getFixtureA();
+        Fixture fixB = contact.getFixtureB();
+
+        int cDef = fixA.getFilterData().categoryBits | fixB.getFilterData().categoryBits;
+        switch (cDef) {
+            case PLAYER_BIT | ENEMY_SIGHT_BIT:
+                if (fixA.getFilterData().categoryBits == PLAYER_BIT) {
+                    ((Enemy) fixB.getUserData()).setTarget(null);
+                } else {
+                    ((Enemy) fixA.getUserData()).setTarget(null);
+                }
+                break;
+        }
     }
 
     @Override
@@ -30,15 +43,14 @@ public class WorldListener implements ContactListener {
                     ((GameObject) fixA.getUserData()).setRemove(true);
                 else
                     ((GameObject) fixB.getUserData()).setRemove(true);
-                Gdx.app.debug(TAG, "Player picked up Coin");
                 break;
+            case WALL_BIT | WEAPON_ENEMY_BIT:
             case WALL_BIT | WEAPON_BIT:
-                if (fixA.getFilterData().categoryBits == WEAPON_BIT) {
+                if (fixA.getFilterData().categoryBits == WEAPON_BIT || fixA.getFilterData().categoryBits == WEAPON_ENEMY_BIT) {
                     ((Bullet) fixA.getUserData()).setRemove(true);
                 } else
                     ((Bullet) fixB.getUserData()).setRemove(true);
                 Gdx.audio.newSound(Gdx.files.internal("sfx/arrow-impact.mp3")).play(1);
-                Gdx.app.debug(TAG, "Weapon and wall");
                 break;
             case ENEMY_BIT | WEAPON_BIT:
                 if (fixA.getFilterData().categoryBits == WEAPON_BIT) {
@@ -48,7 +60,6 @@ public class WorldListener implements ContactListener {
                     ((Bullet) fixB.getUserData()).setRemove(true);
                     ((Enemy) fixA.getUserData()).hit();
                 }
-                Gdx.app.debug(TAG, "Weapon and Enemy");
                 break;
             case WEAPON_ENEMY_BIT | PLAYER_BIT:
                 if (fixA.getFilterData().categoryBits == WEAPON_ENEMY_BIT) {
@@ -58,7 +69,13 @@ public class WorldListener implements ContactListener {
                     ((Bullet) fixB.getUserData()).setRemove(true);
                     ((Player) fixA.getUserData()).hit();
                 }
-                Gdx.app.debug(TAG, "Enemy Bullet and Player");
+                break;
+            case ENEMY_SIGHT_BIT | PLAYER_BIT:
+                if (fixA.getFilterData().categoryBits == PLAYER_BIT) {
+                    ((Enemy) fixB.getUserData()).setTarget(((Player) fixA.getUserData()));
+                } else {
+                    ((Enemy) fixA.getUserData()).setTarget(((Player) fixB.getUserData()));
+                }
                 break;
         }
     }
