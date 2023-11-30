@@ -2,7 +2,10 @@ package de.dhbw.tinf22b6.gameobject;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.physics.box2d.*;
+import com.badlogic.gdx.physics.box2d.BodyDef;
+import com.badlogic.gdx.physics.box2d.FixtureDef;
+import com.badlogic.gdx.physics.box2d.PolygonShape;
+import com.badlogic.gdx.physics.box2d.World;
 import de.dhbw.tinf22b6.ai.EnemyStateMachine;
 import de.dhbw.tinf22b6.util.Constants;
 import de.dhbw.tinf22b6.weapon.Weapon;
@@ -72,12 +75,6 @@ public class Enemy extends GameObject {
         }
         Gdx.audio.newSound(Gdx.files.internal("sfx/hitSound.mp3")).play(1);
     }
-
-    public void setTarget(Player player) {
-        enemyStateMachine.setTarget(player);
-    }
-
-
 
     public void setWeapon(Weapon weapon) {
         this.weapon = weapon;

@@ -1,9 +1,6 @@
 package de.dhbw.tinf22b6.world;
 
-import com.badlogic.gdx.Game;
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input;
-import com.badlogic.gdx.InputAdapter;
+import com.badlogic.gdx.*;
 import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.Cursor;
 import com.badlogic.gdx.math.Vector2;
@@ -29,6 +26,8 @@ public class WorldController extends InputAdapter {
     private final Vector2 motion = new Vector2(0, 0);
     public boolean debugBox2D = false;
     private Camera camera;
+    private final Preferences prefs = Gdx.app.getPreferences("Controls");
+
 
     public WorldController(Game game, World world, Camera camera) {
         this.game = game;
@@ -60,23 +59,23 @@ public class WorldController extends InputAdapter {
     }
 
     private void handleInput(float deltaTime) {
-        if (Gdx.input.isKeyPressed(Input.Keys.A)) {
+        if (Gdx.input.isKeyPressed(prefs.getInteger("left", Input.Keys.A))) {
             motion.x = -1;
             player.applyForce(motion);
         }
-        if (Gdx.input.isKeyPressed(Input.Keys.D)) {
+        if (Gdx.input.isKeyPressed(prefs.getInteger("right", Input.Keys.D))) {
             motion.x = 1;
             player.applyForce(motion);
         }
-        if (Gdx.input.isKeyPressed(Input.Keys.W)) {
+        if (Gdx.input.isKeyPressed(prefs.getInteger("up", Input.Keys.W))) {
             motion.y = 1;
             player.applyForce(motion);
         }
-        if (Gdx.input.isKeyPressed(Input.Keys.S)) {
+        if (Gdx.input.isKeyPressed(prefs.getInteger("down", Input.Keys.S))) {
             motion.y = -1;
             player.applyForce(motion);
         }
-        if (Gdx.input.isKeyPressed(Input.Keys.I)) {
+        if (Gdx.input.isKeyPressed(prefs.getInteger("inventory", Input.Keys.I))) {
             Gdx.app.debug(TAG, "Objects in List: " + EntitySystem.instance.getGameObjects().size());
         }
 
@@ -101,11 +100,11 @@ public class WorldController extends InputAdapter {
         if (Gdx.input.justTouched()) {
             Vector3 unproject = camera.unproject(new Vector3(Gdx.input.getX(), Gdx.input.getY(), 0));
             Vector2 reducedDimension = new Vector2(unproject.x - player.getPos().x - TILE_SIZE / 2f, unproject.y - player.getPos().y - TILE_SIZE / 2f);
-            Gdx.app.debug(TAG, reducedDimension.setLength(1) + "." + reducedDimension.angleDeg());
+            //Gdx.app.debug(TAG, reducedDimension.setLength(1) + "." + reducedDimension.angleDeg());
             EntitySystem.instance.add(new Bullet(player.getPos(), world, reducedDimension.setLength(1), Constants.WEAPON_BIT));
         }
 
-        if (Gdx.input.isKeyJustPressed(Input.Keys.SHIFT_LEFT)) player.dodge();
+        if (Gdx.input.isKeyJustPressed(prefs.getInteger("dodge", Input.Keys.SPACE))) player.dodge();
 
         // Debugging
         if (Gdx.input.isKeyJustPressed(Input.Keys.C)) debugBox2D = !debugBox2D;
@@ -116,22 +115,19 @@ public class WorldController extends InputAdapter {
 
     @Override
     public boolean keyUp(int keycode) {
-        switch (keycode) {
-            case Input.Keys.A:
-            case Input.Keys.S:
-            case Input.Keys.W:
-            case Input.Keys.D:
-                motion.set(0, 0);
-                player.applyForce(motion);
-                break;
-            case Input.Keys.R:
-                game.setScreen(new GameScreen(game, WorldType.LEVEL1.getMap()));
-                Gdx.app.debug(TAG, "Game world reset");
-                break;
-            case Input.Keys.ENTER:
-                cameraHelper.setTarget(cameraHelper.hasTarget() ? null : player);
-                Gdx.app.debug(TAG, "Camera follow enabled: " + cameraHelper.hasTarget());
-                break;
+        final int left = prefs.getInteger("left", Input.Keys.A);
+        final int right = prefs.getInteger("right", Input.Keys.D);
+        final int up = prefs.getInteger("up", Input.Keys.W);
+        final int down = prefs.getInteger("down", Input.Keys.S);
+        if (keycode == left || keycode == right || keycode == up || keycode == down) {
+            motion.set(0, 0);
+            player.applyForce(motion);
+        } else if (keycode == Input.Keys.R) {
+            game.setScreen(new GameScreen(game, WorldType.LEVEL1.getMap()));
+            Gdx.app.debug(TAG, "Game world reset");
+        } else if (keycode == Input.Keys.ENTER) {
+            cameraHelper.setTarget(cameraHelper.hasTarget() ? null : player);
+            Gdx.app.debug(TAG, "Camera follow enabled: " + cameraHelper.hasTarget());
         }
         return super.keyUp(keycode);
     }

@@ -2,6 +2,7 @@ package de.dhbw.tinf22b6.util;
 
 import com.badlogic.gdx.Gdx;
 import de.dhbw.tinf22b6.gameobject.GameObject;
+import de.dhbw.tinf22b6.gameobject.Player;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,5 +31,13 @@ public class EntitySystem {
 
     public void remove(GameObject object) {
         this.gameObjects.remove(object);
+    }
+
+    public Player getPlayer() {
+        for (GameObject object : gameObjects) {
+            if (object instanceof Player)
+                return (Player) object;
+        }
+        return null;
     }
 }

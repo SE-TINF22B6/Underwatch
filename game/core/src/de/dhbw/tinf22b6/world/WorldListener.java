@@ -19,15 +19,6 @@ public class WorldListener implements ContactListener {
         Fixture fixB = contact.getFixtureB();
 
         int cDef = fixA.getFilterData().categoryBits | fixB.getFilterData().categoryBits;
-        switch (cDef) {
-            case PLAYER_BIT | ENEMY_SIGHT_BIT:
-                if (fixA.getFilterData().categoryBits == PLAYER_BIT) {
-                    ((Enemy) fixB.getUserData()).setTarget(null);
-                } else {
-                    ((Enemy) fixA.getUserData()).setTarget(null);
-                }
-                break;
-        }
     }
 
     @Override
@@ -71,11 +62,7 @@ public class WorldListener implements ContactListener {
                 }
                 break;
             case ENEMY_SIGHT_BIT | PLAYER_BIT:
-                if (fixA.getFilterData().categoryBits == PLAYER_BIT) {
-                    ((Enemy) fixB.getUserData()).setTarget(((Player) fixA.getUserData()));
-                } else {
-                    ((Enemy) fixA.getUserData()).setTarget(((Player) fixB.getUserData()));
-                }
+                //TODO refactor enemy collision
                 break;
         }
     }

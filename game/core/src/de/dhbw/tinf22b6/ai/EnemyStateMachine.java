@@ -16,7 +16,6 @@ public class EnemyStateMachine {
     private final Enemy enemy;
     private final World world;
     float canShoot = 0;
-    private Player player;
     private EnemyState oldState;
 
     public EnemyStateMachine(Enemy enemy, World world) {
@@ -52,46 +51,42 @@ public class EnemyStateMachine {
 
     private Vector2 getMovementVector() {
         Vector2 tmp = new Vector2();
-        Vector2 direction = new Vector2(player.getPos()).sub(enemy.getPos());
-        if (direction.x < 0) tmp.x = -1;
-        if (direction.y < 0) tmp.y = -1;
-        if (direction.x > 0) tmp.x = 1;
-        if (direction.y > 0) tmp.y = 1;
+        Player player = EntitySystem.instance.getPlayer();
+        if (player != null) {
+            Vector2 direction = new Vector2(player.getPos()).sub(enemy.getPos());
+            if (direction.x < 0) tmp.x = -1;
+            if (direction.y < 0) tmp.y = -1;
+            if (direction.x > 0) tmp.x = 1;
+            if (direction.y > 0) tmp.y = 1;
+        }
         return tmp;
     }
 
     private void shoot() {
         if (canShoot < 0) {
-            Vector2 direction = new Vector2(player.getPos()).sub(enemy.getPos());
-            EntitySystem.instance.add(new Bullet(enemy.getPos(), world, direction.setLength(1), Constants.WEAPON_ENEMY_BIT));
-            canShoot = COOLDOWN;
+            Player player = EntitySystem.instance.getPlayer();
+            if (player != null) {
+                Vector2 direction = new Vector2(player.getPos()).sub(enemy.getPos());
+                EntitySystem.instance.add(new Bullet(enemy.getPos(), world, direction.setLength(1), Constants.WEAPON_ENEMY_BIT));
+                canShoot = COOLDOWN;
+            }
         }
     }
 
     private void rayCast() {
+        Player player = EntitySystem.instance.getPlayer();
         if (player != null) {
             world.rayCast((fixture, point, normal, fraction) -> {
                 if (fixture.getFilterData().categoryBits == Constants.WALL_BIT) {
                     this.currentState = EnemyState.WALKING;
-                    Gdx.app.debug(TAG, "Raycast with wall!");
                     return 0;
                 }
                 if (fixture.getFilterData().categoryBits == Constants.PLAYER_BIT) {
                     this.currentState = EnemyState.RUNANDGUN;
-                    Gdx.app.debug(TAG, "Raycast with Player!");
                     return 0;
                 }
                 return -1;
             }, enemy.getBody().getPosition(), player.getBody().getPosition());
-        }
-    }
-
-    public void setTarget(Player player) {
-        this.player = player;
-        if (player != null) {
-            this.currentState = EnemyState.WALKING;
-        } else {
-            this.currentState = EnemyState.RUNANDGUN;
         }
     }
 }
