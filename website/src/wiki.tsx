@@ -29,7 +29,7 @@ function Wiki() {
 
         <div className="wrapper">
             <div className="left">
-                <h2>Enemys</h2>
+                <h2>Enemies</h2>
                 <table>
                     <thead>
                     <tr>
