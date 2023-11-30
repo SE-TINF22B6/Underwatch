@@ -1,4 +1,4 @@
-package com.underwatch.backend.controller;
+package com.underwatch.backend.service;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -7,7 +7,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 
 import com.underwatch.backend.model.Score;
-import com.underwatch.backend.service.ScoreService;
+import com.underwatch.backend.repository.ScoreRepository;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -15,23 +15,18 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 
 import java.util.Optional;
 
 @ExtendWith(MockitoExtension.class)
-public class ScoreControllerTest {
-
+public class ScoreServiceTest {
     @Mock
-    private ScoreService scoreService;
-
+    private ScoreRepository scoreRepository;
     @InjectMocks
-    private ScoreController scoreController;
+    private ScoreService scoreService;
 
     @Test
     public void testGetUserById() {
-
         int scoreId = 5;
         Long date = getDateTime("8/19/2022");
         Score score = new Score(scoreId, "hans", 50, 200, 3, 100, 15, new Timestamp(date), 645456456456L);
@@ -40,12 +35,11 @@ public class ScoreControllerTest {
         Mockito.when(scoreService.getScoreById(scoreId)).thenReturn(Optional.of(score));
 
         // Result
-        ResponseEntity<Score> response = scoreController.getScoreById(scoreId);
+        Score response = scoreService.getScoreById(scoreId).orElseThrow();
 
         // Asserts
         // Check the status code
-        assertEquals(HttpStatus.OK, response.getStatusCode());
-        assertEquals(score, response.getBody());
+        assertEquals(score, response);
 
     }
 
