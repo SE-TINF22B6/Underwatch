@@ -1,0 +1,16 @@
+.wrapper {
+    width: 100%;
+    height: 100px;
+}
+
+.left {
+    width: 50%;
+    height: 100%;
+    float: left;
+}
+
+.right {
+    width: 50%;
+    height: 100%;
+    float: right;
+}

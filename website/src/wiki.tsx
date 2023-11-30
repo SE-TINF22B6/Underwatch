@@ -6,6 +6,7 @@ import VideoBackground from "./VideoBackground";
 import { AppBar, Toolbar, Typography } from "@mui/material";
 import {Link} from "react-router-dom";
 import NavigationMenu from "./NavigationMenu";
+import './wiki.css';
 
 function Wiki() {
     const weapons = getWeapons();
@@ -26,8 +27,8 @@ function Wiki() {
             </AppBar>
         </div>
 
-        <div>
-            <section>
+        <div className="wrapper">
+            <div className="left">
                 <h2>Enemys</h2>
                 <table>
                     <thead>
@@ -47,9 +48,8 @@ function Wiki() {
                     ))}
                     </tbody>
                 </table>
-            </section>
-
-            <section>
+            </div>
+            <div className="right">
                 <h2>Weapons</h2>
                 <table>
                     <thead>
@@ -69,9 +69,8 @@ function Wiki() {
                     ))}
                     </tbody>
                 </table>
-            </section>
+            </div>
         </div>
-
 
 
         </ThemeProvider>
