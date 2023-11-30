@@ -205,7 +205,7 @@ const Scoreboard = () => {
     }
 
     // ---------- Date ----------
-    const [scoreStartDate, setScoreStartDate] = useState(new Date());
+    const [scoreStartDate, setScoreStartDate] = useState(new Date(0));
     const [scoreEndDate, setScoreEndDate] = useState(new Date());
 
     function handleDateInput(dateData: DateRange<unknown>) {
@@ -220,13 +220,15 @@ const Scoreboard = () => {
         if (dateData[1]) {
             let endDate = dateData[1] as Date;
             let endDateObject = new Date(endDate.toISOString());
+            endDateObject.setDate(endDateObject.getDate() + 1);
             setScoreEndDate(endDateObject);
-            //console.log(endDateObject.toISOString().split("T")[0]);
+            console.log(endDateObject);
         }
     }
 
-    const [score, setScore] = useState(0);
-    const maxScore = data.reduce((max, obj) => (obj.score > max ? obj.score : max), data[0].score);
+    // ---------- minScore ----------
+    const [minScore, setMinScore] = useState(0);
+    const maxScore = apiData.reduce((max, obj) => (obj.score > max ? obj.score : max), data[0].score);
 
     return (
         <ThemeProvider theme={theme2}>
@@ -309,7 +311,11 @@ const Scoreboard = () => {
 
                             <TableBody>
                                 {sortedData.map((row) => (
-                                    (inputValue === "" || row.playername.toLowerCase().includes(inputValue.toLowerCase())) && (
+                                    (
+                                        (inputValue === "" || row.playername.toLowerCase().includes(inputValue.toLowerCase())) &&
+                                        (row.score >= minScore) &&
+                                        (new Date(row.timestamp) >= scoreStartDate && new Date (row.timestamp) <= scoreEndDate)
+                                    ) && (
                                         <TableRow key={row.id}
                                                   sx={{'&:last-child td, &:last-child th': {border: 0}}}
                                         >
@@ -396,8 +402,8 @@ const Scoreboard = () => {
                                     aria-label="min-score"
                                     min={0}
                                     max={maxScore}
-                                    value={score}
-                                    onChange={(event, value) => setScore(value as number)}
+                                    value={minScore}
+                                    onChange={(event, value) => setMinScore(value as number)}
                                     valueLabelDisplay='auto'
                                     style={{color: theme2.palette.primary.contrastText}}
                                 />
