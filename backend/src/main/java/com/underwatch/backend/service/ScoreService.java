@@ -6,6 +6,7 @@ import com.underwatch.backend.repository.ScoreRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 /**
  * ScoreService
@@ -34,6 +35,10 @@ public class ScoreService {
 
     public void saveScore(Score score) {
         scoreRepository.save(score);
+    }
+
+    public Optional<Score> getScoreById(int id) {
+        return scoreRepository.findById(id);
     }
 
 }

@@ -22,7 +22,6 @@ public class Score {
     private int dps;
     private Timestamp timestamp;
     private Long game_time; // Assuming game_time is stored as milliseconds (you can adjust this based on your requirements)
-
     // Constructors, getters, and setters
 
     // Default constructor
@@ -31,6 +30,18 @@ public class Score {
 
     // Parameterized constructor
     public Score(String playername, int score, int coins, int kills, int damagedealt, int dps, Timestamp timestamp, Long game_time) {
+        this.playername = playername;
+        this.score = score;
+        this.coins = coins;
+        this.kills = kills;
+        this.damagedealt = damagedealt;
+        this.dps = dps;
+        this.timestamp = timestamp;
+        this.game_time = game_time;
+    }
+
+    public Score(int id,String playername, int score, int coins, int kills, int damagedealt, int dps, Timestamp timestamp, Long game_time) {
+        this.id = id;
         this.playername = playername;
         this.score = score;
         this.coins = coins;
