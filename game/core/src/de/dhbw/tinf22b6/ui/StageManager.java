@@ -7,9 +7,11 @@ import com.badlogic.gdx.utils.Disposable;
 
 public class StageManager implements Disposable {
     private Stage currentStage;
+    private final Game game;
 
     public StageManager(Game game) {
-        this.setStage(new Menu(game));
+        this.game = game;
+        this.setStage(new Menu(this));
     }
 
     public void drawAndAct() {
@@ -24,6 +26,10 @@ public class StageManager implements Disposable {
 
     public void resize(int width, int height) {
         currentStage.getViewport().update(width, height, true);
+    }
+
+    public Game getGame(){
+        return game;
     }
 
     @Override

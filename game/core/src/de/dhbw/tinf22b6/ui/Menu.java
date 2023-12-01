@@ -14,9 +14,10 @@ import de.dhbw.tinf22b6.util.Assets;
 import de.dhbw.tinf22b6.world.WorldType;
 
 public class Menu extends Stage {
-    public Menu(Game game) {
+    public Menu(StageManager stageManager) {
         super();
         Skin skin = Assets.instance.getSkin();
+        Game game = stageManager.getGame();
 
         Table table = new Table(skin);
         table.setFillParent(true);
@@ -37,6 +38,14 @@ public class Menu extends Stage {
 
         Button btnSettings = new Button(skin);
         btnSettings.add(new Label("Settings", skin));
+        btnSettings.addListener(
+                new ClickListener() {
+                    @Override
+                    public void clicked(InputEvent event, float x, float y) {
+                        stageManager.setStage(new Settings(stageManager));
+                    }
+                }
+        );
         table.add(btnSettings).pad(20);
         table.row();
 
