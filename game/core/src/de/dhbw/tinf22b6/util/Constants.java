@@ -5,6 +5,7 @@ public class Constants {
     public static final float VIEWPORT_WIDTH = TILE_SIZE * 15;
     public static final float VIEWPORT_HEIGHT = TILE_SIZE * 12;
     public static final String ATLAS_PATH = "textureAtlas/Underwatch.atlas";
+    public static final String SKIN_PATH = "skin/craftacular-ui.json";
     public static final short NOTHING_BIT = 0;
     public static final short ENEMY_BIT = 1;
     public static final short COIN_BIT = 2;
