@@ -1,9 +1,6 @@
 package de.dhbw.tinf22b6.world;
 
-import com.badlogic.gdx.Game;
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input;
-import com.badlogic.gdx.InputAdapter;
+import com.badlogic.gdx.*;
 import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.Cursor;
 import com.badlogic.gdx.math.Vector2;
@@ -15,9 +12,8 @@ import de.dhbw.tinf22b6.gameobject.Player;
 import de.dhbw.tinf22b6.screen.GameScreen;
 import de.dhbw.tinf22b6.screen.MenuScreen;
 import de.dhbw.tinf22b6.util.CameraHelper;
-
-import java.util.List;
-import java.util.stream.Collectors;
+import de.dhbw.tinf22b6.util.Constants;
+import de.dhbw.tinf22b6.util.EntitySystem;
 
 import static de.dhbw.tinf22b6.util.Constants.TILE_SIZE;
 
@@ -25,17 +21,17 @@ public class WorldController extends InputAdapter {
     private static final String TAG = WorldController.class.getName();
     public CameraHelper cameraHelper;
     private Game game;
-    private List<GameObject> objects;
     private Player player;
     private World world;
     private final Vector2 motion = new Vector2(0, 0);
     public boolean debugBox2D = false;
     private Camera camera;
+    private final Preferences prefs = Gdx.app.getPreferences("Controls");
 
-    public WorldController(Game game, World world, List<GameObject> objects, Camera camera) {
+
+    public WorldController(Game game, World world, Camera camera) {
         this.game = game;
         this.world = world;
-        this.objects = objects;
         this.camera = camera;
         init();
     }
@@ -46,7 +42,7 @@ public class WorldController extends InputAdapter {
         player = new Player(world, new Vector2(5, 5));
         cameraHelper = new CameraHelper();
         cameraHelper.setTarget(player);
-        objects.add(player);
+        EntitySystem.instance.add(player);
     }
 
     public void update(float deltaTime) {
@@ -55,32 +51,32 @@ public class WorldController extends InputAdapter {
         world.step(deltaTime, 6, 2);
 
         // tick objects
-        objects.forEach(gameObject -> gameObject.tick(deltaTime));
+        EntitySystem.instance.getGameObjects().forEach(gameObject -> gameObject.tick(deltaTime));
         // remove deleted objects from the World
-        objects.stream().filter(GameObject::isRemove).forEach(gameObject -> world.destroyBody(gameObject.getBody()));
+        EntitySystem.instance.getGameObjects().stream().filter(GameObject::isRemove).forEach(gameObject -> world.destroyBody(gameObject.getBody()));
         // remove deleted objects from the Map
-        objects = objects.stream().filter(gameObject -> !gameObject.isRemove()).collect(Collectors.toList());
+        EntitySystem.instance.getGameObjects().stream().filter(GameObject::isRemove).forEach(EntitySystem.instance::remove);
     }
 
     private void handleInput(float deltaTime) {
-        if (Gdx.input.isKeyPressed(Input.Keys.A)) {
+        if (Gdx.input.isKeyPressed(prefs.getInteger("left", Input.Keys.A))) {
             motion.x = -1;
             player.applyForce(motion);
         }
-        if (Gdx.input.isKeyPressed(Input.Keys.D)) {
+        if (Gdx.input.isKeyPressed(prefs.getInteger("right", Input.Keys.D))) {
             motion.x = 1;
             player.applyForce(motion);
         }
-        if (Gdx.input.isKeyPressed(Input.Keys.W)) {
+        if (Gdx.input.isKeyPressed(prefs.getInteger("up", Input.Keys.W))) {
             motion.y = 1;
             player.applyForce(motion);
         }
-        if (Gdx.input.isKeyPressed(Input.Keys.S)) {
+        if (Gdx.input.isKeyPressed(prefs.getInteger("down", Input.Keys.S))) {
             motion.y = -1;
             player.applyForce(motion);
         }
-        if (Gdx.input.isKeyPressed(Input.Keys.I)) {
-            Gdx.app.debug(TAG, "Objects in List: " + objects.size());
+        if (Gdx.input.isKeyPressed(prefs.getInteger("inventory", Input.Keys.I))) {
+            Gdx.app.debug(TAG, "Objects in List: " + EntitySystem.instance.getGameObjects().size());
         }
 
         // Camera Controls (move)
@@ -105,11 +101,11 @@ public class WorldController extends InputAdapter {
             Gdx.audio.newSound(Gdx.files.internal("sfx/gun-shot.mp3")).play(1);
             Vector3 unproject = camera.unproject(new Vector3(Gdx.input.getX(), Gdx.input.getY(), 0));
             Vector2 reducedDimension = new Vector2(unproject.x - player.getPos().x - TILE_SIZE / 2f, unproject.y - player.getPos().y - TILE_SIZE / 2f);
-            Gdx.app.debug(TAG, reducedDimension.setLength(1) + "." + reducedDimension.angleDeg());
-            objects.add(new Bullet(player.getPos(), world, reducedDimension.setLength(1)));
+            //Gdx.app.debug(TAG, reducedDimension.setLength(1) + "." + reducedDimension.angleDeg());
+            EntitySystem.instance.add(new Bullet(player.getPos(), world, reducedDimension.setLength(1), Constants.WEAPON_BIT));
         }
 
-        if (Gdx.input.isKeyJustPressed(Input.Keys.SHIFT_LEFT)) player.dodge();
+        if (Gdx.input.isKeyJustPressed(prefs.getInteger("dodge", Input.Keys.SPACE))) player.dodge();
 
         // Debugging
         if (Gdx.input.isKeyJustPressed(Input.Keys.C)) debugBox2D = !debugBox2D;
@@ -120,22 +116,19 @@ public class WorldController extends InputAdapter {
 
     @Override
     public boolean keyUp(int keycode) {
-        switch (keycode) {
-            case Input.Keys.A:
-            case Input.Keys.S:
-            case Input.Keys.W:
-            case Input.Keys.D:
-                motion.set(0, 0);
-                player.applyForce(motion);
-                break;
-            case Input.Keys.R:
-                game.setScreen(new GameScreen(game, WorldType.LEVEL1.getMap()));
-                Gdx.app.debug(TAG, "Game world reset");
-                break;
-            case Input.Keys.ENTER:
-                cameraHelper.setTarget(cameraHelper.hasTarget() ? null : player);
-                Gdx.app.debug(TAG, "Camera follow enabled: " + cameraHelper.hasTarget());
-                break;
+        final int left = prefs.getInteger("left", Input.Keys.A);
+        final int right = prefs.getInteger("right", Input.Keys.D);
+        final int up = prefs.getInteger("up", Input.Keys.W);
+        final int down = prefs.getInteger("down", Input.Keys.S);
+        if (keycode == left || keycode == right || keycode == up || keycode == down) {
+            motion.set(0, 0);
+            player.applyForce(motion);
+        } else if (keycode == Input.Keys.R) {
+            game.setScreen(new GameScreen(game, WorldType.LEVEL1.getMap()));
+            Gdx.app.debug(TAG, "Game world reset");
+        } else if (keycode == Input.Keys.ENTER) {
+            cameraHelper.setTarget(cameraHelper.hasTarget() ? null : player);
+            Gdx.app.debug(TAG, "Camera follow enabled: " + cameraHelper.hasTarget());
         }
         return super.keyUp(keycode);
     }
@@ -144,9 +137,5 @@ public class WorldController extends InputAdapter {
         x += cameraHelper.getPosition().x;
         y += cameraHelper.getPosition().y;
         cameraHelper.setPosition(x, y);
-    }
-
-    public List<GameObject> getGameObjects() {
-        return objects;
     }
 }
