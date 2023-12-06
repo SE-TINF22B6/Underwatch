@@ -25,8 +25,8 @@ services:
       PGADMIN_DEFAULT_PASSWORD: u
     ports:
       - "5050:80"
-    #     depends_on:
-    #       - db
+    volumes: #load the database
+      - ./servers.json:/pgadmin4/servers.json
 
 volumes:
   postgres_data:
