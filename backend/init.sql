@@ -6,8 +6,8 @@ CREATE TABLE scores (       --create a table for datastorage
     timestamp TIMESTAMP NOT NULL,
     score INT NOT NULL,
     coins INT NOT NULL,
-    dps FLOAT NOT NULL
-    game_time INT NOT NULL,
+    dps FLOAT NOT NULL,
+    game_time INT NOT NULL
 );
 
 
