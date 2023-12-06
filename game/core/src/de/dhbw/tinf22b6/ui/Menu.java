@@ -2,6 +2,7 @@ package de.dhbw.tinf22b6.ui;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Button;
@@ -30,6 +31,14 @@ public class Menu extends Stage {
                     @Override
                     public void clicked(InputEvent event, float x, float y) {
                         game.setScreen(new GameScreen(game, WorldType.LEVEL1.getMap()));
+                        Gdx.audio.newSound(Gdx.files.internal("sfx/LevelUp.mp3")).play();
+
+                    }
+
+                    @Override
+                    public void enter(InputEvent event, float x, float y, int pointer, Actor fromActor) {
+                        Gdx.audio.newSound(Gdx.files.internal("sfx/button_hover.mp3")).play();
+                        super.enter(event, x, y, pointer, fromActor);
                     }
                 }
         );
@@ -59,6 +68,13 @@ public class Menu extends Stage {
                     }
                 }
         );
+        btnQuit.addListener(new ClickListener(){
+            @Override
+            public void enter(InputEvent event, float x, float y, int pointer, Actor fromActor) {
+                Gdx.audio.newSound(Gdx.files.internal("sfx/button_hover.mp3")).play();
+                super.enter(event, x, y, pointer, fromActor);
+            }
+        });
         table.add(btnQuit).pad(20);
         table.row();
     }

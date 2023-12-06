@@ -5,6 +5,7 @@ import com.badlogic.gdx.physics.box2d.*;
 import de.dhbw.tinf22b6.gameobject.Bullet;
 import de.dhbw.tinf22b6.gameobject.Enemy;
 import de.dhbw.tinf22b6.gameobject.GameObject;
+import de.dhbw.tinf22b6.gameobject.Player;
 import de.dhbw.tinf22b6.screen.GameScreen;
 
 import static de.dhbw.tinf22b6.util.Constants.*;
@@ -49,6 +50,16 @@ public class WorldListener implements ContactListener {
                     ((Enemy) fixA.getUserData()).hit();
                 }
                 Gdx.app.debug(TAG, "Weapon and Enemy");
+                break;
+            case WEAPON_ENEMY_BIT | PLAYER_BIT:
+                if (fixA.getFilterData().categoryBits == WEAPON_ENEMY_BIT) {
+                    ((Bullet) fixA.getUserData()).setRemove(true);
+                    ((Player) fixB.getUserData()).hit();
+                } else {
+                    ((Bullet) fixB.getUserData()).setRemove(true);
+                    ((Player) fixA.getUserData()).hit();
+                }
+                Gdx.app.debug(TAG, "Weapon and Player");
                 break;
         }
     }
