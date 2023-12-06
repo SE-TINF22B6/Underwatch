@@ -12,10 +12,9 @@ services:
       POSTGRES_HOST_AUTH_METHOD: "trust"
     ports:
       - "5433:5432"
-    volumes:
+    volumes:  #for the example data import
       - ./init.sql:/docker-entrypoint-initdb.d/init.sql
-    # volumes:
-    #   - postgres_data:/var/lib/postgresql/data
+
 
   # pgAdmin
   pgadmin:
