@@ -14,3 +14,18 @@
     height: 100%;
     float: right;
 }
+
+.c-table {
+    background-color: #3d253b;
+    color: #F36437;
+    width: 95%;
+    margin: auto;
+    border: 10px solid #3d253b;
+    padding: 10px;
+    text-align: start;
+}
+
+h2{
+    color: #F36437;
+    text-align: center;
+}

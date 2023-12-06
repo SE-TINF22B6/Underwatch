@@ -1,5 +1,6 @@
 import React from 'react';
 import { getWeapons, getEnemies } from './data/base';
+import { Table, TableHead, TableRow, TableCell } from '@mui/material';
 import { ThemeProvider } from "@emotion/react";
 import { theme2 } from "./theme";
 import VideoBackground from "./VideoBackground";
@@ -30,7 +31,7 @@ function Wiki() {
         <div className="wrapper">
             <div className="left">
                 <h2>Enemies</h2>
-                <table>
+                <table className="c-table">
                     <thead>
                     <tr>
                         <th>Name</th>
@@ -51,7 +52,7 @@ function Wiki() {
             </div>
             <div className="right">
                 <h2>Weapons</h2>
-                <table>
+                <table className="c-table">
                     <thead>
                     <tr>
                         <th>Name</th>
