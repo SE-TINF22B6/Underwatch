@@ -61,6 +61,13 @@ public class WorldListener implements ContactListener {
                 }
                 Gdx.app.debug(TAG, "Weapon and Player");
                 break;
+            case WEAPON_ENEMY_BIT | WALL_BIT:
+                if (fixA.getFilterData().categoryBits == WEAPON_ENEMY_BIT) {
+                    ((Bullet) fixA.getUserData()).setRemove(true);
+                } else {
+                    ((Bullet) fixB.getUserData()).setRemove(true);
+                }
+                break;
         }
     }
 
