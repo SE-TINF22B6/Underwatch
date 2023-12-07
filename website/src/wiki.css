@@ -21,11 +21,26 @@
     width: 95%;
     margin: auto;
     border: 10px solid #3d253b;
-    padding: 10px;
+    border-radius:6px;
+    padding: 5px;
     text-align: start;
 }
 
 h2{
     color: #F36437;
     text-align: center;
+}
+
+th, td{
+    border-left: 1px solid rebeccapurple;
+}
+
+td{
+    border-top: 1px solid #ddd;
+}
+
+tr:hover {background-color: #ddd;}
+
+td:first-child, th:first-child {
+    border-left: none;
 }
