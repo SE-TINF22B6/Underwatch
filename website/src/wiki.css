@@ -24,13 +24,23 @@
     border-radius:6px;
     padding: 5px;
     text-align: start;
+    th, td{
+        border-left: 1px solid rebeccapurple;
+    }
+    td{
+        border-top: 1px solid #ddd;
+    }
+    tr:hover {background-color: #ddd;}
+    td:first-child, th:first-child {
+        border-left: none;
+    }
 }
 
 h2{
     color: #F36437;
     text-align: center;
 }
-
+/*
 th, td{
     border-left: 1px solid rebeccapurple;
 }
@@ -43,4 +53,4 @@ tr:hover {background-color: #ddd;}
 
 td:first-child, th:first-child {
     border-left: none;
-}
+}*/
