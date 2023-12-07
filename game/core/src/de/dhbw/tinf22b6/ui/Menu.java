@@ -53,6 +53,12 @@ public class Menu extends Stage {
                     public void clicked(InputEvent event, float x, float y) {
                         stageManager.setStage(new Settings(stageManager));
                     }
+
+                    @Override
+                    public void enter(InputEvent event, float x, float y, int pointer, Actor fromActor) {
+                        Gdx.audio.newSound(Gdx.files.internal("sfx/button_hover.mp3")).play();
+                        super.enter(event, x, y, pointer, fromActor);
+                    }
                 }
         );
         table.add(btnSettings).pad(20);
