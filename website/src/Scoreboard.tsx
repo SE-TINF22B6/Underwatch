@@ -207,8 +207,10 @@ const Scoreboard = () => {
     // ---------- Date ----------
     const [scoreStartDate, setScoreStartDate] = useState(new Date(0));
     const [scoreEndDate, setScoreEndDate] = useState(new Date());
+    const [scoreDate, setScoreDate] = useState<DateRange<unknown>>([null, null]);
 
     function handleDateInput(dateData: DateRange<unknown>) {
+        setScoreDate(dateData);
         if (dateData[0]) {
             let startDate = dateData[0] as Date;
             let startDateObject = new Date(startDate.toISOString());
@@ -374,6 +376,7 @@ const Scoreboard = () => {
                                 <DateRangePicker
                                     localeText={{start: 'from', end: 'till'}}
                                     onChange={(newValue) => handleDateInput(newValue)}
+                                    value={scoreDate}
                                     sx={{
                                         color: theme2.palette.primary.contrastText,
                                         paddingTop: '10px',
