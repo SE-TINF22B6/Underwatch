@@ -32,6 +32,8 @@ public class WorldController extends InputAdapter {
     private final int right = prefs.getInteger("right", Input.Keys.D);
     private final int up = prefs.getInteger("up", Input.Keys.W);
     private final int down = prefs.getInteger("down", Input.Keys.S);
+    private final int inventory = prefs.getInteger("inventory", Input.Keys.I);
+    private final int dodge = prefs.getInteger("dodge", Input.Keys.SPACE);
 
 
     public WorldController(Game game, World world, Camera camera) {
@@ -64,10 +66,6 @@ public class WorldController extends InputAdapter {
     }
 
     private void handleInput(float deltaTime) {
-        if (Gdx.input.isKeyPressed(prefs.getInteger("inventory", Input.Keys.I))) {
-            Gdx.app.debug(TAG, "Objects in List: " + EntitySystem.instance.getGameObjects().size());
-        }
-
         // Camera Controls (move)
         float camMoveSpeed = 32 * deltaTime;
         float camMoveSpeedAccelerationFactor = 5;
@@ -85,14 +83,6 @@ public class WorldController extends InputAdapter {
         if (Gdx.input.isKeyPressed(Input.Keys.COMMA)) cameraHelper.addZoom(camZoomSpeed);
         if (Gdx.input.isKeyPressed(Input.Keys.PERIOD)) cameraHelper.addZoom(-camZoomSpeed);
         if (Gdx.input.isKeyPressed(Input.Keys.SLASH)) cameraHelper.setZoom(1);
-
-        if (Gdx.input.isKeyJustPressed(prefs.getInteger("dodge", Input.Keys.SPACE))) player.dodge();
-
-        // Debugging
-        if (Gdx.input.isKeyJustPressed(Input.Keys.C)) debugBox2D = !debugBox2D;
-
-        // Back to menu
-        if (Gdx.input.isKeyPressed(Input.Keys.ESCAPE)) game.setScreen(new MenuScreen(game));
     }
 
     @Override
@@ -118,6 +108,12 @@ public class WorldController extends InputAdapter {
         }
         if (keycode == left || keycode == right || keycode == up || keycode == down)
             player.applyForce(motion.setLength(1));
+        if (keycode == inventory) {
+            Gdx.app.debug(TAG, "Objects in List: " + EntitySystem.instance.getGameObjects().size());
+        }
+        if (keycode == dodge) player.dodge();
+        if (keycode == Input.Keys.ESCAPE) game.setScreen(new MenuScreen(game));
+        if (keycode == Input.Keys.C) debugBox2D = !debugBox2D;
 
         return super.keyDown(keycode);
     }
