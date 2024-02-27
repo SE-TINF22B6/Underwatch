@@ -28,6 +28,11 @@ public class WorldController extends InputAdapter {
     private Camera camera;
     private final Preferences prefs = Gdx.app.getPreferences("Controls");
 
+    private final int left = prefs.getInteger("left", Input.Keys.A);
+    private final int right = prefs.getInteger("right", Input.Keys.D);
+    private final int up = prefs.getInteger("up", Input.Keys.W);
+    private final int down = prefs.getInteger("down", Input.Keys.S);
+
 
     public WorldController(Game game, World world, Camera camera) {
         this.game = game;
@@ -59,22 +64,6 @@ public class WorldController extends InputAdapter {
     }
 
     private void handleInput(float deltaTime) {
-        if (Gdx.input.isKeyPressed(prefs.getInteger("left", Input.Keys.A))) {
-            motion.x = -1;
-            player.applyForce(motion);
-        }
-        if (Gdx.input.isKeyPressed(prefs.getInteger("right", Input.Keys.D))) {
-            motion.x = 1;
-            player.applyForce(motion);
-        }
-        if (Gdx.input.isKeyPressed(prefs.getInteger("up", Input.Keys.W))) {
-            motion.y = 1;
-            player.applyForce(motion);
-        }
-        if (Gdx.input.isKeyPressed(prefs.getInteger("down", Input.Keys.S))) {
-            motion.y = -1;
-            player.applyForce(motion);
-        }
         if (Gdx.input.isKeyPressed(prefs.getInteger("inventory", Input.Keys.I))) {
             Gdx.app.debug(TAG, "Objects in List: " + EntitySystem.instance.getGameObjects().size());
         }
@@ -97,14 +86,6 @@ public class WorldController extends InputAdapter {
         if (Gdx.input.isKeyPressed(Input.Keys.PERIOD)) cameraHelper.addZoom(-camZoomSpeed);
         if (Gdx.input.isKeyPressed(Input.Keys.SLASH)) cameraHelper.setZoom(1);
 
-        if (Gdx.input.justTouched()) {
-            Gdx.audio.newSound(Gdx.files.internal("sfx/gun-shot.mp3")).play(0.1f);
-            Vector3 unproject = camera.unproject(new Vector3(Gdx.input.getX(), Gdx.input.getY(), 0));
-            Vector2 reducedDimension = new Vector2(unproject.x - player.getPos().x - TILE_SIZE / 2f, unproject.y - player.getPos().y - TILE_SIZE / 2f);
-            //Gdx.app.debug(TAG, reducedDimension.setLength(1) + "." + reducedDimension.angleDeg());
-            EntitySystem.instance.add(new Bullet(new Vector2(player.getPos().x + TILE_SIZE / 2f, player.getPos().y), world, reducedDimension.setLength(1), Constants.WEAPON_BIT));
-        }
-
         if (Gdx.input.isKeyJustPressed(prefs.getInteger("dodge", Input.Keys.SPACE))) player.dodge();
 
         // Debugging
@@ -115,18 +96,47 @@ public class WorldController extends InputAdapter {
     }
 
     @Override
+    public boolean touchDown(int screenX, int screenY, int pointer, int button) {
+        Gdx.audio.newSound(Gdx.files.internal("sfx/gun-shot.mp3")).play(0.1f);
+        Vector3 unproject = camera.unproject(new Vector3(Gdx.input.getX(), Gdx.input.getY(), 0));
+        Vector2 reducedDimension = new Vector2(unproject.x - player.getPos().x - TILE_SIZE / 2f, unproject.y - player.getPos().y - TILE_SIZE / 2f);
+        //Gdx.app.debug(TAG, reducedDimension.setLength(1) + "." + reducedDimension.angleDeg());
+        EntitySystem.instance.add(new Bullet(new Vector2(player.getPos().x + TILE_SIZE / 2f, player.getPos().y), world, reducedDimension.setLength(1), Constants.WEAPON_BIT));
+        return super.touchDown(screenX, screenY, pointer, button);
+    }
+
+    @Override
+    public boolean keyDown(int keycode) {
+        if (keycode == left) {
+            motion.x = -1;
+        } else if (keycode == right) {
+            motion.x = 1;
+        } else if (keycode == up) {
+            motion.y = 1;
+        } else if (keycode == down) {
+            motion.y = -1;
+        }
+        if (keycode == left || keycode == right || keycode == up || keycode == down)
+            player.applyForce(motion.setLength(1));
+
+        return super.keyDown(keycode);
+    }
+
+    @Override
     public boolean keyUp(int keycode) {
-        final int left = prefs.getInteger("left", Input.Keys.A);
-        final int right = prefs.getInteger("right", Input.Keys.D);
-        final int up = prefs.getInteger("up", Input.Keys.W);
-        final int down = prefs.getInteger("down", Input.Keys.S);
-        if (keycode == left || keycode == right || keycode == up || keycode == down) {
-            motion.set(0, 0);
-            player.applyForce(motion);
-        } else if (keycode == Input.Keys.R) {
+        if (keycode == left || keycode == right) {
+            motion.x = 0;
+        } else if (keycode == up || keycode == down) {
+            motion.y = 0;
+        }
+        if (keycode == left || keycode == right || keycode == up || keycode == down)
+            player.applyForce(motion.setLength(1));
+
+        if (keycode == Input.Keys.R) {
             game.setScreen(new GameScreen(game, WorldType.LEVEL1.getMap()));
             Gdx.app.debug(TAG, "Game world reset");
-        } else if (keycode == Input.Keys.ENTER) {
+        }
+        if (keycode == Input.Keys.ENTER) {
             cameraHelper.setTarget(cameraHelper.hasTarget() ? null : player);
             Gdx.app.debug(TAG, "Camera follow enabled: " + cameraHelper.hasTarget());
         }
