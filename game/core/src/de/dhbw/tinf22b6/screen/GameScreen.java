@@ -9,6 +9,7 @@ import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.World;
 import de.dhbw.tinf22b6.overlay.ScreenOverlay;
+import de.dhbw.tinf22b6.ui.HeadUpDisplay;
 import de.dhbw.tinf22b6.util.EntitySystem;
 import de.dhbw.tinf22b6.world.WorldController;
 import de.dhbw.tinf22b6.world.WorldListener;
@@ -22,6 +23,7 @@ public class GameScreen extends AbstractGameScreen {
     private WorldController worldController;
     private WorldRenderer worldRenderer;
     private ScreenOverlay overlay;
+    private HeadUpDisplay hud;
 
     private boolean paused;
     Music m = Gdx.audio.newMusic(Gdx.files.internal("music/downfall.mp3"));
@@ -31,7 +33,7 @@ public class GameScreen extends AbstractGameScreen {
     public GameScreen(Game game, TiledMap map) {
         super(game);
         this.map = map;
-        //m.play();
+        m.play();
     }
 
     @Override
@@ -51,6 +53,7 @@ public class GameScreen extends AbstractGameScreen {
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         // Render game world to screen
         worldRenderer.render();
+        hud.draw();
     }
 
     @Override
@@ -68,6 +71,7 @@ public class GameScreen extends AbstractGameScreen {
                 new OrthographicCamera(VIEWPORT_WIDTH, VIEWPORT_HEIGHT);
         worldController = new WorldController(game, world, camera);
         worldRenderer = new WorldRenderer(worldController, world, map, camera);
+        hud = new HeadUpDisplay(worldController.getPlayer());
     }
 
     @Override

@@ -21,13 +21,17 @@ public class WorldController extends InputAdapter {
     private static final String TAG = WorldController.class.getName();
     public CameraHelper cameraHelper;
     private Game game;
+
+    public Player getPlayer() {
+        return player;
+    }
+
     private Player player;
     private World world;
     private final Vector2 motion = new Vector2(0, 0);
     public boolean debugBox2D = false;
     private Camera camera;
     private final Preferences prefs = Gdx.app.getPreferences("Controls");
-
     private final int left = prefs.getInteger("left", Input.Keys.A);
     private final int right = prefs.getInteger("right", Input.Keys.D);
     private final int up = prefs.getInteger("up", Input.Keys.W);
