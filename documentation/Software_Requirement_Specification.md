@@ -95,11 +95,22 @@ For better readabillity we will provide three seperate use-case-diagrams
 
 ## 3. Nonfunctional requirements
 
-> [!NOTE]  
-> It is not necessary to cover all of the following ASRs (Architecturally Significant Requirements), but focus on what your project will implement.  
-> If some ASRs are described as user stories in your backlog, add their **links** in this section, or any information to guide the reader find them in your backlog, such as a **label** of those relevant user stories.
+<!-- > [!NOTE]   -->
+<!-- > It is not necessary to cover all of the following ASRs (Architecturally Significant Requirements), but focus on what your project will implement.   -->
+<!-- > If some ASRs are described as user stories in your backlog, add their **links** in this section, or any information to guide the reader find them in your backlog, such as a **label** of those relevant user stories. -->
 
-> Categories: Availability, Performance, (Energy) Efficiency, Deployability, Integrability, Modifiability, Testability, Safety, Security, Usability
+<!-- > Categories: Availability, Performance, (Energy) Efficiency, Deployability, Integrability, Modifiability, Testability, Safety, Security, Usability -->
+
+For our quality requirements we will use the ISO 25010 Product Quality standard. For more informations regarding this standard you can visit the site https://iso25000.com/index.php/en/iso-25000-standards/iso-25010 .This section contains all quality requirements as quality tree with scenarios. The most important ones have already been described in section 1.2. (quality goals)
+
+<img width="799" alt="Screenshot 2023-10-18 at 14 38 01" src="https://github.com/SE-TINF22B6/Underwatch/assets/87950162/a407dcaf-1f93-4ef1-a589-a6a199d75db9">  
+We have identified the following non-functional requirements as paramount for the success of our project:  
+
+| Goal                    | Description                                                      |
+|-------------------------|------------------------------------------------------------------|
+| 1. User Engagement      | The users should be engaged while playing the game               |
+| 2. Self-descriptiveness | The game should be easy to understand with low efforts           |
+| 3.  Installability      | The game should run on all major platforms (windows, linux, mac) |
 
 ### 3.1 Utility tree
 
