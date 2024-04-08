@@ -1,4 +1,4 @@
-package de.dhbw.tinf22b6.ui;
+package de.dhbw.tinf22b6.ui.menu;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
