@@ -10,14 +10,14 @@
     - [2. Functional requirements](#2-functional-requirements)
         - [2.1 Overview ](#21-overview)
         - [2.1.1 General Use-Case](#211-general-use-case)
-        - [2.2 Name of Feature 1 / Use Case 1](#22-name-of-feature-1--use-case-1)
+        - [2.1.2 Important Entities and Classes](#212-important-entities-and-classes)
         - [2.3 Name of Feature 2 / Use Case 2](#23-name-of-feature-2--use-case-2)
     - [3. Nonfunctional requirements](#3-nonfunctional-requirements)
         - [3.1 Utility tree](#31-utility-tree)
         - [3.2 Tactics for Top 3 quality attribute scenarios](#32-tactics-for-top-3-quality-attribute-scenarios)
-            - [3.2.1 ...](#321-)
-            - [3.2.2 ...](#322-)
-            - [3.2.3 ...](#323-)
+            - [3.2.1 User Engagement](#321-user-engagement)
+            - [3.2.2 Self-descriptiveness](#322-self-descriptiveness)
+            - [3.2.3 Installability](#323-installability)
     - [4. Technical constraints](#4-technical-constraints)
 
 <!-- markdown-toc end -->
@@ -124,11 +124,11 @@ We have identified the following non-functional requirements as paramount for th
 
 ### 3.2 Tactics for Top 3 quality attribute scenarios
 
-#### 3.2.1 ...
+#### 3.2.1 User Engagement
 
-#### 3.2.2 ...
+#### 3.2.2 Self-descriptiveness
 
-#### 3.2.3 ...
+#### 3.2.3 Installability
 
 ## 4. Technical constraints
 > Specify any major constraints, assumptions or dependencies, e.g., any restrictions about which type of server to use, which type of open source license must be complied, etc. 
