@@ -49,7 +49,15 @@ This Software Requirements Specification (SRS) document covers the complete syst
 > Include one or more **UML use case** diagram(s) and necessary description to specify the major use cases of your application.
 
 ### 2.1.1 General Use-Case
-Underwatch aims to provide a fun, engaging gaming experience for gamers on windwos, linux and mac. It also provides a basic website, where players can explore highscores or browse the Wiki for more informations about game-mechanics and lore.
+Underwatch aims to provide a fun, engaging gaming experience for the following plattforms:
+1. Windows 
+2. Linux
+3. Mac
+
+It also provides a basic website with the following features:
+1. Players can download the game.
+2. The website containts highscores.
+3. The website provides a wiki. 
 ### 2.2 Name of Feature 1 / Use Case 1
 > Specify this feature / use case by:
 > - Relevant **user stories (their links or labels)**
