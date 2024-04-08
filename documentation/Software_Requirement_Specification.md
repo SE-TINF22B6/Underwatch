@@ -9,6 +9,7 @@
         - [1.4 References](#14-references)
     - [2. Functional requirements](#2-functional-requirements)
         - [2.1 Overview ](#21-overview)
+        - [2.1.1 General Use-Case](#211-general-use-case)
         - [2.2 Name of Feature 1 / Use Case 1](#22-name-of-feature-1--use-case-1)
         - [2.3 Name of Feature 2 / Use Case 2](#23-name-of-feature-2--use-case-2)
     - [3. Nonfunctional requirements](#3-nonfunctional-requirements)
@@ -21,20 +22,21 @@
 
 <!-- markdown-toc end -->
 # Uderwatch Software Requirements Specification
-> This template is a simplified version based on the documentation templates from IBM Rational Unified Process (RUP).
-## 1. Introduction
-### 1.1 Overview
 Welcome to the Underwatch Software Requirements Specification!
 
-This is the home to the GitHub Wikipages for the Underwatch™ Game Project.
 This Project is part of the third semester educational program at DHBW-Karlsruhe for course TINF22B6.
+## 1. Introduction
+### 1.1 Overview
+Underwatch is a roguelike adventure that immerses players in an enigmatic underworld. Here, they take on the role of fearless explorers, armed with a diverse and imaginative array of weapons. As they navigate through procedurally generated environments, they must confront relentless bullet storms, vanquish formidable adversaries, and challenge one-of-a-kind bosses.
 ### 1.2 Scope
-> What is covered (not covered) in this document? Is it for your whole system or a subsystem? Does it cover both functional and nonfunctional requirements? (Will you seperate some of requirements into another document?)
+This Software Requirements Specification (SRS) document covers the complete system of Underwatch. It encompasses both functional and non-functional requirements necessary for the successful development, deployment, and operation of the platform. The document aims to provide a comprehensive understanding of the system's architecture, features, and limitations.
+
 ### 1.3 Definitions, Acronyms and Abbreviations
-> Definitions of all terms, acronyms, and abbreviations required to properly interpret this document.
+TODO
 ### 1.4 References
 > A complete list of all documents referenced. Each document should be identified by title, date, and publishing organization. You can also insert hyperlinks, in order to open the references conviniently.
 
+---
 ## 2. Functional requirements
 >  This section contains all the software requirements to a level of detail sufficient to enable designers to design a system to satisfy those requirements and testers to test that the system satisfies those requirements.  
 >  This section is typically organized by feature, but alternative organization methods may also be appropriate, for example, organization by user or organization by subsystem.
@@ -46,6 +48,8 @@ This Project is part of the third semester educational program at DHBW-Karlsruhe
 > A brief description of the functionality of your application.  
 > Include one or more **UML use case** diagram(s) and necessary description to specify the major use cases of your application.
 
+### 2.1.1 General Use-Case
+Underwatch aims to provide a fun, engaging gaming experience for gamers on windwos, linux and mac. It also provides a basic website, where players can explore highscores or browse the Wiki for more informations about game-mechanics and lore.
 ### 2.2 Name of Feature 1 / Use Case 1
 > Specify this feature / use case by:
 > - Relevant **user stories (their links or labels)**
