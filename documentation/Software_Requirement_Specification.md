@@ -32,7 +32,7 @@ Underwatch is a roguelike adventure that immerses players in an enigmatic underw
 This Software Requirements Specification (SRS) document covers the complete system of Underwatch. It encompasses both functional and non-functional requirements necessary for the successful development, deployment, and operation of the platform. The document aims to provide a comprehensive understanding of the system's architecture, features, and limitations.
 
 ### 1.3 Definitions, Acronyms and Abbreviations
-TODO
+> Here will be Definitions, Acronyms and Abbreviations for the project, we still have to figure out how to auto-generate those in markdown
 ### 1.4 References
 > A complete list of all documents referenced. Each document should be identified by title, date, and publishing organization. You can also insert hyperlinks, in order to open the references conviniently.
 
