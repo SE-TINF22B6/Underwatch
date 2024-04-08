@@ -101,9 +101,7 @@ For better readabillity we will provide three seperate use-case-diagrams
 
 <!-- > Categories: Availability, Performance, (Energy) Efficiency, Deployability, Integrability, Modifiability, Testability, Safety, Security, Usability -->
 
-For our quality requirements we will use the ISO 25010 Product Quality standard. For more informations regarding this standard you can visit the site https://iso25000.com/index.php/en/iso-25000-standards/iso-25010 .This section contains all quality requirements as quality tree with scenarios. The most important ones have already been described in section 1.2. (quality goals)
-
-<img width="799" alt="Screenshot 2023-10-18 at 14 38 01" src="https://github.com/SE-TINF22B6/Underwatch/assets/87950162/a407dcaf-1f93-4ef1-a589-a6a199d75db9">  
+For our quality requirements we will use the ISO 25010 Product Quality standard. For more informations regarding this standard you can visit the site https://iso25000.com/index.php/en/iso-25000-standards/iso-25010 .<img width="799" alt="Screenshot 2023-10-18 at 14 38 01" src="https://github.com/SE-TINF22B6/Underwatch/assets/87950162/a407dcaf-1f93-4ef1-a589-a6a199d75db9">  
 We have identified the following non-functional requirements as paramount for the success of our project:  
 
 | Goal                    | Description                                                      |
