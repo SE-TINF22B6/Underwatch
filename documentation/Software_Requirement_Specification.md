@@ -69,7 +69,7 @@ It also provides a basic website with the following features:
 <!-- > - **Estimated efforts (high, medium, low)** -->
 
 
->![UML-diagram](./assets/underwatch_usecase.drawio.svg)
+>✅![UML-diagram](./assets/underwatch_usecase.drawio.svg)
 
 ### 2.3 Name of Feature 2 / Use Case 2
 ... ...
