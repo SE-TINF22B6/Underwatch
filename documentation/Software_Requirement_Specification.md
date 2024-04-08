@@ -65,7 +65,11 @@ For better readabillity we will provide three seperate use-case-diagrams
 1. The Game:
 ![Game-Use-Case-diagram]( ./assets/underwatch_game_usecase.drawio.svg )
 
-![UML-diagram](./assets/underwatch_usecase.drawio.svg)
+2. The Users System:
+![System-Use-Case-diagram]( ./assets/underwatch_system_usecase.drawio.svg )
+
+3. The Website:
+![Website-Use-Case-diagram]( ./assets/underwatch_website_usecase.drawio.svg )
 
 <!-- ### 2.2 Name of Feature 1 / Use Case 1 -->
 <!-- > Specify this feature / use case by: -->
