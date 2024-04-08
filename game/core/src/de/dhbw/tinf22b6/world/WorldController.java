@@ -10,7 +10,6 @@ import de.dhbw.tinf22b6.gameobject.Bullet;
 import de.dhbw.tinf22b6.gameobject.GameObject;
 import de.dhbw.tinf22b6.gameobject.Player;
 import de.dhbw.tinf22b6.screen.GameScreen;
-import de.dhbw.tinf22b6.screen.MenuScreen;
 import de.dhbw.tinf22b6.util.CameraHelper;
 import de.dhbw.tinf22b6.util.Constants;
 import de.dhbw.tinf22b6.util.EntitySystem;
@@ -31,6 +30,7 @@ public class WorldController extends InputAdapter {
     private final Vector2 motion = new Vector2(0, 0);
     public boolean debugBox2D = false;
     private Camera camera;
+    private GameScreen gameScreen;
     private final Preferences prefs = Gdx.app.getPreferences("Controls");
     private final int left = prefs.getInteger("left", Input.Keys.A);
     private final int right = prefs.getInteger("right", Input.Keys.D);
@@ -40,10 +40,11 @@ public class WorldController extends InputAdapter {
     private final int dodge = prefs.getInteger("dodge", Input.Keys.SPACE);
 
 
-    public WorldController(Game game, World world, Camera camera) {
+    public WorldController(Game game, World world, Camera camera, GameScreen gameScreen) {
         this.game = game;
         this.world = world;
         this.camera = camera;
+        this.gameScreen = gameScreen;
         init();
     }
 
@@ -116,7 +117,7 @@ public class WorldController extends InputAdapter {
             Gdx.app.debug(TAG, "Objects in List: " + EntitySystem.instance.getGameObjects().size());
         }
         if (keycode == dodge) player.dodge();
-        if (keycode == Input.Keys.ESCAPE) game.setScreen(new MenuScreen(game));
+        if (keycode == Input.Keys.ESCAPE) gameScreen.setPaused();
         if (keycode == Input.Keys.C) debugBox2D = !debugBox2D;
 
         return super.keyDown(keycode);

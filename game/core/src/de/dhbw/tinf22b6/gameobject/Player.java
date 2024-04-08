@@ -20,6 +20,7 @@ public class Player extends GameObject {
     private static final String TAG = Player.class.getName();
     private Weapon weapon;
     private boolean dodging;
+    private int score;
 
     public int getHealth() {
         return health;
@@ -132,5 +133,9 @@ public class Player extends GameObject {
                 throw new RuntimeException(e);
             }
         }).start();
+    }
+
+    public int getScore() {
+        return score;
     }
 }

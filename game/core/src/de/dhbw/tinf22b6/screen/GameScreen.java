@@ -8,8 +8,7 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.World;
-import de.dhbw.tinf22b6.overlay.ScreenOverlay;
-import de.dhbw.tinf22b6.ui.HeadUpDisplay;
+import de.dhbw.tinf22b6.ui.ingame.InGameStageHandler;
 import de.dhbw.tinf22b6.util.EntitySystem;
 import de.dhbw.tinf22b6.world.WorldController;
 import de.dhbw.tinf22b6.world.WorldListener;
@@ -20,20 +19,22 @@ import static de.dhbw.tinf22b6.util.Constants.VIEWPORT_HEIGHT;
 import static de.dhbw.tinf22b6.util.Constants.VIEWPORT_WIDTH;
 
 public class GameScreen extends AbstractGameScreen {
+    private final TiledMap map;
+    Music m = Gdx.audio.newMusic(Gdx.files.internal("music/downfall.mp3"));
     private WorldController worldController;
     private WorldRenderer worldRenderer;
-    private ScreenOverlay overlay;
-    private HeadUpDisplay hud;
-
     private boolean paused;
-    Music m = Gdx.audio.newMusic(Gdx.files.internal("music/downfall.mp3"));
-    private final TiledMap map;
     private World world;
+    private InGameStageHandler stageHandler;
 
     public GameScreen(Game game, TiledMap map) {
         super(game);
         this.map = map;
         m.play();
+    }
+
+    public boolean isPaused() {
+        return paused;
     }
 
     @Override
@@ -53,7 +54,8 @@ public class GameScreen extends AbstractGameScreen {
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         // Render game world to screen
         worldRenderer.render();
-        hud.draw();
+        stageHandler.update();
+        stageHandler.drawAndAct();
     }
 
     @Override
@@ -69,9 +71,9 @@ public class GameScreen extends AbstractGameScreen {
         EntitySystem.instance.init(WorldParser.parseGameObjects(map, world));
         OrthographicCamera camera =
                 new OrthographicCamera(VIEWPORT_WIDTH, VIEWPORT_HEIGHT);
-        worldController = new WorldController(game, world, camera);
+        worldController = new WorldController(game, world, camera, this);
         worldRenderer = new WorldRenderer(worldController, world, map, camera);
-        hud = new HeadUpDisplay(worldController.getPlayer());
+        stageHandler = new InGameStageHandler(game, this, worldController.getPlayer());
     }
 
     @Override
@@ -88,5 +90,14 @@ public class GameScreen extends AbstractGameScreen {
         super.resume();
         // Only called on Android!
         paused = false;
+    }
+
+    public void unpause() {
+        this.paused = false;
+        Gdx.input.setInputProcessor(worldController);
+    }
+
+    public void setPaused() {
+        this.paused = true;
     }
 }

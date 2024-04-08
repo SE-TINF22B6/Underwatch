@@ -3,7 +3,7 @@ package de.dhbw.tinf22b6.screen;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
-import de.dhbw.tinf22b6.ui.StageManager;
+import de.dhbw.tinf22b6.ui.menu.StageManager;
 
 public class MenuScreen extends AbstractGameScreen {
     private static final String TAG = MenuScreen.class.getName();

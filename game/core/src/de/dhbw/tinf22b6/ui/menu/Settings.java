@@ -1,4 +1,4 @@
-package de.dhbw.tinf22b6.ui;
+package de.dhbw.tinf22b6.ui.menu;
 
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
