@@ -83,7 +83,7 @@ For better readabillity we will provide three seperate use-case-diagrams
 <!-- > - Postconditions. *A postcondition of a use case is a list of possible states the system can be in immediately after a use case has finished.* -->
 <!-- > - **Estimated efforts (high, medium, low)** -->
 ### 2.1.2 Important Entities and Classes
->[!TODO] We have to add the EER models which we have in stuff we have to fit later(https://github.com/SE-TINF22B6/Underwatch/wiki/Stuff-we-have-to-fit-later).
+> [!TODO] We have to add the EER models which we have in stuff we have to fit later(https://github.com/SE-TINF22B6/Underwatch/wiki/Stuff-we-have-to-fit-later).
 >At this point we can also rework them to be better. We dont have to go into to much detail and the core graphic will probably be the game EER.
 >We can put three parts here
 >1. The game
