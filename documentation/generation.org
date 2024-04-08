@@ -1,0 +1,45 @@
+#+title: Generation
+
+#+begin_src plantuml :file ./assets/use-case.svg :results file
+@startuml
+
+actor Player as P
+
+package "System" {
+    usecase "Install the game" as Install
+    usecase "Uninstall the game" as Uninstall
+}
+
+package "The Game" {
+    usecase "Start new game" as Start
+    usecase "Finish the game" as Finish
+    usecase "Continue last game" as Continue
+    usecase "Pause the game" as Pause
+    usecase "Submit highscores" as Submit
+    usecase "Change settings" as Settings
+}
+
+package "Website" {
+    usecase "Download the game" as Download
+    usecase "Browse wiki" as Wiki
+    usecase "Browse highscores" as Highscores
+}
+
+P -r-> Install
+P -r-> Uninstall
+
+P --> Start
+P --> Finish
+P --> Pause
+P --> Submit
+P --> Settings
+
+P --> Download
+P --> Wiki : Interact with
+P --> Highscores : Interact with
+
+@enduml
+#+end_src
+
+#+RESULTS:
+[[file:./assets/use-case.svg]]

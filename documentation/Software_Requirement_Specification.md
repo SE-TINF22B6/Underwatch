@@ -59,14 +59,16 @@ It also provides a basic website with the following features:
 2. The website containts highscores.
 3. The website provides a wiki. 
 
-### 2.2 Name of Feature 1 / Use Case 1
-> Specify this feature / use case by:
-> - Relevant **user stories (their links or labels)**
-> - **UI mockups**
-> - **UML behavior diagrams** and necessary text specification
-> - **Preconditions**. *A precondition of a use case is the state of the system that must be present prior to a use case being performed.*
-> - Postconditions. *A postcondition of a use case is a list of possible states the system can be in immediately after a use case has finished.*
-> - **Estimated efforts (high, medium, low)**
+<!-- ### 2.2 Name of Feature 1 / Use Case 1 -->
+<!-- > Specify this feature / use case by: -->
+<!-- > - Relevant **user stories (their links or labels)** -->
+<!-- > - **UI mockups** -->
+<!-- > - **UML behavior diagrams** and necessary text specification -->
+<!-- > - **Preconditions**. *A precondition of a use case is the state of the system that must be present prior to a use case being performed.* -->
+<!-- > - Postconditions. *A postcondition of a use case is a list of possible states the system can be in immediately after a use case has finished.* -->
+<!-- > - **Estimated efforts (high, medium, low)** -->
+
+
 
 
 ### 2.3 Name of Feature 2 / Use Case 2
