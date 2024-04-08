@@ -58,6 +58,7 @@ It also provides a basic website with the following features:
 1. Players can download the game.
 2. The website containts highscores.
 3. The website provides a wiki. 
+
 ### 2.2 Name of Feature 1 / Use Case 1
 > Specify this feature / use case by:
 > - Relevant **user stories (their links or labels)**
