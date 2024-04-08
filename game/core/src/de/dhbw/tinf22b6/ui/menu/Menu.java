@@ -14,6 +14,11 @@ import de.dhbw.tinf22b6.screen.GameScreen;
 import de.dhbw.tinf22b6.util.Assets;
 import de.dhbw.tinf22b6.world.WorldType;
 
+import java.net.URI;
+import java.net.http.HttpClient;
+import java.net.http.HttpRequest;
+import java.net.http.HttpResponse;
+
 public class Menu extends Stage {
     public Menu(StageManager stageManager) {
         super();
@@ -23,6 +28,10 @@ public class Menu extends Stage {
         Table table = new Table(skin);
         table.setFillParent(true);
         this.addActor(table);
+
+        Label dadJoke = new Label(getDadJoke(), skin);
+        dadJoke.setFontScale(0.5f);
+        table.add(dadJoke).row();
 
         Button btnStart = new Button(skin);
         btnStart.add(new Label("Start Game", skin));
@@ -74,7 +83,7 @@ public class Menu extends Stage {
                     }
                 }
         );
-        btnQuit.addListener(new ClickListener(){
+        btnQuit.addListener(new ClickListener() {
             @Override
             public void enter(InputEvent event, float x, float y, int pointer, Actor fromActor) {
                 Gdx.audio.newSound(Gdx.files.internal("sfx/button_hover.mp3")).play();
@@ -83,5 +92,19 @@ public class Menu extends Stage {
         });
         table.add(btnQuit).pad(20);
         table.row();
+    }
+
+    private String getDadJoke() {
+        StringBuilder stringBuilder = new StringBuilder();
+        HttpClient client = HttpClient.newHttpClient();
+        HttpRequest request = HttpRequest.newBuilder()
+                .uri(URI.create("https://icanhazdadjoke.com/"))
+                .header("Accept", "text/plain")
+                .build();
+        client.sendAsync(request, HttpResponse.BodyHandlers.ofString())
+                .thenApply(HttpResponse::body)
+                .thenAccept(stringBuilder::append)
+                .join();
+        return stringBuilder.toString();
     }
 }
