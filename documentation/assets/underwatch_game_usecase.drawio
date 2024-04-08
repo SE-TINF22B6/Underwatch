@@ -1,0 +1,52 @@
+<mxfile host="Electron" modified="2024-04-08T12:19:40.564Z" agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/24.1.0 Chrome/120.0.6099.109 Electron/28.1.0 Safari/537.36" etag="eFyrRka0KwNg0s2sB72p" version="24.1.0" type="device">
+  <diagram name="Page-1" id="5NqF7CxCd530t5x6bPOv">
+    <mxGraphModel dx="954" dy="674" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="cCH0K3rHO2u_TaVGeYA7-15" value="" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="80" y="270" width="590" height="520" as="geometry" />
+        </mxCell>
+        <mxCell id="cCH0K3rHO2u_TaVGeYA7-1" value="" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="460" y="280" width="160" height="490" as="geometry" />
+        </mxCell>
+        <mxCell id="cCH0K3rHO2u_TaVGeYA7-2" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;curved=1;" edge="1" parent="1" source="cCH0K3rHO2u_TaVGeYA7-7" target="cCH0K3rHO2u_TaVGeYA7-9">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="cCH0K3rHO2u_TaVGeYA7-3" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;curved=1;" edge="1" parent="1" source="cCH0K3rHO2u_TaVGeYA7-7" target="cCH0K3rHO2u_TaVGeYA7-12">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="cCH0K3rHO2u_TaVGeYA7-4" style="edgeStyle=orthogonalEdgeStyle;curved=1;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;strokeColor=default;align=center;verticalAlign=middle;fontFamily=Helvetica;fontSize=11;fontColor=default;labelBackgroundColor=default;endArrow=classic;" edge="1" parent="1" source="cCH0K3rHO2u_TaVGeYA7-7" target="cCH0K3rHO2u_TaVGeYA7-10">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="cCH0K3rHO2u_TaVGeYA7-5" style="edgeStyle=orthogonalEdgeStyle;curved=1;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;strokeColor=default;align=center;verticalAlign=middle;fontFamily=Helvetica;fontSize=11;fontColor=default;labelBackgroundColor=default;endArrow=classic;" edge="1" parent="1" source="cCH0K3rHO2u_TaVGeYA7-7" target="cCH0K3rHO2u_TaVGeYA7-13">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="cCH0K3rHO2u_TaVGeYA7-6" style="edgeStyle=orthogonalEdgeStyle;curved=1;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=default;align=center;verticalAlign=middle;fontFamily=Helvetica;fontSize=11;fontColor=default;labelBackgroundColor=default;endArrow=classic;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="cCH0K3rHO2u_TaVGeYA7-7" target="cCH0K3rHO2u_TaVGeYA7-11">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="cCH0K3rHO2u_TaVGeYA7-7" value="Player" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;outlineConnect=0;" vertex="1" parent="1">
+          <mxGeometry x="100" y="555" width="30" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="cCH0K3rHO2u_TaVGeYA7-8" value="Game" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;strokeColor=default;" vertex="1" parent="1">
+          <mxGeometry x="460" y="280" width="160" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="cCH0K3rHO2u_TaVGeYA7-9" value="&lt;div&gt;start new&amp;nbsp;&lt;/div&gt;&lt;div&gt;game&lt;/div&gt;" style="ellipse;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="480" y="320" width="120" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="cCH0K3rHO2u_TaVGeYA7-10" value="&lt;div&gt;finish game&lt;/div&gt;" style="ellipse;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="480" y="590" width="120" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="cCH0K3rHO2u_TaVGeYA7-11" value="&lt;div&gt;continue&lt;/div&gt;&lt;div&gt;game&lt;/div&gt;" style="ellipse;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="480" y="680" width="120" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="cCH0K3rHO2u_TaVGeYA7-12" value="&lt;div&gt;pause&lt;/div&gt;&lt;div&gt;game&lt;/div&gt;" style="ellipse;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="480" y="410" width="120" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="cCH0K3rHO2u_TaVGeYA7-13" value="&lt;div&gt;submit high-&lt;/div&gt;&lt;div&gt;scores&lt;/div&gt;" style="ellipse;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="480" y="500" width="120" height="80" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
