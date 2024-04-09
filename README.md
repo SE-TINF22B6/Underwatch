@@ -5,7 +5,7 @@
 [![React CI](https://github.com/SE-TINF22B6/Underwatch/actions/workflows/react.yml/badge.svg)](https://github.com/SE-TINF22B6/Underwatch/actions/workflows/react.yml)
 [![Spring Boot CI](https://github.com/SE-TINF22B6/Underwatch/actions/workflows/spring.yml/badge.svg)](https://github.com/SE-TINF22B6/Underwatch/actions/workflows/spring.yml)
 
-![Underwatch](https://cdn.discordapp.com/attachments/1159394211959943170/1161915305438756924/8-LG1gGJzDl6hv2Zd.png?ex=6555b874&is=65434374&hm=5e149fbdb0e48ce6efdbce24b17fa01da9d5635636898ade66bacbfc6ba116ed&)
+![Underwatch](https://github.com/SE-TINF22B6/Underwatch/assets/11832982/3be5656e-642a-4601-b716-2d651e1303f9)
 <br />
 <br />
 
