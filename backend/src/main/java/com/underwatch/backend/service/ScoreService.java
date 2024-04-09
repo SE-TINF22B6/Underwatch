@@ -24,9 +24,7 @@ public class ScoreService {
     }
 
     public void saveAllScores(List<Score> scores) {
-        for (Score score : scores) {
-            scoreRepository.save(score);
-        }
+        scoreRepository.saveAll(scores);
     }
 
     public List<Score> getAllScores() {
