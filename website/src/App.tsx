@@ -14,7 +14,6 @@ function App() {
   return (
     <ThemeProvider theme={theme1}>
       <div className="App">
-        <VideoBackground/>
         <Box
           display="flex"
           justifyContent="right"

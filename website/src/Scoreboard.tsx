@@ -235,7 +235,6 @@ const Scoreboard = () => {
     return (
         <ThemeProvider theme={theme2}>
             <div className="Scoreboard">
-                <VideoBackground/>
                 <AppBar position="static" className="appBar">
                     <Toolbar variant="dense">
                         <Link to="/" className="link">
