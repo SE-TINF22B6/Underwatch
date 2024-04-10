@@ -2,8 +2,6 @@ import { AppBar, Toolbar, Typography } from "@mui/material";
 import { theme2 } from "./theme";
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import './WikiRegisters.css';
-import { style } from "@mui/system";
 
 interface WikiRegistersProps {
     tabIdents: number[];
