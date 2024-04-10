@@ -5,7 +5,7 @@ import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 
 public enum WorldType {
     LEVEL1("level/2.0Map.tmx"),
-    LEVEL2("level/2.0Map.tmx"),
+    LEVEL2("level/TeleportTestFixed.tmx"),
     LEVEL3("level/2.0Map.tmx");
 
     private final String path;

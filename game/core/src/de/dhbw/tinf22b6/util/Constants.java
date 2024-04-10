@@ -15,7 +15,7 @@ public class Constants {
     public static final short DOOR_COLLISION_BIT = 32;
     public static final short DOOR_INTERACTION_BIT = 64;
     public static final short POTION_BIT = 128;
-    public static final short ELEVATOR_BIT = 256;
+    public static final short TELEPORTER_BIT = 256;
     public static final short PLAYER_BIT = 512;
     public static final short WALL_BIT = 1024;
     public static final short WEAPON_ENEMY_BIT = 2048;

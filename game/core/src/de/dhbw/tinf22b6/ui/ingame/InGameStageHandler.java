@@ -48,7 +48,10 @@ public class InGameStageHandler {
         switch (stageName) {
             case "HUD" -> currentStage = stages.get("HUD");
             case "Pause" -> currentStage = stages.get("Pause");
-            case "GameOver" -> currentStage = stages.get("GameOver");
+            case "GameOver" -> {
+                currentStage = stages.get("GameOver");
+                ((GameOverStage) currentStage).update();
+            }
         }
     }
 }

@@ -13,11 +13,15 @@ import de.dhbw.tinf22b6.screen.MenuScreen;
 import de.dhbw.tinf22b6.util.Assets;
 
 public class GameOverStage extends Stage {
+    private final Label lblScore;
+    private final Player player;
+
     public GameOverStage(Player player, Game game) {
         Skin skin = Assets.instance.getSkin();
+        this.player = player;
 
         Label lblGameOver = new Label("Game Over", skin);
-        Label lblScore = new Label("Score: " + player.getScore(), skin);
+        lblScore = new Label("Score: " + player.getScore(), skin);
 
         Button btnQuit = new Button(new Label("Quit", skin), skin);
         btnQuit.addListener(new ClickListener() {
@@ -37,5 +41,9 @@ public class GameOverStage extends Stage {
         table.add(btnQuit);
         table.pad(8);
         this.addActor(table);
+    }
+
+    public void update() {
+        lblScore.setText("Score: " + player.getScore());
     }
 }

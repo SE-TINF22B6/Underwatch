@@ -13,6 +13,7 @@ import de.dhbw.tinf22b6.screen.GameScreen;
 import de.dhbw.tinf22b6.util.CameraHelper;
 import de.dhbw.tinf22b6.util.Constants;
 import de.dhbw.tinf22b6.util.EntitySystem;
+import de.dhbw.tinf22b6.util.PlayerStatistics;
 
 import static de.dhbw.tinf22b6.util.Constants.TILE_SIZE;
 
@@ -40,18 +41,18 @@ public class WorldController extends InputAdapter {
     private final int dodge = prefs.getInteger("dodge", Input.Keys.SPACE);
 
 
-    public WorldController(Game game, World world, Camera camera, GameScreen gameScreen) {
+    public WorldController(Game game, World world, Camera camera, GameScreen gameScreen, PlayerStatistics playerStatistics) {
         this.game = game;
         this.world = world;
         this.camera = camera;
         this.gameScreen = gameScreen;
-        init();
+        init(playerStatistics);
     }
 
-    private void init() {
+    private void init(PlayerStatistics playerStatistics) {
         Gdx.input.setInputProcessor(this);
         Gdx.graphics.setSystemCursor(Cursor.SystemCursor.Crosshair);
-        player = new Player(world, new Vector2(5, 5));
+        player = new Player(world, new Vector2(5, 5), playerStatistics);
         cameraHelper = new CameraHelper();
         cameraHelper.setTarget(player);
         EntitySystem.instance.add(player);
@@ -134,7 +135,7 @@ public class WorldController extends InputAdapter {
             player.applyForce(motion.setLength(1));
 
         if (keycode == Input.Keys.R) {
-            game.setScreen(new GameScreen(game, WorldType.LEVEL1.getMap()));
+            game.setScreen(new GameScreen(game, WorldType.LEVEL2.getMap()));
             Gdx.app.debug(TAG, "Game world reset");
         }
         if (keycode == Input.Keys.ENTER) {
