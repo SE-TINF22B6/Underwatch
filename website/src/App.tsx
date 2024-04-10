@@ -5,7 +5,6 @@ import {
   ThemeProvider, 
   Typography
 } from '@mui/material';
-import VideoBackground from './VideoBackground';
 import { theme1 } from './theme';
 import NavigationMenu from './NavigationMenu';
 
@@ -14,7 +13,6 @@ function App() {
   return (
     <ThemeProvider theme={theme1}>
       <div className="App">
-        <VideoBackground/>
         <Box
           display="flex"
           justifyContent="right"

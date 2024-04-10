@@ -21,7 +21,6 @@ import {
     TableSortLabel,
 } from '@mui/material';
 import {theme2} from './theme';
-import VideoBackground from './VideoBackground';
 import NavigationMenu from './NavigationMenu';
 import {LocalizationProvider} from '@mui/x-date-pickers';
 import {AdapterDayjs} from '@mui/x-date-pickers/AdapterDayjs';
@@ -235,7 +234,6 @@ const Scoreboard = () => {
     return (
         <ThemeProvider theme={theme2}>
             <div className="Scoreboard">
-                <VideoBackground/>
                 <AppBar position="static" className="appBar">
                     <Toolbar variant="dense">
                         <Link to="/" className="link">

@@ -1,6 +1,6 @@
 import React from "react";
 
-const ViedeoBackground = () => {
+const ViedeoBackground = (props:{path:string}) => {
     return(
         <video
             autoPlay
@@ -17,7 +17,7 @@ const ViedeoBackground = () => {
                 filter: 'blur(5px)'
             }}
         >
-            <source src="../Gameplay.mov"/>
+            <source src={props.path}/>
             Dein Browser unterstützt das Viedeo-Tag nicht
         </video>
     );

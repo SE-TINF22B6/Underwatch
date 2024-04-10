@@ -5,8 +5,14 @@ import App from './App';
 import Scoreboard from './Scoreboard';
 import { RouterProvider, createBrowserRouter } from 'react-router-dom';
 import NotFound from './NotFound';
-import Wiki from './wiki';
+import Wiki from './Wiki';
+import WikiWeapons from './WikiWeapons';
+import WikiMobs from './WikiMobs';
+import WikiTipps from './WikiTipps';
 import Champions from './Champions';
+import ViedeoBackground from './VideoBackground';
+
+
 
 
 const root = ReactDOM.createRoot(
@@ -31,6 +37,18 @@ const router = createBrowserRouter([
     element: <Wiki/>
   },
   {
+    path: '/wiki/weapons/',
+    element: <WikiWeapons/>
+  },
+  {
+    path: '/wiki/mobs/',
+    element: <WikiMobs/>
+  },
+  {
+    path: '/wiki/tipps/',
+    element: <WikiTipps/>
+  },
+  {
     path: '*',
     element: <NotFound/>
   }
@@ -38,6 +56,7 @@ const router = createBrowserRouter([
 
 root.render(
   <React.StrictMode>
+    <ViedeoBackground path="./Gameplay.mov"/>
     <RouterProvider router={router}/>
   </React.StrictMode>
 );
