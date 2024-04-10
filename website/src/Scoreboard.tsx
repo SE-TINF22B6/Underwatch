@@ -21,7 +21,6 @@ import {
     TableSortLabel,
 } from '@mui/material';
 import {theme2} from './theme';
-import VideoBackground from './VideoBackground';
 import NavigationMenu from './NavigationMenu';
 import {LocalizationProvider} from '@mui/x-date-pickers';
 import {AdapterDayjs} from '@mui/x-date-pickers/AdapterDayjs';

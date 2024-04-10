@@ -1,6 +1,5 @@
 import { ThemeProvider } from "@emotion/react";
 import { theme2 } from "./theme";
-import VideoBackground from "./VideoBackground";
 import { AppBar, Toolbar, Typography } from "@mui/material";
 import {Link} from "react-router-dom";
 import NavigationMenu from "./NavigationMenu";

@@ -6,11 +6,10 @@ import { AppBar, Toolbar, Typography } from "@mui/material";
 import {Link} from "react-router-dom";
 import NavigationMenu from "./NavigationMenu";
 import WikiRegisters from './WikiRegisters';
-import VideoBackground from './VideoBackground';
 
 function WikiMobs() {
-    const weapons = getWeapons();
-    const enemies = getEnemies();
+    //const weapons = getWeapons();
+    //const enemies = getEnemies();
     
 
     return (

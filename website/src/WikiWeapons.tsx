@@ -2,15 +2,14 @@ import React from 'react';
 import { getWeapons, getEnemies } from './data/base';
 import { ThemeProvider } from "@emotion/react";
 import { theme2 } from "./theme";
-import VideoBackground from "./VideoBackground";
 import { AppBar, Toolbar, Typography } from "@mui/material";
 import {Link} from "react-router-dom";
 import NavigationMenu from "./NavigationMenu";
 import WikiRegisters from './WikiRegisters';
 
 function WikiWeapons() {
-    const weapons = getWeapons();
-    const enemies = getEnemies();
+    //const weapons = getWeapons();
+    //const enemies = getEnemies();
     
 
     return (

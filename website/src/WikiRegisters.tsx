@@ -1,11 +1,8 @@
-import { AppBar, Toolbar, Typography } from "@mui/material";
+import { Typography } from "@mui/material";
 import { theme2 } from "./theme";
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 
-interface WikiRegistersProps {
-    tabIdents: number[];
-}
 
 function mapTabIdents(array:number[]):number[]{
     const returnArray: number[] = [];

@@ -5,7 +5,6 @@ import {
   ThemeProvider, 
   Typography
 } from '@mui/material';
-import VideoBackground from './VideoBackground';
 import { theme1 } from './theme';
 import NavigationMenu from './NavigationMenu';
 
