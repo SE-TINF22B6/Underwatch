@@ -1,5 +1,4 @@
 import React from 'react';
-import { getWeapons, getEnemies } from './data/base';
 import { ThemeProvider } from "@emotion/react";
 import { theme2 } from "./theme";
 import { AppBar, Toolbar, Typography } from "@mui/material";
@@ -8,8 +7,7 @@ import NavigationMenu from "./NavigationMenu";
 import WikiRegisters from './WikiRegisters';
 
 function WikiTipps() {
-    //const weapons = getWeapons();
-    //const enemies = getEnemies();
+
     
 
     return (
