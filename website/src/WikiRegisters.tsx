@@ -27,8 +27,6 @@ function WikiRegisters(props:{tabIdents:number[]}) {
 
     const [hoveredCards, setHoveredCards] = useState(Array(tabIdentValues.length).fill(false));
 
-    console.log(tabIdentValues);
-
     return (
         <div className="wiki-registers" style={{
             position: "fixed",
@@ -66,7 +64,7 @@ function WikiRegisters(props:{tabIdents:number[]}) {
                         <div style={{
                             height:"100%"
                         }}>
-                            <Typography variant='h6' align='center'>{text}</Typography>
+                            <Typography variant='h5' align='center'>{text}</Typography>
                             <Typography variant='body1' align='center' style={{
                                 marginTop:"20px",
                             }}>
