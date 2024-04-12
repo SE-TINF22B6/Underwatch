@@ -1,10 +1,7 @@
 import { Typography } from "@mui/material";
 import { theme2 } from "./theme";
 
-
-
 function WikiCard(props:{title:string, attributes:string[], values:string[]}) {
-
     return (
         <div className="wiki-card" style={{
             backgroundColor: theme2.palette.primary.main,

@@ -9,9 +9,6 @@ import WikiCardBox from './WikiCardBox';
 import { getEnemies } from './data/base';
 
 function WikiMobs() {
-    
-    
-
     return (
         <ThemeProvider theme={theme2}>
         <div className="wiki">
@@ -27,12 +24,9 @@ function WikiMobs() {
         </div>
 
         <WikiCardBox getData={getEnemies}/>
-
         <WikiRegisters tabIdents={[1,2,1]}/>
-
-
+        
         </ThemeProvider>
-
     );
 }
 

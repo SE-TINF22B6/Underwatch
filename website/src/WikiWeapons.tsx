@@ -9,8 +9,6 @@ import WikiCardBox from './WikiCardBox';
 import { getWeapons } from './data/base';
 
 function WikiWeapons() {
-
-
     return (
         <ThemeProvider theme={theme2}>
             <div className="wiki">
@@ -26,11 +24,9 @@ function WikiWeapons() {
             </div>
             
             <WikiCardBox getData={getWeapons}/>
-
             <WikiRegisters tabIdents={[2,1,1]}/>
 
         </ThemeProvider>
-
     );
 }
 

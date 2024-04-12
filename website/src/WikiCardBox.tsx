@@ -1,10 +1,7 @@
 import WikiCard from "./WikiCard";
 import './WikiCardBox.css';
 
-
-
 function WikiCardBox(props:{getData:Function}) {
-
     const data:object[] = props.getData();
     let cardAttributes: string[] = [];
     let cardValues: string[][] = [];
@@ -14,8 +11,6 @@ function WikiCardBox(props:{getData:Function}) {
         cardValues.push([values[3], values[2]]);
     });
     console.log(cardAttributes);
-
-    
 
     return (
         <div className="OuterCardBox" style={{
@@ -41,7 +36,6 @@ function WikiCardBox(props:{getData:Function}) {
                 )}
             </div>
         </div>
-      
     );
 }
 
