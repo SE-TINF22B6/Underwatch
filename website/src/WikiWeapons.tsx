@@ -5,10 +5,10 @@ import { AppBar, Toolbar, Typography } from "@mui/material";
 import {Link} from "react-router-dom";
 import NavigationMenu from "./NavigationMenu";
 import WikiRegisters from './WikiRegisters';
+import WikiCardBox from './WikiCardBox';
+import { getWeapons } from './data/base';
 
 function WikiWeapons() {
-
-
     return (
         <ThemeProvider theme={theme2}>
             <div className="wiki">
@@ -23,12 +23,10 @@ function WikiWeapons() {
                 </AppBar>
             </div>
             
-            
-
+            <WikiCardBox getData={getWeapons}/>
             <WikiRegisters tabIdents={[2,1,1]}/>
 
         </ThemeProvider>
-
     );
 }
 

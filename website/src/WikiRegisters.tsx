@@ -3,7 +3,6 @@ import { theme2 } from "./theme";
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 
-
 function mapTabIdents(array:number[]):number[]{
     const returnArray: number[] = [];
     array.forEach((number: number) => {
@@ -18,16 +17,12 @@ function mapTabIdents(array:number[]):number[]{
     return  returnArray;
 }
 
-
 function WikiRegisters(props:{tabIdents:number[]}) {
     const registerNames = ["Weapons", "Mobs", "Tipps'n Tricks"];
     const wikiLinks = ["/wiki/weapons/", "/wiki/mobs/", "/wiki/tipps/"]
     const registerText = ["gives an overview over all the playable weapons", "gives an overview over all the mobs you can meet", "tipps to have more fun with the game"]
     const tabIdentValues : number[] = mapTabIdents(props.tabIdents);
-
     const [hoveredCards, setHoveredCards] = useState(Array(tabIdentValues.length).fill(false));
-
-    console.log(tabIdentValues);
 
     return (
         <div className="wiki-registers" style={{
@@ -40,25 +35,23 @@ function WikiRegisters(props:{tabIdents:number[]}) {
             alignItems: "flex-end",
         }}>
             {registerNames.map((text, index) => 
-                
-                <div className="register-card" style={{
-                    color: theme2.palette.primary.contrastText,
-                    backgroundColor: theme2.palette.primary.main,
-                    border: "1px solid",
-                    borderRadius: "10px 10px 0 0",
-                    height: hoveredCards[index]? "200px" : tabIdentValues[index],
-                    flex:1,
-                    transition: "height 0.3s",
-                }}
-                onMouseEnter={() => {
-                    const updatedHoveredCards = Array(tabIdentValues.length).fill(false);
-                    updatedHoveredCards[index] = true;
-                    setHoveredCards(updatedHoveredCards);
-                }}
-                onMouseLeave={() => {
-                    setHoveredCards(Array(tabIdentValues.length).fill(false));
-                }}
-                >
+                <div className="register-card" 
+                    style={{
+                        color: theme2.palette.primary.contrastText,
+                        backgroundColor: theme2.palette.primary.main,
+                        border: "1px solid",
+                        borderRadius: "10px 10px 0 0",
+                        height: hoveredCards[index]? "200px" : tabIdentValues[index],
+                        flex:1,
+                        transition: "height 0.3s",
+                    }}
+                    onMouseEnter={() => {
+                        const updatedHoveredCards = Array(tabIdentValues.length).fill(false);
+                        updatedHoveredCards[index] = true;
+                        setHoveredCards(updatedHoveredCards);
+                    }}
+                    onMouseLeave={() => {setHoveredCards(Array(tabIdentValues.length).fill(false));
+                }}>
                     <Link to={wikiLinks[index]} className="link" style={{
                         color: theme2.palette.primary.contrastText,
                         textDecoration: "none",
@@ -66,7 +59,7 @@ function WikiRegisters(props:{tabIdents:number[]}) {
                         <div style={{
                             height:"100%"
                         }}>
-                            <Typography variant='h6' align='center'>{text}</Typography>
+                            <Typography variant='h5' align='center'>{text}</Typography>
                             <Typography variant='body1' align='center' style={{
                                 marginTop:"20px",
                             }}>
@@ -75,8 +68,6 @@ function WikiRegisters(props:{tabIdents:number[]}) {
                         </div>
                     </Link>
                 </div>
-                
-
             )}
         </div>
     );
