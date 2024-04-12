@@ -5,6 +5,8 @@ import { AppBar, Toolbar, Typography } from "@mui/material";
 import {Link} from "react-router-dom";
 import NavigationMenu from "./NavigationMenu";
 import WikiRegisters from './WikiRegisters';
+import WikiCardBox from './WikiCardBox';
+import { getEnemies } from './data/base';
 
 function WikiMobs() {
     
@@ -23,6 +25,8 @@ function WikiMobs() {
                 </Toolbar>
             </AppBar>
         </div>
+
+        <WikiCardBox getData={getEnemies}/>
 
         <WikiRegisters tabIdents={[1,2,1]}/>
 

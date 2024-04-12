@@ -1,0 +1,19 @@
+/* ------------- Scrollbar ------------------ */
+::-webkit-scrollbar {
+    width: 10px; /* Breite der Scrollleiste */
+  }
+  
+  ::-webkit-scrollbar-track {
+    /*background: #3d253b; /* Hintergrundfarbe der Scrollleisten-Spur */
+    border-radius: 5px;
+  }
+  
+  ::-webkit-scrollbar-thumb {
+    /*background: #6e4a48; /* Farbe des Scrollleisten-Daumens */
+    background: #3d253b;
+    border-radius: 5px; /* abgerundete Ecken des Scrollleisten-Daumens */
+  }
+  
+  ::-webkit-scrollbar-thumb:hover {
+    background: #F36437; /* Farbe des Scrollleisten-Daumens bei Hover */
+  }
