@@ -59,4 +59,5 @@ jobs:
           file: ./backend/Dockerfile
           platforms: ${{ matrix.platforms }}
           push: true 
+          tags: ${{ github.sha }}, latest
   
