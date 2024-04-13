@@ -61,5 +61,5 @@ jobs:
           file: ./backend/Dockerfile
           platforms: ${{ matrix.platforms }}
           push: true 
-          tags: ${{ github.sha }}, latest
+          tags: ghcr.io/SE-TINF22B6/Underwatch/backend:${{ github.sha }}, ghcr.io/SE-TINF22B6/Underwatch/backend:latest
   
