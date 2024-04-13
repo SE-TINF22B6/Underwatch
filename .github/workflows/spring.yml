@@ -44,6 +44,13 @@ jobs:
         with:
           name: Backend
           path: backend/build/libs/
+          
+      - name: Log in to the Container registry
+        uses: docker/login-action@f054a8b539a109f9f41c372932f1ae047eff08c9
+        with:
+          registry: https://ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Build and push Docker image
         uses: docker/build-push-action@f2a1d5e99d037542a71f64918e516c093c6f3fc4
@@ -51,7 +58,5 @@ jobs:
           context: ./backend/
           file: ./backend/Dockerfile
           platforms: ${{ matrix.platforms }}
-          push: true
-          outputs: type=image,name=target,annotation-index.org.opencontainers.image.description=Underwatch Backend
-  
+          push: true 
   
