@@ -146,4 +146,8 @@ public class Player extends GameObject {
     public int getScore() {
         return playerStatistics.coins() + playerStatistics.enemies_killed();
     }
+
+    public int getKills() {
+        return playerStatistics.enemies_killed();
+    }
 }
