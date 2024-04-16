@@ -13,12 +13,11 @@ public class Score {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-
-    private String playername;
+    private String playerName;
     private int score;
     private int coins;
     private int kills;
-    private int damagedealt;
+    private int damageDealt;
     private int dps;
     private Timestamp timestamp;
     private Long game_time; // Assuming game_time is stored as milliseconds (you can adjust this based on your requirements)
@@ -26,24 +25,24 @@ public class Score {
     public Score() {
     }
 
-    public Score(String playername, int score, int coins, int kills, int damagedealt, int dps, Timestamp timestamp, Long game_time) {
-        this.playername = playername;
+    public Score(String playerName, int score, int coins, int kills, int damageDealt, int dps, Timestamp timestamp, Long game_time) {
+        this.playerName = playerName;
         this.score = score;
         this.coins = coins;
         this.kills = kills;
-        this.damagedealt = damagedealt;
+        this.damageDealt = damageDealt;
         this.dps = dps;
         this.timestamp = timestamp;
         this.game_time = game_time;
     }
 
-    public Score(int id, String playername, int score, int coins, int kills, int damagedealt, int dps, Timestamp timestamp, Long game_time) {
+    public Score(int id, String playerName, int score, int coins, int kills, int damageDealt, int dps, Timestamp timestamp, Long game_time) {
         this.id = id;
-        this.playername = playername;
+        this.playerName = playerName;
         this.score = score;
         this.coins = coins;
         this.kills = kills;
-        this.damagedealt = damagedealt;
+        this.damageDealt = damageDealt;
         this.dps = dps;
         this.timestamp = timestamp;
         this.game_time = game_time;
@@ -66,15 +65,15 @@ public class Score {
     /**
      * @return the playername
      */
-    public String getPlayername() {
-        return playername;
+    public String getPlayerName() {
+        return playerName;
     }
 
     /**
      * @param playername the playername to set
      */
-    public void setPlayername(String playername) {
-        this.playername = playername;
+    public void setPlayerName(String playername) {
+        this.playerName = playername;
     }
 
     /**
@@ -122,15 +121,15 @@ public class Score {
     /**
      * @return the damagedealt
      */
-    public int getDamagedealt() {
-        return damagedealt;
+    public int getDamageDealt() {
+        return damageDealt;
     }
 
     /**
      * @param damagedealt the damagedealt to set
      */
-    public void setDamagedealt(int damagedealt) {
-        this.damagedealt = damagedealt;
+    public void setDamageDealt(int damagedealt) {
+        this.damageDealt = damagedealt;
     }
 
     /**
