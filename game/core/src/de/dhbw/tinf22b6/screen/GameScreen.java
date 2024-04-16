@@ -10,26 +10,25 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.World;
 import de.dhbw.tinf22b6.ui.ingame.InGameStageHandler;
 import de.dhbw.tinf22b6.util.EntitySystem;
-import de.dhbw.tinf22b6.world.WorldController;
-import de.dhbw.tinf22b6.world.WorldListener;
-import de.dhbw.tinf22b6.world.WorldParser;
-import de.dhbw.tinf22b6.world.WorldRenderer;
+import de.dhbw.tinf22b6.util.PlayerStatistics;
+import de.dhbw.tinf22b6.world.*;
 
 import static de.dhbw.tinf22b6.util.Constants.VIEWPORT_HEIGHT;
 import static de.dhbw.tinf22b6.util.Constants.VIEWPORT_WIDTH;
 
 public class GameScreen extends AbstractGameScreen {
-    private final TiledMap map;
+    private TiledMap map;
     Music m = Gdx.audio.newMusic(Gdx.files.internal("music/downfall.mp3"));
     private WorldController worldController;
     private WorldRenderer worldRenderer;
     private boolean paused;
-    private World world;
     private InGameStageHandler stageHandler;
+    private final PlayerStatistics playerStatistics;
 
     public GameScreen(Game game, TiledMap map) {
         super(game);
         this.map = map;
+        this.playerStatistics = new PlayerStatistics(3);
         m.play();
     }
 
@@ -46,10 +45,7 @@ public class GameScreen extends AbstractGameScreen {
             worldController.update(deltaTime);
         }
         // Sets the clear screen color to: Cornflower Blue
-        Gdx.gl.glClearColor(0x64 / 255.0f,
-                0x95 / 255.0f,
-                0xed / 255.0f,
-                0xff / 255.0f);
+        Gdx.gl.glClearColor(0,0,0,0);
         // Clears the screen
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         // Render game world to screen
@@ -65,13 +61,13 @@ public class GameScreen extends AbstractGameScreen {
 
     @Override
     public void show() {
-        world = new World(new Vector2(0, 0), false);
+        World world = new World(new Vector2(0, 0), false);
         WorldParser.parseStaticObjects(map, world);
-        world.setContactListener(new WorldListener());
+        world.setContactListener(new WorldListener(this));
         EntitySystem.instance.init(WorldParser.parseGameObjects(map, world));
         OrthographicCamera camera =
                 new OrthographicCamera(VIEWPORT_WIDTH, VIEWPORT_HEIGHT);
-        worldController = new WorldController(game, world, camera, this);
+        worldController = new WorldController(game, world, camera, this, playerStatistics);
         worldRenderer = new WorldRenderer(worldController, world, map, camera);
         stageHandler = new InGameStageHandler(game, this, worldController.getPlayer());
     }
@@ -99,5 +95,10 @@ public class GameScreen extends AbstractGameScreen {
 
     public void setPaused() {
         this.paused = true;
+    }
+
+    public void changeMap(WorldType worldType) {
+        this.map = worldType.getMap();
+        this.show();
     }
 }

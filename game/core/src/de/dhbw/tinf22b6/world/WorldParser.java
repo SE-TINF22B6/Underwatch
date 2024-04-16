@@ -86,9 +86,11 @@ public class WorldParser {
     public static ArrayList<GameObject> parseGameObjects(TiledMap map, World world) {
         ArrayList<GameObject> list = new ArrayList<>();
         //TODO refactor animated game objects using an enum
-        String[] objects = new String[]{"coins", "torch", "chests", "enemy"};
+        String[] objects = new String[]{"coins", "torch", "chests", "enemy", "teleporter"};
         for (String s : objects) {
             TiledMapTileLayer layer = (TiledMapTileLayer) map.getLayers().get(s);
+            if (layer == null)
+                continue;
             for (int x = 0; x < layer.getWidth(); x++) {
                 for (int y = 0; y < layer.getHeight(); y++) {
                     TiledMapTileLayer.Cell cell = layer.getCell(x, y);
@@ -115,6 +117,9 @@ public class WorldParser {
                                 break;
                             case "enemy":
                                 list.add(new Enemy(new Vector2(x, y), world));
+                                break;
+                            case "teleporter":
+                                list.add(new Teleporter(new Vector2(x, y), world, rectangleObject.getRectangle()));
                                 break;
                         }
                     }

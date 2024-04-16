@@ -17,12 +17,35 @@
                 "y": 546.1832061068701
             }
         },
-        "2.0Map.tmx": {
-            "scale": 1.6869,
-            "selectedLayer": 4,
+        "/Users/martin/repos/Underwatch/game/Keks.biz/02_Semester/Theoretische Informatik/Dozenten/Li/Li, Nuo/iso-64x64-building.tsx": {
+            "scaleInDock": 1
+        },
+        "/Users/martin/repos/Underwatch/game/assets/Haus_map_neu.tmx": {
+            "scale": 0.7995833333333333,
+            "selectedLayer": 0,
             "viewCenter": {
-                "x": 376.4301381231845,
-                "y": 497.0656233327405
+                "x": 480.2501302761855,
+                "y": 240.12506513809276
+            }
+        },
+        "/Users/martin/repos/Underwatch/game/assets/haus map.tmx": {
+            "scale": 0.8317,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 483.3473608272213,
+                "y": 246.4831068895034
+            }
+        },
+        "/Users/martin/repos/Underwatch/game/assets/iso-64x64-building.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "2.0Map.tmx": {
+            "scale": 0.809,
+            "selectedLayer": 6,
+            "viewCenter": {
+                "x": 391.8417799752781,
+                "y": 396.16810877626693
             }
         },
         "50x50MapMitHitbox.tmx": {
@@ -49,16 +72,35 @@
                 "y": 159.83581697231938
             }
         },
+        "TeleportTest.tmx": {
+            "scale": 2.0871,
+            "selectedLayer": 6,
+            "viewCenter": {
+                "x": 54.62124478942073,
+                "y": -122.41866704997366
+            }
+        },
+        "TeleportTestFixed.tmx": {
+            "scale": 1.1867,
+            "selectedLayer": 2,
+            "viewCenter": {
+                "x": 220.78031515968652,
+                "y": 1406.842504424033
+            }
+        },
         "neuesTileset.tsx": {
             "scaleInDock": 1.8723,
             "scaleInEditor": 3.668
         }
     },
+    "frame.defaultDuration": 1,
     "last.imagePath": "/home/martin/repos/Underwatch/tiled/2D Pixel Dungeon Asset Pack/character and tileset",
+    "map.fixedSize": true,
+    "map.height": 100,
     "map.lastUsedFormat": "tmx",
     "map.tileHeight": 16,
     "map.tileWidth": 16,
-    "map.width": 20,
+    "map.width": 100,
     "openFiles": [
         "Dungeon_Tileset.tsx",
         "Sample.tmx",
@@ -66,9 +108,13 @@
     ],
     "project": "Underwatch.tiled-project",
     "recentFiles": [
-        "Dungeon_Tileset.tsx",
         "Sample.tmx",
+        "TeleportTest.tmx",
+        "Dungeon_Tileset.tsx",
         "2.0Map.tmx",
+        "/Users/martin/repos/Underwatch/game/assets/iso-64x64-building.tsx",
+        "/Users/martin/repos/Underwatch/game/assets/haus map.tmx",
+        "/Users/martin/repos/Underwatch/game/assets/Haus_map_neu.tmx",
         "neuesTileset.tsx",
         "50x50MapMitHitbox.tmx",
         "Interior.tsx"

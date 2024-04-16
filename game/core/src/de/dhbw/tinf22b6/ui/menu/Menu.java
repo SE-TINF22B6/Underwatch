@@ -39,7 +39,7 @@ public class Menu extends Stage {
                 new ClickListener() {
                     @Override
                     public void clicked(InputEvent event, float x, float y) {
-                        game.setScreen(new GameScreen(game, WorldType.LEVEL1.getMap()));
+                        game.setScreen(new GameScreen(game, WorldType.LEVEL2.getMap()));
                         Gdx.audio.newSound(Gdx.files.internal("sfx/LevelUp.mp3")).play();
 
                     }

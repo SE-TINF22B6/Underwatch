@@ -11,6 +11,7 @@ import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
 import de.dhbw.tinf22b6.util.Assets;
 import de.dhbw.tinf22b6.util.Constants;
+import de.dhbw.tinf22b6.util.PlayerStatistics;
 import de.dhbw.tinf22b6.weapon.Weapon;
 
 import static de.dhbw.tinf22b6.util.Constants.PLAYER_BIT;
@@ -20,23 +21,18 @@ public class Player extends GameObject {
     private static final String TAG = Player.class.getName();
     private Weapon weapon;
     private boolean dodging;
-    private int score;
+    private final PlayerStatistics playerStatistics;
 
-    public int getHealth() {
-        return health;
-    }
-
-    private int health;
     private final Animation<TextureAtlas.AtlasRegion> dodgeAnimation;
     private float dodgeStateTime;
 
-    public Player(World world, Vector2 position) {
+    public Player(World world, Vector2 position, PlayerStatistics statistics) {
         super("priest1_v1", position, world, Constants.PLAYER_BIT);
+        this.playerStatistics = statistics;
         // equip weapon
         //this.weapon = new HandGun();
         this.dodgeAnimation = new Animation<>(0.1f, Assets.instance.getAnimationAtlasRegion("priest1_dash"));
         this.speed = 50;
-        this.health = 3;
         // create Body
         BodyDef bodyDef = new BodyDef();
         bodyDef.position.set(pos.x + TILE_SIZE / 2f, pos.y + TILE_SIZE / 4f);
@@ -104,9 +100,21 @@ public class Player extends GameObject {
     }
 
     public void hit() {
-        this.health--;
+        playerStatistics.hitHP(); ;
         Gdx.audio.newSound(Gdx.files.internal("sfx/player_hit.mp3")).play(1);
-        Gdx.app.debug(TAG, "Hit, new live: " + health);
+    }
+
+    public int getHealth() {
+        return playerStatistics.hp();
+    }
+
+    public int getCoins() {
+        return playerStatistics.coins();
+    }
+
+    public void collectCoin() {
+        playerStatistics.setCoins(getCoins() + 1);
+        Gdx.app.debug(TAG, "Player picked up Coin: " + getCoins());
     }
 
     public void setWeapon(Weapon weapon) {
@@ -136,6 +144,6 @@ public class Player extends GameObject {
     }
 
     public int getScore() {
-        return score;
+        return playerStatistics.coins() + playerStatistics.enemies_killed();
     }
 }
