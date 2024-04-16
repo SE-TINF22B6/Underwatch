@@ -1,9 +1,7 @@
-version: "3.9"
-
 services:
   # PostgreSQL database
   postgres:
-    image: postgres
+    image: postgres:16
     container_name: underwatch_backend
     environment:
       POSTGRES_DB: underwatch_database
@@ -13,22 +11,4 @@ services:
     ports:
       - "5433:5432"
     volumes:  #for the example data import
-      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
-
-
-  # pgAdmin
-  pgadmin:
-    image: dpage/pgadmin4
-    container_name: underwatch_admin_page
-    environment:
-      PGADMIN_DEFAULT_EMAIL: u@u.com
-      PGADMIN_DEFAULT_PASSWORD: u
-    ports:
-      - "5050:80"
-    volumes: #load the database
-      - ./servers.json:/pgadmin4/servers.json
-
-volumes:
-  postgres_data:
-#   pgadmin_data:
-# Use postgres/example user/password credentials
+      - ./src/main/resources/init.sql:/docker-entrypoint-initdb.d/init.sql
