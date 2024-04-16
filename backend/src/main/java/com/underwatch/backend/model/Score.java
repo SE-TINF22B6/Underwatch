@@ -1,11 +1,11 @@
 package com.underwatch.backend.model;
 
-import java.sql.Timestamp;
-
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+
+import java.sql.Timestamp;
 
 @Entity
 public class Score {
@@ -22,13 +22,10 @@ public class Score {
     private int dps;
     private Timestamp timestamp;
     private Long game_time; // Assuming game_time is stored as milliseconds (you can adjust this based on your requirements)
-    // Constructors, getters, and setters
 
-    // Default constructor
     public Score() {
     }
 
-    // Parameterized constructor
     public Score(String playername, int score, int coins, int kills, int damagedealt, int dps, Timestamp timestamp, Long game_time) {
         this.playername = playername;
         this.score = score;
@@ -40,7 +37,7 @@ public class Score {
         this.game_time = game_time;
     }
 
-    public Score(int id,String playername, int score, int coins, int kills, int damagedealt, int dps, Timestamp timestamp, Long game_time) {
+    public Score(int id, String playername, int score, int coins, int kills, int damagedealt, int dps, Timestamp timestamp, Long game_time) {
         this.id = id;
         this.playername = playername;
         this.score = score;
@@ -177,10 +174,4 @@ public class Score {
     public void setGame_time(Long game_time) {
         this.game_time = game_time;
     }
-
-    // Getters and setters...
-
-    // toString() method...
-
-    // Other methods...
 }
