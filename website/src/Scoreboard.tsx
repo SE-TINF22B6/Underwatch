@@ -25,7 +25,7 @@ import NavigationMenu from './NavigationMenu';
 import {LocalizationProvider} from '@mui/x-date-pickers';
 import {AdapterDayjs} from '@mui/x-date-pickers/AdapterDayjs';
 import {DateRange, DateRangePicker} from '@mui/x-date-pickers-pro';
-import {Dayjs} from "dayjs";
+import dayjs, {Dayjs} from "dayjs";
 
 let apiData = [
     {
@@ -195,7 +195,7 @@ const Scoreboard = () => {
             console.log("StartDate and EndDate: \n" + JSON.stringify(cookieObject));
             setScoreStartDate(new Date(cookieObject.startDate));
             setScoreEndDate(new Date(cookieObject.endDate));
-            //setScoreDate([convertToTDate(new Date(cookieObject.startDate)), convertToTDate(new Date(cookieObject.endDate))]);
+            setScoreDate([dayjs(new Date(cookieObject.startDate)), dayjs(new Date(cookieObject.endDate))]);
             console.log([new Date(cookieObject.startDate), new Date(cookieObject.endDate)]);
             
         } else if (cookieObject.startDate) {
@@ -317,8 +317,6 @@ const Scoreboard = () => {
         document.cookie = `filterData=${JSON.stringify(cookieObject)}`;
     }
     const maxScore = apiData.reduce((max, obj) => (obj.score > max ? obj.score : max), apiData[0].score);
-
-
 
     return (
         <ThemeProvider theme={theme2}>
