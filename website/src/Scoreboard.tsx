@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import './Scoreboard.css';
 import {Link} from 'react-router-dom';
 import {
@@ -25,13 +25,7 @@ import NavigationMenu from './NavigationMenu';
 import {LocalizationProvider} from '@mui/x-date-pickers';
 import {AdapterDayjs} from '@mui/x-date-pickers/AdapterDayjs';
 import {DateRange, DateRangePicker} from '@mui/x-date-pickers-pro';
-
-let data = [
-    {username: 'TheDestroyer', date: '2023-11-08', score: 137},
-    {username: 'TheGamerPro', date: '2023-12-06', score: 98},
-    {username: 'TheKillerXx', date: '2023-11-04', score: 241},
-    {username: 'ProGamerXx', date: '2023-11-24', score: 6541},
-];
+import dayjs, {Dayjs} from "dayjs";
 
 let apiData = [
     {
@@ -42,7 +36,7 @@ let apiData = [
         kills: 49,
         damagedealt: 5980,
         dps: 932,
-        timestamp: "2022-08-18T22:00:00.000+00:00",
+        timestamp: "2023-08-18T22:00:00.000+00:00",
         game_time: 2981
     },
     {
@@ -53,7 +47,7 @@ let apiData = [
         kills: 96,
         damagedealt: 3949,
         dps: 659,
-        timestamp: "2022-03-05T23:00:00.000+00:00",
+        timestamp: "2023-03-05T23:00:00.000+00:00",
         game_time: 2121
     },
     {
@@ -64,7 +58,7 @@ let apiData = [
         kills: 60,
         damagedealt: 8608,
         dps: 80,
-        timestamp: "2022-01-11T23:00:00.000+00:00",
+        timestamp: "2023-01-11T23:00:00.000+00:00",
         game_time: 2116
     },
     {
@@ -75,7 +69,7 @@ let apiData = [
         kills: 63,
         damagedealt: 115,
         dps: 870,
-        timestamp: "2022-07-24T22:00:00.000+00:00",
+        timestamp: "2023-07-24T22:00:00.000+00:00",
         game_time: 581
     },
     {
@@ -86,7 +80,7 @@ let apiData = [
         kills: 35,
         damagedealt: 3672,
         dps: 33,
-        timestamp: "2022-03-26T23:00:00.000+00:00",
+        timestamp: "2023-03-26T23:00:00.000+00:00",
         game_time: 2416
     },
     {
@@ -97,7 +91,7 @@ let apiData = [
         kills: 25,
         damagedealt: 8491,
         dps: 492,
-        timestamp: "2022-07-12T22:00:00.000+00:00",
+        timestamp: "2023-07-12T22:00:00.000+00:00",
         game_time: 1433
     },
     {
@@ -108,7 +102,7 @@ let apiData = [
         kills: 61,
         damagedealt: 5601,
         dps: 242,
-        timestamp: "2022-05-11T22:00:00.000+00:00",
+        timestamp: "2023-05-11T22:00:00.000+00:00",
         game_time: 3162
     },
     {
@@ -119,7 +113,7 @@ let apiData = [
         kills: 51,
         damagedealt: 9087,
         dps: 694,
-        timestamp: "2022-06-26T22:00:00.000+00:00",
+        timestamp: "2023-06-26T22:00:00.000+00:00",
         game_time: 1084
     },
     {
@@ -130,7 +124,7 @@ let apiData = [
         kills: 97,
         damagedealt: 1983,
         dps: 564,
-        timestamp: "2022-05-29T22:00:00.000+00:00",
+        timestamp: "2023-05-29T22:00:00.000+00:00",
         game_time: 279
     },
     {
@@ -141,13 +135,73 @@ let apiData = [
         kills: 8,
         damagedealt: 7853,
         dps: 345,
-        timestamp: "2022-02-28T23:00:00.000+00:00",
+        timestamp: "2023-02-28T23:00:00.000+00:00",
         game_time: 1502
     }
 ]
 
+// ---------- CookieObject ----------
+interface CookieObject {
+    username: string;
+    startDate: Date | null ;
+    endDate: Date | null;
+    dateRange: DateRange<Dayjs>;
+    minScore: number;
+    isFilterOpen: boolean;
+}
+let cookieObject : CookieObject = {
+    username: "",
+    startDate: null,
+    endDate: null,
+    dateRange: [null, null],
+    minScore: 0,
+    isFilterOpen: false,
+}
 
 const Scoreboard = () => {
+    // ---------- CookieHandling ----------
+    useEffect(() => {
+        const cookie = document.cookie;
+        const match = cookie.match(/(?:^|;\s*)(filterData=)([^;]+)/);
+        if (match) {
+            try {
+                cookieObject = JSON.parse(decodeURIComponent(match[2]));
+            }
+            catch (error) {
+                console.error("Es kam beim Parsen des JSON-Strings des Cookeis zu folgendem Fehler:", error);
+            }
+        }
+        if (cookieObject.username) {
+            setInputValue(cookieObject.username);
+        }
+        if (cookieObject.startDate && cookieObject.endDate) {
+            setScoreStartDate(new Date(cookieObject.startDate));
+            setScoreEndDate(new Date(cookieObject.endDate));
+            setScoreDate([dayjs(new Date(cookieObject.startDate)), dayjs(new Date(cookieObject.endDate))]);
+        } else if (cookieObject.startDate) {
+            setScoreStartDate(cookieObject.startDate);
+        } else if (cookieObject.endDate) {
+            setScoreEndDate(cookieObject.endDate);
+        }
+        if (cookieObject.minScore) {
+            setMinScore(cookieObject.minScore);
+        }
+        if (cookieObject.isFilterOpen) {
+            setShowSecondElement(true);
+            setFilterButtonText("Hide Filter");
+        }
+    }, []);
+
+    function resetFilter(): void {
+        setInputValue('');
+        setScoreStartDate(new Date(0));
+        setScoreEndDate(new Date());
+        setScoreDate([null, null]);
+        setMinScore(0);
+        document.cookie = `filterData=; expires=Thu, 01 Jan 1970 00:00:00 UTC;`;
+        document.cookie = `filterData=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;`;
+    }
+
     // ---------- Sortierung ----------
     const [order, setOrder] = useState<'asc' | 'desc' | undefined>('desc');
     const [orderBy, setOrderBy] = useState<'score' | 'playername' | 'timestamp' | ''>('score');
@@ -186,14 +240,18 @@ const Scoreboard = () => {
 
     // ---------- Filtermaske ----------
     const [showFilterMask, setShowSecondElement] = useState(false);
-    const [filterButtonText, setFilterButtonText] = useState('Filter');
+    const [filterButtonText, setFilterButtonText] = useState('Show Filter');
     const clickFilterButton = () => {
         if (showFilterMask) {
             setShowSecondElement(false);
-            setFilterButtonText("Filter")
+            setFilterButtonText("Show Filter");
+            cookieObject.isFilterOpen = false;
+            document.cookie = `filterData=${JSON.stringify(cookieObject)}`;    
         } else {
             setShowSecondElement(true);
-            setFilterButtonText("Don't  Filter")
+            setFilterButtonText("Hide Filter");
+            cookieObject.isFilterOpen = true;
+            document.cookie = `filterData=${JSON.stringify(cookieObject)}`;
         }
     };
 
@@ -201,35 +259,44 @@ const Scoreboard = () => {
     const [inputValue, setInputValue] = useState('');
     const handleInputChange = (event: { target: { value: React.SetStateAction<string>; }; }) => {
         setInputValue(event.target.value);
+        cookieObject.username = event.target.value.toString();
+        document.cookie = `filterData=${JSON.stringify(cookieObject)}`;
     }
 
     // ---------- Date ----------
-    const [scoreStartDate, setScoreStartDate] = useState(new Date(0));
-    const [scoreEndDate, setScoreEndDate] = useState(new Date());
-    const [scoreDate, setScoreDate] = useState<DateRange<unknown>>([null, null]);
+    const [scoreStartDate, setScoreStartDate] = useState<Date>(new Date(0));
+    const [scoreEndDate, setScoreEndDate] = useState<Date>(new Date());
+    const [scoreDate, setScoreDate] = useState<DateRange<Dayjs>>([null, null]);
 
-    function handleDateInput(dateData: DateRange<unknown>) {
+    function handleDateInput(dateData: DateRange<Dayjs>) {
         setScoreDate(dateData);
+        cookieObject.dateRange = dateData;
+        document.cookie = `filterData=${JSON.stringify(cookieObject)}`;
         if (dateData[0]) {
-            let startDate = dateData[0] as Date;
+            let startDate = dateData[0]?.toDate();
             let startDateObject = new Date(startDate.toISOString());
-            console.log(startDate);
-            console.log(startDateObject);
-            console.log(startDateObject.toLocaleString('de-DE', {timeZone: 'Europe/Berlin'}))
             setScoreStartDate(startDateObject);
+            cookieObject.startDate = startDateObject;
+            document.cookie = `filterData=${JSON.stringify(cookieObject)}`;
         }
         if (dateData[1]) {
-            let endDate = dateData[1] as Date;
+            let endDate = dateData[1]?.toDate();
             let endDateObject = new Date(endDate.toISOString());
             endDateObject.setDate(endDateObject.getDate() + 1);
             setScoreEndDate(endDateObject);
-            console.log(endDateObject);
+            cookieObject.endDate = endDateObject;
+            document.cookie = `filterData=${JSON.stringify(cookieObject)}`;
         }
     }
 
     // ---------- minScore ----------
     const [minScore, setMinScore] = useState(0);
-    const maxScore = apiData.reduce((max, obj) => (obj.score > max ? obj.score : max), data[0].score);
+    function handleMinScoreChange(minScore:number) {
+        setMinScore(minScore);
+        cookieObject.minScore = minScore;
+        document.cookie = `filterData=${JSON.stringify(cookieObject)}`;
+    }
+    const maxScore = apiData.reduce((max, obj) => (obj.score > max ? obj.score : max), apiData[0].score);
 
     return (
         <ThemeProvider theme={theme2}>
@@ -314,7 +381,7 @@ const Scoreboard = () => {
                                     (
                                         (inputValue === "" || row.playername.toLowerCase().includes(inputValue.toLowerCase())) &&
                                         (row.score >= minScore) &&
-                                        (new Date(row.timestamp) >= scoreStartDate && new Date (row.timestamp) <= scoreEndDate)
+                                        (new Date(row.timestamp) >= scoreStartDate && new Date(row.timestamp) <= scoreEndDate)
                                     ) && (
                                         <TableRow key={row.id}
                                                   sx={{'&:last-child td, &:last-child th': {border: 0}}}
@@ -397,17 +464,24 @@ const Scoreboard = () => {
                                 />
                             </LocalizationProvider>
                             <Typography variant='body1'
-                                        style={{color: theme2.palette.primary.contrastText}}>min.score</Typography>
+                                style={{color: theme2.palette.primary.contrastText}}>
+                                min.score
+                            </Typography>
                             <div style={{padding: '10px'}}>
                                 <Slider
                                     aria-label="min-score"
                                     min={0}
                                     max={maxScore}
                                     value={minScore}
-                                    onChange={(event, value) => setMinScore(value as number)}
+                                    onChange={(event, value) => handleMinScoreChange(value as number)}
                                     valueLabelDisplay='auto'
                                     style={{color: theme2.palette.primary.contrastText}}
                                 />
+                            </div>
+                            <div style={{display: 'flex', justifyContent: 'center'}}>
+                            <Button variant="contained" onClick={resetFilter} style={{fontWeight: 'bold', border: '1px solid #F36437', marginTop: "50px", width: "100%"}}>
+                                Reset Filter
+                            </Button>
                             </div>
                         </Paper>
                     )}
