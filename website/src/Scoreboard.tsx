@@ -25,6 +25,7 @@ import NavigationMenu from './NavigationMenu';
 import {LocalizationProvider} from '@mui/x-date-pickers';
 import {AdapterDayjs} from '@mui/x-date-pickers/AdapterDayjs';
 import {DateRange, DateRangePicker} from '@mui/x-date-pickers-pro';
+import {Dayjs} from "dayjs";
 
 let apiData = [
     {
@@ -144,7 +145,7 @@ interface CookieObject {
     username: string;
     startDate: Date | null ;
     endDate: Date | null;
-    dateRange: DateRange<unknown>;
+    dateRange: DateRange<Dayjs>;
     minScore: number;
 }
 let cookieObject : CookieObject = {
@@ -282,22 +283,22 @@ const Scoreboard = () => {
     // ---------- Date ----------
     const [scoreStartDate, setScoreStartDate] = useState<Date>(new Date(0));
     const [scoreEndDate, setScoreEndDate] = useState<Date>(new Date());
-    const [scoreDate, setScoreDate] = useState<DateRange<Date | null>>([null, null]);
+    const [scoreDate, setScoreDate] = useState<DateRange<Dayjs>>([null, null]);
 
-    function handleDateInput(dateData: DateRange<Date | null>) {
+    function handleDateInput(dateData: DateRange<Dayjs>) {
         setScoreDate(dateData);
         console.log(dateData);
         cookieObject.dateRange = dateData;
         document.cookie = `filterData=${JSON.stringify(cookieObject)}`;
         if (dateData[0]) {
-            let startDate = dateData[0] as Date;
+            let startDate = dateData[0]?.toDate();
             let startDateObject = new Date(startDate.toISOString());
             setScoreStartDate(startDateObject);
             cookieObject.startDate = startDateObject;
             document.cookie = `filterData=${JSON.stringify(cookieObject)}`;
         }
         if (dateData[1]) {
-            let endDate = dateData[1] as Date;
+            let endDate = dateData[1]?.toDate();
             let endDateObject = new Date(endDate.toISOString());
             endDateObject.setDate(endDateObject.getDate() + 1);
             setScoreEndDate(endDateObject);
