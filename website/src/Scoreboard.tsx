@@ -381,8 +381,7 @@ const Scoreboard = () => {
                                     (
                                         (inputValue === "" || row.playername.toLowerCase().includes(inputValue.toLowerCase())) &&
                                         (row.score >= minScore) &&
-                                        (new Date(row.timestamp) >= 
-                                        scoreStartDate && new Date(row.timestamp) <= scoreEndDate)
+                                        (new Date(row.timestamp) >= scoreStartDate && new Date(row.timestamp) <= scoreEndDate)
                                     ) && (
                                         <TableRow key={row.id}
                                                   sx={{'&:last-child td, &:last-child th': {border: 0}}}
