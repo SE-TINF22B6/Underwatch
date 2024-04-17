@@ -147,6 +147,7 @@ interface CookieObject {
     endDate: Date | null;
     dateRange: DateRange<Dayjs>;
     minScore: number;
+    isFilterOpen: boolean;
 }
 let cookieObject : CookieObject = {
     username: "",
@@ -154,24 +155,8 @@ let cookieObject : CookieObject = {
     endDate: null,
     dateRange: [null, null],
     minScore: 0,
+    isFilterOpen: false,
 }
-function convertToTDate(date:Date) {
-    return {
-      $D: date.getDate(),
-      $H: date.getHours(),
-      $L: 'en', // Spracheinstellung, hier Englisch als Beispiel
-      $M: date.getMonth() + 1, // Monat (beginnend bei 1)
-      $W: date.getDay(), // Wochentag (Sonntag = 0, Montag = 1, ...)
-      $d: date.toString(), // Datum als String
-      $isDayjsObject: true, // Flag, um anzuzeigen, dass es sich um ein Day.js-Objekt handelt
-      $m: date.getMinutes(), // Minuten
-      $ms: date.getMilliseconds(), // Millisekunden
-      $s: date.getSeconds(), // Sekunden
-      $u: undefined, // Undefiniert (kann je nach Bedarf angepasst werden)
-      $x: {}, // Zusätzliche Daten (leeres Objekt als Platzhalter)
-      $y: date.getFullYear() // Jahr
-    };
-  }
 
 const Scoreboard = () => {
     // ---------- CookieHandling ----------
@@ -186,29 +171,24 @@ const Scoreboard = () => {
                 console.error("Es kam beim Parsen des JSON-Strings des Cookeis zu folgendem Fehler:", error);
             }
         }
-        console.log(cookieObject);
         if (cookieObject.username) {
-            console.log("Username: \n" + JSON.stringify(cookieObject));
             setInputValue(cookieObject.username);
         }
         if (cookieObject.startDate && cookieObject.endDate) {
-            console.log("StartDate and EndDate: \n" + JSON.stringify(cookieObject));
             setScoreStartDate(new Date(cookieObject.startDate));
             setScoreEndDate(new Date(cookieObject.endDate));
             setScoreDate([dayjs(new Date(cookieObject.startDate)), dayjs(new Date(cookieObject.endDate))]);
-            console.log([new Date(cookieObject.startDate), new Date(cookieObject.endDate)]);
-            
         } else if (cookieObject.startDate) {
-            console.log("StartDate: \n" + JSON.stringify(cookieObject));
             setScoreStartDate(cookieObject.startDate);
         } else if (cookieObject.endDate) {
-            console.log("EndDate: \n" + JSON.stringify(cookieObject));
             setScoreEndDate(cookieObject.endDate);
-
         }
         if (cookieObject.minScore) {
-            console.log("MinScore: \n" + JSON.stringify(cookieObject));
             setMinScore(cookieObject.minScore);
+        }
+        if (cookieObject.isFilterOpen) {
+            setShowSecondElement(true);
+            setFilterButtonText("Hide Filter");
         }
     }, []);
 
@@ -220,7 +200,6 @@ const Scoreboard = () => {
         setMinScore(0);
         document.cookie = `filterData=; expires=Thu, 01 Jan 1970 00:00:00 UTC;`;
         document.cookie = `filterData=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;`;
-        console.log(document.cookie);
     }
 
     // ---------- Sortierung ----------
@@ -266,9 +245,13 @@ const Scoreboard = () => {
         if (showFilterMask) {
             setShowSecondElement(false);
             setFilterButtonText("Show Filter");
+            cookieObject.isFilterOpen = false;
+            document.cookie = `filterData=${JSON.stringify(cookieObject)}`;    
         } else {
             setShowSecondElement(true);
             setFilterButtonText("Hide Filter");
+            cookieObject.isFilterOpen = true;
+            document.cookie = `filterData=${JSON.stringify(cookieObject)}`;
         }
     };
 
@@ -287,7 +270,6 @@ const Scoreboard = () => {
 
     function handleDateInput(dateData: DateRange<Dayjs>) {
         setScoreDate(dateData);
-        console.log(dateData);
         cookieObject.dateRange = dateData;
         document.cookie = `filterData=${JSON.stringify(cookieObject)}`;
         if (dateData[0]) {
@@ -310,9 +292,7 @@ const Scoreboard = () => {
     // ---------- minScore ----------
     const [minScore, setMinScore] = useState(0);
     function handleMinScoreChange(minScore:number) {
-        console.log(cookieObject);
         setMinScore(minScore);
-        console.log(JSON.stringify(cookieObject));
         cookieObject.minScore = minScore;
         document.cookie = `filterData=${JSON.stringify(cookieObject)}`;
     }
