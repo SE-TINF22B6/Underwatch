@@ -2,11 +2,13 @@ package de.dhbw.tinf22b6.screen;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.GL20;
 import de.dhbw.tinf22b6.ui.menu.StageManager;
 
 public class MenuScreen extends AbstractGameScreen {
     private static final String TAG = MenuScreen.class.getName();
+    private Music menuMusic = Gdx.audio.newMusic(Gdx.files.internal("music/main_menu.mp3"));
 
     public MenuScreen(Game game) {
         super(game);
@@ -22,12 +24,13 @@ public class MenuScreen extends AbstractGameScreen {
 
     @Override
     public void show() {
+        menuMusic.play();
         stageManager = new StageManager(game);
     }
 
     @Override
     public void hide() {
-
+        menuMusic.stop();
     }
 
     @Override
