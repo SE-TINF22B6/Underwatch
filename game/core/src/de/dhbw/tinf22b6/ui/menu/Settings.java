@@ -46,7 +46,7 @@ public class Settings extends Stage {
                 new ClickListener() {
                     @Override
                     public void clicked(InputEvent event, float x, float y) {
-                        stageManager.setStage(new Menu(stageManager));
+                        stageManager.setStage(new Menu(stageManager, stageManager.getMusic()));
                     }
                 }
         );

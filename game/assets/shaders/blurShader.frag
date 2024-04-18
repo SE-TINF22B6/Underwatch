@@ -1,8 +1,11 @@
-//"in" attributes from our vertex shader
-varying vec4 vColor;
-varying vec2 vTexCoord;
-
-//declare uniforms
+#ifdef GL_ES
+#define LOWP lowp
+precision mediump float;
+#else
+#define LOWP
+#endif
+varying LOWP vec4 v_color;
+varying vec2 v_texCoords;
 uniform sampler2D u_texture;
 uniform float resolution;
 uniform float radius;
@@ -13,7 +16,7 @@ void main() {
     vec4 sum = vec4(0.0);
 
     //our original texcoord for this fragment
-    vec2 tc = vTexCoord;
+    vec2 tc = v_texCoords;
 
     //the amount to blur, i.e. how far off center to sample from
     //1.0 -> blur by one pixel
@@ -25,7 +28,6 @@ void main() {
     //(0.0, 1.0) -> y-axis blur
     float hstep = dir.x;
     float vstep = dir.y;
-
 
     //apply blurring, using a 9-tap filter with predefined gaussian weights
 
@@ -42,5 +44,5 @@ void main() {
     sum += texture2D(u_texture, vec2(tc.x + 4.0*blur*hstep, tc.y + 4.0*blur*vstep)) * 0.0162162162;
 
     //discard alpha for our simple demo, multiply by vertex color and return
-    gl_FragColor = vColor * vec4(sum.rgb, 1.0);
+    gl_FragColor = v_color * vec4(sum.rgb, 1.0);
 }

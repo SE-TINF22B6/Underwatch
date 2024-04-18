@@ -2,16 +2,19 @@ package de.dhbw.tinf22b6.ui.menu;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.Disposable;
 
 public class StageManager implements Disposable {
     private Stage currentStage;
     private final Game game;
+    private final Music music;
 
-    public StageManager(Game game) {
+    public StageManager(Game game, Music menuMusic) {
         this.game = game;
-        this.setStage(new Menu(this));
+        this.music = menuMusic;
+        this.setStage(new Menu(this, menuMusic));
     }
 
     public void drawAndAct() {
@@ -35,6 +38,10 @@ public class StageManager implements Disposable {
     @Override
     public void dispose() {
         this.currentStage.dispose();
+    }
+
+    public Music getMusic() {
+        return music;
     }
 }
 
