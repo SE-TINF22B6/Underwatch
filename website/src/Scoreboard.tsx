@@ -27,118 +27,130 @@ import {AdapterDayjs} from '@mui/x-date-pickers/AdapterDayjs';
 import {DateRange, DateRangePicker} from '@mui/x-date-pickers-pro';
 import dayjs, {Dayjs} from "dayjs";
 
-let apiData = [
+const apiDataJSON = `
+[
     {
-        id: 1,
-        playername: "ndeangelo0",
-        score: 529,
-        coins: 9384,
-        kills: 49,
-        damagedealt: 5980,
-        dps: 932,
-        timestamp: "2023-08-18T22:00:00.000+00:00",
-        game_time: 2981
+        "id": 1,
+        "playerName": "ndeangelo0",
+        "score": 529,
+        "coins": 9384,
+        "kills": 49,
+        "damageDealt": 5980,
+        "dps": 932,
+        "timestamp": "2023-08-18T22:00:00.000+00:00",
+        "game_time": 2981
     },
     {
-        id: 2,
-        playername: "lclaeskens1",
-        score: 989,
-        coins: 6449,
-        kills: 96,
-        damagedealt: 3949,
-        dps: 659,
-        timestamp: "2023-03-05T23:00:00.000+00:00",
-        game_time: 2121
+        "id": 2,
+        "playerName": "lclaeskens1",
+        "score": 989,
+        "coins": 6449,
+        "kills": 96,
+        "damageDealt": 3949,
+        "dps": 659,
+        "timestamp": "2023-03-05T23:00:00.000+00:00",
+        "game_time": 2121
     },
     {
-        id: 3,
-        playername: "owilkisson2",
-        score: 839,
-        coins: 3371,
-        kills: 60,
-        damagedealt: 8608,
-        dps: 80,
-        timestamp: "2023-01-11T23:00:00.000+00:00",
-        game_time: 2116
+        "id": 3,
+        "playerName": "owilkisson2",
+        "score": 839,
+        "coins": 3371,
+        "kills": 60,
+        "damageDealt": 8608,
+        "dps": 80,
+        "timestamp": "2023-01-11T23:00:00.000+00:00",
+        "game_time": 2116
     },
     {
-        id: 4,
-        playername: "bcastanyer3",
-        score: 546,
-        coins: 8889,
-        kills: 63,
-        damagedealt: 115,
-        dps: 870,
-        timestamp: "2023-07-24T22:00:00.000+00:00",
-        game_time: 581
+        "id": 4,
+        "playerName": "bcastanyer3",
+        "score": 546,
+        "coins": 8889,
+        "kills": 63,
+        "damageDealt": 115,
+        "dps": 870,
+        "timestamp": "2023-07-24T22:00:00.000+00:00",
+        "game_time": 581
     },
     {
-        id: 5,
-        playername: "bhughson4",
-        score: 840,
-        coins: 108,
-        kills: 35,
-        damagedealt: 3672,
-        dps: 33,
-        timestamp: "2023-03-26T23:00:00.000+00:00",
-        game_time: 2416
+        "id": 5,
+        "playerName": "bhughson4",
+        "score": 840,
+        "coins": 108,
+        "kills": 35,
+        "damageDealt": 3672,
+        "dps": 33,
+        "timestamp": "2023-03-26T23:00:00.000+00:00",
+        "game_time": 2416
     },
     {
-        id: 6,
-        playername: "efernao5",
-        score: 823,
-        coins: 1743,
-        kills: 25,
-        damagedealt: 8491,
-        dps: 492,
-        timestamp: "2023-07-12T22:00:00.000+00:00",
-        game_time: 1433
+        "id": 6,
+        "playerName": "efernao5",
+        "score": 823,
+        "coins": 1743,
+        "kills": 25,
+        "damageDealt": 8491,
+        "dps": 492,
+        "timestamp": "2023-07-12T22:00:00.000+00:00",
+        "game_time": 1433
     },
     {
-        id: 7,
-        playername: "lollivierre6",
-        score: 157,
-        coins: 9680,
-        kills: 61,
-        damagedealt: 5601,
-        dps: 242,
-        timestamp: "2023-05-11T22:00:00.000+00:00",
-        game_time: 3162
+        "id": 7,
+        "playerName": "lollivierre6",
+        "score": 157,
+        "coins": 9680,
+        "kills": 61,
+        "damageDealt": 5601,
+        "dps": 242,
+        "timestamp": "2023-05-11T22:00:00.000+00:00",
+        "game_time": 3162
     },
     {
-        id: 8,
-        playername: "lplayhill7",
-        score: 999,
-        coins: 5876,
-        kills: 51,
-        damagedealt: 9087,
-        dps: 694,
-        timestamp: "2023-06-26T22:00:00.000+00:00",
-        game_time: 1084
+        "id": 8,
+        "playerName": "lplayhill7",
+        "score": 999,
+        "coins": 5876,
+        "kills": 51,
+        "damageDealt": 9087,
+        "dps": 694,
+        "timestamp": "2023-06-26T22:00:00.000+00:00",
+        "game_time": 1084
     },
     {
-        id: 9,
-        playername: "bciciura8",
-        score: 324,
-        coins: 4965,
-        kills: 97,
-        damagedealt: 1983,
-        dps: 564,
-        timestamp: "2023-05-29T22:00:00.000+00:00",
-        game_time: 279
+        "id": 9,
+        "playerName": "bciciura8",
+        "score": 324,
+        "coins": 4965,
+        "kills": 97,
+        "damageDealt": 1983,
+        "dps": 564,
+        "timestamp": "2023-05-29T22:00:00.000+00:00",
+        "game_time": 279
     },
     {
-        id: 10,
-        playername: "ckippling9",
-        score: 895,
-        coins: 2333,
-        kills: 8,
-        damagedealt: 7853,
-        dps: 345,
-        timestamp: "2023-02-28T23:00:00.000+00:00",
-        game_time: 1502
+        "id": 10,
+        "playerName": "ckippling9",
+        "score": 895,
+        "coins": 2333,
+        "kills": 8,
+        "damageDealt": 7853,
+        "dps": 345,
+        "timestamp": "2023-02-28T23:00:00.000+00:00",
+        "game_time": 1502
     }
-]
+]`;
+
+interface ScoreData {
+    playerName: string;
+    score: number;
+    coins: number;
+    kills: number;
+    damageDealt: number;
+    dps: number;
+    timestamp: string;
+    game_time: number;
+}
 
 // ---------- CookieObject ----------
 interface CookieObject {
@@ -159,6 +171,23 @@ let cookieObject : CookieObject = {
 }
 
 const Scoreboard = () => {
+    // ---------- getApiData ----------
+    const [apiData, setApiData] = useState<ScoreData[]>([JSON.parse('{"id": 0,"playerName": "","score": 0,"coins": 0,"kills": 0,"damageDealt": 0,"dps": 0,"timestamp": "","game_time": 0}')]);
+
+    async function getApiData(url: string): Promise<ScoreData[]> {
+        try {
+            const response = await fetch(url);
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            const data = await response.json();
+            return data._embedded.scores;
+        } catch (error) {
+            console.error('Beim Laden der API-Daten ist folgender Fehler aufgetreten:', error);
+            throw error;
+        }
+    }
+
     // ---------- CookieHandling ----------
     useEffect(() => {
         const cookie = document.cookie;
@@ -190,6 +219,15 @@ const Scoreboard = () => {
             setShowSecondElement(true);
             setFilterButtonText("Hide Filter");
         }
+        getApiData("https://underwatch.freemine.de/api/scores")
+        .then((scores) => {
+            console.log('API-Daten:', scores);
+            setApiData(scores);
+        })
+        .catch((error) => {
+            console.error('Fehler beim Abrufen der API-Daten:', error);
+            JSON.parse(apiDataJSON);
+        });
     }, []);
 
     function resetFilter(): void {
@@ -204,7 +242,7 @@ const Scoreboard = () => {
 
     // ---------- Sortierung ----------
     const [order, setOrder] = useState<'asc' | 'desc' | undefined>('desc');
-    const [orderBy, setOrderBy] = useState<'score' | 'playername' | 'timestamp' | ''>('score');
+    const [orderBy, setOrderBy] = useState<'score' | 'playerName' | 'timestamp' | ''>('score');
     const sortedData = [...apiData].sort((a, b) => {
         if (orderBy === '') {
             return 1;
@@ -234,7 +272,7 @@ const Scoreboard = () => {
             }
         } else {
             setOrder('desc')
-            setOrderBy(sortParam as 'score' | 'playername' | 'timestamp' | '');
+            setOrderBy(sortParam as 'score' | 'playerName' | 'timestamp' | '');
         }
     }
 
@@ -296,7 +334,7 @@ const Scoreboard = () => {
         cookieObject.minScore = minScore;
         document.cookie = `filterData=${JSON.stringify(cookieObject)}`;
     }
-    const maxScore = apiData.reduce((max, obj) => (obj.score > max ? obj.score : max), apiData[0].score);
+    const maxScore = apiData.reduce((max: number, obj: { score: number; }) => (obj.score > max ? obj.score : max), apiData[0].score);
 
     return (
         <ThemeProvider theme={theme2}>
@@ -328,9 +366,9 @@ const Scoreboard = () => {
                                 <TableRow>
                                     <TableCell style={{color: theme2.palette.primary.contrastText, fontWeight: 'bold'}}>
                                         <TableSortLabel
-                                            active={orderBy === 'playername'}
-                                            direction={orderBy === 'playername' ? order : 'desc'}
-                                            onClick={() => handleSort('playername')}
+                                            active={orderBy === 'playerName'}
+                                            direction={orderBy === 'playerName' ? order : 'desc'}
+                                            onClick={() => handleSort('playerName')}
                                             sx={{
                                                 '&.MuiTableSortLabel-root .MuiTableSortLabel-icon': {
                                                     color: theme2.palette.primary.contrastText
@@ -377,17 +415,17 @@ const Scoreboard = () => {
                             </TableHead>
 
                             <TableBody>
-                                {sortedData.map((row) => (
+                                {sortedData.map((row, id) => (
                                     (
-                                        (inputValue === "" || row.playername.toLowerCase().includes(inputValue.toLowerCase())) &&
+                                        (inputValue === "" || row.playerName.toLowerCase().includes(inputValue.toLowerCase())) &&
                                         (row.score >= minScore) &&
                                         (new Date(row.timestamp) >= scoreStartDate && new Date(row.timestamp) <= scoreEndDate)
                                     ) && (
-                                        <TableRow key={row.id}
+                                        <TableRow key={id}
                                                   sx={{'&:last-child td, &:last-child th': {border: 0}}}
                                         >
                                             <TableCell style={{color: theme2.palette.primary.contrastText}}>
-                                                {row.playername}
+                                                {row.playerName}
                                             </TableCell>
                                             <TableCell align="right"
                                                        style={{color: theme2.palette.primary.contrastText}}>
