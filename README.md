@@ -39,3 +39,5 @@ For some more documents, please read [wiki](https://github.com/SE-TINF22B6/Under
 
 - Java install
 - Internet connection (for highscore upload)
+
+![Alt](https://repobeats.axiom.co/api/embed/bd7f956aef3abb0274179cd83521e32f27852877.svg "Repobeats analytics image")
