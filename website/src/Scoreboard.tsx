@@ -26,120 +26,7 @@ import {LocalizationProvider} from '@mui/x-date-pickers';
 import {AdapterDayjs} from '@mui/x-date-pickers/AdapterDayjs';
 import {DateRange, DateRangePicker} from '@mui/x-date-pickers-pro';
 import dayjs, {Dayjs} from "dayjs";
-
-const apiDataJSON = `
-[
-    {
-        "id": 1,
-        "playerName": "ndeangelo0",
-        "score": 529,
-        "coins": 9384,
-        "kills": 49,
-        "damageDealt": 5980,
-        "dps": 932,
-        "timestamp": "2023-08-18T22:00:00.000+00:00",
-        "game_time": 2981
-    },
-    {
-        "id": 2,
-        "playerName": "lclaeskens1",
-        "score": 989,
-        "coins": 6449,
-        "kills": 96,
-        "damageDealt": 3949,
-        "dps": 659,
-        "timestamp": "2023-03-05T23:00:00.000+00:00",
-        "game_time": 2121
-    },
-    {
-        "id": 3,
-        "playerName": "owilkisson2",
-        "score": 839,
-        "coins": 3371,
-        "kills": 60,
-        "damageDealt": 8608,
-        "dps": 80,
-        "timestamp": "2023-01-11T23:00:00.000+00:00",
-        "game_time": 2116
-    },
-    {
-        "id": 4,
-        "playerName": "bcastanyer3",
-        "score": 546,
-        "coins": 8889,
-        "kills": 63,
-        "damageDealt": 115,
-        "dps": 870,
-        "timestamp": "2023-07-24T22:00:00.000+00:00",
-        "game_time": 581
-    },
-    {
-        "id": 5,
-        "playerName": "bhughson4",
-        "score": 840,
-        "coins": 108,
-        "kills": 35,
-        "damageDealt": 3672,
-        "dps": 33,
-        "timestamp": "2023-03-26T23:00:00.000+00:00",
-        "game_time": 2416
-    },
-    {
-        "id": 6,
-        "playerName": "efernao5",
-        "score": 823,
-        "coins": 1743,
-        "kills": 25,
-        "damageDealt": 8491,
-        "dps": 492,
-        "timestamp": "2023-07-12T22:00:00.000+00:00",
-        "game_time": 1433
-    },
-    {
-        "id": 7,
-        "playerName": "lollivierre6",
-        "score": 157,
-        "coins": 9680,
-        "kills": 61,
-        "damageDealt": 5601,
-        "dps": 242,
-        "timestamp": "2023-05-11T22:00:00.000+00:00",
-        "game_time": 3162
-    },
-    {
-        "id": 8,
-        "playerName": "lplayhill7",
-        "score": 999,
-        "coins": 5876,
-        "kills": 51,
-        "damageDealt": 9087,
-        "dps": 694,
-        "timestamp": "2023-06-26T22:00:00.000+00:00",
-        "game_time": 1084
-    },
-    {
-        "id": 9,
-        "playerName": "bciciura8",
-        "score": 324,
-        "coins": 4965,
-        "kills": 97,
-        "damageDealt": 1983,
-        "dps": 564,
-        "timestamp": "2023-05-29T22:00:00.000+00:00",
-        "game_time": 279
-    },
-    {
-        "id": 10,
-        "playerName": "ckippling9",
-        "score": 895,
-        "coins": 2333,
-        "kills": 8,
-        "damageDealt": 7853,
-        "dps": 345,
-        "timestamp": "2023-02-28T23:00:00.000+00:00",
-        "game_time": 1502
-    }
-]`;
+import toast from 'react-hot-toast';
 
 interface ScoreData {
     playerName: string;
@@ -184,9 +71,33 @@ const Scoreboard = () => {
             return data._embedded.scores;
         } catch (error) {
             console.error('Beim Laden der API-Daten ist folgender Fehler aufgetreten:', error);
+            toast.error("The data could not be loaded, unfortunately!", {
+                style: {
+                    backgroundColor: theme2.palette.primary.main,
+                    border: '3px solid #F36437',
+                    color: theme2.palette.primary.contrastText,
+                }
+            });
             throw error;
         }
     }
+    useEffect(() => {
+        getApiData("https://underwatch.freemine.de/api/scores")
+        .then((scores) => {
+            console.log('API-Daten:', scores);
+            setApiData(scores);
+        })
+        .catch((error) => {
+            console.error('Fehler beim Abrufen der API-Daten:', error);
+            toast.error("Something gone wrong displaying the data, unfortunately!", {
+                style: {
+                    backgroundColor: theme2.palette.primary.main,
+                    border: '3px solid #F36437',
+                    color: theme2.palette.primary.contrastText,
+                }
+            });
+        });
+    }, []);
 
     // ---------- CookieHandling ----------
     useEffect(() => {
@@ -219,15 +130,6 @@ const Scoreboard = () => {
             setShowSecondElement(true);
             setFilterButtonText("Hide Filter");
         }
-        getApiData("https://underwatch.freemine.de/api/scores")
-        .then((scores) => {
-            console.log('API-Daten:', scores);
-            setApiData(scores);
-        })
-        .catch((error) => {
-            console.error('Fehler beim Abrufen der API-Daten:', error);
-            JSON.parse(apiDataJSON);
-        });
     }, []);
 
     function resetFilter(): void {
