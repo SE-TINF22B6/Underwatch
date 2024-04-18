@@ -11,6 +11,7 @@ import WikiMobs from './WikiMobs';
 import WikiTipps from './WikiTipps';
 import Champions from './Champions';
 import ViedeoBackground from './VideoBackground';
+import {Toaster} from 'react-hot-toast';
 
 
 
@@ -56,6 +57,7 @@ const router = createBrowserRouter([
 
 root.render(
   <React.StrictMode>
+    <div><Toaster/></div>
     <ViedeoBackground path="./Gameplay.mov"/>
     <RouterProvider router={router}/>
   </React.StrictMode>
