@@ -30,14 +30,36 @@ public class GameOverStage extends Stage {
         Label lblGameOver = new Label("Game Over", skin);
         lblScore = new Label("Score: " + player.getScore(), skin);
         Label lblName = new Label("Enter Name:", skin);
-        TextArea textArea = new TextArea("UnderwatchGrinder", skin);
 
-        Button btnQuit = new Button(new Label("Send Score and Quit", skin), skin);
+        TextField textField = new TextField("UnderwatchGrinder", skin);
+        textField.setTextFieldListener((tf, c) -> {
+            if (c == '\n') {
+                if (textField.getText().trim().isEmpty())
+                    Gdx.app.debug(TAG, "Empty Name, won't submit any Score!");
+                else
+                    uploadScore(tf.getText().trim(), player);
+                game.setScreen(new MenuScreen(game));
+            }
+        });
+
+        Button btnSaveQuit = new Button(new Label("Send Score and Quit", skin), skin);
+        btnSaveQuit.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                super.clicked(event, x, y);
+                if (textField.getText().trim().isEmpty())
+                    Gdx.app.debug(TAG, "Empty Name, won't submit any Score!");
+                else
+                    uploadScore(textField.getText(), player);
+                game.setScreen(new MenuScreen(game));
+            }
+        });
+
+        Button btnQuit = new Button(new Label("Quit without submitting!", skin), skin);
         btnQuit.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 super.clicked(event, x, y);
-                uploadScore(textArea.getText(), player);
                 game.setScreen(new MenuScreen(game));
             }
         });
@@ -46,13 +68,15 @@ public class GameOverStage extends Stage {
         table.setFillParent(true);
         table.add(lblGameOver);
         table.row();
-        table.add(lblScore);
+        table.add(lblScore).padTop(50);
         table.row();
-        table.add(lblName);
+        table.add(lblName).padTop(50);
         table.row().expandX().fill().pad(0, 50, 0, 50);
-        table.add(textArea);
+        table.add(textField);
         table.row();
-        table.add(btnQuit);
+        table.add(btnSaveQuit).padTop(20);
+        table.row();
+        table.add(btnQuit).padTop(20);
         table.pad(8);
         this.addActor(table);
     }
