@@ -14,6 +14,9 @@ import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
+import java.time.ZoneOffset;
+import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
 
 public class GameOverStage extends Stage {
     private static final String TAG = GameOverStage.class.getName();
@@ -71,9 +74,17 @@ public class GameOverStage extends Stage {
                           "kills": %d,
                           "damageDealt": %d,
                           "dps": %d,
-                          "game_time": %d
+                          "game_time": %d,
+                          "timestamp": "%s"
                         }
-                        """.formatted(name, player.getScore(), player.getCoins(), player.getKills(), 0, 0, 0)))
+                        """.formatted(
+                        name,
+                        player.getScore(),
+                        player.getCoins(),
+                        player.getKills(),
+                        0, 0, 0,
+                        ZonedDateTime.now(ZoneOffset.UTC)
+                                .format(DateTimeFormatter.ISO_INSTANT))))
                 .build();
         client.sendAsync(request, HttpResponse.BodyHandlers.ofString()).thenAccept(s -> Gdx.app.debug(TAG, s.toString())).join();
     }
