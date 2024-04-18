@@ -29,7 +29,7 @@ public class GameScreen extends AbstractGameScreen {
         super(game);
         this.map = map;
         this.playerStatistics = new PlayerStatistics(3);
-        m.play();
+        //m.play();
     }
 
     public boolean isPaused() {
