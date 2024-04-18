@@ -38,9 +38,16 @@ jobs:
         - name: Generate build
           run: npm run build
           working-directory: website
-        # Share artifact inside workflow
-        - name: Upload Juicy J's Webpage Artifact
-          uses: actions/upload-artifact@v3
+        - name: Log in to the Container registry
+          uses: docker/login-action@f054a8b539a109f9f41c372932f1ae047eff08c9
           with:
-            name: website
-            path: website/build
+            registry: https://ghcr.io
+            username: ${{ github.actor }}
+            password: ${{ secrets.GITHUB_TOKEN }}  
+        - name: Build and push Docker image
+          uses: docker/build-push-action@f2a1d5e99d037542a71f64918e516c093c6f3fc4
+          with:
+            context: ./website/
+            file: ./website/Dockerfile
+            push: true 
+            tags: ghcr.io/se-tinf22b6/underwatch/website:${{ github.sha }}, ghcr.io/se-tinf22b6/underwatch/website:latest
