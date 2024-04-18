@@ -13,7 +13,6 @@ import static de.dhbw.tinf22b6.util.Constants.TILE_SIZE;
 
 public abstract class GameObject {
     protected Animation<TextureAtlas.AtlasRegion> currentAnimation;
-    protected Animation<TextureAtlas.AtlasRegion> idleAnimation;
     protected Body body;
     protected World world;
     protected float width, height;
@@ -25,8 +24,7 @@ public abstract class GameObject {
     protected short collisionMask;
 
     public GameObject(String region, Vector2 position, World world, short collisionMask) {
-        this.idleAnimation = new Animation<>(0.2f, Assets.instance.getAnimationAtlasRegion(region));
-        this.currentAnimation = idleAnimation;
+        this.currentAnimation = new Animation<>(0.5f, Assets.instance.getAnimationAtlasRegion(region));
         pos = new Vector2(position.x * TILE_SIZE, position.y * TILE_SIZE);
         this.collisionMask = collisionMask;
         this.world = world;

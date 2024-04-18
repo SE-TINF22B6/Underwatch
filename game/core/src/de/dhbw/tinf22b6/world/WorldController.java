@@ -7,6 +7,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.physics.box2d.World;
 import de.dhbw.tinf22b6.gameobject.Bullet;
+import de.dhbw.tinf22b6.gameobject.Direction;
 import de.dhbw.tinf22b6.gameobject.GameObject;
 import de.dhbw.tinf22b6.gameobject.Player;
 import de.dhbw.tinf22b6.screen.GameScreen;
@@ -19,19 +20,7 @@ import static de.dhbw.tinf22b6.util.Constants.TILE_SIZE;
 
 public class WorldController extends InputAdapter {
     private static final String TAG = WorldController.class.getName();
-    public CameraHelper cameraHelper;
-    private Game game;
-
-    public Player getPlayer() {
-        return player;
-    }
-
-    private Player player;
-    private World world;
     private final Vector2 motion = new Vector2(0, 0);
-    public boolean debugBox2D = false;
-    private Camera camera;
-    private GameScreen gameScreen;
     private final Preferences prefs = Gdx.app.getPreferences("Controls");
     private final int left = prefs.getInteger("left", Input.Keys.A);
     private final int right = prefs.getInteger("right", Input.Keys.D);
@@ -39,14 +28,23 @@ public class WorldController extends InputAdapter {
     private final int down = prefs.getInteger("down", Input.Keys.S);
     private final int inventory = prefs.getInteger("inventory", Input.Keys.I);
     private final int dodge = prefs.getInteger("dodge", Input.Keys.SPACE);
-
-
+    public CameraHelper cameraHelper;
+    public boolean debugBox2D = false;
+    private Game game;
+    private Player player;
+    private World world;
+    private Camera camera;
+    private GameScreen gameScreen;
     public WorldController(Game game, World world, Camera camera, GameScreen gameScreen, PlayerStatistics playerStatistics) {
         this.game = game;
         this.world = world;
         this.camera = camera;
         this.gameScreen = gameScreen;
         init(playerStatistics);
+    }
+
+    public Player getPlayer() {
+        return player;
     }
 
     private void init(PlayerStatistics playerStatistics) {
@@ -105,15 +103,21 @@ public class WorldController extends InputAdapter {
     public boolean keyDown(int keycode) {
         if (keycode == left) {
             motion.x = -1;
+            player.showAnimation(Direction.LEFT);
         } else if (keycode == right) {
             motion.x = 1;
+            player.showAnimation(Direction.RIGHT);
         } else if (keycode == up) {
             motion.y = 1;
+            player.showAnimation(Direction.UP);
         } else if (keycode == down) {
             motion.y = -1;
+            player.showAnimation(Direction.DOWN);
         }
-        if (keycode == left || keycode == right || keycode == up || keycode == down)
+        if (keycode == left || keycode == right || keycode == up || keycode == down) {
             player.applyForce(motion.setLength(1));
+            player.setWalking();
+        }
         if (keycode == inventory) {
             Gdx.app.debug(TAG, "Objects in List: " + EntitySystem.instance.getGameObjects().size());
         }
@@ -133,7 +137,6 @@ public class WorldController extends InputAdapter {
         }
         if (keycode == left || keycode == right || keycode == up || keycode == down)
             player.applyForce(motion.setLength(1));
-
         if (keycode == Input.Keys.R) {
             game.setScreen(new GameScreen(game, WorldType.LEVEL2.getMap()));
             Gdx.app.debug(TAG, "Game world reset");

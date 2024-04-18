@@ -9,7 +9,7 @@ import de.dhbw.tinf22b6.util.Assets;
 
 public class UnderwatchGame extends Game {
     @Override
-    public void create () {
+    public void create() {
         // Set Libgdx log level
         Gdx.app.setLogLevel(Application.LOG_DEBUG);
 
