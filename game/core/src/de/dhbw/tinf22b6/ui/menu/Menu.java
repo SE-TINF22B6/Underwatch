@@ -2,6 +2,7 @@ package de.dhbw.tinf22b6.ui.menu;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
@@ -20,7 +21,7 @@ import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 
 public class Menu extends Stage {
-    public Menu(StageManager stageManager) {
+    public Menu(StageManager stageManager, Music music) {
         super();
         Skin skin = Assets.instance.getSkin();
         Game game = stageManager.getGame();
@@ -32,6 +33,18 @@ public class Menu extends Stage {
         Label dadJoke = new Label(getDadJoke(), skin);
         dadJoke.setFontScale(0.5f);
         table.add(dadJoke).row();
+
+        Button btnMute = new Button(skin);
+        btnMute.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                music.setVolume(music.getVolume() != 0 ? 0 : 1);
+                super.clicked(event, x, y);
+            }
+        });
+        btnMute.setSize(50, 50);
+        btnMute.setPosition(Gdx.graphics.getWidth() - 60, Gdx.graphics.getHeight() - 60);
+        this.addActor(btnMute);
 
         Button btnStart = new Button(skin);
         btnStart.add(new Label("Start Game", skin));

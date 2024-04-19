@@ -108,10 +108,10 @@
     ],
     "project": "Underwatch.tiled-project",
     "recentFiles": [
-        "Sample.tmx",
-        "TeleportTest.tmx",
         "Dungeon_Tileset.tsx",
+        "Sample.tmx",
         "2.0Map.tmx",
+        "TeleportTest.tmx",
         "/Users/martin/repos/Underwatch/game/assets/iso-64x64-building.tsx",
         "/Users/martin/repos/Underwatch/game/assets/haus map.tmx",
         "/Users/martin/repos/Underwatch/game/assets/Haus_map_neu.tmx",

@@ -17,7 +17,7 @@ import de.dhbw.tinf22b6.weapon.Weapon;
 import static de.dhbw.tinf22b6.util.Constants.PLAYER_BIT;
 import static de.dhbw.tinf22b6.util.Constants.TILE_SIZE;
 
-public class Player extends GameObject {
+public class Player extends MobGameObject {
     private static final String TAG = Player.class.getName();
     private Weapon weapon;
     private boolean dodging;
@@ -27,7 +27,7 @@ public class Player extends GameObject {
     private float dodgeStateTime;
 
     public Player(World world, Vector2 position, PlayerStatistics statistics) {
-        super("priest1_v1", position, world, Constants.PLAYER_BIT);
+        super("shaman", position, world, Constants.PLAYER_BIT);
         this.playerStatistics = statistics;
         // equip weapon
         //this.weapon = new HandGun();
@@ -133,7 +133,7 @@ public class Player extends GameObject {
         new Thread(() -> {
             try {
                 Thread.sleep((long) (dodgeAnimation.getAnimationDuration() * 1000));
-                currentAnimation = idleAnimation;
+                currentAnimation = idleDAnimation;
                 this.dodging = false;
                 this.movedDuringDash = false;
                 this.applyForce(new Vector2(0, 0));

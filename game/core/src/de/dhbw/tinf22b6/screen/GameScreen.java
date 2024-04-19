@@ -29,7 +29,6 @@ public class GameScreen extends AbstractGameScreen {
         super(game);
         this.map = map;
         this.playerStatistics = new PlayerStatistics(3);
-        m.play();
     }
 
     public boolean isPaused() {
@@ -61,6 +60,7 @@ public class GameScreen extends AbstractGameScreen {
 
     @Override
     public void show() {
+        m.play();
         World world = new World(new Vector2(0, 0), false);
         WorldParser.parseStaticObjects(map, world);
         world.setContactListener(new WorldListener(this));
@@ -74,6 +74,7 @@ public class GameScreen extends AbstractGameScreen {
 
     @Override
     public void hide() {
+        m.stop();
     }
 
     @Override
