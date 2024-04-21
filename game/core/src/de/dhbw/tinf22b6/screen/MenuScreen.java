@@ -130,6 +130,7 @@ public class MenuScreen extends AbstractGameScreen {
     @Override
     public void show() {
         menuMusic.setLooping(true);
+        menuMusic.setVolume(Gdx.app.getPreferences("Controls").getFloat("music"));
         menuMusic.play();
         stageManager = new StageManager(game, menuMusic);
         camera.position.set(150, 300, 0);

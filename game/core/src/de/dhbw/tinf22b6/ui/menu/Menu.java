@@ -2,6 +2,7 @@ package de.dhbw.tinf22b6.ui.menu;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Preferences;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
@@ -38,7 +39,10 @@ public class Menu extends Stage {
         btnMute.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                music.setVolume(music.getVolume() != 0 ? 0 : 1);
+                Preferences preferences = Gdx.app.getPreferences("Controls");
+                preferences.putBoolean("muteMusic", !preferences.getBoolean("muteMusic"));
+                preferences.flush();
+                music.setVolume(preferences.getBoolean("muteMusic") ? 0 : preferences.getFloat("music"));
                 super.clicked(event, x, y);
             }
         });
@@ -73,7 +77,7 @@ public class Menu extends Stage {
                 new ClickListener() {
                     @Override
                     public void clicked(InputEvent event, float x, float y) {
-                        stageManager.setStage(new Settings(stageManager));
+                        stageManager.setStage(new Settings(stageManager, music));
                     }
 
                     @Override
