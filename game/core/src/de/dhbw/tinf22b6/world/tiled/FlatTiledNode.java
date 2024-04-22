@@ -35,4 +35,8 @@ public class FlatTiledNode extends TiledNode<FlatTiledNode> {
         return x * sizeY + y;
     }
 
+    @Override
+    public String toString() {
+        return x + " " + y + " " + type;
+    }
 }

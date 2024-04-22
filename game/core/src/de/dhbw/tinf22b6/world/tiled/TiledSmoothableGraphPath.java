@@ -14,13 +14,11 @@
  * limitations under the License.
  ******************************************************************************/
 
-package de.dhbw.tinf22b6.world;
+package de.dhbw.tinf22b6.world.tiled;
 
 import com.badlogic.gdx.ai.pfa.DefaultGraphPath;
 import com.badlogic.gdx.ai.pfa.SmoothableGraphPath;
 import com.badlogic.gdx.math.Vector2;
-
-import de.dhbw.tinf22b6.world.tiled.TiledNode;
 
 /**
  * A smoothable path for a generic tiled graph.
@@ -63,4 +61,8 @@ public class TiledSmoothableGraphPath<N extends TiledNode<N>> extends DefaultGra
         nodes.truncate(newLength);
     }
 
+    @Override
+    public String toString() {
+        return super.toString();
+    }
 }
