@@ -144,7 +144,7 @@ const Scoreboard = () => {
 
     // ---------- Sortierung ----------
     const [order, setOrder] = useState<'asc' | 'desc' | undefined>('desc');
-    const [orderBy, setOrderBy] = useState<'score' | 'playerName' | 'timestamp' | ''>('score');
+    const [orderBy, setOrderBy] = useState<'score' | 'playerName' | 'timestamp' | 'coins' | 'kills' | 'damageDealt' | 'dps' | 'game_time' | ''>('score');
     const sortedData = [...apiData].sort((a, b) => {
         if (orderBy === '') {
             return 1;
@@ -284,22 +284,6 @@ const Scoreboard = () => {
                                     <TableCell align="right"
                                                style={{color: theme2.palette.primary.contrastText, fontWeight: 'bold'}}>
                                         <TableSortLabel
-                                            active={orderBy === 'timestamp'}
-                                            direction={orderBy === 'timestamp' ? order : 'desc'}
-                                            onClick={() => handleSort('timestamp')}
-                                            sx={{
-                                                '&.MuiTableSortLabel-root .MuiTableSortLabel-icon': {
-                                                    color: theme2.palette.primary.contrastText
-                                                },
-                                            }}
-                                            style={{color: theme2.palette.primary.contrastText}}
-                                        >
-                                            Date
-                                        </TableSortLabel>
-                                    </TableCell>
-                                    <TableCell align="right"
-                                               style={{color: theme2.palette.primary.contrastText, fontWeight: 'bold'}}>
-                                        <TableSortLabel
                                             active={orderBy === 'score'}
                                             direction={orderBy === 'score' ? order : 'asc'}
                                             onClick={() => handleSort('score')}
@@ -311,6 +295,102 @@ const Scoreboard = () => {
                                             style={{color: theme2.palette.primary.contrastText}}
                                         >
                                             Scores
+                                        </TableSortLabel>
+                                    </TableCell>
+                                    <TableCell align="right"
+                                               style={{color: theme2.palette.primary.contrastText, fontWeight: 'bold'}}>
+                                        <TableSortLabel
+                                            active={orderBy === 'coins'}
+                                            direction={orderBy === 'coins' ? order : 'asc'}
+                                            onClick={() => handleSort('coins')}
+                                            sx={{
+                                                '&.MuiTableSortLabel-root .MuiTableSortLabel-icon': {
+                                                    color: theme2.palette.primary.contrastText
+                                                },
+                                            }}
+                                            style={{color: theme2.palette.primary.contrastText}}
+                                        >
+                                            Coins
+                                        </TableSortLabel>
+                                    </TableCell>
+                                    <TableCell align="right"
+                                               style={{color: theme2.palette.primary.contrastText, fontWeight: 'bold'}}>
+                                        <TableSortLabel
+                                            active={orderBy === 'kills'}
+                                            direction={orderBy === 'kills' ? order : 'asc'}
+                                            onClick={() => handleSort('kills')}
+                                            sx={{
+                                                '&.MuiTableSortLabel-root .MuiTableSortLabel-icon': {
+                                                    color: theme2.palette.primary.contrastText
+                                                },
+                                            }}
+                                            style={{color: theme2.palette.primary.contrastText}}
+                                        >
+                                            Kills
+                                        </TableSortLabel>
+                                    </TableCell>
+                                    <TableCell align="right"
+                                               style={{color: theme2.palette.primary.contrastText, fontWeight: 'bold'}}>
+                                        <TableSortLabel
+                                            active={orderBy === 'damageDealt'}
+                                            direction={orderBy === 'damageDealt' ? order : 'asc'}
+                                            onClick={() => handleSort('damageDealt')}
+                                            sx={{
+                                                '&.MuiTableSortLabel-root .MuiTableSortLabel-icon': {
+                                                    color: theme2.palette.primary.contrastText
+                                                },
+                                            }}
+                                            style={{color: theme2.palette.primary.contrastText}}
+                                        >
+                                            Damage
+                                        </TableSortLabel>
+                                    </TableCell>
+                                    <TableCell align="right"
+                                               style={{color: theme2.palette.primary.contrastText, fontWeight: 'bold'}}>
+                                        <TableSortLabel
+                                            active={orderBy === 'dps'}
+                                            direction={orderBy === 'dps' ? order : 'asc'}
+                                            onClick={() => handleSort('dps')}
+                                            sx={{
+                                                '&.MuiTableSortLabel-root .MuiTableSortLabel-icon': {
+                                                    color: theme2.palette.primary.contrastText
+                                                },
+                                            }}
+                                            style={{color: theme2.palette.primary.contrastText}}
+                                        >
+                                            DPS
+                                        </TableSortLabel>
+                                    </TableCell>
+                                    <TableCell align="right"
+                                               style={{color: theme2.palette.primary.contrastText, fontWeight: 'bold'}}>
+                                        <TableSortLabel
+                                            active={orderBy === 'game_time'}
+                                            direction={orderBy === 'game_time' ? order : 'asc'}
+                                            onClick={() => handleSort('game_time')}
+                                            sx={{
+                                                '&.MuiTableSortLabel-root .MuiTableSortLabel-icon': {
+                                                    color: theme2.palette.primary.contrastText
+                                                },
+                                            }}
+                                            style={{color: theme2.palette.primary.contrastText}}
+                                        >
+                                            Game-Time
+                                        </TableSortLabel>
+                                    </TableCell>
+                                    <TableCell align="right"
+                                               style={{color: theme2.palette.primary.contrastText, fontWeight: 'bold'}}>
+                                        <TableSortLabel
+                                            active={orderBy === 'timestamp'}
+                                            direction={orderBy === 'timestamp' ? order : 'desc'}
+                                            onClick={() => handleSort('timestamp')}
+                                            sx={{
+                                                '&.MuiTableSortLabel-root .MuiTableSortLabel-icon': {
+                                                    color: theme2.palette.primary.contrastText
+                                                },
+                                            }}
+                                            style={{color: theme2.palette.primary.contrastText}}
+                                        >
+                                            Date
                                         </TableSortLabel>
                                     </TableCell>
                                 </TableRow>
@@ -331,11 +411,31 @@ const Scoreboard = () => {
                                             </TableCell>
                                             <TableCell align="right"
                                                        style={{color: theme2.palette.primary.contrastText}}>
-                                                {new Date(row.timestamp).toLocaleString('de-DE', {timeZone: 'Europe/Berlin'}).split(',')[0]}
+                                                {row.score}
+                                            </TableCell>
+                                            <TableCell align="right"
+                                                        style={{color: theme2.palette.primary.contrastText}}>
+                                                {row.coins}
+                                            </TableCell>
+                                            <TableCell align="right"
+                                                        style={{color: theme2.palette.primary.contrastText}}>
+                                                {row.kills}
+                                            </TableCell>
+                                            <TableCell align="right"
+                                                        style={{color: theme2.palette.primary.contrastText}}>
+                                                {row.damageDealt}
+                                            </TableCell>
+                                            <TableCell align="right"
+                                                        style={{color: theme2.palette.primary.contrastText}}>
+                                                {row.dps}
+                                            </TableCell>
+                                            <TableCell align="right"
+                                                        style={{color: theme2.palette.primary.contrastText}}>
+                                                {row.game_time}
                                             </TableCell>
                                             <TableCell align="right"
                                                        style={{color: theme2.palette.primary.contrastText}}>
-                                                {row.score}
+                                                {new Date(row.timestamp).toLocaleString('de-DE', {timeZone: 'Europe/Berlin'}).split(',')[0]}
                                             </TableCell>
                                         </TableRow>
                                     )
