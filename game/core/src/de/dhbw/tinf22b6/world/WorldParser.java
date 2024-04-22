@@ -143,6 +143,24 @@ public class WorldParser {
         }
     }
 
+    public static GridCell[][] getNavCells(TiledMap map) {
+        TiledMapTileLayer layer = (TiledMapTileLayer) map.getLayers().get("walls");
+        if (layer == null) return new GridCell[][]{};
+
+        GridCell[][] nodes = new GridCell[layer.getWidth()][layer.getHeight()];
+        for (int x = 0; x < layer.getWidth(); x++) {
+            for (int y = 0; y < layer.getHeight(); y++) {
+                TiledMapTileLayer.Cell tileCell = layer.getCell(x, y);
+                GridCell cell;
+                if (tileCell == null) cell = new GridCell(x, layer.getHeight() - 1 - y, true);
+                else cell = new GridCell(x, layer.getHeight() - 1 - y, false);
+
+                nodes[cell.getX()][cell.getY()] = cell;
+            }
+        }
+        return nodes;
+    }
+
     public static BodyDef getStaticBodyDef(float x, float y) {
         BodyDef bodyDef = new BodyDef();
         bodyDef.type = BodyDef.BodyType.StaticBody;

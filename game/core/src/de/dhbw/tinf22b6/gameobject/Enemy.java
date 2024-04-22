@@ -6,7 +6,6 @@ import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
-import de.dhbw.tinf22b6.ai.EnemyStateMachine;
 import de.dhbw.tinf22b6.util.Constants;
 import de.dhbw.tinf22b6.weapon.Weapon;
 
@@ -16,14 +15,12 @@ public class Enemy extends GameObject {
     private static final String TAG = Enemy.class.getName();
     private Weapon weapon;
     private int health;
-    private final EnemyStateMachine enemyStateMachine;
 
     public Enemy(Vector2 position, World world) {
         super("skeleton_v2", position, world, Constants.ENEMY_BIT);
         // equip weapon
         //this.weapon = new HandGun();
         this.speed = 20;
-        this.enemyStateMachine = new EnemyStateMachine(this, world);
         this.health = 3;
         // create Body
         BodyDef bodyDef = new BodyDef();
@@ -55,7 +52,6 @@ public class Enemy extends GameObject {
     @Override
     public void tick(float delta) {
         super.tick(delta);
-        enemyStateMachine.tick(delta);
         pos.x = body.getPosition().x - (float) TILE_SIZE / 2;
         pos.y = body.getPosition().y - (float) TILE_SIZE / 4;
     }
