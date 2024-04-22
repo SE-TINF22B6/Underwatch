@@ -16,8 +16,8 @@ import de.dhbw.tinf22b6.util.Assets;
 import java.util.concurrent.atomic.AtomicReference;
 
 public class Settings extends Stage {
-    private int lastKeyCode;
     private final Preferences preferences = Gdx.app.getPreferences("Controls");
+    private int lastKeyCode;
     private TextButton currentEntry;
 
     public Settings(StageManager stageManager, Music music) {
@@ -131,13 +131,13 @@ public class Settings extends Stage {
             // get current setting we're editing
             AtomicReference<String> settingToBeEdited = new AtomicReference<>();
             preferences.get().forEach((s, o) -> {
-                if (Integer.parseInt((String) o) == lastKeyCode) settingToBeEdited.set(s);
+                if (String.valueOf(lastKeyCode).equals(o)) settingToBeEdited.set(s);
             });
 
             // check if the new keycode is already bound
             AtomicReference<Boolean> canEdit = new AtomicReference<>(true);
             preferences.get().forEach((s, o) -> {
-                if (!settingToBeEdited.get().equals(s)) if (Integer.parseInt((String) o) == keycode) canEdit.set(false);
+                if (!settingToBeEdited.get().equals(s)) if (String.valueOf(keycode).equals(o)) canEdit.set(false);
             });
 
             // update preferences and persist them
