@@ -23,7 +23,6 @@ import static de.dhbw.tinf22b6.util.Constants.VIEWPORT_WIDTH;
 
 public class MenuScreen extends AbstractGameScreen {
     private static final float MAX_BLUR = 4f;
-    private static final String TAG = MenuScreen.class.getName();
     private final Music menuMusic = Gdx.audio.newMusic(Gdx.files.internal("music/main_menu.mp3"));
     private final TiledMapRenderer renderer;
     private final OrthographicCamera camera;
@@ -130,6 +129,7 @@ public class MenuScreen extends AbstractGameScreen {
     @Override
     public void show() {
         menuMusic.setLooping(true);
+        menuMusic.setVolume(Gdx.app.getPreferences("Controls").getBoolean("muteMusic") ? 0 : Gdx.app.getPreferences("Controls").getFloat("music"));
         menuMusic.play();
         stageManager = new StageManager(game, menuMusic);
         camera.position.set(150, 300, 0);
