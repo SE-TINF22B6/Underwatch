@@ -1,7 +1,7 @@
 import { Button, MenuItem, Menu } from "@mui/material";
 import MenuIcon from '@mui/icons-material/Menu';
 import React from "react";
-import {useNavigate} from 'react-router-dom';
+import {useLocation, useNavigate} from 'react-router-dom';
 import { theme2 } from "./theme";
 
 
@@ -15,7 +15,8 @@ export default function NavigationMenu() {
     const handleClose = () => {
         setAnchorEl(null);
     };
-    const navigate = useNavigate()
+    const navigate = useNavigate();
+    const loc = useLocation();
 
 
     return(
@@ -39,10 +40,34 @@ export default function NavigationMenu() {
                   }}
                 PaperProps={{style: {backgroundColor:theme2.palette.primary.main, color: theme2.palette.primary.contrastText}}}        
             >
-                <MenuItem onClick={()=>{navigate('/')}}>Landing Page</MenuItem>
-                <MenuItem onClick={()=>{navigate('/scoreboard/')}}>Scoreboard</MenuItem>
-                <MenuItem onClick={()=>{navigate('/champions/')}}>Champions</MenuItem>
-                <MenuItem onClick={()=>{navigate('/wiki/')}}>Wiki</MenuItem>
+                <MenuItem onClick={()=>{navigate('/')}}
+                    onMouseEnter={(e) => e.currentTarget.style.backgroundColor = theme2.palette.primary.dark}
+                    onMouseLeave={(e) => {e.currentTarget.style.backgroundColor = loc.pathname === '/' ? theme2.palette.primary.dark : theme2.palette.primary.main}}
+                    style = {{backgroundColor: loc.pathname === '/' ? theme2.palette.primary.dark : undefined}}
+                >
+                    Landing Page
+                </MenuItem>
+                <MenuItem onClick={()=>{navigate('/scoreboard/')}}
+                    onMouseEnter={(e) => e.currentTarget.style.backgroundColor = theme2.palette.primary.dark}
+                    onMouseLeave={(e) => {e.currentTarget.style.backgroundColor = loc.pathname === '/scoreboard/' ? theme2.palette.primary.dark : theme2.palette.primary.main}}
+                    style = {{backgroundColor: loc.pathname === '/scoreboard/' ? theme2.palette.primary.dark : undefined}}
+                >
+                    Scoreboard
+                </MenuItem>
+                <MenuItem onClick={()=>{navigate('/champions/')}}
+                    onMouseEnter={(e) => e.currentTarget.style.backgroundColor = theme2.palette.primary.dark}
+                    onMouseLeave={(e) => {e.currentTarget.style.backgroundColor = loc.pathname === '/champions/' ? theme2.palette.primary.dark : theme2.palette.primary.main}}
+                    style = {{backgroundColor: loc.pathname === '/champions/' ? theme2.palette.primary.dark : undefined}}
+                >
+                    Champions
+                </MenuItem>
+                <MenuItem onClick={()=>{navigate('/wiki/')}}
+                    onMouseEnter={(e) => e.currentTarget.style.backgroundColor = theme2.palette.primary.dark}
+                    onMouseLeave={(e) => {e.currentTarget.style.backgroundColor = loc.pathname === '/wiki/' ? theme2.palette.primary.dark : theme2.palette.primary.main}}
+                    style = {{backgroundColor: loc.pathname === '/wiki/' ? theme2.palette.primary.dark : undefined}}
+                >
+                    Wiki
+                </MenuItem>
             </Menu>
         </div>
     )
