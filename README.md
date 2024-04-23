@@ -1,7 +1,9 @@
 # Underwatch
 <p align="center">
-<img alt="Logo Banner" width="50%" src="https://github.com/SE-TINF22B6/Underwatch/assets/11832982/3be5656e-642a-4601-b716-2d651e1303f9"/>
+<!--<img alt="Logo Banner" width="50%" src="https://github.com/SE-TINF22B6/Underwatch/assets/11832982/3be5656e-642a-4601-b716-2d651e1303f9"/>-->
+<img alt="Logo Banner" width="100%" src="https://github.com/SE-TINF22B6/Underwatch/assets/122724021/77e7bd97-2875-4d00-90a0-d24d0dab0fad"/>
 <a href="https://underwatch.freemine.de/">
+
 </p>
 
 [![License](https://img.shields.io/github/license/SE-TINF22B6/Underwatch)](https://github.com/SE-TINF22B6/Underwatch/blob/main/LICENSE)
