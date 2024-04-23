@@ -52,16 +52,65 @@ Additionally this page serves as advertisement for our game so potential players
 </details>
 
 
-### Getting Started
+### 🔩 Getting Started
 
-- Java install
-- Internet connection (for highscore upload)
+You want to start contributing to this project? That's great! Here are some pointers on where to get you started in the department you want to contribute to.
 
-## Technologies
-<div height=100px>
-    <img alt="Logo Banner" width="30%" src="https://upload.wikimedia.org/wikipedia/commons/3/30/React_Logo_SVG.svg"/>
-    <img alt="Logo Banner" width="30%" src="https://libgdx.com/assets/brand/stacked.png"/>
-    <img alt="Logo Banner" width="30%" src="https://spring.io/img/spring.svg"/>
+Regardless of where you want to contribute, start by checking out this repository.
+
+```bash
+$ git pull git@github.com:SE-TINF22B6/Underwatch.git
+```
+
+#### 🌈 Web development
+
+The web page sources are located in the folder `Underwatch/website`. We use `npm` as a package manager.
+First pull the dependencies via:
+
+```bash
+$ cd website
+$ npm install
+```
+
+then run the development server with:
+
+```bash
+$ npm start
+```
+
+Changing any of the source files automatically reloads the development server effectively showing you the most recent changes you've made.
+
+#### 🕹️ Game development
+
+The game is scaffolded with `Gradle` and is located in the `Underwatch/game` directory.
+We use Java 17 as a development JDK. Verify your installation with:
+
+```bash
+$ java --version
+```
+
+Run the game via the `run` configuration:
+
+```bash
+$ cd game
+$ ./gradlew run
+```
+
+> [!IMPORTANT]  
+> If you're on Apples M1 architecture append the JVM argument `-XstartOnFirstThread` as this will allow the `LWJGL` application to start properly.
+
+## 🧑‍🔬 Technologies
+
+<p height=100px align="center">
+  <a href="https://react.dev/">
+    <img alt="Logo Banner" height="100px" src="https://upload.wikimedia.org/wikipedia/commons/3/30/React_Logo_SVG.svg"/>
+  </a>
+  <a href="https://libgdx.com/">
+    <img alt="Logo Banner" height="100px" src="https://libgdx.com/assets/brand/stacked.png"/>
+  </a>
+  <a href="https://spring.io/projects/spring-boot">
+    <img alt="Logo Banner" height="100px" src="https://spring.io/img/spring.svg"/>
+  </a>
 </div>
 
 
