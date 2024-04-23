@@ -54,7 +54,7 @@ public class AITest {
         }
     }
 @Test
-    @DisplayName("Test A* No Obstructions")
+    @DisplayName("Test A* With Obstructions")
     void testNavigation_2() {
         int[][] rawMap = new int[][]{
                 new int[]{2, 2, 2, 2, 2, 2, 2},
