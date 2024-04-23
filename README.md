@@ -52,7 +52,7 @@ Additionally this page serves as advertisement for our game so potential players
 </details>
 
 
-### 🔩 Getting Started
+## 🔩 Getting Started
 
 You want to start contributing to this project? That's great! Here are some pointers on where to get you started in the department you want to contribute to.
 
@@ -62,7 +62,7 @@ Regardless of where you want to contribute, start by checking out this repositor
 $ git pull git@github.com:SE-TINF22B6/Underwatch.git
 ```
 
-#### 🌈 Web development
+### 🌈 Web development
 
 The web page sources are located in the folder `Underwatch/website`. We use `npm` as a package manager.
 First pull the dependencies via:
@@ -80,7 +80,7 @@ $ npm start
 
 Changing any of the source files automatically reloads the development server effectively showing you the most recent changes you've made.
 
-#### 🕹️ Game development
+### 🕹️ Game development
 
 The game is scaffolded with `Gradle` and is located in the `Underwatch/game` directory.
 We use Java 17 as a development JDK. Verify your installation with:
