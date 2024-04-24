@@ -80,7 +80,7 @@ The application can be split into the following sections:
 1. Gameplay Loop
 2. Website Activities
 
-![General Usecase]( ./assets/general_use_case.drawio.svg)
+![General Usecase](./assets/general_use_case.drawio.svg)
 
 ## 2.1.2 Important Entities and Classes
 > [!TODO] 
@@ -96,40 +96,69 @@ The application can be split into the following sections:
 
 # 3. Nonfunctional requirements
 
-<!-- > [!NOTE]   -->
-<!-- > It is not necessary to cover all of the following ASRs (Architecturally Significant Requirements), but focus on what your project will implement.   -->
-<!-- > If some ASRs are described as user stories in your backlog, add their **links** in this section, or any information to guide the reader find them in your backlog, such as a **label** of those relevant user stories. -->
-
-<!-- > Categories: Availability, Performance, (Energy) Efficiency, Deployability, Integrability, Modifiability, Testability, Safety, Security, Usability -->
-
-For our quality requirements we will use the ISO 25010 Product Quality standard. For more informations regarding this standard you can visit the site https://iso25000.com/index.php/en/iso-25000-standards/iso-25010 .<img width="799" alt="Screenshot 2023-10-18 at 14 38 01" src="https://github.com/SE-TINF22B6/Underwatch/assets/87950162/a407dcaf-1f93-4ef1-a589-a6a199d75db9">  
-We have identified the following non-functional requirements as paramount for the success of our project:  
-
-| Goal                    | Description                                                      |
-|-------------------------|------------------------------------------------------------------|
-| 1. User Engagement      | The users should be engaged while playing the game               |
-| 2. Self-descriptiveness | The game should be easy to understand with low efforts           |
-| 3.  Installability      | The game should run on all major platforms (windows, linux, mac) |
-
-## 3.1 Utility tree
+We have identified the following three non-functional requirements as paramount for the success of our project:
 
 | Quality attribute    | Refinement             | Quality attribute scenarios   | Business value | Technical risk  |
 | :---                 | :----                  | :----                         | :----          | :----           | 
-| e.g. Availability    | e.g. data loss         | Scenario 1.1  who/what, Event, Influence, Condition, Action, Measurement                |  e.g. H        | e.g., L         |
-|                      |                        | Scenario 1.2                  |  e.g. M        | e.g., L         |
-|                      | e.g. hardware issue    | Scenario 2.1                  |  e.g. H        | e.g., L         |
-| e.g. Security        | ... ...                |                               |                |                 |
+| Availability         | uptime tracking        | Users want to look at the scoreboard, read the lore or download the game, which is only possible if the web page is online | High | Low |
+| Performance          | hardware benchmarking  | Players want a smoothly running game on all hardware without stutters or hang ups | High      | High |
+| Usability            | user feedback.         | Users want to start playing without having to read up lengthy documentation which is neccessary to get started.  | Medium        | Low |
 
-> [!IMPORTANT]
-> When specifying the quality attribute scenarios, cover 6 aspects: who/what, Event, Influence, Condition, Action, Measurement
+## 3.1 Availability
 
-## 3.2 Tactics for Top 3 quality attribute scenarios
+In terms of availability we value the following attributes the most.
 
-### 3.2.1 User Engagement
+### 3.1.1 Uptime
 
-### 3.2.2 Self-descriptiveness
+The web page will be the signpost of our game as well as the primary entry point into our application ecosystem. 
+It being online is therefore a very essential trait of our web page.
+We are currently hosting the entire infrastructure on the local cluster of a participant.
+If we cannot reach a sufficient uptime percentage we have to look into consulting a hosting provider.
 
-### 3.2.3 Installability
+### 3.1.2 Responsiveness
+
+The data collecting end point which is used by the game to upload scores as well as by the web page to print out the high scores and various other statistics has to handle lots of data.
+This may lead to potentionally long waiting times for an extraction of the entire data for the statistics on the web page.
+Additionally the server might not be able to accept new submissions of high scores during this request.
+Solution to this problem may any of either:
+
+- Scale the Web Service Horizontally
+- Introduce Paging and lazyloading for big requests
+
+## 3.2 Performance
+
+Developing a game, it is cruicial to have good performance on various target platforms. 
+In this category we value the following points the most.
+
+### 3.2.1 High FPS 
+
+As a locally run game we have to adjust our shader programs, assets as well as post processing effects in order to never fall into a range which is not considered playable anymore.
+In the industry this threshold is 60 frames per second.
+We want to consider the framerate of the current monitor and set our target for this point to gameFPS = VSyncFrequency.
+Sections where we can adjust most of the performance:
+
+- Post Processing
+- Physics Engine
+
+### 3.2.2 Stable Physics
+
+Underwatch features many weapons with shooting properties. 
+This fact requires the physics engine of the game to handle potentially many objects which are travelling in the world.
+When the physics engine gets overloaded the player might experience stuttering particles and objects on the screen.
+To mitigate this problem we want to employ heavy testing on different hardware as well as load testing the physics engine regularly.
+
+## 3.3 Usability
+
+Usability is a key attribute of a game. It should be fun and interactive and users should not have the hassle of looking up the essential information on how to play the game.
+There are a few approaches to approach this:
+
+- implement a tutorial which the player can choose to play initially
+- add basic input and game knowledge to the social media and marketing material so the player knows how the game works by the time they download it
+
+### 3.3.1 Choice of Data
+
+One of our key features is collecting statistics of the game runs and providing insights alongside a user name on the global scoreboard. However, we acknoledge, that some people don't want to upload their data for whatever reason they don't want.
+As a solution we want to always implement an alternative Button/Input which results in the metrics not being uploaded at all.
 
 # 4. Technical constraints
 > Specify any major constraints, assumptions or dependencies, e.g., any restrictions about which type of server to use, which type of open source license must be complied, etc. 
