@@ -69,7 +69,7 @@ This Software Requirements Specification (SRS) document covers the complete syst
 
 ## 2.1 Overview
 
-## 2.1.1 General Use-Case
+### 2.1.1 General Use-Case
 
 Underwatch is comparable to almost all of the games on the game market. 
 Meaning that there is a web page promoting the game as well as giving out additional information in the form of statistics.
@@ -82,17 +82,83 @@ The application can be split into the following sections:
 
 ![General Usecase](./assets/general_use_case.drawio.svg)
 
-## 2.1.2 Important Entities and Classes
-> [!TODO] 
-> We have to add the EER models which we have in stuff we have to fit later(https://github.com/SE-TINF22B6/Underwatch/wiki/Stuff-we-have-to-fit-later).
->At this point we can also rework them to be better. We dont have to go into to much detail and the core graphic will probably be the game EER.
->We can put three parts here
->1. The game
->2. The website model
->3. The data model 
+### 2.1.2 Important Entities and Classes
 
-## 2.3 Name of Feature 2 / Use Case 2
-... ...
+![Revised Class Diagram](./assets/revisedClassDiagram.svg)
+
+1. **WorldController**: This class handles the input of the user. Additionally the physics engine is also anchored in this class.
+2. **WorldParser**: The WorldParser reads the TileMap from the FileSystem and parses some of the layers in order to add lights, walls or enemies to this game map.
+3. **AnimatedGameObject**: An AnimatedGameObject combines the animation, a physical body and light emissions which is used by our Entity Component System (ECS).
+
+## 2.2 Use Cases
+
+In the following subsection, we will depict the most important use cases of our project and display it visually if necessary and possible.
+
+### 2.2.1 Upload Highscores
+
+Every user is able to play the game and try their best in order to beat the game. They may find their run/attempt good enough and want to see how good their score compares to all other players.
+
+We envision the Game Over Screen to look like this:
+![Create Highscores Mockup](./assets/create_highscore.png)
+
+Implementationally it may look something like this:
+![Create Highscore](./assets/player_enter_highscore.svg)
+
+**Preconditions**:
+This mockup has been created without any data to back it up. 
+There needs to be a complete gameplay loop implemented so the player can have hp, collect coins, kill enemies and last but not least die.
+
+**Postconditions**:
+The highscore/score collection is the main data source for the web page. Therefore after this use case is realized a meaningful web page can be built.
+
+**Estimated efforts**: low
+
+**Linked user stories**: #109, #110
+
+### 2.2.2 Filter Highscores
+
+Comparing scores, seeing the ladder and competing for the high score is an essential part of the game's ecosystem. Users therefore have to have good way to filter the leaderboard in order to look for their name or a score range as well as best scores in a given date range.
+
+On the page it could look like this:
+
+![Filter Highscore Mockup](./assets/filter_highscores_mockup.png)
+
+Schematically the process looks like this:
+![Create Highscore](./assets/filter_highscore.svg)
+
+**Preconditions**:
+A set of user high scores accumulated over has to be submitted to a running back end, which is accessable via a RESTful endpoint.
+
+**Postconditions**:
+With the data visible and filterable other use cases such as "champion of the month" or "seasons" can be realized.
+
+**Estimated efforts**: large
+
+**Linked user stories**: #86, #54
+
+### 2.2.3 Look Up Mobs in Wiki
+
+As we have a variety of enemies and other mobs a player wants to look up some information about them.
+Navigating the web page to fulfill this is necessary. 
+To get a good overview the wiki articles and items should be divided into sections.
+When navigating into one of the sections the overview should still be visible for a quick switch.
+
+On the page it could look like this:
+
+![Wiki](./assets/wiki.png)
+
+![Look Up Mobs](./assets/wiki_mobs.png)
+
+**Preconditions**:
+A running webpage is necessary for this use case to be implemented.
+
+**Postconditions**:
+With the wiki in place and the subsections working we can implement a state as required per Mrs. Li in the form of a session cookie which automatically brings the user back to the page last visited.
+
+**Estimated efforts**: medium
+
+**Linked user stories**: #104, #105
+
 
 # 3. Nonfunctional requirements
 
