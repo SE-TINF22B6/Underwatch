@@ -38,32 +38,6 @@ This Software Requirements Specification (SRS) document covers the complete syst
 ## 1.4 References
 > ![TODO] hier die Dokumente verlinken
 
-> Rough Use-Case-Diagram for the End-User, 24.10.2023:
-
-> Landing-Page-Design on Figma, 24.10.2023:
-
-> ER-Diagram Rough first version, 24.10.2023:
-
-> User-Activity-Diagram for signing in, 26.10.2023:
-
-> User-Activity-Diagram for signing up, 26.10.2023:
-
-> User-Activity-Diagram for viewing post in thread-view, 26.10.2023:
-
-> Sequence-Diagram for PostDetail-Creation, 31.10.2023:
-
-> Sequence-Diagram for Logging in per Google API, 31.10.2023:
-
-> User-Activity-Diagram updated, more refined version of the first draft, 01.11.2023:
-
-> EER-Diagram for general classe, 15.11.2023:
-
-> Utility-Tree, 28.11.2023:
-
-> Link to all mockups in figma, 23.12.2023:
-
-> Sequence-Diagram for Updating profile, 25.12.2023:
-
 ---
 # 2. Functional requirements
 
