@@ -18,7 +18,7 @@ interface ScoreData {
 }
 
 export default function Champions() {
-    const [apiData, setApiData] = useState<ScoreData[]>([JSON.parse('{"id": 0,"playerName": "","score": 0,"coins": 0,"kills": 0,"damageDealt": 0,"dps": 0,"timestamp": "","game_time": 0}')]);
+    const [apiData, setApiData] = useState<ScoreData[]>([]);
     const [dataLoaded, setDataLoaded] = useState<boolean>(false);
     async function getApiData(url: string): Promise<ScoreData[]> {
         try {
