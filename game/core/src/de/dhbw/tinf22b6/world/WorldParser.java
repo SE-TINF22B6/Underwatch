@@ -28,7 +28,9 @@ public class WorldParser {
 
     public static void parseStaticObjects(TiledMap map, World world) {
         TiledMapTileLayer layer = (TiledMapTileLayer) map.getLayers().get("walls");
-
+        if (layer == null) {
+            return;
+        }
         for (int x = 0; x < layer.getWidth(); x++) {
             for (int y = 0; y < layer.getHeight(); y++) {
                 TiledMapTileLayer.Cell cell = layer.getCell(x, y);
@@ -41,10 +43,8 @@ public class WorldParser {
 
                 MapObject mapObject = cellObjects.get(0);
 
-                if (mapObject instanceof RectangleMapObject) {
-                    RectangleMapObject rectangleObject = (RectangleMapObject) mapObject;
+                if (mapObject instanceof RectangleMapObject rectangleObject) {
                     Rectangle rectangle = rectangleObject.getRectangle();
-
                     BodyDef bodyDef = getStaticBodyDef(x * TILE_SIZE + TILE_SIZE / 2f + rectangle.getX() - (TILE_SIZE - rectangle.getWidth()) / 2f, y * TILE_SIZE + TILE_SIZE / 2f + rectangle.getY() - (TILE_SIZE - rectangle.getHeight()) / 2f);
 
                     Body body = world.createBody(bodyDef);
@@ -52,10 +52,8 @@ public class WorldParser {
                     polygonShape.setAsBox(rectangle.getWidth() / 2f, rectangle.getHeight() / 2f);
                     body.createFixture(getWallFixture(polygonShape));
                     polygonShape.dispose();
-                } else if (mapObject instanceof EllipseMapObject) {
-                    EllipseMapObject circleMapObject = (EllipseMapObject) mapObject;
+                } else if (mapObject instanceof EllipseMapObject circleMapObject) {
                     Ellipse ellipse = circleMapObject.getEllipse();
-
                     BodyDef bodyDef = getStaticBodyDef(x * TILE_SIZE + TILE_SIZE / 2f + ellipse.x, y * TILE_SIZE + TILE_SIZE / 2f + ellipse.y);
 
                     if (ellipse.width != ellipse.height)
@@ -66,10 +64,8 @@ public class WorldParser {
                     circleShape.setRadius(ellipse.width / 2f);
                     body.createFixture(circleShape, 0.0f);
                     circleShape.dispose();
-                } else if (mapObject instanceof PolygonMapObject) {
-                    PolygonMapObject polygonMapObject = (PolygonMapObject) mapObject;
+                } else if (mapObject instanceof PolygonMapObject polygonMapObject) {
                     Polygon polygon = polygonMapObject.getPolygon();
-
                     BodyDef bodyDef = getStaticBodyDef(x * TILE_SIZE + polygon.getX(), y * TILE_SIZE + polygon.getY());
 
                     Body body = world.createBody(bodyDef);
@@ -102,9 +98,7 @@ public class WorldParser {
                         continue;
 
                     MapObject cellObject = cellObjects.get(0);
-                    if (cellObject instanceof RectangleMapObject) {
-                        RectangleMapObject rectangleObject = (RectangleMapObject) cellObject;
-
+                    if (cellObject instanceof RectangleMapObject rectangleObject) {
                         switch (s) {
                             case "torch":
                                 list.add(new CandleStick(new Vector2(x, y), world, rectangleObject.getRectangle()));
@@ -131,6 +125,8 @@ public class WorldParser {
 
     public static void parseTorches(TiledMap map, RayHandler rayHandler) {
         TiledMapTileLayer layer = (TiledMapTileLayer) map.getLayers().get("torch");
+        if (layer == null) return;
+
         for (int x = 0; x < layer.getWidth(); x++) {
             for (int y = 0; y < layer.getHeight(); y++) {
                 TiledMapTileLayer.Cell cell = layer.getCell(x, y);
