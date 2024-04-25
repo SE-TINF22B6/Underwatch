@@ -27,7 +27,7 @@ public class Player extends MobGameObject {
     private float dodgeStateTime;
 
     public Player(World world, Vector2 position, PlayerStatistics statistics) {
-        super("shaman", position, world, Constants.PLAYER_BIT);
+        super("c1", position, world, Constants.PLAYER_BIT);
         this.playerStatistics = statistics;
         // equip weapon
         //this.weapon = new HandGun();

@@ -24,15 +24,15 @@ public abstract class MobGameObject extends GameObject {
         walkingAnimations = new HashMap<>();
         currentAnimations = idleAnimations;
 
-        idleAnimations.put(LEFT, new Animation<>(0.5f, Assets.instance.getAnimationAtlasRegion(region + "_idle_left")));
-        idleAnimations.put(RIGHT, new Animation<>(0.5f, Assets.instance.getAnimationAtlasRegion(region + "_idle_right")));
-        idleAnimations.put(UP, new Animation<>(0.5f, Assets.instance.getAnimationAtlasRegion(region + "_idle_back")));
-        idleAnimations.put(DOWN, new Animation<>(0.5f, Assets.instance.getAnimationAtlasRegion(region + "_idle_front")));
+        idleAnimations.put(LEFT, new Animation<>(0.2f, Assets.instance.getAnimationAtlasRegion(region + "_idle_left")));
+        idleAnimations.put(RIGHT, new Animation<>(0.2f, Assets.instance.getAnimationAtlasRegion(region + "_idle_right")));
+        idleAnimations.put(UP, new Animation<>(0.2f, Assets.instance.getAnimationAtlasRegion(region + "_idle_back")));
+        idleAnimations.put(DOWN, new Animation<>(0.2f, Assets.instance.getAnimationAtlasRegion(region + "_idle_front")));
 
-        walkingAnimations.put(LEFT, new Animation<>(0.2f, Assets.instance.getAnimationAtlasRegion(region + "_walk_left")));
-        walkingAnimations.put(RIGHT, new Animation<>(0.2f, Assets.instance.getAnimationAtlasRegion(region + "_walk_right")));
-        walkingAnimations.put(UP, new Animation<>(0.2f, Assets.instance.getAnimationAtlasRegion(region + "_walk_back")));
-        walkingAnimations.put(DOWN, new Animation<>(0.2f, Assets.instance.getAnimationAtlasRegion(region + "_walk_front")));
+        walkingAnimations.put(LEFT, new Animation<>(0.15f, Assets.instance.getAnimationAtlasRegion(region + "_walk_left")));
+        walkingAnimations.put(RIGHT, new Animation<>(0.15f, Assets.instance.getAnimationAtlasRegion(region + "_walk_right")));
+        walkingAnimations.put(UP, new Animation<>(0.15f, Assets.instance.getAnimationAtlasRegion(region + "_walk_back")));
+        walkingAnimations.put(DOWN, new Animation<>(0.15f, Assets.instance.getAnimationAtlasRegion(region + "_walk_front")));
     }
 
     public void showAnimation(Direction direction) {
