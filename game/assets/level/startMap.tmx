@@ -4,7 +4,7 @@
  <tileset firstgid="73" source="fences.tsx"/>
  <tileset firstgid="89" source="dungeon assets.tsx"/>
  <tileset firstgid="189" source="Dungeon_Monsters1.tsx"/>
- <tileset firstgid="285" source="babo.tsx"/>
+ <tileset firstgid="239" source="babo.tsx"/>
  <layer id="1" name="bottom" width="50" height="50">
   <data encoding="base64" compression="zlib">
    eJztmL0OgCAMhFk0Ifr+zyujg9byZ6/lhm8hIVyPa0PIKaVMCFGzFXbFWs1+C47CKax96Xzaj4gXnbWg5KhXF+r9oOoi7dlH65m3jKHPXq2P1jpn6kPL0ggPItZE5hA5K9Ib31Pd0hufPfIfnjIjUZOZ6DVHr280Fn7NONNibqLPavbCml73aEHyGkkLscOyt0aebZln5F5Cmp1RPSZ1oGfS81/vXTuiPi2etbfel2c83he9J6tzAf7RV6U=
@@ -15,9 +15,9 @@
    eJzt2jEOgCAMBVDufxfiFV1kISFGBmvrewsLSfmUjbZGtB59gCKOxZpRhSwVMgwVslTIMFTKAgAAAAAAAFll/rcbcxqrDJFzHE/vcd7/hX7sZrhb37Rbe35D0f3oV+2/zSadHIAfZw==
   </data>
  </layer>
- <layer id="4" name="enemys" width="50" height="50">
+ <layer id="4" name="enemys" width="50" height="50" visible="0">
   <data encoding="base64" compression="zlib">
-   eJzt18EJgDAMBdA6iPvPIQhu4wxdwENLJGp87xgIyeUT0hr805Y4a0+cBXfIzAdQnztYy/H0AvASo1mIZuYM9gMAAEDEuszVK7n6yf3pAPANHUgBCGY=
+   eJzt18EJgDAMBdDuv5VQcBtdoQt4UFKije8dAyG5fEJag3/aEmf1xFkwQ2Y+gPrcwVr2txeAj7ibhWhmjmA/AAAARJwP65Vc/eT+dABYwwCFRQoI
   </data>
  </layer>
  <layer id="2" name="walls" width="50" height="50">
