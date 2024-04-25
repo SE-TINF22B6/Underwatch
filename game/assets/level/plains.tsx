@@ -23,7 +23,6 @@
  </tile>
  <tile id="30">
   <objectgroup draworder="index" id="2">
-   <object id="1" x="1" y="0" width="15" height="16"/>
    <object id="2" x="2" y="0" width="13" height="16"/>
   </objectgroup>
  </tile>
@@ -59,7 +58,7 @@
  </tile>
  <tile id="43">
   <objectgroup draworder="index" id="2">
-   <object id="1" x="3" y="0" width="13" height="17"/>
+   <object id="1" x="3" y="0" width="13" height="15"/>
   </objectgroup>
  </tile>
  <tile id="44">
