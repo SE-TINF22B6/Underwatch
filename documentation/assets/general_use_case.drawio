@@ -1,0 +1,101 @@
+<mxfile host="app.diagrams.net" modified="2024-04-24T07:15:29.855Z" agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36" etag="sH66nr06FNa6Bbo1qjK7" version="24.2.8" type="device">
+  <diagram name="Page-1" id="X5EPJkBCsgotsn7oFf86">
+    <mxGraphModel dx="1158" dy="678" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="omOmnHd4P5bNODWTfsC1-1" value="User" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;" vertex="1" parent="1">
+          <mxGeometry x="20" y="260" width="30" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="omOmnHd4P5bNODWTfsC1-25" value="" style="group" vertex="1" connectable="0" parent="1">
+          <mxGeometry x="460" width="430" height="250" as="geometry" />
+        </mxCell>
+        <mxCell id="omOmnHd4P5bNODWTfsC1-11" value="Browse Section" style="ellipse;whiteSpace=wrap;html=1;" vertex="1" parent="omOmnHd4P5bNODWTfsC1-25">
+          <mxGeometry x="180" y="20" width="100" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="omOmnHd4P5bNODWTfsC1-18" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=1;entryDx=0;entryDy=0;endArrow=block;endFill=0;" edge="1" parent="omOmnHd4P5bNODWTfsC1-25" source="omOmnHd4P5bNODWTfsC1-12" target="omOmnHd4P5bNODWTfsC1-11">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="omOmnHd4P5bNODWTfsC1-12" value="Wiki Section" style="ellipse;whiteSpace=wrap;html=1;" vertex="1" parent="omOmnHd4P5bNODWTfsC1-25">
+          <mxGeometry x="150" y="100" width="100" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="omOmnHd4P5bNODWTfsC1-20" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;endArrow=block;endFill=0;" edge="1" parent="omOmnHd4P5bNODWTfsC1-25" source="omOmnHd4P5bNODWTfsC1-13" target="omOmnHd4P5bNODWTfsC1-11">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="omOmnHd4P5bNODWTfsC1-13" value="Scoreboard" style="ellipse;whiteSpace=wrap;html=1;" vertex="1" parent="omOmnHd4P5bNODWTfsC1-25">
+          <mxGeometry x="40" y="50" width="100" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="omOmnHd4P5bNODWTfsC1-19" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=1;entryY=0.5;entryDx=0;entryDy=0;endArrow=block;endFill=0;" edge="1" parent="omOmnHd4P5bNODWTfsC1-25" source="omOmnHd4P5bNODWTfsC1-14" target="omOmnHd4P5bNODWTfsC1-11">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="omOmnHd4P5bNODWTfsC1-14" value="Download Game" style="ellipse;whiteSpace=wrap;html=1;" vertex="1" parent="omOmnHd4P5bNODWTfsC1-25">
+          <mxGeometry x="320" y="70" width="100" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="omOmnHd4P5bNODWTfsC1-21" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;endArrow=block;endFill=0;" edge="1" parent="omOmnHd4P5bNODWTfsC1-25" source="omOmnHd4P5bNODWTfsC1-15" target="omOmnHd4P5bNODWTfsC1-12">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="omOmnHd4P5bNODWTfsC1-15" value="Weapons" style="ellipse;whiteSpace=wrap;html=1;" vertex="1" parent="omOmnHd4P5bNODWTfsC1-25">
+          <mxGeometry x="10" y="170" width="100" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="omOmnHd4P5bNODWTfsC1-22" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=0;" edge="1" parent="omOmnHd4P5bNODWTfsC1-25" source="omOmnHd4P5bNODWTfsC1-16" target="omOmnHd4P5bNODWTfsC1-12">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="omOmnHd4P5bNODWTfsC1-16" value="Mobs" style="ellipse;whiteSpace=wrap;html=1;" vertex="1" parent="omOmnHd4P5bNODWTfsC1-25">
+          <mxGeometry x="150" y="180" width="100" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="omOmnHd4P5bNODWTfsC1-23" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=1;entryY=0.5;entryDx=0;entryDy=0;endArrow=block;endFill=0;" edge="1" parent="omOmnHd4P5bNODWTfsC1-25" source="omOmnHd4P5bNODWTfsC1-17" target="omOmnHd4P5bNODWTfsC1-12">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="omOmnHd4P5bNODWTfsC1-17" value="Tipps and Tricks" style="ellipse;whiteSpace=wrap;html=1;" vertex="1" parent="omOmnHd4P5bNODWTfsC1-25">
+          <mxGeometry x="290" y="160" width="100" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="omOmnHd4P5bNODWTfsC1-24" value="Website Activities" style="shape=umlFrame;whiteSpace=wrap;html=1;pointerEvents=0;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="omOmnHd4P5bNODWTfsC1-25">
+          <mxGeometry width="430" height="250" as="geometry" />
+        </mxCell>
+        <mxCell id="omOmnHd4P5bNODWTfsC1-27" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.54;entryY=1.005;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="1" source="omOmnHd4P5bNODWTfsC1-1" target="omOmnHd4P5bNODWTfsC1-5">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="omOmnHd4P5bNODWTfsC1-28" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.559;entryY=1.009;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="1" source="omOmnHd4P5bNODWTfsC1-1" target="omOmnHd4P5bNODWTfsC1-24">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="700" y="290" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="omOmnHd4P5bNODWTfsC1-31" value="" style="group" vertex="1" connectable="0" parent="1">
+          <mxGeometry x="100" width="340" height="250" as="geometry" />
+        </mxCell>
+        <mxCell id="omOmnHd4P5bNODWTfsC1-9" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;endArrow=block;endFill=0;" edge="1" parent="omOmnHd4P5bNODWTfsC1-31" source="omOmnHd4P5bNODWTfsC1-2" target="omOmnHd4P5bNODWTfsC1-6">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="omOmnHd4P5bNODWTfsC1-2" value="Quit Game" style="ellipse;whiteSpace=wrap;html=1;" vertex="1" parent="omOmnHd4P5bNODWTfsC1-31">
+          <mxGeometry x="27" y="125" width="100" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="omOmnHd4P5bNODWTfsC1-8" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=1;entryY=0.5;entryDx=0;entryDy=0;endArrow=block;endFill=0;" edge="1" parent="omOmnHd4P5bNODWTfsC1-31" source="omOmnHd4P5bNODWTfsC1-3" target="omOmnHd4P5bNODWTfsC1-6">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="omOmnHd4P5bNODWTfsC1-3" value="Change Keybindings" style="ellipse;whiteSpace=wrap;html=1;" vertex="1" parent="omOmnHd4P5bNODWTfsC1-31">
+          <mxGeometry x="183" y="135" width="100" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="omOmnHd4P5bNODWTfsC1-7" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=0;" edge="1" parent="omOmnHd4P5bNODWTfsC1-31" source="omOmnHd4P5bNODWTfsC1-4" target="omOmnHd4P5bNODWTfsC1-6">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="omOmnHd4P5bNODWTfsC1-4" value="Play Game" style="ellipse;whiteSpace=wrap;html=1;" vertex="1" parent="omOmnHd4P5bNODWTfsC1-31">
+          <mxGeometry x="83" y="185" width="100" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="omOmnHd4P5bNODWTfsC1-5" value="Gameplay Loop" style="shape=umlFrame;whiteSpace=wrap;html=1;pointerEvents=0;fillColor=#ffe6cc;strokeColor=#d79b00;" vertex="1" parent="omOmnHd4P5bNODWTfsC1-31">
+          <mxGeometry width="340" height="250" as="geometry" />
+        </mxCell>
+        <mxCell id="omOmnHd4P5bNODWTfsC1-6" value="Menu Action" style="ellipse;whiteSpace=wrap;html=1;" vertex="1" parent="omOmnHd4P5bNODWTfsC1-31">
+          <mxGeometry x="127" y="65" width="100" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="omOmnHd4P5bNODWTfsC1-30" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;exitX=0;exitY=0.5;exitDx=0;exitDy=0;endArrow=block;endFill=0;" edge="1" parent="omOmnHd4P5bNODWTfsC1-31" source="omOmnHd4P5bNODWTfsC1-29" target="omOmnHd4P5bNODWTfsC1-6">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="omOmnHd4P5bNODWTfsC1-29" value="Upload Highscore" style="ellipse;whiteSpace=wrap;html=1;" vertex="1" parent="omOmnHd4P5bNODWTfsC1-31">
+          <mxGeometry x="227" y="15" width="100" height="50" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
