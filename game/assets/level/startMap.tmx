@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="right-down" width="50" height="50" tilewidth="16" tileheight="16" infinite="0" nextlayerid="6" nextobjectid="1">
+<map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="right-down" width="50" height="50" tilewidth="16" tileheight="16" infinite="0" nextlayerid="7" nextobjectid="1">
  <tileset firstgid="1" source="plains.tsx"/>
  <tileset firstgid="73" source="fences.tsx"/>
  <tileset firstgid="89" source="dungeon assets.tsx"/>
  <tileset firstgid="189" source="babo.tsx"/>
+ <tileset firstgid="190" source="Dungeon_Tileset.tsx"/>
  <layer id="1" name="bottom" width="50" height="50">
   <data encoding="base64" compression="zlib">
    eJztmL0OgCAMhFk0Ifr+zyujg9byZ6/lhm8hIVyPa0PIKaVMCFGzFXbFWs1+C47CKax96Xzaj4gXnbWg5KhXF+r9oOoi7dlH65m3jKHPXq2P1jpn6kPL0ggPItZE5hA5K9Ib31Pd0hufPfIfnjIjUZOZ6DVHr280Fn7NONNibqLPavbCml73aEHyGkkLscOyt0aebZln5F5Cmp1RPSZ1oGfS81/vXTuiPi2etbfel2c83he9J6tzAf7RV6U=
@@ -11,7 +12,7 @@
  </layer>
  <layer id="2" name="walls" width="50" height="50">
   <data encoding="base64" compression="zlib">
-   eJztWVtOAzEMnGsABUwpolKBe/CUEAi4/0nYfEQKlpM4zkOh2pH80azj8aydZKOeA7j953ax2Bbj8LTYd8aeFT7OXoK4hLE6Xhv5cD/CfDreDbEI8+mwxCKsOmq5Y3g0xCLMp+NY1vmqYxzekD/fPhLPfoJYs9fDEouw6qjlbhmLsOqo5W4Zixa7XuyskW0KuGvBdZyj3X1mX8Bdi2Ptq5SOQ0Nezt0yFuGvjtZ5p7hbxiKM7avwrvcF3T08Zp9BLEJcB6/NKdL7Ue9apkDQ9xX3nQkEfW4lvjW1scwl9NGRQmmekj8fI8i5nQhjMd9WqKkhQc7tMuMbcnL+3G/tM81zD4KcW07HbCDY6tETsRqkeoCQ1+HnxHy1ucT6rcW5Q5ivHhYQ7Dp6nN/um8Fy1+G5eZTUI9W3Mb8YHMeV0rZsnvSOW/WVZs1yDpej5m63Z/NmWh+Og79r7byeOkrXkOOQdNwtdi/YQyY3rQ7t2tD6OI5e9bCcHxpImhzH6L7S9kxJbzkOSUe4H2+E8Z0wx+EmwqF5TzV7r+OQdPhxab+VxnMcvfoq7N0wJz7eS0fr3nIcPqeDMK7Roal5ST2s99MefcXfSW1fWdbHAWPWR+03Feeo7ascNwm+HLlzUbqDhPcQn9eM+1XN+TFqv2oNx2Gth/Z/nF2Br9V2kZz8eErHL1vyZEI=
+   eJztWYtKQzEMPb+hbhrnxMHU//AJoqh/u03wv7yBXexC2qav63XsQBjrTXNybtJ2ZVMAV//cTjubYTjcd/YRsQeDD9ujE5cwrI6nSj7SjzA+HS8ZsQjj05ETi3DQUcrtw11GLML4dOzLOj/oGA7PiJ9vr4Fnn06ssdcjJxbhoKOUu2YswkFHKXfNWNTZRWcnlWySwF0KqWOKeveZRQJ3Kfa1r0I6lhV5JXfNWIRdHbXzDnHXjEUYtq/cu947bPdwn705sQh+HbI2xwjvR61rGQLB3lfSd0wg2HNL8S2pTc5cQhsdIaTmqfnLMYKe25Ey5vOthZIaEvTcziK+Lqfkj323PrM870HQc4vpGBsIefVoCV8NQj1AiOvo5/h8rbn4+q3GuUMYXz1yQMjX0eL85t8MOXcdmVuPlHqE+tbn5wNznBttJuZp77hWX1nWrOTgHC13u4WYN6b1wRzyXVvntdSRuoaYQ9Nx3dmNYreR3Kw6rGvD6sMcreqRc35YoGlijqH7ytozKb3FHJoOdz+eKONzZQ7j0sNheU8ley9zaDr6cW2/1cZjHK36yu1dNyc53kpH7d5ijj6npTJu0WGpeUo9cu+nLfpKvpPSvspZH0sMsz5Kf1NJjtS+WinjIW5SfCVi56J2B3HvIX2+vr7adPbV2ffW+LtPhw+U4CtztYI5QvsV5yx1rPG3+66Pw1ePDX7z7nWwptV23Po/zjzBN9fmWx2SZ77Nf43devQ6+PMHgRN3gg==
   </data>
  </layer>
  <layer id="5" name="teleporter" width="50" height="50">
@@ -19,12 +20,17 @@
    eJztw7EJAAAIA7Ce7ukuHXxBSCAJAAAAAAAAAAAA/DJ9LTkQAQE=
   </data>
  </layer>
+ <layer id="6" name="stuffOnBottom" width="50" height="50">
+  <data encoding="base64" compression="zlib">
+   eJzt1SEOACAMA0DQ/P+/CIJBDpIt5M7NdTVtDQAAAAAA/jF6dgIAyHVu4b5vNtK+5qrSf5UcUa/z/9BHtR+iear9kUUPsEzETgCp
+  </data>
+ </layer>
  <layer id="3" name="animatedObjects" width="50" height="50">
   <data encoding="base64" compression="zlib">
    eJzt2jEOgCAMBVDufxfiFV1kISFGBmvrewsLSfmUjbZGtB59gCKOxZpRhSwVMgwVslTIMFTKAgAAAAAAAFll/rcbcxqrDJFzHE/vcd7/hX7sZrhb37Rbe35D0f3oV+2/zSadHIAfZw==
   </data>
  </layer>
- <layer id="4" name="enemys" width="50" height="50" visible="0">
+ <layer id="4" name="enemys" width="50" height="50">
   <data encoding="base64" compression="zlib">
    eJztyKEBAAAIA6D9/5O/mRdtBogkAAAAAAAAANDm+AAAHywHgwF7
   </data>

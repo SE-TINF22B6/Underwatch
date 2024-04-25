@@ -41,19 +41,19 @@
             "scaleInEditor": 1
         },
         "2.0Map.tmx": {
-            "scale": 0.809,
+            "scale": 0.9133,
             "selectedLayer": 6,
             "viewCenter": {
-                "x": 391.8417799752781,
-                "y": 396.16810877626693
+                "x": 358.5897295521735,
+                "y": 367.8966385634513
             }
         },
         "50x50MapMitHitbox.tmx": {
             "scale": 1.2025,
             "selectedLayer": 1,
             "viewCenter": {
-                "x": 254.4698544698545,
-                "y": 511.01871101871103
+                "x": 254.0540540540541,
+                "y": 510.60291060291064
             }
         },
         "Dungeon_Tileset.tsx": {
@@ -68,8 +68,8 @@
             "scale": 4.9457,
             "selectedLayer": 2,
             "viewCenter": {
-                "x": 159.93691489576804,
-                "y": 159.83581697231938
+                "x": 159.83581697231938,
+                "y": 159.73471904887072
             }
         },
         "TeleportTest.tmx": {
@@ -84,13 +84,29 @@
             "scale": 1.1867,
             "selectedLayer": 2,
             "viewCenter": {
-                "x": 220.78031515968652,
-                "y": 1406.842504424033
+                "x": 221.2016516389989,
+                "y": 1406.4211679447205
+            }
+        },
+        "dungeon1(amogus).tmx": {
+            "scale": 0.3954,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 929.4385432473446,
+                "y": 758.7253414264037
             }
         },
         "neuesTileset.tsx": {
             "scaleInDock": 1.8723,
             "scaleInEditor": 3.668
+        },
+        "startMap.tmx": {
+            "scale": 0.9974,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 296.2703027872469,
+                "y": 596.551032684981
+            }
         }
     },
     "frame.defaultDuration": 1,
