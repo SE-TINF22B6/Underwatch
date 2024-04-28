@@ -60,6 +60,7 @@ public class GameScreen extends AbstractGameScreen {
 
     @Override
     public void show() {
+        m.setVolume(Gdx.app.getPreferences("Controls").getBoolean("muteMusic") ? 0 : Gdx.app.getPreferences("Controls").getFloat("music"));
         m.play();
         World world = new World(new Vector2(0, 0), false);
         WorldParser.parseStaticObjects(map, world);
