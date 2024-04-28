@@ -12,8 +12,6 @@ import java.util.Map;
 import static de.dhbw.tinf22b6.gameobject.Direction.*;
 
 public abstract class MobGameObject extends GameObject {
-    protected Animation<TextureAtlas.AtlasRegion> idleDAnimation;
-
     protected Map<Direction, Animation<TextureAtlas.AtlasRegion>> currentAnimations;
     protected Map<Direction, Animation<TextureAtlas.AtlasRegion>> idleAnimations;
     protected Map<Direction, Animation<TextureAtlas.AtlasRegion>> walkingAnimations;

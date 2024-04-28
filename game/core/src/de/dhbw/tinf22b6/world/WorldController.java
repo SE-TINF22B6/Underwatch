@@ -4,19 +4,14 @@ import com.badlogic.gdx.*;
 import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.Cursor;
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.physics.box2d.World;
-import de.dhbw.tinf22b6.gameobject.Bullet;
 import de.dhbw.tinf22b6.gameobject.Direction;
 import de.dhbw.tinf22b6.gameobject.GameObject;
 import de.dhbw.tinf22b6.gameobject.Player;
 import de.dhbw.tinf22b6.screen.GameScreen;
 import de.dhbw.tinf22b6.util.CameraHelper;
-import de.dhbw.tinf22b6.util.Constants;
 import de.dhbw.tinf22b6.util.EntitySystem;
 import de.dhbw.tinf22b6.util.PlayerStatistics;
-
-import static de.dhbw.tinf22b6.util.Constants.TILE_SIZE;
 
 public class WorldController extends InputAdapter {
     private static final String TAG = WorldController.class.getName();
@@ -50,7 +45,7 @@ public class WorldController extends InputAdapter {
     private void init(PlayerStatistics playerStatistics) {
         Gdx.input.setInputProcessor(this);
         Gdx.graphics.setSystemCursor(Cursor.SystemCursor.Crosshair);
-        player = new Player(world, new Vector2(5, 5), playerStatistics);
+        player = new Player(world, new Vector2(5, 5), playerStatistics, camera);
         cameraHelper = new CameraHelper();
         cameraHelper.setTarget(player);
         EntitySystem.instance.add(player);
@@ -91,11 +86,7 @@ public class WorldController extends InputAdapter {
 
     @Override
     public boolean touchDown(int screenX, int screenY, int pointer, int button) {
-        Gdx.audio.newSound(Gdx.files.internal("sfx/gun-shot.mp3")).play(0.1f);
-        Vector3 unproject = camera.unproject(new Vector3(Gdx.input.getX(), Gdx.input.getY(), 0));
-        Vector2 reducedDimension = new Vector2(unproject.x - player.getPos().x - TILE_SIZE / 2f, unproject.y - player.getPos().y - TILE_SIZE / 2f);
-        //Gdx.app.debug(TAG, reducedDimension.setLength(1) + "." + reducedDimension.angleDeg());
-        EntitySystem.instance.add(new Bullet(new Vector2(player.getPos().x + TILE_SIZE / 2f, player.getPos().y), world, reducedDimension.setLength(1), Constants.WEAPON_BIT));
+        player.shoot();
         return super.touchDown(screenX, screenY, pointer, button);
     }
 
