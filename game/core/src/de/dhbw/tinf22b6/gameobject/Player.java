@@ -133,7 +133,8 @@ public class Player extends MobGameObject {
         new Thread(() -> {
             try {
                 Thread.sleep((long) (dodgeAnimation.getAnimationDuration() * 1000));
-                currentAnimation = idleDAnimation;
+                setIdle();
+                showAnimation(Direction.UP);
                 this.dodging = false;
                 this.movedDuringDash = false;
                 this.applyForce(new Vector2(0, 0));
