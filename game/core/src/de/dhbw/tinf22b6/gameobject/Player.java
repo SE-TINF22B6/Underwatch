@@ -71,11 +71,15 @@ public class Player extends MobGameObject {
         if (!dodging) {
             super.render(batch);
             int angle = getAngle();
-            Vector2 tmp = new Vector2(pos);
             int r = 12;
-            tmp.x = (tmp.x + 4) + r * cosDeg(angle);
-            tmp.y = (tmp.y + 4) + r * sinDeg(angle);
-            batch.draw(weapon.getRegion(), tmp.x, tmp.y, 8, 8, weapon.getRegion().originalWidth, weapon.getRegion().originalHeight, 1, 1, angle + 90);
+            batch.draw(weapon.getRegion(),
+                    (pos.x + 4) + r * cosDeg(angle),
+                    (pos.y + 4) + r * sinDeg(angle),
+                    8, 8,
+                    weapon.getRegion().originalWidth,
+                    weapon.getRegion().originalHeight,
+                    1, 1,
+                    angle + 90);
             return;
         }
         batch.draw(currentAnimation.getKeyFrame(dodgeStateTime, true), pos.x, pos.y);
