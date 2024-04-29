@@ -1,27 +1,34 @@
 package de.dhbw.tinf22b6.gameobject;
 
+import static de.dhbw.tinf22b6.util.Constants.TILE_SIZE;
+
+import de.dhbw.tinf22b6.ai.EnemyStateMachine;
+import de.dhbw.tinf22b6.util.Constants;
+import de.dhbw.tinf22b6.weapon.Weapon;
+import de.dhbw.tinf22b6.world.tiled.FlatTiledNode;
+import de.dhbw.tinf22b6.world.tiled.TiledSmoothableGraphPath;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
-import de.dhbw.tinf22b6.util.Constants;
-import de.dhbw.tinf22b6.weapon.Weapon;
-
-import static de.dhbw.tinf22b6.util.Constants.TILE_SIZE;
 
 public class Enemy extends GameObject {
     private static final String TAG = Enemy.class.getName();
     private Weapon weapon;
+    private EnemyStateMachine stateMachine;
+    private TiledSmoothableGraphPath<FlatTiledNode> path;
     private int health;
 
     public Enemy(Vector2 position, World world) {
         super("skeleton_v2", position, world, Constants.ENEMY_BIT);
         // equip weapon
-        //this.weapon = new HandGun();
+        // this.weapon = new HandGun();
         this.speed = 20;
         this.health = 3;
+        this.path = new TiledSmoothableGraphPath<>();
         // create Body
         BodyDef bodyDef = new BodyDef();
         bodyDef.position.set(pos.x + TILE_SIZE / 2f, pos.y + TILE_SIZE / 4f);
