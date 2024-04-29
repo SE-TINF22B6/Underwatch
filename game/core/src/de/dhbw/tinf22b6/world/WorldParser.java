@@ -1,11 +1,8 @@
 package de.dhbw.tinf22b6.world;
 
-import static de.dhbw.tinf22b6.util.Constants.TILE_SIZE;
-
-import java.util.ArrayList;
-
+import box2dLight.PointLight;
+import box2dLight.RayHandler;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.ai.pfa.indexed.IndexedHierarchicalGraph;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.maps.MapObject;
 import com.badlogic.gdx.maps.MapObjects;
@@ -14,30 +11,22 @@ import com.badlogic.gdx.maps.objects.PolygonMapObject;
 import com.badlogic.gdx.maps.objects.RectangleMapObject;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
-import com.badlogic.gdx.maps.tiled.TiledMapTileLayer.Cell;
 import com.badlogic.gdx.math.Ellipse;
 import com.badlogic.gdx.math.Polygon;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.physics.box2d.Body;
-import com.badlogic.gdx.physics.box2d.BodyDef;
-import com.badlogic.gdx.physics.box2d.CircleShape;
-import com.badlogic.gdx.physics.box2d.FixtureDef;
-import com.badlogic.gdx.physics.box2d.PolygonShape;
-import com.badlogic.gdx.physics.box2d.Shape;
-import com.badlogic.gdx.physics.box2d.World;
-
-import box2dLight.PointLight;
-import box2dLight.RayHandler;
-import de.dhbw.tinf22b6.gameobject.CandleStick;
-import de.dhbw.tinf22b6.gameobject.Chest;
-import de.dhbw.tinf22b6.gameobject.Coin;
-import de.dhbw.tinf22b6.gameobject.Enemy;
-import de.dhbw.tinf22b6.gameobject.GameObject;
-import de.dhbw.tinf22b6.gameobject.Teleporter;
+import com.badlogic.gdx.physics.box2d.*;
+import de.dhbw.tinf22b6.gameobject.*;
 import de.dhbw.tinf22b6.util.Constants;
 
+import java.util.ArrayList;
+
+import static de.dhbw.tinf22b6.util.Constants.TILE_SIZE;
+
 public class WorldParser {
+    static final int TILE_EMPTY = 0;
+    static final int TILE_FLOOR = 1;
+    static final int TILE_WALL = 2;
     private static final String TAG = WorldRenderer.class.getName();
 
     public static void parseStaticObjects(TiledMap map, World world) {
@@ -59,13 +48,7 @@ public class WorldParser {
 
                 if (mapObject instanceof RectangleMapObject rectangleObject) {
                     Rectangle rectangle = rectangleObject.getRectangle();
-<<<<<<< HEAD
                     BodyDef bodyDef = getStaticBodyDef(x * TILE_SIZE + TILE_SIZE / 2f + rectangle.getX() - (TILE_SIZE - rectangle.getWidth()) / 2f, y * TILE_SIZE + TILE_SIZE / 2f + rectangle.getY() - (TILE_SIZE - rectangle.getHeight()) / 2f);
-=======
-
-                    BodyDef bodyDef = getStaticBodyDef(x * TILE_SIZE + TILE_SIZE / 2f + rectangle.getX() - (TILE_SIZE - rectangle.getWidth()) / 2f,
-                                                       y * TILE_SIZE + TILE_SIZE / 2f + rectangle.getY() - (TILE_SIZE - rectangle.getHeight()) / 2f);
->>>>>>> d4d12ef (yoink: ai-test code from gdx-ai)
 
                     Body body = world.createBody(bodyDef);
                     PolygonShape polygonShape = new PolygonShape();
@@ -102,7 +85,7 @@ public class WorldParser {
     public static ArrayList<GameObject> parseGameObjects(TiledMap map, World world) {
         ArrayList<GameObject> list = new ArrayList<>();
         // TODO refactor animated game objects using an enum
-        String[] objects = new String[] { "coins", "torch", "chests", "enemy", "teleporter" };
+        String[] objects = new String[]{"coins", "torch", "chests", "enemy", "teleporter"};
         for (String s : objects) {
             TiledMapTileLayer layer = (TiledMapTileLayer) map.getLayers().get(s);
             if (layer == null)
@@ -163,7 +146,6 @@ public class WorldParser {
         }
     }
 
-
     public static BodyDef getStaticBodyDef(float x, float y) {
         BodyDef bodyDef = new BodyDef();
         bodyDef.type = BodyDef.BodyType.StaticBody;
@@ -192,5 +174,26 @@ public class WorldParser {
         fixtureDef.density = 0f;
 
         return fixtureDef;
+    }
+
+    public static int[][] parseNavigationMap(TiledMap tiledMap) {
+        TiledMapTileLayer layer = (TiledMapTileLayer) tiledMap.getLayers().get("walls");
+        if (layer == null) return new int[][]{};
+
+        // first we fill the entire map with empty cells
+        int[][] map = new int[layer.getWidth()][layer.getHeight()];
+        for (int x = 0; x < layer.getWidth(); x++) {
+            for (int y = 0; y < layer.getHeight(); y++) {
+
+                TiledMapTileLayer.Cell cell = layer.getCell(x, y);
+                if (cell == null)
+                    continue;
+
+                MapObjects cellObjects = cell.getTile().getObjects();
+                if (cellObjects.getCount() == 0) map[x][y] = TILE_FLOOR;
+                else map[x][y] = TILE_WALL;
+            }
+        }
+        return map;
     }
 }

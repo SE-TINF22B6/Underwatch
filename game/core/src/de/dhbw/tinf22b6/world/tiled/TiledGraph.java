@@ -15,7 +15,7 @@
  * limitations under the License.
  ******************************************************************************/
 
-package de.dhbw.tinf22b6.world;
+package de.dhbw.tinf22b6.world.tiled;
 
 import com.badlogic.gdx.ai.pfa.indexed.IndexedGraph;
 
@@ -30,7 +30,7 @@ import com.badlogic.gdx.ai.pfa.indexed.IndexedGraph;
  */
 public interface TiledGraph<N extends TiledNode<N>> extends IndexedGraph<N> {
 
-    public void init(int roomCount, int roomMinSize, int roomMaxSize, int squashIterations);
+    public void init(int[][] map);
 
     public N getNode(int x, int y);
 

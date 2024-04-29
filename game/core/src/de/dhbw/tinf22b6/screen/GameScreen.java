@@ -12,6 +12,7 @@ import de.dhbw.tinf22b6.ui.ingame.InGameStageHandler;
 import de.dhbw.tinf22b6.util.EntitySystem;
 import de.dhbw.tinf22b6.util.PlayerStatistics;
 import de.dhbw.tinf22b6.world.*;
+import de.dhbw.tinf22b6.world.tiled.FlatTiledGraph;
 
 import static de.dhbw.tinf22b6.util.Constants.VIEWPORT_HEIGHT;
 import static de.dhbw.tinf22b6.util.Constants.VIEWPORT_WIDTH;
@@ -24,6 +25,7 @@ public class GameScreen extends AbstractGameScreen {
     private boolean paused;
     private InGameStageHandler stageHandler;
     private final PlayerStatistics playerStatistics;
+    private FlatTiledGraph graph;
 
     public GameScreen(Game game, TiledMap map) {
         super(game);
@@ -65,6 +67,7 @@ public class GameScreen extends AbstractGameScreen {
         WorldParser.parseStaticObjects(map, world);
         world.setContactListener(new WorldListener(this));
         EntitySystem.instance.init(WorldParser.parseGameObjects(map, world));
+        graph = new FlatTiledGraph(WorldParser.parseNavigationMap(map));
         OrthographicCamera camera =
                 new OrthographicCamera(VIEWPORT_WIDTH, VIEWPORT_HEIGHT);
         worldController = new WorldController(game, world, camera, this, playerStatistics);

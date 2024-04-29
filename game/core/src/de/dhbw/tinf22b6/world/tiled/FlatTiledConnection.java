@@ -1,4 +1,4 @@
-package de.dhbw.tinf22b6.world;
+package de.dhbw.tinf22b6.world.tiled;
 
 /*******************************************************************************
  * Copyright 2014 See AUTHORS file.
