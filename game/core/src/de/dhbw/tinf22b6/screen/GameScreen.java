@@ -1,5 +1,17 @@
 package de.dhbw.tinf22b6.screen;
 
+import static de.dhbw.tinf22b6.util.Constants.VIEWPORT_HEIGHT;
+import static de.dhbw.tinf22b6.util.Constants.VIEWPORT_WIDTH;
+
+import de.dhbw.tinf22b6.ui.ingame.InGameStageHandler;
+import de.dhbw.tinf22b6.util.EntitySystem;
+import de.dhbw.tinf22b6.util.PlayerStatistics;
+import de.dhbw.tinf22b6.world.WorldController;
+import de.dhbw.tinf22b6.world.WorldListener;
+import de.dhbw.tinf22b6.world.WorldParser;
+import de.dhbw.tinf22b6.world.WorldRenderer;
+import de.dhbw.tinf22b6.world.WorldType;
+
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Music;
@@ -8,14 +20,6 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.World;
-import de.dhbw.tinf22b6.ui.ingame.InGameStageHandler;
-import de.dhbw.tinf22b6.util.EntitySystem;
-import de.dhbw.tinf22b6.util.PlayerStatistics;
-import de.dhbw.tinf22b6.world.*;
-import de.dhbw.tinf22b6.world.tiled.FlatTiledGraph;
-
-import static de.dhbw.tinf22b6.util.Constants.VIEWPORT_HEIGHT;
-import static de.dhbw.tinf22b6.util.Constants.VIEWPORT_WIDTH;
 
 public class GameScreen extends AbstractGameScreen {
     private TiledMap map;
@@ -25,7 +29,6 @@ public class GameScreen extends AbstractGameScreen {
     private boolean paused;
     private InGameStageHandler stageHandler;
     private final PlayerStatistics playerStatistics;
-    private FlatTiledGraph graph;
 
     public GameScreen(Game game, TiledMap map) {
         super(game);
@@ -46,7 +49,7 @@ public class GameScreen extends AbstractGameScreen {
             worldController.update(deltaTime);
         }
         // Sets the clear screen color to: Cornflower Blue
-        Gdx.gl.glClearColor(0,0,0,0);
+        Gdx.gl.glClearColor(0, 0, 0, 0);
         // Clears the screen
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         // Render game world to screen
@@ -67,9 +70,7 @@ public class GameScreen extends AbstractGameScreen {
         WorldParser.parseStaticObjects(map, world);
         world.setContactListener(new WorldListener(this));
         EntitySystem.instance.init(WorldParser.parseGameObjects(map, world));
-        graph = new FlatTiledGraph(WorldParser.parseNavigationMap(map));
-        OrthographicCamera camera =
-                new OrthographicCamera(VIEWPORT_WIDTH, VIEWPORT_HEIGHT);
+        OrthographicCamera camera = new OrthographicCamera(VIEWPORT_WIDTH, VIEWPORT_HEIGHT);
         worldController = new WorldController(game, world, camera, this, playerStatistics);
         worldRenderer = new WorldRenderer(worldController, world, map, camera);
         stageHandler = new InGameStageHandler(game, this, worldController.getPlayer());

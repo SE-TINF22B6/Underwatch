@@ -7,7 +7,8 @@ public enum WorldType {
     MAIN_MENU("level/startMap.tmx"),
     LEVEL1("level/startMap.tmx"),
     LEVEL2("level/TeleportTestFixed.tmx"),
-    LEVEL3("level/2.0Map.tmx");
+    LEVEL3("level/2.0Map.tmx"),
+    LEVEL4("level/pathfinding.tmx");
 
     private final String path;
 

@@ -1,5 +1,7 @@
 package de.dhbw.tinf22b6.ai;
 
+import static de.dhbw.tinf22b6.util.Constants.TILE_SIZE;
+
 import de.dhbw.tinf22b6.gameobject.Bullet;
 import de.dhbw.tinf22b6.gameobject.Enemy;
 import de.dhbw.tinf22b6.gameobject.Player;
@@ -68,8 +70,8 @@ public class EnemyStateMachine {
 
     private Vector2 getMovementVector() {
         Player player = EntitySystem.instance.getPlayer();
-        FlatTiledNode startNode = worldGraph.getNode((int) enemy.getPos().x, (int) enemy.getPos().y);
-        FlatTiledNode endNode = worldGraph.getNode((int) player.getPos().x, (int) player.getPos().y);
+        FlatTiledNode startNode = worldGraph.getNode((int) enemy.getPos().x / TILE_SIZE, (int) enemy.getPos().y / TILE_SIZE);
+        FlatTiledNode endNode = worldGraph.getNode((int) player.getPos().x / TILE_SIZE, (int) player.getPos().y / TILE_SIZE);
 
         TiledSmoothableGraphPath<FlatTiledNode> path = new TiledSmoothableGraphPath<>();
         finder.searchNodePath(startNode, endNode, new TiledManhattanDistance<>(), path);
@@ -80,7 +82,7 @@ public class EnemyStateMachine {
         // Gdx.app.debug(TAG, "Path: " + path);
         // Gdx.app.debug(TAG, "Enemy: " + enemy.getPos().x / 16 + "," + enemy.getPos().y
         // / 16);
-        Vector2 tmp = new Vector2(path.get(0).x * 16, path.get(0).y * 16);
+        Vector2 tmp = new Vector2(path.get(0).x , path.get(0).y );
         tmp.sub(enemy.getPos());
         tmp.setLength(1);
         // Gdx.app.debug(TAG, "Player: " + player.getPos() + " Enemy: " +
