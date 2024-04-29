@@ -2,7 +2,6 @@ package de.dhbw.tinf22b6.gameobject;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Camera;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
@@ -17,20 +16,20 @@ import de.dhbw.tinf22b6.util.Constants;
 import de.dhbw.tinf22b6.util.PlayerStatistics;
 import de.dhbw.tinf22b6.weapon.Weapon;
 
-import static com.badlogic.gdx.math.MathUtils.*;
+import static com.badlogic.gdx.math.MathUtils.cosDeg;
+import static com.badlogic.gdx.math.MathUtils.sinDeg;
 import static de.dhbw.tinf22b6.util.Constants.PLAYER_BIT;
 import static de.dhbw.tinf22b6.util.Constants.TILE_SIZE;
-import static java.lang.Math.abs;
 
 public class Player extends MobGameObject {
     private static final String TAG = Player.class.getName();
+    private final PlayerStatistics playerStatistics;
+    private final Animation<TextureAtlas.AtlasRegion> dodgeAnimation;
+    private final Camera camera;
     private Weapon weapon;
     private boolean dodging;
-    private final PlayerStatistics playerStatistics;
-
-    private final Animation<TextureAtlas.AtlasRegion> dodgeAnimation;
     private float dodgeStateTime;
-    private final Camera camera;
+    private boolean movedDuringDash;
 
     public Player(World world, Vector2 position, PlayerStatistics statistics, Camera camera) {
         super("c1", position, world, Constants.PLAYER_BIT);
@@ -64,7 +63,7 @@ public class Player extends MobGameObject {
     private int getAngle() {
         Vector3 unproject = camera.unproject(new Vector3(Gdx.input.getX(), Gdx.input.getY(), 0));
         Vector2 unprojectMinusLoc = new Vector2(unproject.x - pos.x - 17 / 2f, unproject.y - pos.y - 25 / 2f);
-        return (int) unprojectMinusLoc.angleDeg() + 90;
+        return (int) unprojectMinusLoc.angleDeg();
     }
 
     @Override
@@ -72,9 +71,11 @@ public class Player extends MobGameObject {
         if (!dodging) {
             super.render(batch);
             int angle = getAngle();
-            batch.draw(weapon.getRegion(), pos.x, pos.y, 17 / 2f, 25 / 2f,
-                    weapon.getRegion().originalWidth, weapon.getRegion().originalHeight,
-                    1, 1, angle);
+            Vector2 tmp = new Vector2(pos);
+            int r = 12;
+            tmp.x = (tmp.x + 4) + r * cosDeg(angle);
+            tmp.y = (tmp.y + 4) + r * sinDeg(angle);
+            batch.draw(weapon.getRegion(), tmp.x, tmp.y, 8, 8, weapon.getRegion().originalWidth, weapon.getRegion().originalHeight, 1, 1, angle + 90);
             return;
         }
         batch.draw(currentAnimation.getKeyFrame(dodgeStateTime, true), pos.x, pos.y);
@@ -90,8 +91,6 @@ public class Player extends MobGameObject {
             pos.y = body.getPosition().y - (float) TILE_SIZE / 4;
         }
     }
-
-    private boolean movedDuringDash;
 
     public void applyForce(Vector2 motionVector) {
         if (dodging) {
@@ -118,6 +117,10 @@ public class Player extends MobGameObject {
         return weapon;
     }
 
+    public void setWeapon(Weapon weapon) {
+        this.weapon = weapon;
+    }
+
     public void hit() {
         playerStatistics.hitHP();
         Gdx.audio.newSound(Gdx.files.internal("sfx/player_hit.mp3")).play(1);
@@ -134,10 +137,6 @@ public class Player extends MobGameObject {
     public void collectCoin() {
         playerStatistics.setCoins(getCoins() + 1);
         Gdx.app.debug(TAG, "Player picked up Coin: " + getCoins());
-    }
-
-    public void setWeapon(Weapon weapon) {
-        this.weapon = weapon;
     }
 
     public boolean isDodging() {
