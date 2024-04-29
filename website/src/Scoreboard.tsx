@@ -83,9 +83,8 @@ const Scoreboard = () => {
         }
     }
     useEffect(() => {
-        getApiData("https://underwatch.freemine.de/api/scores")
+        getApiData("https://underwatch.freemine.de/api/scores?page=0&size=30&sort=score%2Cdesc")
         .then((scores) => {
-            console.log('API-Daten:', scores);
             setApiData(scores);
         })
         .catch((error) => {
@@ -168,13 +167,9 @@ const Scoreboard = () => {
 
     function handleSort(sortParam: string): void {
         if (orderBy === sortParam) {
-            if (order === 'desc') {
-                setOrder('asc');
-            } else {
-                setOrderBy('');
-            }
+            (order === 'desc') ? setOrder('asc') : setOrderBy('');
         } else {
-            setOrder('desc')
+            setOrder('desc');
             setOrderBy(sortParam as 'score' | 'playerName' | 'timestamp' | '');
         }
     }
