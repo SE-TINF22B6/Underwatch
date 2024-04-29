@@ -85,7 +85,7 @@ public class WorldParser {
     public static ArrayList<GameObject> parseGameObjects(TiledMap map, World world) {
         ArrayList<GameObject> list = new ArrayList<>();
         // TODO refactor animated game objects using an enum
-        String[] objects = new String[]{"coins", "torch", "chests", "enemy", "teleporter"};
+        String[] objects = new String[] { "coins", "torch", "chests", "enemy", "teleporter" };
         for (String s : objects) {
             TiledMapTileLayer layer = (TiledMapTileLayer) map.getLayers().get(s);
             if (layer == null)
@@ -178,7 +178,8 @@ public class WorldParser {
 
     public static int[][] parseNavigationMap(TiledMap tiledMap) {
         TiledMapTileLayer layer = (TiledMapTileLayer) tiledMap.getLayers().get("walls");
-        if (layer == null) return new int[][]{};
+        if (layer == null)
+            return new int[][] {};
 
         // first we fill the entire map with empty cells
         int[][] map = new int[layer.getWidth()][layer.getHeight()];
@@ -190,8 +191,10 @@ public class WorldParser {
                     continue;
 
                 MapObjects cellObjects = cell.getTile().getObjects();
-                if (cellObjects.getCount() == 0) map[x][y] = TILE_FLOOR;
-                else map[x][y] = TILE_WALL;
+                if (cellObjects.getCount() == 0)
+                    map[x][y] = TILE_FLOOR;
+                else
+                    map[x][y] = TILE_WALL;
             }
         }
         return map;
