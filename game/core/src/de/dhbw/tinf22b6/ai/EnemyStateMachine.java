@@ -2,6 +2,7 @@ package de.dhbw.tinf22b6.ai;
 
 import static de.dhbw.tinf22b6.util.Constants.TILE_SIZE;
 
+import com.badlogic.gdx.ai.pfa.Heuristic;
 import de.dhbw.tinf22b6.gameobject.Bullet;
 import de.dhbw.tinf22b6.gameobject.Enemy;
 import de.dhbw.tinf22b6.gameobject.Player;
@@ -17,6 +18,8 @@ import com.badlogic.gdx.ai.pfa.indexed.IndexedAStarPathFinder;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.World;
 
+import java.util.Arrays;
+
 public class EnemyStateMachine {
 
     private static final String TAG = EnemyStateMachine.class.getName();
@@ -28,6 +31,7 @@ public class EnemyStateMachine {
     private EnemyState oldState;
     private FlatTiledGraph worldGraph;
     private IndexedAStarPathFinder<FlatTiledNode> finder;
+    private int[][] initMap;
 
     // private
     // private NavigationGrid<GridCell> gridCells;
@@ -35,6 +39,7 @@ public class EnemyStateMachine {
 
     public EnemyStateMachine(Enemy enemy, World world, int[][] rawMap) {
         this.world = world;
+        this.initMap = rawMap;
         this.enemy = enemy;
         this.currentState = EnemyState.WALKING;
         this.worldGraph = new FlatTiledGraph(rawMap);
@@ -59,10 +64,10 @@ public class EnemyStateMachine {
                 break;
             case RUNANDGUN:
                 moveVector = getMovementVector();
-                shoot();
+                //shoot();
                 break;
             case SHOOTING:
-                shoot();
+                //shoot();
                 break;
         }
         enemy.applyForce(moveVector);
@@ -74,20 +79,43 @@ public class EnemyStateMachine {
         FlatTiledNode endNode = worldGraph.getNode((int) player.getPos().x / TILE_SIZE, (int) player.getPos().y / TILE_SIZE);
 
         TiledSmoothableGraphPath<FlatTiledNode> path = new TiledSmoothableGraphPath<>();
-        finder.searchNodePath(startNode, endNode, new TiledManhattanDistance<>(), path);
-        // List<GridCell> path = finder.findPath((int) enemy.getPos().x / 16,
-        // (int) enemy.getPos().y / 16,
-        // (int) player.getPos().x / 16,
-        // (int) player.getPos().y / 16, gridCells);
-        // Gdx.app.debug(TAG, "Path: " + path);
-        // Gdx.app.debug(TAG, "Enemy: " + enemy.getPos().x / 16 + "," + enemy.getPos().y
-        // / 16);
-        Vector2 tmp = new Vector2(path.get(0).x , path.get(0).y );
+        Heuristic<FlatTiledNode> heuristic = (node, end) -> (float) Math.sqrt(Math.pow(node.x - end.x, 2) + Math.pow(node.y - end.y, 2));
+        worldGraph.startNode = startNode;
+        finder.searchNodePath(startNode, endNode, heuristic, path);
+
+        int[][] rawMap = new int[initMap.length][initMap[0].length];
+        for (int x = 0; x < initMap.length; x++) {
+            for (int y = 0; y < initMap[x].length; y++) {
+                rawMap[x][y] = initMap[x][y];
+            }
+        }
+        System.out.println("#########################");
+        for (int i = path.getCount() - 1; i > 0; i--) {
+            FlatTiledNode node = path.get(i);
+            rawMap[node.x][node.y] = 8;
+        }
+        rawMap[(int) player.getPos().x / TILE_SIZE][(int) player.getPos().y / TILE_SIZE] = 0;
+        rawMap[(int) enemy.getPos().x / TILE_SIZE][(int) enemy.getPos().y / TILE_SIZE] = 5;
+
+        for (int[] ints : rawMap) {
+            Arrays.stream(ints).forEach(System.out::print);
+            System.out.println();
+        }
+
+        if (path.nodes.size == 1) {
+            return new Vector2(0, 0);
+        }
+        Vector2 tmp;
+        if ((int) enemy.getPos().x / TILE_SIZE != path.get(0).x * TILE_SIZE && (int) enemy.getPos().y / TILE_SIZE != path.get(0).y * TILE_SIZE) {
+            tmp = new Vector2(path.get(0).x * TILE_SIZE + (float) TILE_SIZE / 2, path.get(0).y * TILE_SIZE + (float) TILE_SIZE / 1.3f);
+            Gdx.app.debug(TAG, "Chasing old Node");
+        } else {
+            tmp = new Vector2(path.get(1).x * TILE_SIZE + (float) TILE_SIZE / 2, path.get(1).y * TILE_SIZE + (float) TILE_SIZE / 1.3f);
+            Gdx.app.debug(TAG, "Chasing new Node");
+        }
         tmp.sub(enemy.getPos());
         tmp.setLength(1);
-        // Gdx.app.debug(TAG, "Player: " + player.getPos() + " Enemy: " +
-        enemy.getPos();
-        // + " Dir" + tmp + " 1st" + path.get(0));
+        Gdx.app.debug(TAG, "Direction: " + tmp);
         return tmp;
     }
 

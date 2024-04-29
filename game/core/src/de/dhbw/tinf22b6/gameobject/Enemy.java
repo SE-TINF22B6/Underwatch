@@ -34,7 +34,7 @@ public class Enemy extends GameObject {
         body = world.createBody(bodyDef);
 
         PolygonShape boxShape = new PolygonShape();
-        boxShape.setAsBox((float) TILE_SIZE / 2, (float) TILE_SIZE / 2);
+        boxShape.setAsBox((float) TILE_SIZE / 3, (float) TILE_SIZE / 3);
 
         FixtureDef fixtureDef = new FixtureDef();
         fixtureDef.shape = boxShape;
@@ -79,5 +79,10 @@ public class Enemy extends GameObject {
 
     public void setWeapon(Weapon weapon) {
         this.weapon = weapon;
+    }
+
+    @Override
+    public Vector2 getPos() {
+        return new Vector2(pos.x + (float) TILE_SIZE / 2, pos.y + (float) TILE_SIZE / 2);
     }
 }

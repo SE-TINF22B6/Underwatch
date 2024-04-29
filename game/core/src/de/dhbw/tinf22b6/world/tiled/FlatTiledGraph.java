@@ -34,7 +34,7 @@ public class FlatTiledGraph implements TiledGraph<FlatTiledNode> {
         this.sizeX = map.length;
         this.sizeY = map[0].length;
         this.nodes = new Array<>(sizeX * sizeY);
-        this.diagonal = true;
+        this.diagonal = false;
         this.startNode = null;
         this.init(map);
     }
@@ -92,7 +92,7 @@ public class FlatTiledGraph implements TiledGraph<FlatTiledNode> {
 
     private void addConnection(FlatTiledNode n, int xOffset, int yOffset) {
         FlatTiledNode target = getNode(n.x + xOffset, n.y + yOffset);
-        if (target.type == FlatTiledNode.TILE_FLOOR) n.getConnections().add(new FlatTiledConnection(this, n, target));
+        if (target.type != FlatTiledNode.TILE_WALL) n.getConnections().add(new FlatTiledConnection(this, n, target));
     }
 
 }

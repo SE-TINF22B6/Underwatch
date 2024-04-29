@@ -100,7 +100,8 @@ public class Player extends MobGameObject {
     }
 
     public void hit() {
-        playerStatistics.hitHP(); ;
+        playerStatistics.hitHP();
+        ;
         Gdx.audio.newSound(Gdx.files.internal("sfx/player_hit.mp3")).play(1);
     }
 
@@ -149,5 +150,10 @@ public class Player extends MobGameObject {
 
     public int getKills() {
         return playerStatistics.enemies_killed();
+    }
+
+    @Override
+    public Vector2 getPos() {
+        return new Vector2(pos.x + (float) TILE_SIZE / 2, pos.y + (float) TILE_SIZE / 2);
     }
 }

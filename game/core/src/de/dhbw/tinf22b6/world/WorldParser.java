@@ -49,7 +49,7 @@ public class WorldParser {
                 if (mapObject instanceof RectangleMapObject rectangleObject) {
                     Rectangle rectangle = rectangleObject.getRectangle();
                     BodyDef bodyDef = getStaticBodyDef(x * TILE_SIZE + TILE_SIZE / 2f + rectangle.getX() - (TILE_SIZE - rectangle.getWidth()) / 2f,
-                                                       y * TILE_SIZE + TILE_SIZE / 2f + rectangle.getY() - (TILE_SIZE - rectangle.getHeight()) / 2f);
+                            y * TILE_SIZE + TILE_SIZE / 2f + rectangle.getY() - (TILE_SIZE - rectangle.getHeight()) / 2f);
 
                     Body body = world.createBody(bodyDef);
                     PolygonShape polygonShape = new PolygonShape();
@@ -86,7 +86,7 @@ public class WorldParser {
     public static ArrayList<GameObject> parseGameObjects(TiledMap map, World world) {
         ArrayList<GameObject> list = new ArrayList<>();
         // TODO refactor animated game objects using an enum
-        String[] objects = new String[] { "coins", "torch", "chests", "enemy", "teleporter" };
+        String[] objects = new String[]{"coins", "torch", "chests", "enemy", "teleporter"};
         for (String s : objects) {
             TiledMapTileLayer layer = (TiledMapTileLayer) map.getLayers().get(s);
             if (layer == null)
@@ -182,7 +182,7 @@ public class WorldParser {
     public static int[][] parseNavigationMap(TiledMap tiledMap) {
         TiledMapTileLayer layer = (TiledMapTileLayer) tiledMap.getLayers().get("walls");
         if (layer == null)
-            return new int[][] {};
+            return new int[][]{};
 
         // first we fill the entire map with empty cells
         int[][] map = new int[layer.getWidth()][layer.getHeight()];
@@ -190,13 +190,13 @@ public class WorldParser {
             for (int y = 0; y < layer.getHeight(); y++) {
 
                 TiledMapTileLayer.Cell cell = layer.getCell(x, y);
-                if (cell == null)
+                if (cell == null) {
+                    map[x][y] = TILE_FLOOR;
                     continue;
+                }
 
                 MapObjects cellObjects = cell.getTile().getObjects();
-                if (cellObjects.getCount() == 0)
-                    map[x][y] = TILE_FLOOR;
-                else
+                if (cellObjects.getCount() != 0)
                     map[x][y] = TILE_WALL;
             }
         }
