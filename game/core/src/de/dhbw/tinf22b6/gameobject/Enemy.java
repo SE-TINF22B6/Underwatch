@@ -5,8 +5,6 @@ import static de.dhbw.tinf22b6.util.Constants.TILE_SIZE;
 import de.dhbw.tinf22b6.ai.EnemyStateMachine;
 import de.dhbw.tinf22b6.util.Constants;
 import de.dhbw.tinf22b6.weapon.Weapon;
-import de.dhbw.tinf22b6.world.tiled.FlatTiledNode;
-import de.dhbw.tinf22b6.world.tiled.TiledSmoothableGraphPath;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Vector2;
@@ -19,16 +17,15 @@ public class Enemy extends GameObject {
     private static final String TAG = Enemy.class.getName();
     private Weapon weapon;
     private EnemyStateMachine stateMachine;
-    private TiledSmoothableGraphPath<FlatTiledNode> path;
     private int health;
 
-    public Enemy(Vector2 position, World world) {
+    public Enemy(Vector2 position, World world, int[][] rawMap) {
         super("skeleton_v2", position, world, Constants.ENEMY_BIT);
         // equip weapon
         // this.weapon = new HandGun();
         this.speed = 20;
         this.health = 3;
-        this.path = new TiledSmoothableGraphPath<>();
+        this.stateMachine = new EnemyStateMachine(this, world, rawMap);
         // create Body
         BodyDef bodyDef = new BodyDef();
         bodyDef.position.set(pos.x + TILE_SIZE / 2f, pos.y + TILE_SIZE / 4f);
@@ -59,6 +56,7 @@ public class Enemy extends GameObject {
     @Override
     public void tick(float delta) {
         super.tick(delta);
+        stateMachine.tick(delta);
         pos.x = body.getPosition().x - (float) TILE_SIZE / 2;
         pos.y = body.getPosition().y - (float) TILE_SIZE / 4;
     }

@@ -48,7 +48,8 @@ public class WorldParser {
 
                 if (mapObject instanceof RectangleMapObject rectangleObject) {
                     Rectangle rectangle = rectangleObject.getRectangle();
-                    BodyDef bodyDef = getStaticBodyDef(x * TILE_SIZE + TILE_SIZE / 2f + rectangle.getX() - (TILE_SIZE - rectangle.getWidth()) / 2f, y * TILE_SIZE + TILE_SIZE / 2f + rectangle.getY() - (TILE_SIZE - rectangle.getHeight()) / 2f);
+                    BodyDef bodyDef = getStaticBodyDef(x * TILE_SIZE + TILE_SIZE / 2f + rectangle.getX() - (TILE_SIZE - rectangle.getWidth()) / 2f,
+                                                       y * TILE_SIZE + TILE_SIZE / 2f + rectangle.getY() - (TILE_SIZE - rectangle.getHeight()) / 2f);
 
                     Body body = world.createBody(bodyDef);
                     PolygonShape polygonShape = new PolygonShape();
@@ -101,6 +102,7 @@ public class WorldParser {
                         continue;
 
                     MapObject cellObject = cellObjects.get(0);
+                    int[][] rawMap = parseNavigationMap(map);
                     if (cellObject instanceof RectangleMapObject rectangleObject) {
                         switch (s) {
                             case "torch":
@@ -113,7 +115,7 @@ public class WorldParser {
                                 list.add(new Chest(new Vector2(x, y), world));
                                 break;
                             case "enemy":
-                                list.add(new Enemy(new Vector2(x, y), world));
+                                list.add(new Enemy(new Vector2(x, y), world, rawMap));
                                 break;
                             case "teleporter":
                                 list.add(new Teleporter(new Vector2(x, y), world, rectangleObject.getRectangle()));
@@ -128,7 +130,8 @@ public class WorldParser {
 
     public static void parseTorches(TiledMap map, RayHandler rayHandler) {
         TiledMapTileLayer layer = (TiledMapTileLayer) map.getLayers().get("torch");
-        if (layer == null) return;
+        if (layer == null)
+            return;
 
         for (int x = 0; x < layer.getWidth(); x++) {
             for (int y = 0; y < layer.getHeight(); y++) {

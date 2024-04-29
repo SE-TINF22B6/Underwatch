@@ -7,6 +7,8 @@ import de.dhbw.tinf22b6.util.Constants;
 import de.dhbw.tinf22b6.util.EntitySystem;
 import de.dhbw.tinf22b6.world.tiled.FlatTiledGraph;
 import de.dhbw.tinf22b6.world.tiled.FlatTiledNode;
+import de.dhbw.tinf22b6.world.tiled.TiledManhattanDistance;
+import de.dhbw.tinf22b6.world.tiled.TiledSmoothableGraphPath;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.ai.pfa.indexed.IndexedAStarPathFinder;
@@ -66,6 +68,11 @@ public class EnemyStateMachine {
 
     private Vector2 getMovementVector() {
         Player player = EntitySystem.instance.getPlayer();
+        FlatTiledNode startNode = worldGraph.getNode((int) enemy.getPos().x, (int) enemy.getPos().y);
+        FlatTiledNode endNode = worldGraph.getNode((int) player.getPos().x, (int) player.getPos().y);
+
+        TiledSmoothableGraphPath<FlatTiledNode> path = new TiledSmoothableGraphPath<>();
+        finder.searchNodePath(startNode, endNode, new TiledManhattanDistance<>(), path);
         // List<GridCell> path = finder.findPath((int) enemy.getPos().x / 16,
         // (int) enemy.getPos().y / 16,
         // (int) player.getPos().x / 16,
@@ -73,16 +80,13 @@ public class EnemyStateMachine {
         // Gdx.app.debug(TAG, "Path: " + path);
         // Gdx.app.debug(TAG, "Enemy: " + enemy.getPos().x / 16 + "," + enemy.getPos().y
         // / 16);
-        // if (path != null) {
-        // Vector2 tmp = new Vector2(path.get(0).x * 16, path.get(0).y * 16);
-        // tmp.sub(enemy.getPos());
-        // tmp.setLength(1);
-        // // Gdx.app.debug(TAG, "Player: " + player.getPos() + " Enemy: " +
-        // enemy.getPos()
-        // // + " Dir" + tmp + " 1st" + path.get(0));
-        // return tmp;
-        // }
-        return new Vector2();
+        Vector2 tmp = new Vector2(path.get(0).x * 16, path.get(0).y * 16);
+        tmp.sub(enemy.getPos());
+        tmp.setLength(1);
+        // Gdx.app.debug(TAG, "Player: " + player.getPos() + " Enemy: " +
+        enemy.getPos();
+        // + " Dir" + tmp + " 1st" + path.get(0));
+        return tmp;
     }
 
     private void shoot() {

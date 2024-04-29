@@ -112,7 +112,7 @@ public class AITest {
 
         FlatTiledNode startNode = worldMap.getNode(1, 1);
         FlatTiledNode endNode = worldMap.getNode(5, 5);
-        worldMap.startNode = startNode;
+        // worldMap.startNode = startNode;
 
         long startTime = TimeUtils.nanoTime();
         pathFinder.searchNodePath(startNode, endNode, heuristic, path);
