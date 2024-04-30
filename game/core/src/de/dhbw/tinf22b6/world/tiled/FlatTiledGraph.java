@@ -34,7 +34,7 @@ public class FlatTiledGraph implements TiledGraph<FlatTiledNode> {
         this.sizeX = map.length;
         this.sizeY = map[0].length;
         this.nodes = new Array<>(sizeX * sizeY);
-        this.diagonal = false;
+        this.diagonal = true;
         this.startNode = null;
         this.init(map);
     }

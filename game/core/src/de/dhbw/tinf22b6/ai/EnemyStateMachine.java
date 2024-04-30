@@ -2,7 +2,6 @@ package de.dhbw.tinf22b6.ai;
 
 import static de.dhbw.tinf22b6.util.Constants.TILE_SIZE;
 
-import com.badlogic.gdx.ai.pfa.Heuristic;
 import de.dhbw.tinf22b6.gameobject.Bullet;
 import de.dhbw.tinf22b6.gameobject.Enemy;
 import de.dhbw.tinf22b6.gameobject.Player;
@@ -10,15 +9,13 @@ import de.dhbw.tinf22b6.util.Constants;
 import de.dhbw.tinf22b6.util.EntitySystem;
 import de.dhbw.tinf22b6.world.tiled.FlatTiledGraph;
 import de.dhbw.tinf22b6.world.tiled.FlatTiledNode;
-import de.dhbw.tinf22b6.world.tiled.TiledManhattanDistance;
 import de.dhbw.tinf22b6.world.tiled.TiledSmoothableGraphPath;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.ai.pfa.Heuristic;
 import com.badlogic.gdx.ai.pfa.indexed.IndexedAStarPathFinder;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.World;
-
-import java.util.Arrays;
 
 public class EnemyStateMachine {
 
@@ -97,28 +94,53 @@ public class EnemyStateMachine {
         rawMap[(int) player.getPos().x / TILE_SIZE][(int) player.getPos().y / TILE_SIZE] = 0;
         rawMap[(int) enemy.getPos().x / TILE_SIZE][(int) enemy.getPos().y / TILE_SIZE] = 5;
 
+        printRawMap(rawMap);
+
+        if (path.nodes.size == 1) {
+            return new Vector2(0, 0);
+        }
+        Vector2 tmp;
+        // if ((int) enemy.getPos().x / TILE_SIZE != path.get(0).x * TILE_SIZE && (int)
+        // enemy.getPos().y / TILE_SIZE != path.get(0).y * TILE_SIZE) {
+        // tmp = new Vector2(path.get(0).x * TILE_SIZE + (float) TILE_SIZE / 2,
+        // path.get(0).y * TILE_SIZE + (float) TILE_SIZE / 1.3f);
+        // Gdx.app.debug(TAG, "Chasing old Node");
+        // } else {
+        // tmp = new Vector2(path.get(1).x * TILE_SIZE + (float) TILE_SIZE / 2,
+        // path.get(1).y * TILE_SIZE + (float) TILE_SIZE / 1.3f);
+        // Gdx.app.debug(TAG, "Chasing new Node");
+        // }
+        float x = path.get(1).x * TILE_SIZE - enemy.getPos().x;
+        float y = path.get(1).y * TILE_SIZE - enemy.getPos().y;
+        System.out.printf("x=%.2f\ty=%.2f%n", x, y);
+        float scaleX = 2;
+        float scaleY = 2;
+        if (x < 0 && y>0) {
+            scaleX = 2.3f;
+        }
+        if (x < 0 && y<0) {
+            scaleX = 1.3f;
+        }
+        if (x > 0 && y<0) {
+            scaleY = 1.3f;
+        }
+        if (x > 0 && y>0) {
+            scaleY = 1.3f;
+        }
+        tmp = new Vector2(x + (float) TILE_SIZE / scaleX, y + (float) TILE_SIZE / scaleY);
+        // tmp.sub(enemy.getPos());
+        tmp.setLength(1);
+        Gdx.app.debug(TAG, "Direction: " + tmp);
+        return tmp;
+    }
+
+    private void printRawMap(int[][] rawMap) {
         for (int j = rawMap[0].length - 1; j > 0; j--) {
             for (int i = 0; i < rawMap.length; i++) {
                 System.out.printf("%d", rawMap[i][j]);
             }
             System.out.println();
         }
-
-        if (path.nodes.size == 1) {
-            return new Vector2(0, 0);
-        }
-        Vector2 tmp;
-        if ((int) enemy.getPos().x / TILE_SIZE != path.get(0).x * TILE_SIZE && (int) enemy.getPos().y / TILE_SIZE != path.get(0).y * TILE_SIZE) {
-            tmp = new Vector2(path.get(0).x * TILE_SIZE + (float) TILE_SIZE / 2, path.get(0).y * TILE_SIZE + (float) TILE_SIZE / 1.3f);
-            Gdx.app.debug(TAG, "Chasing old Node");
-        } else {
-            tmp = new Vector2(path.get(1).x * TILE_SIZE + (float) TILE_SIZE / 2, path.get(1).y * TILE_SIZE + (float) TILE_SIZE / 1.3f);
-            Gdx.app.debug(TAG, "Chasing new Node");
-        }
-        tmp.sub(enemy.getPos());
-        tmp.setLength(1);
-        Gdx.app.debug(TAG, "Direction: " + tmp);
-        return tmp;
     }
 
     private void shoot() {
