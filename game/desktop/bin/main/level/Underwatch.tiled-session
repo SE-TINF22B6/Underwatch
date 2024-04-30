@@ -3,8 +3,10 @@
         "height": 4300,
         "width": 2
     },
-    "activeFile": "pathfinding.tmx",
-    "expandedProjectPaths": ["."],
+    "activeFile": "startMap.tmx",
+    "expandedProjectPaths": [
+        "."
+    ],
     "file.lastUsedOpenFilter": "All Files (*)",
     "fileStates": {
         "/Users/benny/software-engeneering/50x50map mit hitbox.tmx": {
@@ -105,14 +107,6 @@
                 "x": 455.209169891217,
                 "y": 610.3526319632037
             }
-        },
-        "pathfinding.tmx": {
-            "scale": 1.3697,
-            "selectedLayer": 2,
-            "viewCenter": {
-                "x": 455.209169891217,
-                "y": 610.3526319632037
-            }
         }
     },
     "frame.defaultDuration": 1,
@@ -124,7 +118,6 @@
     "map.tileWidth": 16,
     "map.width": 100,
     "openFiles": [
-        "pathfinding.tmx",
         "Dungeon_Tileset.tsx",
         "TeleportTestFixed.tmx",
         "startMap.tmx"
@@ -132,7 +125,6 @@
     "project": "Underwatch.tiled-project",
     "property.type": "bool",
     "recentFiles": [
-        "pathfinding.tmx",
         "startMap.tmx",
         "TeleportTestFixed.tmx",
         "Dungeon_Tileset.tsx",

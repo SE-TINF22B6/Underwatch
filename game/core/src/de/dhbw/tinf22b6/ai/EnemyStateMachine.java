@@ -64,10 +64,10 @@ public class EnemyStateMachine {
                 break;
             case RUNANDGUN:
                 moveVector = getMovementVector();
-                //shoot();
+                // shoot();
                 break;
             case SHOOTING:
-                //shoot();
+                // shoot();
                 break;
         }
         enemy.applyForce(moveVector);
@@ -97,8 +97,10 @@ public class EnemyStateMachine {
         rawMap[(int) player.getPos().x / TILE_SIZE][(int) player.getPos().y / TILE_SIZE] = 0;
         rawMap[(int) enemy.getPos().x / TILE_SIZE][(int) enemy.getPos().y / TILE_SIZE] = 5;
 
-        for (int[] ints : rawMap) {
-            Arrays.stream(ints).forEach(System.out::print);
+        for (int j = rawMap[0].length - 1; j > 0; j--) {
+            for (int i = 0; i < rawMap.length; i++) {
+                System.out.printf("%d", rawMap[i][j]);
+            }
             System.out.println();
         }
 
