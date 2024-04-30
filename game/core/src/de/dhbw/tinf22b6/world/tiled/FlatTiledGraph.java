@@ -1,11 +1,12 @@
+
 /*******************************************************************************
- * Copyright 2014 See AUTHORS file.
+ * Copyright FlatTile014 See AUTHORS file.
  *
- * Licensed under the Apache License, Version 2.0 (the "License");
+ * Licensed under the Apache License, Version FlatTile.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- *   http://www.apache.org/licenses/LICENSE-2.0
+ *   http://www.apache.org/licenses/LICENSE-FlatTile.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -13,7 +14,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  ******************************************************************************/
-
 package de.dhbw.tinf22b6.world.tiled;
 
 import com.badlogic.gdx.ai.pfa.Connection;
@@ -50,17 +50,123 @@ public class FlatTiledGraph implements TiledGraph<FlatTiledNode> {
         }
 
         for (int x = 0; x < sizeX; x++) {
-            int idx = x * sizeY;
             for (int y = 0; y < sizeY; y++) {
-                FlatTiledNode n = nodes.get(idx + y);
-                if (x > 0) addConnection(n, -1, 0);
-                if (y > 0) addConnection(n, 0, -1);
-                if (x > 0 && y > 0) addConnection(n, -1, -1);
-                if (x < sizeX - 1) addConnection(n, 1, 0);
-                if (y < sizeY - 1) addConnection(n, 0, 1);
-                if (x < sizeX - 1 && y < sizeY - 1) addConnection(n, 1, 1);
-                if (x < sizeX -1 && y > 0) addConnection(n, 1, -1);
-                if (y < sizeY - 1 && x > 0) addConnection(n, -1, 1);
+                FlatTiledNode n = getNode(x, y);
+                // inside the map
+                if (x > 1 && x < sizeX - 1 && y > 1 && y < sizeY - 1 && n.type != FlatTiledNode.TILE_WALL) {
+                    // check if wall is above and below
+                    if (getNode(x, y + 1).type == FlatTiledNode.TILE_WALL && getNode(x, y - 1).type == FlatTiledNode.TILE_WALL) {
+                        // W
+                        addConnection(n, -1, 0);
+                        // E
+                        addConnection(n, 1, 0);
+                        continue;
+                    }
+                    // check if wall is left and right
+                    if (getNode(x + 1, y).type == FlatTiledNode.TILE_WALL && getNode(x - 1, y).type == FlatTiledNode.TILE_WALL) {
+                        // S
+                        addConnection(n, 0, -1);
+                        // N
+                        addConnection(n, 0, 1);
+                        continue;
+                    }
+                    // check if wall is above
+                    if (getNode(x, y + 1).type == FlatTiledNode.TILE_WALL) {
+                        // W
+                        addConnection(n, -1, 0);
+                        // S
+                        addConnection(n, 0, -1);
+                        // E
+                        addConnection(n, 1, 0);
+                        // SE
+                        addConnection(n, 1, -1);
+                        // SW
+                        addConnection(n, -1, -1);
+                        continue;
+                    }
+                    // check if wall is below
+                    if (getNode(x, y - 1).type == FlatTiledNode.TILE_WALL) {
+                        // W
+                        addConnection(n, -1, 0);
+                        // S
+                        addConnection(n, 0, -1);
+                        // E
+                        addConnection(n, 1, 0);
+                        // N
+                        addConnection(n, 0, 1);
+                        // NE
+                        addConnection(n, 1, 1);
+                        // NW
+                        addConnection(n, -1, 1);
+
+                    }
+                    // check if wall is left
+                    if (getNode(x - 1, y).type == FlatTiledNode.TILE_WALL) {
+                        // W
+                        addConnection(n, -1, 0);
+                        // S
+                        addConnection(n, 0, -1);
+                        // E
+                        addConnection(n, 1, 0);
+                        // N
+                        addConnection(n, 0, 1);
+                        // NE
+                        addConnection(n, 1, 1);
+                        // SE
+                        addConnection(n, 1, -1);
+                        continue;
+                    }
+                    // check if wall is right
+                    if (getNode(x + 1, y).type == FlatTiledNode.TILE_WALL) {
+                        // W
+                        addConnection(n, -1, 0);
+                        // S
+                        addConnection(n, 0, -1);
+                        // E
+                        addConnection(n, 1, 0);
+                        // N
+                        addConnection(n, 0, 1);
+                        // NW
+                        addConnection(n, -1, 1);
+                        // SW
+                        addConnection(n, -1, -1);
+                        continue;
+                    }
+                    // W
+                    addConnection(n, -1, 0);
+                    // S
+                    addConnection(n, 0, -1);
+                    // E
+                    addConnection(n, 1, 0);
+                    // N
+                    addConnection(n, 0, 1);
+                    // NW
+                    addConnection(n, -1, 1);
+                    // SW
+                    addConnection(n, -1, -1);
+                    // NE
+                    addConnection(n, 1, 1);
+                    // SE
+                    addConnection(n, 1, -1);
+                    continue;
+
+                }
+                // if (x > 0)
+                // addConnection(n, -1, 0);
+                // if (y > 0)
+                // addConnection(n, 0, -1);
+                // if (x > 0 && y > 0)
+                // addConnection(n, -1, -1);
+                // if (x < sizeX - 1)
+                // addConnection(n, 1, 0);
+                // if (y < sizeY - 1)
+                // addConnection(n, 0, 1);
+                // if (x < sizeX - 1 && y < sizeY - 1)
+                // addConnection(n, 1, 1);
+                // if (x < sizeX - 1 && y > 0)
+                // addConnection(n, 1, -1);
+                // if (y < sizeY - 1 && x > 0)
+                // addConnection(n, -1, 1);
             }
         }
     }
@@ -92,7 +198,8 @@ public class FlatTiledGraph implements TiledGraph<FlatTiledNode> {
 
     private void addConnection(FlatTiledNode n, int xOffset, int yOffset) {
         FlatTiledNode target = getNode(n.x + xOffset, n.y + yOffset);
-        if (target.type != FlatTiledNode.TILE_WALL) n.getConnections().add(new FlatTiledConnection(this, n, target));
+        if (target.type != FlatTiledNode.TILE_WALL)
+            n.getConnections().add(new FlatTiledConnection(this, n, target));
     }
 
 }

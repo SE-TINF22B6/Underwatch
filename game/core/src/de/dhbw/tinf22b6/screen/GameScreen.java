@@ -65,7 +65,7 @@ public class GameScreen extends AbstractGameScreen {
 
     @Override
     public void show() {
-        m.play();
+        // m.play();
         World world = new World(new Vector2(0, 0), false);
         WorldParser.parseStaticObjects(map, world);
         world.setContactListener(new WorldListener(this));

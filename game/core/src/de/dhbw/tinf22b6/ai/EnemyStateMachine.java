@@ -29,6 +29,8 @@ public class EnemyStateMachine {
     private FlatTiledGraph worldGraph;
     private IndexedAStarPathFinder<FlatTiledNode> finder;
     private int[][] initMap;
+    private float timer;
+    private Vector2 currentMovementVector;
 
     // private
     // private NavigationGrid<GridCell> gridCells;
@@ -47,6 +49,7 @@ public class EnemyStateMachine {
     }
 
     public void tick(float delta) {
+        timer += delta;
         if (oldState != currentState) {
             Gdx.app.debug(TAG, currentState.name());
             oldState = currentState;
@@ -99,7 +102,6 @@ public class EnemyStateMachine {
         if (path.nodes.size == 1) {
             return new Vector2(0, 0);
         }
-        Vector2 tmp;
         // if ((int) enemy.getPos().x / TILE_SIZE != path.get(0).x * TILE_SIZE && (int)
         // enemy.getPos().y / TILE_SIZE != path.get(0).y * TILE_SIZE) {
         // tmp = new Vector2(path.get(0).x * TILE_SIZE + (float) TILE_SIZE / 2,
@@ -110,28 +112,53 @@ public class EnemyStateMachine {
         // path.get(1).y * TILE_SIZE + (float) TILE_SIZE / 1.3f);
         // Gdx.app.debug(TAG, "Chasing new Node");
         // }
-        float x = path.get(1).x * TILE_SIZE - enemy.getPos().x;
-        float y = path.get(1).y * TILE_SIZE - enemy.getPos().y;
-        System.out.printf("x=%.2f\ty=%.2f%n", x, y);
-        float scaleX = 2;
-        float scaleY = 2;
-        if (x < 0 && y>0) {
-            scaleX = 2.3f;
+
+        // float x = path.get(1).x * TILE_SIZE - enemy.getPos().x;
+        // float y = path.get(1).y * TILE_SIZE - enemy.getPos().y;
+        // System.out.printf("x=%.2f\ty=%.2f%n", x, y);
+        // float scaleX = 2;
+        // float scaleY = 2;
+        // if (x < 0 && y > 0) {
+        // scaleX = 2.3f;
+        // }
+        // if (x < 0 && y < 0) {
+        // scaleX = 1.3f;
+        // }
+        // if (x > 0 && y < 0) {
+        // scaleY = 1.3f;
+        // }
+        // if (x > 0 && y > 0) {
+        // scaleY = 1.3f;
+        // }
+        // tmp = new Vector2(x + (float) TILE_SIZE / scaleX, y + (float) TILE_SIZE /
+        // scaleY);
+
+        if ((timer > 1.0f || inRange(path)) || currentMovementVector == null) {
+
+            timer = 0;
+            currentMovementVector = new Vector2(path.get(1).x * TILE_SIZE + (float) TILE_SIZE / 2, path.get(1).y * TILE_SIZE + (float) TILE_SIZE / 2.0f);
+            currentMovementVector.sub(enemy.getPos());
+            currentMovementVector.setLength(1);
+            Gdx.app.debug(TAG, "New Vector: " + currentMovementVector);
         }
-        if (x < 0 && y<0) {
-            scaleX = 1.3f;
-        }
-        if (x > 0 && y<0) {
-            scaleY = 1.3f;
-        }
-        if (x > 0 && y>0) {
-            scaleY = 1.3f;
-        }
-        tmp = new Vector2(x + (float) TILE_SIZE / scaleX, y + (float) TILE_SIZE / scaleY);
-        // tmp.sub(enemy.getPos());
-        tmp.setLength(1);
-        Gdx.app.debug(TAG, "Direction: " + tmp);
-        return tmp;
+        // Gdx.app.debug(TAG, "Direction: " + currentMovementVector);
+        return currentMovementVector;
+    }
+
+    private boolean inRange(TiledSmoothableGraphPath<FlatTiledNode> path) {
+        // return enemy.getPos().epsilonEquals(path.get(0).x * TILE_SIZE, path.get(0).y
+        // * TILE_SIZE);
+        boolean value = false;
+        int outerX1 = path.get(1).x * TILE_SIZE;
+        int outerY1 = path.get(1).y * TILE_SIZE;
+        int outerX2 = outerX1 + TILE_SIZE;
+        int outerY2 = outerY1 + TILE_SIZE;
+
+        int innerX1 = (int) enemy.getPos().x;
+        int innerY1 = (int) enemy.getPos().y;
+        int innerX2 = innerX1 + TILE_SIZE / 3;
+        int innerY2 = innerY1 + TILE_SIZE / 3;
+        return innerX1 >= outerX1 && innerY1 >= outerY1 && innerX2 <= outerX2 && innerY2 <= outerY2;
     }
 
     private void printRawMap(int[][] rawMap) {
