@@ -133,10 +133,12 @@ public class EnemyStateMachine {
         // tmp = new Vector2(x + (float) TILE_SIZE / scaleX, y + (float) TILE_SIZE /
         // scaleY);
 
-        if ((timer > 1.0f || inRange(path)) || currentMovementVector == null) {
+        if ((timer > 0.5f || inRange(path)) || currentMovementVector == null) {
 
             timer = 0;
-            currentMovementVector = new Vector2(path.get(1).x * TILE_SIZE + (float) TILE_SIZE / 2, path.get(1).y * TILE_SIZE + (float) TILE_SIZE / 2.0f);
+            currentMovementVector = new Vector2(path.get(1).x * TILE_SIZE + (float) TILE_SIZE / 2,
+                                                path.get(1).y * TILE_SIZE + (float) TILE_SIZE / 2f
+            );
             currentMovementVector.sub(enemy.getPos());
             currentMovementVector.setLength(1);
             Gdx.app.debug(TAG, "New Vector: " + currentMovementVector);
@@ -148,7 +150,6 @@ public class EnemyStateMachine {
     private boolean inRange(TiledSmoothableGraphPath<FlatTiledNode> path) {
         // return enemy.getPos().epsilonEquals(path.get(0).x * TILE_SIZE, path.get(0).y
         // * TILE_SIZE);
-        boolean value = false;
         int outerX1 = path.get(1).x * TILE_SIZE;
         int outerY1 = path.get(1).y * TILE_SIZE;
         int outerX2 = outerX1 + TILE_SIZE;

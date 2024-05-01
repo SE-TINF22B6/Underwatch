@@ -78,6 +78,8 @@ public class FlatTiledGraph implements TiledGraph<FlatTiledNode> {
                         addConnection(n, 0, -1);
                         // E
                         addConnection(n, 1, 0);
+                        // N
+                        addConnection(n, 0, 1);
                         // SE
                         addConnection(n, 1, -1);
                         // SW
@@ -94,10 +96,10 @@ public class FlatTiledGraph implements TiledGraph<FlatTiledNode> {
                         addConnection(n, 1, 0);
                         // N
                         addConnection(n, 0, 1);
-                        // NE
-                        addConnection(n, 1, 1);
-                        // NW
-                        addConnection(n, -1, 1);
+                        // // NE
+                        // addConnection(n, 1, 1);
+                        // // NW
+                        // addConnection(n, -1, 1);
 
                     }
                     // check if wall is left
@@ -110,10 +112,10 @@ public class FlatTiledGraph implements TiledGraph<FlatTiledNode> {
                         addConnection(n, 1, 0);
                         // N
                         addConnection(n, 0, 1);
-                        // NE
-                        addConnection(n, 1, 1);
-                        // SE
-                        addConnection(n, 1, -1);
+                        // // NE
+                        // addConnection(n, 1, 1);
+                        // // SE
+                        // addConnection(n, 1, -1);
                         continue;
                     }
                     // check if wall is right
