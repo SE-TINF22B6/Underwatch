@@ -180,7 +180,7 @@ public class Player extends MobGameObject {
     }
 
     public void shoot() {
-        weapon.shoot();
+        weapon.shoot(pos, getAngle());
     }
 
     public int getScore() {
