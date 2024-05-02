@@ -18,5 +18,6 @@ public class Controls {
         preferences.putFloat("music", 0.5f);
         preferences.putFloat("sfx", 0.5f);
         preferences.putBoolean("muteMusic", false);
+        preferences.flush();
     }
 }
