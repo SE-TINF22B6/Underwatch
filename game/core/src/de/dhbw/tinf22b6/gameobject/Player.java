@@ -70,17 +70,29 @@ public class Player extends MobGameObject {
     @Override
     public void render(Batch batch) {
         if (!dodging) {
-            super.render(batch);
             int angle = getAngle();
             int r = 5;
-            batch.draw(weapon.getRegion(),
-                    (pos.x + 4) + r * cosDeg(angle),
-                    (pos.y + 4) + r * sinDeg(angle),
-                    8, 8,
-                    weapon.getRegion().originalWidth,
-                    weapon.getRegion().originalHeight,
-                    1, 1,
-                    angle - 45);
+            if (angle > 20 && angle < 160) {
+                batch.draw(weapon.getRegion(),
+                        (pos.x + 4) + r * cosDeg(angle),
+                        (pos.y + 4) + r * sinDeg(angle),
+                        8, 8,
+                        weapon.getRegion().originalWidth,
+                        weapon.getRegion().originalHeight,
+                        1, 1,
+                        angle - 45);
+                super.render(batch);
+            } else {
+                super.render(batch);
+                batch.draw(weapon.getRegion(),
+                        (pos.x + 4) + r * cosDeg(angle),
+                        (pos.y + 4) + r * sinDeg(angle),
+                        8, 8,
+                        weapon.getRegion().originalWidth,
+                        weapon.getRegion().originalHeight,
+                        1, 1,
+                        angle - 45);
+            }
             return;
         }
         batch.draw(currentAnimation.getKeyFrame(dodgeStateTime, true), pos.x, pos.y);
