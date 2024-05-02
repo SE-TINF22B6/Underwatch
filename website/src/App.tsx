@@ -1,4 +1,3 @@
-import React from 'react';
 import './App.css';
 import {
   Box,
@@ -8,11 +7,10 @@ import {
 } from '@mui/material';
 import { theme1 } from './theme';
 import NavigationMenu from './NavigationMenu';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 
 function App() {
-  const navigate = useNavigate();
   return (
     <ThemeProvider theme={theme1}>
       <div className="App">

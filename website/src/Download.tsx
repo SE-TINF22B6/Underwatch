@@ -3,9 +3,6 @@ import { theme2 } from "./theme";
 import { AppBar, Button, Paper, Toolbar, Typography } from "@mui/material";
 import {Link} from "react-router-dom";
 import NavigationMenu from "./NavigationMenu";
-import { useState, useEffect } from "react";
-import toast from 'react-hot-toast';
-
 
 
 export default function Download() {
