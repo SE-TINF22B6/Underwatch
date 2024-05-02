@@ -14,6 +14,7 @@ import com.badlogic.gdx.physics.box2d.World;
 import de.dhbw.tinf22b6.util.Assets;
 import de.dhbw.tinf22b6.util.Constants;
 import de.dhbw.tinf22b6.util.PlayerStatistics;
+import de.dhbw.tinf22b6.weapon.Bow;
 import de.dhbw.tinf22b6.weapon.Weapon;
 
 import static com.badlogic.gdx.math.MathUtils.cosDeg;
@@ -57,7 +58,7 @@ public class Player extends MobGameObject {
         boxShape.dispose();
 
         // equip weapon
-        this.weapon = new Weapon("handgun", 1000, 5);
+        this.weapon = new Bow();
     }
 
     private int getAngle() {
@@ -71,7 +72,7 @@ public class Player extends MobGameObject {
         if (!dodging) {
             super.render(batch);
             int angle = getAngle();
-            int r = 12;
+            int r = 5;
             batch.draw(weapon.getRegion(),
                     (pos.x + 4) + r * cosDeg(angle),
                     (pos.y + 4) + r * sinDeg(angle),
@@ -79,7 +80,7 @@ public class Player extends MobGameObject {
                     weapon.getRegion().originalWidth,
                     weapon.getRegion().originalHeight,
                     1, 1,
-                    angle + 90);
+                    angle - 45);
             return;
         }
         batch.draw(currentAnimation.getKeyFrame(dodgeStateTime, true), pos.x, pos.y);
