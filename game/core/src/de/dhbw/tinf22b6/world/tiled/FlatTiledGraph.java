@@ -153,22 +153,22 @@ public class FlatTiledGraph implements TiledGraph<FlatTiledNode> {
                     continue;
 
                 }
-                // if (x > 0)
-                // addConnection(n, -1, 0);
-                // if (y > 0)
-                // addConnection(n, 0, -1);
-                // if (x > 0 && y > 0)
-                // addConnection(n, -1, -1);
-                // if (x < sizeX - 1)
-                // addConnection(n, 1, 0);
-                // if (y < sizeY - 1)
-                // addConnection(n, 0, 1);
-                // if (x < sizeX - 1 && y < sizeY - 1)
-                // addConnection(n, 1, 1);
-                // if (x < sizeX - 1 && y > 0)
-                // addConnection(n, 1, -1);
-                // if (y < sizeY - 1 && x > 0)
-                // addConnection(n, -1, 1);
+                if (x > 0)
+                    addConnection(n, -1, 0);
+                if (y > 0)
+                    addConnection(n, 0, -1);
+                if (x > 0 && y > 0)
+                    addConnection(n, -1, -1);
+                if (x < sizeX - 1)
+                    addConnection(n, 1, 0);
+                if (y < sizeY - 1)
+                    addConnection(n, 0, 1);
+                if (x < sizeX - 1 && y < sizeY - 1)
+                    addConnection(n, 1, 1);
+                if (x < sizeX - 1 && y > 0)
+                    addConnection(n, 1, -1);
+                if (y < sizeY - 1 && x > 0)
+                    addConnection(n, -1, 1);
             }
         }
     }
