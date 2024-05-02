@@ -19,6 +19,7 @@ import {
     FormControl,
     OutlinedInput,
     TableSortLabel,
+    TablePagination,
 } from '@mui/material';
 import {theme2} from './theme';
 import NavigationMenu from './NavigationMenu';
@@ -59,6 +60,16 @@ let cookieObject : CookieObject = {
 }
 
 const Scoreboard = () => {
+    // ---------- Paging ----------
+    const handleChangePage = (event: unknown, newPage: number) => {
+        console.log(newPage);
+        setRequestedPage(newPage);
+    }
+    const [totalElements, setTotalElements] = React.useState(-1);
+    const [requestedPage, setRequestedPage] = React.useState(0);
+
+    const [order, setOrder] = useState<'asc' | 'desc' | undefined>('desc');
+    const [orderBy, setOrderBy] = useState<'score' | 'playerName' | 'timestamp' | 'coins' | 'kills' | 'damageDealt' | 'dps' | 'game_time' | ''>('score');
     // ---------- getApiData ----------
     const [apiData, setApiData] = useState<ScoreData[]>([JSON.parse('{"id": 0,"playerName": "","score": 0,"coins": 0,"kills": 0,"damageDealt": 0,"dps": 0,"timestamp": "","game_time": 0}')]);
 
@@ -69,6 +80,7 @@ const Scoreboard = () => {
                 throw new Error('Network response was not ok');
             }
             const data = await response.json();
+            setTotalElements(data.page.totalElements);
             return data._embedded.scores;
         } catch (error) {
             console.error('Beim Laden der API-Daten ist folgender Fehler aufgetreten:', error);
@@ -83,7 +95,7 @@ const Scoreboard = () => {
         }
     }
     useEffect(() => {
-        getApiData("https://underwatch.freemine.de/api/scores?page=0&size=30&sort=score%2Cdesc")
+        getApiData(`https://underwatch.freemine.de/api/scores?page=${requestedPage}&size=10&sort=${orderBy}%2C${order}`)
         .then((scores) => {
             setApiData(scores);
         })
@@ -97,7 +109,7 @@ const Scoreboard = () => {
                 }
             });
         });
-    }, []);
+    }, [requestedPage, order, orderBy]);
 
     // ---------- CookieHandling ----------
     useEffect(() => {
@@ -143,8 +155,6 @@ const Scoreboard = () => {
     }
 
     // ---------- Sortierung ----------
-    const [order, setOrder] = useState<'asc' | 'desc' | undefined>('desc');
-    const [orderBy, setOrderBy] = useState<'score' | 'playerName' | 'timestamp' | 'coins' | 'kills' | 'damageDealt' | 'dps' | 'game_time' | ''>('score');
     const sortedData = [...apiData].sort((a, b) => {
         if (orderBy === '') {
             return 1;
@@ -252,6 +262,7 @@ const Scoreboard = () => {
     ]
     const desiredKeys = ['playerName', 'score', 'coins', 'kills', 'damageDealt', 'dps', 'game_time', 'timestamp'];
 
+
     return (
         <ThemeProvider theme={theme2}>
             <div className="Scoreboard">
@@ -323,7 +334,17 @@ const Scoreboard = () => {
                                 ))}
                             </TableBody>
                         </Table>
+                        <TablePagination
+                            rowsPerPageOptions={[10]}
+                            component="div"
+                            rowsPerPage={10}
+                            page={requestedPage}
+                            count={totalElements}
+                            onPageChange={handleChangePage}
+                            style={{color: theme2.palette.primary.contrastText}}
+                        />
                     </TableContainer>
+                    
 
                     {showFilterMask && (
                         <Paper elevation={1} sx={{
