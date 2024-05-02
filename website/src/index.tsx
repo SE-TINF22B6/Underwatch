@@ -10,10 +10,9 @@ import WikiWeapons from './WikiWeapons';
 import WikiMobs from './WikiMobs';
 import WikiTipps from './WikiTipps';
 import Champions from './Champions';
+import Download from './Download';
 import ViedeoBackground from './VideoBackground';
 import {Toaster} from 'react-hot-toast';
-
-
 
 
 const root = ReactDOM.createRoot(
@@ -52,6 +51,10 @@ const router = createBrowserRouter([
   {
     path: '*',
     element: <NotFound/>
+  },
+  {
+    path: '/download/',
+    element: <Download/>
   }
 ]);
 
