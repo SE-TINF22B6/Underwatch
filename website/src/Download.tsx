@@ -1,10 +1,11 @@
 import { ThemeProvider } from "@emotion/react";
 import { theme2 } from "./theme";
-import { AppBar, Paper, Toolbar, Typography } from "@mui/material";
+import { AppBar, Button, Paper, Toolbar, Typography } from "@mui/material";
 import {Link} from "react-router-dom";
 import NavigationMenu from "./NavigationMenu";
 import { useState, useEffect } from "react";
 import toast from 'react-hot-toast';
+
 
 
 export default function Download() {
@@ -22,18 +23,62 @@ export default function Download() {
             </AppBar>
 
             <Paper style={{
-                width: "90%",
+                width: "80%",
                 height: "200px",
                 backgroundColor: theme2.palette.primary.main,
                 margin: "auto",
                 marginTop: "20px",
-                paddingTop: "100px",
+                paddingTop: "50px",
+                paddingLeft: "5%",
+                paddingRight: "5%",
             }}>
                 <Typography variant="body1" align="center" style={{
                     color:theme2.palette.primary.contrastText,
                 }}>
-                    Unfortunally, the download of our game is not  yet available.
+                    Altough the game is not yet finished, you can download it via the pages below.
                 </Typography>
+                <table style={{marginTop:"20px", borderCollapse: "separate", borderSpacing:"0 10px"}}>
+                    <tbody>
+                        <tr>
+                            <td>
+                                <Typography variant="body1" align="left" style={{
+                                    color:theme2.palette.primary.contrastText,
+                                }}>
+                                    GitHub Latest Release:
+                                </Typography>
+                            </td>
+                            <td>
+                                <Button variant="contained" component="a" href="https://github.com/SE-TINF22B6/Underwatch/releases/latest/" style={{
+                                    fontWeight: 'bold', 
+                                    border: '1px solid #F36437', 
+                                    marginLeft: "10px", 
+                                    width: "100%"
+                                }}>
+                                    Bring me there
+                                </Button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <Typography variant="body1" align="left" style={{
+                                    color:theme2.palette.primary.contrastText,
+                                }}>
+                                    v0.0.2-alpha Fast Downlaod:
+                                </Typography>
+                            </td>
+                            <td>
+                                <Button variant="contained" component="a" href="https://github.com/SE-TINF22B6/Underwatch/releases/download/v0.0.2-alpha/desktop-1.0.jar" style={{
+                                    fontWeight: 'bold', 
+                                    border: '1px solid #F36437', 
+                                    marginLeft: "10px", 
+                                    width: "100%"
+                                }}>
+                                    Give it to me
+                                </Button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
             </Paper>
         </div>
         </ThemeProvider>
