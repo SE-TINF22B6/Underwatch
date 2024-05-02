@@ -43,7 +43,7 @@ public class WorldListener implements ContactListener {
                     ((Bullet) fixA.getUserData()).setRemove(true);
                 } else
                     ((Bullet) fixB.getUserData()).setRemove(true);
-                Gdx.audio.newSound(Gdx.files.internal("sfx/arrow-impact.mp3")).play(1);
+                //Gdx.audio.newSound(Gdx.files.internal("sfx/arrow-impact.mp3")).play(1);
                 Gdx.app.debug(TAG, "Weapon and wall");
                 break;
             case ENEMY_BIT | WEAPON_BIT:

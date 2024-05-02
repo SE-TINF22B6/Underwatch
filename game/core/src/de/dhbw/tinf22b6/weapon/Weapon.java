@@ -4,7 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
-import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.physics.box2d.World;
 import de.dhbw.tinf22b6.util.Assets;
 
 public abstract class Weapon {
@@ -17,21 +17,22 @@ public abstract class Weapon {
     protected float weaponStateTime;
     protected boolean isShooting;
     protected Sound sound;
+    protected World world;
 
-    public Weapon(String regionName, int ammo, float weaponCooldown) {
+    public Weapon(String regionName, int ammo, float weaponCooldown, World world) {
         this.idleAnimation = Assets.instance.getSprite("idle" + regionName);
         this.shootingAnimation = new Animation<>(0.2f, Assets.instance.getAnimationAtlasRegion(regionName));
         this.ammo = ammo;
         this.weaponCooldown = weaponCooldown;
         this.sound = Gdx.audio.newSound(Gdx.files.internal("sfx/" + regionName + ".mp3"));
+        this.world = world;
     }
 
-    public void shoot(Vector2 pos, int angle) {
-        //EntitySystem.instance.add(new Bullet(new Vector2(player.getPos().x + TILE_SIZE / 2f, player.getPos().y), world, reducedDimension.setLength(1), Constants.WEAPON_BIT));
+    public boolean shoot() {
         if (this.ammo <= 0 || isShooting || remainingWeaponCooldown > 0) {
             Gdx.app.debug(TAG, "Can't shoot right now:" + "{ ammo: " + ammo + ", isShooting: " + isShooting + ", weaponCooldown: " + remainingWeaponCooldown + "}");
             // TODO play empty magazine sound
-            return;
+            return false;
         }
         this.isShooting = true;
         new Thread(() -> {
@@ -46,6 +47,7 @@ public abstract class Weapon {
             }
         }).start();
         this.ammo--;
+        return true;
     }
 
     public void updateRemainingCoolDown(float delta) {
