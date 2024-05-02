@@ -1,3 +1,2 @@
 include 'desktop', 'core'
-include 'tests'
 
