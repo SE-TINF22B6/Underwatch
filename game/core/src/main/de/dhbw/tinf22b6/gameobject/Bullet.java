@@ -8,20 +8,24 @@ import com.badlogic.gdx.physics.box2d.World;
 import de.dhbw.tinf22b6.util.Constants;
 import de.dhbw.tinf22b6.world.WorldParser;
 
-import static com.badlogic.gdx.math.MathUtils.*;
-import static de.dhbw.tinf22b6.world.WorldParser.getDynamicBodyDef;
+import static com.badlogic.gdx.math.MathUtils.cosDeg;
+import static com.badlogic.gdx.math.MathUtils.sinDeg;
 
 public class Bullet extends GameObject {
     protected boolean active;
-    protected float distMoved;
     protected float angle;
-    protected float range = 150;
+    protected float r;
+
+    // be careful when adjusting this parameter, as this is not the range in tiles but rather a counting of delta times
+    // speed until the "range" is reached
+    // TODO: this needs to be refactored to actually represent a value in tiles
+    protected float range = 1.5f;
 
     public Bullet(Vector2 position, World world, float angle, short mask) {
         super("bullet7x13", new Vector2(position.x / Constants.TILE_SIZE, position.y / Constants.TILE_SIZE), world, mask);
         this.angle = angle;
         active = true;
-        speed = 100;
+        speed = 1;
         width = 3;
         height = 6;
         // wait until world is unlocked before adding body
@@ -31,7 +35,7 @@ public class Bullet extends GameObject {
         } while (isLocked);
         body = world.createBody(WorldParser.getDynamicBodyDef(pos.x + width / 2, pos.y + height / 2));
         PolygonShape polygonShape = new PolygonShape();
-        polygonShape.setAsBox(width - 2, height - 2);
+        polygonShape.setAsBox(3 - 2, 3 - 2);
 
         FixtureDef fixtureDef = new FixtureDef();
         fixtureDef.shape = polygonShape;
@@ -48,22 +52,20 @@ public class Bullet extends GameObject {
         batch.draw(currentAnimation.getKeyFrame(stateTime, true), pos.x, pos.y, width / 2, height / 2, width, height, 1, 1, rotation);
     }
 
-    float r;
-
     public void tick(float delta) {
         super.tick(delta); // play the animation
-        r += delta * speed;
+        r += delta;
 
         if (active) {
             Vector2 tmp = new Vector2(pos);
             tmp.y = r * sinDeg(angle);
             tmp.x = r * cosDeg(angle);
+            tmp.setLength(speed);
 
-            //distMoved += Vector2.dst(pos.x, pos.y, dx2, dy2);
-            pos.set(tmp);
-            body.setTransform(pos.x + width / 2, pos.y + height / 2, (float) (angle + 90 * (Math.PI / 180)));
+            pos.add(tmp);
+            body.setTransform(pos.x + width / 2, pos.y + height / 2, 0);
 
-            if (distMoved > range) {
+            if (r * speed > range) {
                 // Remove Bullet
                 remove = true;
                 active = false;
