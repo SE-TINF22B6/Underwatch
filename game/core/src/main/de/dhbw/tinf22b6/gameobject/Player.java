@@ -61,10 +61,10 @@ public class Player extends MobGameObject {
         boxShape.dispose();
 
         // equip weapon
-        this.weapon = new Bow();
+        this.weapon = new Bow(world);
     }
 
-    private int getAngle() {
+    public int getAngle() {
         Vector3 unproject = camera.unproject(new Vector3(Gdx.input.getX(), Gdx.input.getY(), 0));
         Vector2 unprojectMinusLoc = new Vector2(unproject.x - pos.x - 17 / 2f, unproject.y - pos.y - 25 / 2f);
         return (int) unprojectMinusLoc.angleDeg();

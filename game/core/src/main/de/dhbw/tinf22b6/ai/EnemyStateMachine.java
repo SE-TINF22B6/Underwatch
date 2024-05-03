@@ -67,7 +67,7 @@ public class EnemyStateMachine {
             Player player = EntitySystem.instance.getPlayer();
             if (player != null) {
                 Vector2 direction = new Vector2(player.getPos()).sub(enemy.getPos());
-                EntitySystem.instance.add(new Bullet(new Vector2(enemy.getPos().x + Constants.TILE_SIZE / 2f, enemy.getPos().y), world, direction.setLength(1), Constants.WEAPON_ENEMY_BIT));
+                EntitySystem.instance.add(new Bullet(new Vector2(enemy.getPos().x + Constants.TILE_SIZE / 2f, enemy.getPos().y), world, direction.angleDeg(), Constants.WEAPON_ENEMY_BIT));
                 canShoot = COOLDOWN;
             }
         }
