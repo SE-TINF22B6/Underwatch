@@ -6,8 +6,8 @@ import de.dhbw.tinf22b6.gameobject.Bullet;
 import de.dhbw.tinf22b6.util.Constants;
 import de.dhbw.tinf22b6.util.EntitySystem;
 
-public class Bow extends Weapon {
-    public Bow(World world) {
+public class CrossBow extends Weapon {
+    public CrossBow(World world) {
         super("bow", 20, 1, world);
     }
 
@@ -17,9 +17,12 @@ public class Bow extends Weapon {
             new Thread(() -> {
                 try {
                     Thread.sleep((long) (shootingAnimation.getAnimationDuration() * 1000));
-                    int angle = EntitySystem.instance.getPlayer().getAngle();
-                    Vector2 pos = EntitySystem.instance.getPlayer().getPos();
-                    EntitySystem.instance.add(new Bullet(new Vector2(pos.x + 15 / 2f, pos.y + 5), world, angle, Constants.WEAPON_BIT));
+                    for (int i = -5; i <= 5; i += 2) {
+                        int angle = EntitySystem.instance.getPlayer().getAngle();
+                        angle += i;
+                        Vector2 pos = EntitySystem.instance.getPlayer().getPos();
+                        EntitySystem.instance.add(new Bullet(new Vector2(pos.x + 15 / 2f, pos.y + 5), world, angle, Constants.WEAPON_BIT));
+                    }
                 } catch (InterruptedException e) {
                     throw new RuntimeException(e);
                 }
