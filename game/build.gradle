@@ -64,5 +64,8 @@ project(":core") {
         api "com.badlogicgames.gdx:gdx-ai:$aiVersion"
         api "com.badlogicgames.ashley:ashley:$ashleyVersion"
         api "com.badlogicgames.gdx:gdx-freetype:$gdxVersion"
+
+        testImplementation 'org.junit.jupiter:junit-jupiter:5.7.1'
+        testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
     }
 }
