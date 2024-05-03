@@ -12,7 +12,6 @@ import de.dhbw.tinf22b6.ui.ingame.InGameStageHandler;
 import de.dhbw.tinf22b6.util.EntitySystem;
 import de.dhbw.tinf22b6.util.PlayerStatistics;
 import de.dhbw.tinf22b6.world.*;
-import de.dhbw.tinf22b6.world.*;
 
 import static de.dhbw.tinf22b6.util.Constants.VIEWPORT_HEIGHT;
 import static de.dhbw.tinf22b6.util.Constants.VIEWPORT_WIDTH;
@@ -24,12 +23,10 @@ public class GameScreen extends AbstractGameScreen {
     private WorldRenderer worldRenderer;
     private boolean paused;
     private InGameStageHandler stageHandler;
-    private final PlayerStatistics playerStatistics;
 
     public GameScreen(Game game, TiledMap map) {
         super(game);
         this.map = map;
-        this.playerStatistics = new PlayerStatistics(3);
     }
 
     public boolean isPaused() {
@@ -43,9 +40,10 @@ public class GameScreen extends AbstractGameScreen {
             // Update game world by the time that has passed
             // since last rendered frame.
             worldController.update(deltaTime);
+            PlayerStatistics.instance.incrementGameTime(deltaTime);
         }
         // Sets the clear screen color to: Cornflower Blue
-        Gdx.gl.glClearColor(0,0,0,0);
+        Gdx.gl.glClearColor(0, 0, 0, 0);
         // Clears the screen
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         // Render game world to screen
@@ -69,9 +67,9 @@ public class GameScreen extends AbstractGameScreen {
         EntitySystem.instance.init(WorldParser.parseGameObjects(map, world));
         OrthographicCamera camera =
                 new OrthographicCamera(VIEWPORT_WIDTH, VIEWPORT_HEIGHT);
-        worldController = new WorldController(game, world, camera, this, playerStatistics);
+        worldController = new WorldController(game, world, camera, this);
         worldRenderer = new WorldRenderer(worldController, world, map, camera);
-        stageHandler = new InGameStageHandler(game, this, worldController.getPlayer());
+        stageHandler = new InGameStageHandler(game, this);
     }
 
     @Override

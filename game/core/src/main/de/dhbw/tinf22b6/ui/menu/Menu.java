@@ -14,6 +14,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import de.dhbw.tinf22b6.screen.GameScreen;
 import de.dhbw.tinf22b6.util.Assets;
+import de.dhbw.tinf22b6.util.PlayerStatistics;
 import de.dhbw.tinf22b6.world.WorldType;
 
 import java.net.URI;
@@ -56,6 +57,8 @@ public class Menu extends Stage {
                 new ClickListener() {
                     @Override
                     public void clicked(InputEvent event, float x, float y) {
+                        // initialize player statistics
+                        PlayerStatistics.instance.init();
                         game.setScreen(new GameScreen(game, WorldType.LEVEL1.getMap()));
                         Gdx.audio.newSound(Gdx.files.internal("sfx/LevelUp.mp3")).play();
 
