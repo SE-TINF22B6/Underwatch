@@ -233,7 +233,7 @@ const Scoreboard = () => {
             setShowSecondElement(false);
             setFilterButtonText("Show Filter");
             if(
-                (cookieObject.username == "") &&
+                (cookieObject.username === "") &&
                 (cookieObject.startDate == null) &&
                 (cookieObject.endDate == null)
             ) {
