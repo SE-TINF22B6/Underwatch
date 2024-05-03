@@ -53,4 +53,8 @@ public abstract class GameObject {
     public Vector2 getPos() {
         return pos;
     }
+
+    public void interact(Player player) {
+        this.setRemove(true);
+    }
 }

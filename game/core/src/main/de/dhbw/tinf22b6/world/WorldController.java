@@ -19,6 +19,7 @@ public class WorldController extends InputAdapter {
     private final int up = prefs.getInteger("up", Input.Keys.W);
     private final int down = prefs.getInteger("down", Input.Keys.S);
     private final int inventory = prefs.getInteger("inventory", Input.Keys.I);
+    private final int interact = prefs.getInteger("interact", Input.Keys.E);
     private final int dodge = prefs.getInteger("dodge", Input.Keys.SPACE);
     public CameraHelper cameraHelper;
     public boolean debugBox2D = false;
@@ -100,9 +101,10 @@ public class WorldController extends InputAdapter {
         }
 
         if (keycode == inventory) {
-            Gdx.app.debug(TAG, "Objects in List: " + EntitySystem.instance.getGameObjects().size());
+            Gdx.app.debug(TAG, "Inventory: " + player.getInventoryInfo());
         }
 
+        if (keycode == interact) player.interact(player);
         if (keycode == dodge) player.dodge();
         if (keycode == Input.Keys.ESCAPE) gameScreen.setPaused();
         if (keycode == Input.Keys.C) debugBox2D = !debugBox2D;

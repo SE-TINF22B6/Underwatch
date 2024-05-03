@@ -18,6 +18,25 @@ public class WorldListener implements ContactListener {
 
     @Override
     public void endContact(Contact contact) {
+        Fixture fixA = contact.getFixtureA();
+        Fixture fixB = contact.getFixtureB();
+
+        int cDef = fixA.getFilterData().categoryBits | fixB.getFilterData().categoryBits;
+
+        switch (cDef) {
+            case PLAYER_BIT | BOX_INTERACTION_BIT:
+                if (fixA.getFilterData().categoryBits == BOX_INTERACTION_BIT) {
+                    ((LootBox) fixA.getUserData()).close();
+                    ((Player) fixB.getUserData()).canPickUp(false, null);
+                } else {
+                    ((LootBox) fixB.getUserData()).close();
+                    ((Player) fixA.getUserData()).canPickUp(false, null);
+                }
+                // TODO: sfx close box
+                //Gdx.audio.newSound(Gdx.files.internal("sfx/coin_pickup.mp3")).play(Gdx.app.getPreferences("Controls").getFloat("sfx"));
+                break;
+        }
+
     }
 
     @Override
@@ -28,6 +47,17 @@ public class WorldListener implements ContactListener {
         int cDef = fixA.getFilterData().categoryBits | fixB.getFilterData().categoryBits;
 
         switch (cDef) {
+            case PLAYER_BIT | BOX_INTERACTION_BIT:
+                if (fixA.getFilterData().categoryBits == BOX_INTERACTION_BIT) {
+                    ((LootBox) fixA.getUserData()).open();
+                    ((Player) fixB.getUserData()).canPickUp(true, ((LootBox) fixA.getUserData()));
+                } else {
+                    ((LootBox) fixB.getUserData()).open();
+                    ((Player) fixA.getUserData()).canPickUp(true, ((LootBox) fixB.getUserData()));
+                }
+                // TODO: sfx open box
+                //Gdx.audio.newSound(Gdx.files.internal("sfx/coin_pickup.mp3")).play(Gdx.app.getPreferences("Controls").getFloat("sfx"));
+                break;
             case PLAYER_BIT | COIN_BIT:
                 if (fixA.getFilterData().categoryBits == COIN_BIT) {
                     ((Coin) fixA.getUserData()).setRemove(true);

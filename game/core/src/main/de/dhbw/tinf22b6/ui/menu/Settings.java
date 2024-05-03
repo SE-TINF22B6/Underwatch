@@ -90,6 +90,11 @@ public class Settings extends Stage {
         btnInventory.addListener(new OptionsClickHandler());
         contentTable.add(btnInventory).row();
 
+        contentTable.add(new Label("Interact", skin));
+        TextButton btnInteract = new TextButton(Input.Keys.toString(preferences.getInteger("interact")), skin);
+        btnInventory.addListener(new OptionsClickHandler());
+        contentTable.add(btnInteract).row();
+
         Button btnBack = new Button(skin);
         btnBack.add(new Label("Back to Menu", skin));
         btnBack.addListener(new ClickListener() {

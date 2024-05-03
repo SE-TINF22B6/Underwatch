@@ -14,9 +14,11 @@ import com.badlogic.gdx.physics.box2d.World;
 import de.dhbw.tinf22b6.util.Assets;
 import de.dhbw.tinf22b6.util.Constants;
 import de.dhbw.tinf22b6.weapon.Bow;
+import de.dhbw.tinf22b6.weapon.CrossBow;
 import de.dhbw.tinf22b6.weapon.Weapon;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 import static com.badlogic.gdx.math.MathUtils.cosDeg;
 import static com.badlogic.gdx.math.MathUtils.sinDeg;
@@ -33,6 +35,8 @@ public class Player extends MobGameObject {
     private final Vector2 motionVector;
     private final ArrayList<Weapon> inventory;
     private boolean canSwitchWeapon = true;
+    private boolean canPickUpWeapon;
+    private GameObject interactionTarget;
 
     public Player(World world, Vector2 position, Camera camera) {
         super("c1", position, world, Constants.PLAYER_BIT);
@@ -156,9 +160,17 @@ public class Player extends MobGameObject {
         }
     }
 
-    public void pickupWeapon(Weapon weapon) {
-        this.inventory.add(weapon);
-        this.weapon = weapon;
+    public void canPickUp(boolean canPickUp, GameObject interactionTarget) {
+        this.canPickUpWeapon = canPickUp;
+        this.interactionTarget = interactionTarget;
+    }
+
+    @Override
+    public void interact(Player player) {
+        if (interactionTarget != null) {
+            Gdx.audio.newSound(Gdx.files.internal("sfx/game_over.mp3")).play(Gdx.app.getPreferences("Controls").getFloat("sfx"));
+            interactionTarget.interact(this);
+        }
     }
 
     public boolean isDodging() {
@@ -216,5 +228,14 @@ public class Player extends MobGameObject {
                 }
             }).start();
         }
+    }
+
+    // TODO: here we should roll for a new weapon, which the player does not have yet
+    public void pickupWeapon() {
+        this.inventory.add(new CrossBow(world));
+    }
+
+    public String getInventoryInfo() {
+        return Arrays.toString(inventory.toArray());
     }
 }
