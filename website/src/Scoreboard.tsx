@@ -60,19 +60,33 @@ let cookieObject : CookieObject = {
 }
 
 const Scoreboard = () => {
-    // ---------- Paging ----------
-    const handleChangePage = (event: unknown, newPage: number) => {
-        console.log(newPage);
-        setRequestedPage(newPage);
-    }
+    // ---------- States ----------
     const [totalElements, setTotalElements] = React.useState(-1);
     const [requestedPage, setRequestedPage] = React.useState(0);
 
     const [order, setOrder] = useState<'asc' | 'desc' | undefined>('desc');
     const [orderBy, setOrderBy] = useState<'score' | 'playerName' | 'timestamp' | 'coins' | 'kills' | 'damageDealt' | 'dps' | 'game_time' | ''>('score');
-    // ---------- getApiData ----------
+
     const [apiData, setApiData] = useState<ScoreData[]>([JSON.parse('{"id": 0,"playerName": "","score": 0,"coins": 0,"kills": 0,"damageDealt": 0,"dps": 0,"timestamp": "","game_time": 0}')]);
 
+    const [showFilterMask, setShowSecondElement] = useState(false);
+    const [filterButtonText, setFilterButtonText] = useState('Show Filter');
+
+    const [inputValue, setInputValue] = useState('');
+
+    const [scoreStartDate, setScoreStartDate] = useState<Date>(new Date(0));
+    const [scoreEndDate, setScoreEndDate] = useState<Date>(new Date());
+    const [scoreDate, setScoreDate] = useState<DateRange<Dayjs>>([null, null]);
+
+    const [minScore, setMinScore] = useState(0);
+
+    // ---------- Paging ----------
+    const handleChangePage = (event: unknown, newPage: number) => {
+        console.log(newPage);
+        setRequestedPage(newPage);
+    }
+
+    // ---------- getApiData ----------
     async function getApiData(url: string): Promise<ScoreData[]> {
         try {
             const response = await fetch(url);
@@ -95,7 +109,7 @@ const Scoreboard = () => {
         }
     }
     useEffect(() => {
-        getApiData(`https://underwatch.freemine.de/api/scores?page=${requestedPage}&size=10&sort=${orderBy}%2C${order}`)
+        getApiData(`https://underwatch.freemine.de/api/scores/search/filterQuery?page=${requestedPage}&size=10&sort=${orderBy}%2C${order}&score=${minScore}`)
         .then((scores) => {
             setApiData(scores);
         })
@@ -109,7 +123,7 @@ const Scoreboard = () => {
                 }
             });
         });
-    }, [requestedPage, order, orderBy]);
+    }, [requestedPage, order, orderBy, inputValue, scoreStartDate, scoreEndDate, minScore]);
 
     // ---------- CookieHandling ----------
     useEffect(() => {
@@ -185,8 +199,6 @@ const Scoreboard = () => {
     }
 
     // ---------- Filtermaske ----------
-    const [showFilterMask, setShowSecondElement] = useState(false);
-    const [filterButtonText, setFilterButtonText] = useState('Show Filter');
     const clickFilterButton = () => {
         if (showFilterMask) {
             setShowSecondElement(false);
@@ -202,7 +214,6 @@ const Scoreboard = () => {
     };
 
     // ---------- Username ----------
-    const [inputValue, setInputValue] = useState('');
     const handleInputChange = (event: { target: { value: React.SetStateAction<string>; }; }) => {
         setInputValue(event.target.value);
         cookieObject.username = event.target.value.toString();
@@ -210,10 +221,6 @@ const Scoreboard = () => {
     }
 
     // ---------- Date ----------
-    const [scoreStartDate, setScoreStartDate] = useState<Date>(new Date(0));
-    const [scoreEndDate, setScoreEndDate] = useState<Date>(new Date());
-    const [scoreDate, setScoreDate] = useState<DateRange<Dayjs>>([null, null]);
-
     function handleDateInput(dateData: DateRange<Dayjs>) {
         setScoreDate(dateData);
         cookieObject.dateRange = dateData;
@@ -236,7 +243,6 @@ const Scoreboard = () => {
     }
 
     // ---------- minScore ----------
-    const [minScore, setMinScore] = useState(0);
     function handleMinScoreChange(minScore:number) {
         setMinScore(minScore);
         cookieObject.minScore = minScore;
