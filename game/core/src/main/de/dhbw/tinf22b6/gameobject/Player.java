@@ -35,7 +35,6 @@ public class Player extends MobGameObject {
     private final Vector2 motionVector;
     private final ArrayList<Weapon> inventory;
     private boolean canSwitchWeapon = true;
-    private boolean canPickUpWeapon;
     private GameObject interactionTarget;
 
     public Player(World world, Vector2 position, Camera camera) {
@@ -160,8 +159,7 @@ public class Player extends MobGameObject {
         }
     }
 
-    public void canPickUp(boolean canPickUp, GameObject interactionTarget) {
-        this.canPickUpWeapon = canPickUp;
+    public void canPickUp(GameObject interactionTarget) {
         this.interactionTarget = interactionTarget;
     }
 

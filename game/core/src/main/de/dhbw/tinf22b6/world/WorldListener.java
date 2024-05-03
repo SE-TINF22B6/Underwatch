@@ -27,10 +27,10 @@ public class WorldListener implements ContactListener {
             case PLAYER_BIT | BOX_INTERACTION_BIT:
                 if (fixA.getFilterData().categoryBits == BOX_INTERACTION_BIT) {
                     ((LootBox) fixA.getUserData()).close();
-                    ((Player) fixB.getUserData()).canPickUp(false, null);
+                    ((Player) fixB.getUserData()).canPickUp(null);
                 } else {
                     ((LootBox) fixB.getUserData()).close();
-                    ((Player) fixA.getUserData()).canPickUp(false, null);
+                    ((Player) fixA.getUserData()).canPickUp(null);
                 }
                 // TODO: sfx close box
                 //Gdx.audio.newSound(Gdx.files.internal("sfx/coin_pickup.mp3")).play(Gdx.app.getPreferences("Controls").getFloat("sfx"));
@@ -50,10 +50,10 @@ public class WorldListener implements ContactListener {
             case PLAYER_BIT | BOX_INTERACTION_BIT:
                 if (fixA.getFilterData().categoryBits == BOX_INTERACTION_BIT) {
                     ((LootBox) fixA.getUserData()).open();
-                    ((Player) fixB.getUserData()).canPickUp(true, ((LootBox) fixA.getUserData()));
+                    ((Player) fixB.getUserData()).canPickUp(((LootBox) fixA.getUserData()));
                 } else {
                     ((LootBox) fixB.getUserData()).open();
-                    ((Player) fixA.getUserData()).canPickUp(true, ((LootBox) fixB.getUserData()));
+                    ((Player) fixA.getUserData()).canPickUp(((LootBox) fixB.getUserData()));
                 }
                 // TODO: sfx open box
                 //Gdx.audio.newSound(Gdx.files.internal("sfx/coin_pickup.mp3")).play(Gdx.app.getPreferences("Controls").getFloat("sfx"));
