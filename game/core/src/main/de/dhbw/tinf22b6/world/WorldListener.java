@@ -3,6 +3,7 @@ package de.dhbw.tinf22b6.world;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.physics.box2d.*;
 import de.dhbw.tinf22b6.gameobject.*;
+import de.dhbw.tinf22b6.gameobject.*;
 import de.dhbw.tinf22b6.screen.GameScreen;
 
 import static de.dhbw.tinf22b6.util.Constants.*;
@@ -44,7 +45,6 @@ public class WorldListener implements ContactListener {
                 } else
                     ((Bullet) fixB.getUserData()).setRemove(true);
                 //Gdx.audio.newSound(Gdx.files.internal("sfx/arrow-impact.mp3")).play(1);
-                Gdx.app.debug(TAG, "Weapon and wall");
                 break;
             case ENEMY_BIT | WEAPON_BIT:
                 if (fixA.getFilterData().categoryBits == WEAPON_BIT) {
