@@ -60,8 +60,6 @@ public class Player extends MobGameObject {
         body.createFixture(fixtureDef).setUserData(this);
         boxShape.dispose();
 
-        setDirection(Direction.DOWN);
-
         // equip weapon
         this.weapon = new Bow();
     }
@@ -78,25 +76,11 @@ public class Player extends MobGameObject {
             int angle = getAngle();
             int r = 5;
             if (angle > 20 && angle < 160) {
-                batch.draw(weapon.getRegion(),
-                        (pos.x + 4) + r * cosDeg(angle),
-                        (pos.y + 4) + r * sinDeg(angle),
-                        8, 8,
-                        weapon.getRegion().originalWidth,
-                        weapon.getRegion().originalHeight,
-                        1, 1,
-                        angle - 45);
+                batch.draw(weapon.getRegion(), (pos.x + 4) + r * cosDeg(angle), (pos.y + 4) + r * sinDeg(angle), 8, 8, weapon.getRegion().originalWidth, weapon.getRegion().originalHeight, 1, 1, angle - 45);
                 super.render(batch);
             } else {
                 super.render(batch);
-                batch.draw(weapon.getRegion(),
-                        (pos.x + 4) + r * cosDeg(angle),
-                        (pos.y + 4) + r * sinDeg(angle),
-                        8, 8,
-                        weapon.getRegion().originalWidth,
-                        weapon.getRegion().originalHeight,
-                        1, 1,
-                        angle - 45);
+                batch.draw(weapon.getRegion(), (pos.x + 4) + r * cosDeg(angle), (pos.y + 4) + r * sinDeg(angle), 8, 8, weapon.getRegion().originalWidth, weapon.getRegion().originalHeight, 1, 1, angle - 45);
             }
             return;
         }
@@ -113,6 +97,17 @@ public class Player extends MobGameObject {
             setIdle();
         } else {
             setWalking();
+        }
+
+        int angle = getAngle();
+        if (angle > 360 - 45 || angle < 45) {
+            setDirection(Direction.RIGHT);
+        } else if (angle > 45 && angle < 135) {
+            setDirection(Direction.UP);
+        } else if (angle > 135 && angle < 225) {
+            setDirection(Direction.LEFT);
+        } else {
+            setDirection(Direction.DOWN);
         }
 
         dodgeStateTime += delta;
