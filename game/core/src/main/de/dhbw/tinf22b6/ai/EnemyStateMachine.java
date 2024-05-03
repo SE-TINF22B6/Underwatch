@@ -137,8 +137,7 @@ public class EnemyStateMachine {
 
             timer = 0;
             currentMovementVector = new Vector2(path.get(1).x * TILE_SIZE + (float) TILE_SIZE / 2,
-                                                path.get(1).y * TILE_SIZE + (float) TILE_SIZE / 2f
-            );
+                    path.get(1).y * TILE_SIZE + (float) TILE_SIZE / 2f);
             currentMovementVector.sub(enemy.getPos());
             currentMovementVector.setLength(1);
             Gdx.app.debug(TAG, "New Vector: " + currentMovementVector);
@@ -176,7 +175,7 @@ public class EnemyStateMachine {
             Player player = EntitySystem.instance.getPlayer();
             if (player != null) {
                 Vector2 direction = new Vector2(player.getPos()).sub(enemy.getPos());
-                EntitySystem.instance.add(new Bullet(new Vector2(enemy.getPos().x + Constants.TILE_SIZE / 2f, enemy.getPos().y), world, direction.setLength(1), Constants.WEAPON_ENEMY_BIT));
+                EntitySystem.instance.add(new Bullet(new Vector2(enemy.getPos().x + Constants.TILE_SIZE / 2f, enemy.getPos().y), world, direction.angleDeg(), Constants.WEAPON_ENEMY_BIT));
                 shootCountdown = COOLDOWN;
             }
         }
