@@ -68,6 +68,13 @@ export default function NavigationMenu() {
                 >
                     Wiki
                 </MenuItem>
+                <MenuItem onClick={()=>{navigate('/download/')}}
+                    onMouseEnter={(e) => e.currentTarget.style.backgroundColor = theme2.palette.primary.dark}
+                    onMouseLeave={(e) => {e.currentTarget.style.backgroundColor = loc.pathname === '/download/' ? theme2.palette.primary.dark : theme2.palette.primary.main}}
+                    style = {{backgroundColor: loc.pathname === '/download/' ? theme2.palette.primary.dark : undefined}}
+                >
+                    Download
+                </MenuItem>
             </Menu>
         </div>
     )

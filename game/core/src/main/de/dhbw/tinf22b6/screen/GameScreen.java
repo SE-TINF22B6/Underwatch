@@ -20,6 +20,14 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.World;
+import de.dhbw.tinf22b6.ui.ingame.InGameStageHandler;
+import de.dhbw.tinf22b6.util.EntitySystem;
+import de.dhbw.tinf22b6.util.PlayerStatistics;
+import de.dhbw.tinf22b6.world.*;
+import de.dhbw.tinf22b6.world.*;
+
+import static de.dhbw.tinf22b6.util.Constants.VIEWPORT_HEIGHT;
+import static de.dhbw.tinf22b6.util.Constants.VIEWPORT_WIDTH;
 
 public class GameScreen extends AbstractGameScreen {
     private TiledMap map;
@@ -65,7 +73,8 @@ public class GameScreen extends AbstractGameScreen {
 
     @Override
     public void show() {
-        // m.play();
+        m.setVolume(Gdx.app.getPreferences("Controls").getBoolean("muteMusic") ? 0 : Gdx.app.getPreferences("Controls").getFloat("music"));
+        m.play();
         World world = new World(new Vector2(0, 0), false);
         WorldParser.parseStaticObjects(map, world);
         world.setContactListener(new WorldListener(this));
