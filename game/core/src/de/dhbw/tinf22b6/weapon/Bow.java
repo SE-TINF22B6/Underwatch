@@ -16,7 +16,7 @@ public class Bow extends Weapon {
 
     @Override
     public boolean shoot() {
-        if (super.shoot())
+        if (super.shoot()) {
             new Thread(() -> {
                 try {
                     Thread.sleep((long) (shootingAnimation.getAnimationDuration() * 1000));
@@ -33,6 +33,7 @@ public class Bow extends Weapon {
                     throw new RuntimeException(e);
                 }
             }).start();
+        }
         return true;
     }
 }
