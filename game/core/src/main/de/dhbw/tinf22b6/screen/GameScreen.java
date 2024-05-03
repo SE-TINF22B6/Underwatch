@@ -10,6 +10,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.World;
 import de.dhbw.tinf22b6.ui.ingame.InGameStageHandler;
 import de.dhbw.tinf22b6.util.EntitySystem;
+import de.dhbw.tinf22b6.util.PlayerStatistics;
 import de.dhbw.tinf22b6.world.*;
 
 import static de.dhbw.tinf22b6.util.Constants.VIEWPORT_HEIGHT;
@@ -39,6 +40,7 @@ public class GameScreen extends AbstractGameScreen {
             // Update game world by the time that has passed
             // since last rendered frame.
             worldController.update(deltaTime);
+            PlayerStatistics.instance.incrementGameTime(deltaTime);
         }
         // Sets the clear screen color to: Cornflower Blue
         Gdx.gl.glClearColor(0, 0, 0, 0);

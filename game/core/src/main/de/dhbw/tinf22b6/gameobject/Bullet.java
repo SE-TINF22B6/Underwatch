@@ -25,7 +25,7 @@ public class Bullet extends GameObject {
         super("bullet7x13", new Vector2(position.x / Constants.TILE_SIZE, position.y / Constants.TILE_SIZE), world, mask);
         this.angle = angle;
         active = true;
-        speed = 1;
+        speed = 3;
         width = 3;
         height = 6;
         // wait until world is unlocked before adding body

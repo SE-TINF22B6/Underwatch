@@ -56,4 +56,8 @@ public class PlayerStatistics {
     public float getGameTime() {
         return gameTime;
     }
+
+    public void incrementGameTime(float deltaTime) {
+        this.gameTime += deltaTime;
+    }
 }
