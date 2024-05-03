@@ -80,6 +80,24 @@ const Scoreboard = () => {
 
     const [minScore, setMinScore] = useState(0);
 
+    // ---------- apiDate ----------
+    const createApiDateString = (date: Date | null, startDate: boolean) => {
+        // Überprüfen, ob das Datum gültig ist
+        if (!date || !(date instanceof Date) || isNaN(date.getTime())) {
+            console.error("Invalid date object:", date);
+            console.log("Object is from type: "+typeof(date));
+            return null; // oder einen Standardwert zurückgeben, je nach Bedarf
+        }
+    
+        if (startDate)
+            return date.toISOString().split("T")[0] + "%2000%3A00%3A00";
+        else
+            return date.toISOString().split("T")[0] + "%2023%3A59%3A59";
+    }
+    
+    
+    
+
     // ---------- Paging ----------
     const handleChangePage = (event: unknown, newPage: number) => {
         console.log(newPage);
@@ -109,9 +127,10 @@ const Scoreboard = () => {
         }
     }
     useEffect(() => {
-        getApiData(`https://underwatch.freemine.de/api/scores/search/filterQuery?page=${requestedPage}&size=10&sort=${orderBy}%2C${order}&score=${minScore}&playerName=${inputValue}`)
+        getApiData(`https://underwatch.freemine.de/api/scores/search/filterQuery?page=${requestedPage}&size=10&sort=${orderBy}%2C${order}&score=${minScore}&playerName=${inputValue}&timeStampA=${createApiDateString(scoreStartDate, true)}&timeStampB=${createApiDateString(scoreEndDate, false)}`)
         .then((scores) => {
-            setApiData(scores);
+            if(scores.length >= 1)
+                setApiData(scores);
         })
         .catch((error) => {
             console.error('Fehler beim Abrufen der API-Daten:', error);
@@ -145,9 +164,9 @@ const Scoreboard = () => {
             setScoreEndDate(new Date(cookieObject.endDate));
             setScoreDate([dayjs(new Date(cookieObject.startDate)), dayjs(new Date(cookieObject.endDate))]);
         } else if (cookieObject.startDate) {
-            setScoreStartDate(cookieObject.startDate);
+            setScoreStartDate(new Date(cookieObject.startDate));
         } else if (cookieObject.endDate) {
-            setScoreEndDate(cookieObject.endDate);
+            setScoreEndDate(new Date(cookieObject.endDate));
         }
         if (cookieObject.minScore) {
             setMinScore(cookieObject.minScore);
@@ -164,8 +183,18 @@ const Scoreboard = () => {
         setScoreEndDate(new Date());
         setScoreDate([null, null]);
         setMinScore(0);
-        document.cookie = `filterData=; expires=Thu, 01 Jan 1970 00:00:00 UTC;`;
-        document.cookie = `filterData=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;`;
+
+        if(showFilterMask) {
+            cookieObject = {
+                username: "",
+                startDate: null,
+                endDate: null,
+                dateRange: [null, null],
+                minScore: 0,
+                isFilterOpen: true,
+            }
+            document.cookie = `filterData=${JSON.stringify(cookieObject)}`;
+        }
     }
 
     // ---------- Sortierung ----------
@@ -203,8 +232,19 @@ const Scoreboard = () => {
         if (showFilterMask) {
             setShowSecondElement(false);
             setFilterButtonText("Show Filter");
-            cookieObject.isFilterOpen = false;
-            document.cookie = `filterData=${JSON.stringify(cookieObject)}`;    
+            if(
+                (cookieObject.username == "") &&
+                (cookieObject.startDate == null) &&
+                (cookieObject.endDate == null)
+            ) {
+                console.log("Alle Cookies werden gelöscht");
+                document.cookie = `filterData=; expires=Thu, 01 Jan 1970 00:00:00 UTC;`;
+                document.cookie = `filterData=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;`;
+            }
+            else {
+                cookieObject.isFilterOpen = false;
+                document.cookie = `filterData=${JSON.stringify(cookieObject)}`;    
+            }
         } else {
             setShowSecondElement(true);
             setFilterButtonText("Hide Filter");
