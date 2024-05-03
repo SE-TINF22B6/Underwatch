@@ -109,7 +109,7 @@ const Scoreboard = () => {
         }
     }
     useEffect(() => {
-        getApiData(`https://underwatch.freemine.de/api/scores/search/filterQuery?page=${requestedPage}&size=10&sort=${orderBy}%2C${order}&score=${minScore}`)
+        getApiData(`https://underwatch.freemine.de/api/scores/search/filterQuery?page=${requestedPage}&size=10&sort=${orderBy}%2C${order}&score=${minScore}&playerName=${inputValue}`)
         .then((scores) => {
             setApiData(scores);
         })
