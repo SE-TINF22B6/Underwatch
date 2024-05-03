@@ -132,7 +132,7 @@ public class WorldController extends InputAdapter {
         }
 
         if (keycode == Input.Keys.R) {
-            game.setScreen(new GameScreen(game, WorldType.LEVEL2.getMap()));
+            game.setScreen(new GameScreen(game, WorldType.LEVEL4.getMap()));
             Gdx.app.debug(TAG, "Game world reset");
         }
         if (keycode == Input.Keys.ENTER) {

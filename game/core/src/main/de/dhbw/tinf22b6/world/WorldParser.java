@@ -24,6 +24,9 @@ import java.util.ArrayList;
 import static de.dhbw.tinf22b6.util.Constants.TILE_SIZE;
 
 public class WorldParser {
+    static final int TILE_EMPTY = 0;
+    static final int TILE_FLOOR = 1;
+    static final int TILE_WALL = 2;
     private static final String TAG = WorldRenderer.class.getName();
 
     public static void parseStaticObjects(TiledMap map, World world) {
@@ -45,7 +48,8 @@ public class WorldParser {
 
                 if (mapObject instanceof RectangleMapObject rectangleObject) {
                     Rectangle rectangle = rectangleObject.getRectangle();
-                    BodyDef bodyDef = getStaticBodyDef(x * TILE_SIZE + TILE_SIZE / 2f + rectangle.getX() - (TILE_SIZE - rectangle.getWidth()) / 2f, y * TILE_SIZE + TILE_SIZE / 2f + rectangle.getY() - (TILE_SIZE - rectangle.getHeight()) / 2f);
+                    BodyDef bodyDef = getStaticBodyDef(x * TILE_SIZE + TILE_SIZE / 2f + rectangle.getX() - (TILE_SIZE - rectangle.getWidth()) / 2f,
+                            y * TILE_SIZE + TILE_SIZE / 2f + rectangle.getY() - (TILE_SIZE - rectangle.getHeight()) / 2f);
 
                     Body body = world.createBody(bodyDef);
                     PolygonShape polygonShape = new PolygonShape();
@@ -81,7 +85,7 @@ public class WorldParser {
 
     public static ArrayList<GameObject> parseGameObjects(TiledMap map, World world) {
         ArrayList<GameObject> list = new ArrayList<>();
-        //TODO refactor animated game objects using an enum
+        // TODO refactor animated game objects using an enum
         String[] objects = new String[]{"coins", "torch", "chests", "enemy", "teleporter"};
         for (String s : objects) {
             TiledMapTileLayer layer = (TiledMapTileLayer) map.getLayers().get(s);
@@ -98,6 +102,7 @@ public class WorldParser {
                         continue;
 
                     MapObject cellObject = cellObjects.get(0);
+                    int[][] rawMap = parseNavigationMap(map);
                     if (cellObject instanceof RectangleMapObject rectangleObject) {
                         switch (s) {
                             case "torch":
@@ -110,7 +115,7 @@ public class WorldParser {
                                 list.add(new LootBox(new Vector2(x, y), world, rectangleObject.getRectangle()));
                                 break;
                             case "enemy":
-                                list.add(new Enemy(new Vector2(x, y), world));
+                                list.add(new Enemy(new Vector2(x, y), world, rawMap));
                                 break;
                             case "teleporter":
                                 list.add(new Teleporter(new Vector2(x, y), world, rectangleObject.getRectangle()));
@@ -125,7 +130,8 @@ public class WorldParser {
 
     public static void parseTorches(TiledMap map, RayHandler rayHandler) {
         TiledMapTileLayer layer = (TiledMapTileLayer) map.getLayers().get("torch");
-        if (layer == null) return;
+        if (layer == null)
+            return;
 
         for (int x = 0; x < layer.getWidth(); x++) {
             for (int y = 0; y < layer.getHeight(); y++) {
@@ -171,5 +177,29 @@ public class WorldParser {
         fixtureDef.density = 0f;
 
         return fixtureDef;
+    }
+
+    public static int[][] parseNavigationMap(TiledMap tiledMap) {
+        TiledMapTileLayer layer = (TiledMapTileLayer) tiledMap.getLayers().get("walls");
+        if (layer == null)
+            return new int[][]{};
+
+        // first we fill the entire map with empty cells
+        int[][] map = new int[layer.getWidth()][layer.getHeight()];
+        for (int x = 0; x < layer.getWidth(); x++) {
+            for (int y = 0; y < layer.getHeight(); y++) {
+
+                TiledMapTileLayer.Cell cell = layer.getCell(x, y);
+                if (cell == null) {
+                    map[x][y] = TILE_FLOOR;
+                    continue;
+                }
+
+                MapObjects cellObjects = cell.getTile().getObjects();
+                if (cellObjects.getCount() != 0)
+                    map[x][y] = TILE_WALL;
+            }
+        }
+        return map;
     }
 }
