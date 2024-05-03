@@ -23,8 +23,6 @@ import static de.dhbw.tinf22b6.util.Constants.PLAYER_BIT;
 import static de.dhbw.tinf22b6.util.Constants.TILE_SIZE;
 
 public class Player extends MobGameObject {
-    private static final String TAG = Player.class.getName();
-    private final PlayerStatistics playerStatistics;
     private final Animation<TextureAtlas.AtlasRegion> dodgeAnimation;
     private final Camera camera;
     private Weapon weapon;
@@ -33,10 +31,9 @@ public class Player extends MobGameObject {
     private boolean movedDuringDash;
     private final Vector2 motionVector;
 
-    public Player(World world, Vector2 position, PlayerStatistics statistics, Camera camera) {
+    public Player(World world, Vector2 position, Camera camera) {
         super("c1", position, world, Constants.PLAYER_BIT);
         this.camera = camera;
-        this.playerStatistics = statistics;
         this.dodgeAnimation = new Animation<>(0.1f, Assets.instance.getAnimationAtlasRegion("priest1_dash"));
         this.speed = 50;
         this.motionVector = new Vector2();
@@ -64,16 +61,16 @@ public class Player extends MobGameObject {
         this.weapon = new Bow(world);
     }
 
-    public int getAngle() {
+    public float getAngle() {
         Vector3 unproject = camera.unproject(new Vector3(Gdx.input.getX(), Gdx.input.getY(), 0));
         Vector2 unprojectMinusLoc = new Vector2(unproject.x - pos.x - 17 / 2f, unproject.y - pos.y - 25 / 2f);
-        return (int) unprojectMinusLoc.angleDeg();
+        return unprojectMinusLoc.angleDeg();
     }
 
     @Override
     public void render(Batch batch) {
         if (!dodging) {
-            int angle = getAngle();
+            float angle = getAngle();
             int r = 5;
             if (angle > 20 && angle < 160) {
                 batch.draw(weapon.getRegion(),
@@ -113,7 +110,7 @@ public class Player extends MobGameObject {
             setWalking();
         }
 
-        int angle = getAngle();
+        float angle = getAngle();
         if (angle > 360 - 45 || angle < 45) {
             setDirection(Direction.RIGHT);
         } else if (angle > 45 && angle < 135) {
@@ -161,21 +158,8 @@ public class Player extends MobGameObject {
     }
 
     public void hit() {
-        playerStatistics.hitHP();
+        PlayerStatistics.instance.hitHP();
         Gdx.audio.newSound(Gdx.files.internal("sfx/player_hit.mp3")).play(1);
-    }
-
-    public int getHealth() {
-        return playerStatistics.hp();
-    }
-
-    public int getCoins() {
-        return playerStatistics.coins();
-    }
-
-    public void collectCoin() {
-        playerStatistics.setCoins(getCoins() + 1);
-        Gdx.app.debug(TAG, "Player picked up Coin: " + getCoins());
     }
 
     public boolean isDodging() {
@@ -203,14 +187,6 @@ public class Player extends MobGameObject {
 
     public void shoot() {
         weapon.shoot();
-    }
-
-    public int getScore() {
-        return playerStatistics.coins() + playerStatistics.enemies_killed();
-    }
-
-    public int getKills() {
-        return playerStatistics.enemies_killed();
     }
 
     public Vector2 getMotionVector() {

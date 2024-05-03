@@ -5,13 +5,11 @@ import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.Cursor;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.World;
-import de.dhbw.tinf22b6.gameobject.Direction;
 import de.dhbw.tinf22b6.gameobject.GameObject;
 import de.dhbw.tinf22b6.gameobject.Player;
 import de.dhbw.tinf22b6.screen.GameScreen;
 import de.dhbw.tinf22b6.util.CameraHelper;
 import de.dhbw.tinf22b6.util.EntitySystem;
-import de.dhbw.tinf22b6.util.PlayerStatistics;
 
 public class WorldController extends InputAdapter {
     private static final String TAG = WorldController.class.getName();
@@ -30,22 +28,22 @@ public class WorldController extends InputAdapter {
     private Camera camera;
     private GameScreen gameScreen;
 
-    public WorldController(Game game, World world, Camera camera, GameScreen gameScreen, PlayerStatistics playerStatistics) {
+    public WorldController(Game game, World world, Camera camera, GameScreen gameScreen) {
         this.game = game;
         this.world = world;
         this.camera = camera;
         this.gameScreen = gameScreen;
-        init(playerStatistics);
+        init();
     }
 
     public Player getPlayer() {
         return player;
     }
 
-    private void init(PlayerStatistics playerStatistics) {
+    private void init() {
         Gdx.input.setInputProcessor(this);
         Gdx.graphics.setSystemCursor(Cursor.SystemCursor.Crosshair);
-        player = new Player(world, new Vector2(5, 5), playerStatistics, camera);
+        player = new Player(world, new Vector2(5, 5), camera);
         cameraHelper = new CameraHelper();
         cameraHelper.setTarget(player);
         EntitySystem.instance.add(player);

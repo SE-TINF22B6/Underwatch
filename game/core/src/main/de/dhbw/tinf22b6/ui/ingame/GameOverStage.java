@@ -6,9 +6,9 @@ import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
-import de.dhbw.tinf22b6.gameobject.Player;
 import de.dhbw.tinf22b6.screen.MenuScreen;
 import de.dhbw.tinf22b6.util.Assets;
+import de.dhbw.tinf22b6.util.PlayerStatistics;
 
 import java.net.URI;
 import java.net.http.HttpClient;
@@ -21,14 +21,12 @@ import java.time.format.DateTimeFormatter;
 public class GameOverStage extends Stage {
     private static final String TAG = GameOverStage.class.getName();
     private final Label lblScore;
-    private final Player player;
 
-    public GameOverStage(Player player, Game game) {
+    public GameOverStage(Game game) {
         Skin skin = Assets.instance.getSkin();
-        this.player = player;
 
         Label lblGameOver = new Label("Game Over", skin);
-        lblScore = new Label("Score: " + player.getScore(), skin);
+        lblScore = new Label("Score: " + PlayerStatistics.instance.getScore(), skin);
         Label lblName = new Label("Enter Name:", skin);
 
         TextField textField = new TextField("UnderwatchGrinder", skin);
@@ -37,7 +35,7 @@ public class GameOverStage extends Stage {
                 if (textField.getText().trim().isEmpty())
                     Gdx.app.debug(TAG, "Empty Name, won't submit any Score!");
                 else
-                    uploadScore(tf.getText().trim(), player);
+                    uploadScore(tf.getText().trim());
                 game.setScreen(new MenuScreen(game));
             }
         });
@@ -50,7 +48,7 @@ public class GameOverStage extends Stage {
                 if (textField.getText().trim().isEmpty())
                     Gdx.app.debug(TAG, "Empty Name, won't submit any Score!");
                 else
-                    uploadScore(textField.getText(), player);
+                    uploadScore(textField.getText());
                 game.setScreen(new MenuScreen(game));
             }
         });
@@ -82,10 +80,10 @@ public class GameOverStage extends Stage {
     }
 
     public void update() {
-        lblScore.setText("Score: " + player.getScore());
+        lblScore.setText("Score: " + PlayerStatistics.instance.getScore());
     }
 
-    private void uploadScore(String name, Player player) {
+    private void uploadScore(String name) {
         HttpClient client = HttpClient.newHttpClient();
         HttpRequest request = HttpRequest.newBuilder()
                 .uri(URI.create("https://underwatch.freemine.de/api/scores"))
@@ -103,10 +101,11 @@ public class GameOverStage extends Stage {
                         }
                         """.formatted(
                         name,
-                        player.getScore(),
-                        player.getCoins(),
-                        player.getKills(),
-                        0, 0, 0,
+                        PlayerStatistics.instance.getScore(),
+                        PlayerStatistics.instance.coins(),
+                        PlayerStatistics.instance.enemies_killed(),
+                        0, 0,
+                        (int) PlayerStatistics.instance.getGameTime(),
                         ZonedDateTime.now(ZoneOffset.UTC)
                                 .format(DateTimeFormatter.ISO_INSTANT))))
                 .build();
