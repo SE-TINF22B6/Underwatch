@@ -1,15 +1,20 @@
 package de.dhbw.tinf22b6;
 
+import de.dhbw.tinf22b6.world.tiled.FlatTiledGraph;
+import de.dhbw.tinf22b6.world.tiled.FlatTiledNode;
+import de.dhbw.tinf22b6.world.tiled.TiledRaycastCollisionDetector;
+import de.dhbw.tinf22b6.world.tiled.TiledSmoothableGraphPath;
+
+import java.util.Arrays;
+
 import com.badlogic.gdx.ai.pfa.Heuristic;
 import com.badlogic.gdx.ai.pfa.PathSmoother;
 import com.badlogic.gdx.ai.pfa.indexed.IndexedAStarPathFinder;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.TimeUtils;
-import de.dhbw.tinf22b6.world.tiled.*;
+
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-
-import java.util.Arrays;
 
 public class AITest {
 
@@ -129,6 +134,7 @@ public class AITest {
             System.out.println();
         }
     }
+
     @Test
     @DisplayName("Test A* With some block in the middle Path")
     void testNavigation_4() {
