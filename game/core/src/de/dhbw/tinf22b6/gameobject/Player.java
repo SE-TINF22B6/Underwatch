@@ -31,6 +31,7 @@ public class Player extends MobGameObject {
     private boolean dodging;
     private float dodgeStateTime;
     private boolean movedDuringDash;
+    private final Vector2 motionVector;
 
     public Player(World world, Vector2 position, PlayerStatistics statistics, Camera camera) {
         super("c1", position, world, Constants.PLAYER_BIT);
@@ -38,6 +39,8 @@ public class Player extends MobGameObject {
         this.playerStatistics = statistics;
         this.dodgeAnimation = new Animation<>(0.1f, Assets.instance.getAnimationAtlasRegion("priest1_dash"));
         this.speed = 50;
+        this.motionVector = new Vector2();
+
         // create Body
         BodyDef bodyDef = new BodyDef();
         bodyDef.position.set(pos.x + TILE_SIZE / 2f, pos.y + TILE_SIZE / 4f);
@@ -102,6 +105,25 @@ public class Player extends MobGameObject {
     public void tick(float delta) {
         super.tick(delta);
         weapon.updateRemainingCoolDown(delta);
+        applyForce(motionVector.setLength(1));
+
+        if (motionVector.len() == 0) {
+            setIdle();
+        } else {
+            setWalking();
+        }
+
+        int angle = getAngle();
+        if (angle > 360 - 45 || angle < 45) {
+            setDirection(Direction.RIGHT);
+        } else if (angle > 45 && angle < 135) {
+            setDirection(Direction.UP);
+        } else if (angle > 135 && angle < 225) {
+            setDirection(Direction.LEFT);
+        } else {
+            setDirection(Direction.DOWN);
+        }
+
         dodgeStateTime += delta;
         if (!dodging) {
             pos.x = body.getPosition().x - (float) TILE_SIZE / 2;
@@ -169,7 +191,7 @@ public class Player extends MobGameObject {
             try {
                 Thread.sleep((long) (dodgeAnimation.getAnimationDuration() * 1000));
                 setIdle();
-                showAnimation(Direction.UP);
+                setDirection(Direction.UP);
                 this.dodging = false;
                 this.movedDuringDash = false;
                 this.applyForce(new Vector2(0, 0));
@@ -189,5 +211,9 @@ public class Player extends MobGameObject {
 
     public int getKills() {
         return playerStatistics.enemies_killed();
+    }
+
+    public Vector2 getMotionVector() {
+        return motionVector;
     }
 }
