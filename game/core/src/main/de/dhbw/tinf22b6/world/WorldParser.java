@@ -18,7 +18,6 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.*;
 import de.dhbw.tinf22b6.gameobject.*;
 import de.dhbw.tinf22b6.util.Constants;
-import de.dhbw.tinf22b6.gameobject.*;
 
 import java.util.ArrayList;
 
@@ -113,7 +112,7 @@ public class WorldParser {
                                 list.add(new Coin(new Vector2(x, y), world, rectangleObject.getRectangle()));
                                 break;
                             case "chests":
-                                list.add(new Chest(new Vector2(x, y), world));
+                                list.add(new LootBox(new Vector2(x, y), world, rectangleObject.getRectangle()));
                                 break;
                             case "enemy":
                                 list.add(new Enemy(new Vector2(x, y), world, rawMap));

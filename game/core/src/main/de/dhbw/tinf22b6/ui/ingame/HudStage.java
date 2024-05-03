@@ -3,15 +3,13 @@ package de.dhbw.tinf22b6.ui.ingame;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
-import de.dhbw.tinf22b6.gameobject.Player;
 import de.dhbw.tinf22b6.util.Assets;
+import de.dhbw.tinf22b6.util.PlayerStatistics;
 
 public class HudStage extends Stage {
-    private Player player;
-    private Label labelHP;
+    private final Label labelHP;
 
-    public HudStage(Player player) {
-        this.player = player;
+    public HudStage() {
         Skin skin = Assets.instance.getSkin();
         labelHP = new Label("HP:", skin);
         this.addActor(labelHP);
@@ -19,11 +17,11 @@ public class HudStage extends Stage {
 
     @Override
     public void draw() {
-        if (labelHP.getText().toString().equals("HP: " + player.getHealth())) {
+        if (labelHP.getText().toString().equals("HP: " + PlayerStatistics.instance.hp())) {
             super.draw();
             return;
         }
-        labelHP.setText("HP: " + player.getHealth());
+        labelHP.setText("HP: " + PlayerStatistics.instance.hp());
         super.draw();
     }
 }

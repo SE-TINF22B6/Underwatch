@@ -17,7 +17,7 @@ public class Bow extends Weapon {
             new Thread(() -> {
                 try {
                     Thread.sleep((long) (shootingAnimation.getAnimationDuration() * 1000));
-                    int angle = EntitySystem.instance.getPlayer().getAngle();
+                    float angle = EntitySystem.instance.getPlayer().getAngle();
                     Vector2 pos = EntitySystem.instance.getPlayer().getPos();
                     EntitySystem.instance.add(new Bullet(new Vector2(pos.x + 15 / 2f, pos.y + 5), world, angle, Constants.WEAPON_BIT));
                 } catch (InterruptedException e) {
