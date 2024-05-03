@@ -15,7 +15,7 @@ import java.sql.Timestamp;
 public interface ScoreRepository extends PagingAndSortingRepository<Score, Integer>, ListCrudRepository<Score, Integer> {
     @Query("SELECT c FROM Score c " +
             "WHERE (:score is null or c.score >= :score) " +
-            "and (:playerName is null or c.playerName like :playerName)" +
+            "and (:playerName is null or c.playerName ilike %:playerName%)" +
             "and (cast(:timeStampA as timestamp) is null or c.timestamp >= :timeStampA)" +
             "and (cast(:timeStampB as timestamp) is null or c.timestamp <= :timeStampB)")
     Page<Score> filterQuery(@Param("score") int score, @Param("playerName") String playerName, @Param("timeStampA") Timestamp timestampA, @Param("timeStampB") Timestamp timestampB, Pageable pageable);
