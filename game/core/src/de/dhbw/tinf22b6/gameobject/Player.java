@@ -31,7 +31,7 @@ public class Player extends MobGameObject {
     private boolean dodging;
     private float dodgeStateTime;
     private boolean movedDuringDash;
-    private Vector2 motionVector;
+    private final Vector2 motionVector;
 
     public Player(World world, Vector2 position, PlayerStatistics statistics, Camera camera) {
         super("c1", position, world, Constants.PLAYER_BIT);
@@ -59,6 +59,8 @@ public class Player extends MobGameObject {
 
         body.createFixture(fixtureDef).setUserData(this);
         boxShape.dispose();
+
+        setDirection(Direction.DOWN);
 
         // equip weapon
         this.weapon = new Bow();
@@ -106,6 +108,13 @@ public class Player extends MobGameObject {
         super.tick(delta);
         weapon.updateRemainingCoolDown(delta);
         applyForce(motionVector.setLength(1));
+
+        if (motionVector.len() == 0) {
+            setIdle();
+        } else {
+            setWalking();
+        }
+
         dodgeStateTime += delta;
         if (!dodging) {
             pos.x = body.getPosition().x - (float) TILE_SIZE / 2;
@@ -173,7 +182,7 @@ public class Player extends MobGameObject {
             try {
                 Thread.sleep((long) (dodgeAnimation.getAnimationDuration() * 1000));
                 setIdle();
-                showAnimation(Direction.UP);
+                setDirection(Direction.UP);
                 this.dodging = false;
                 this.movedDuringDash = false;
                 this.applyForce(new Vector2(0, 0));

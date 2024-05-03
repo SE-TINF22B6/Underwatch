@@ -15,6 +15,7 @@ public abstract class MobGameObject extends GameObject {
     protected Map<Direction, Animation<TextureAtlas.AtlasRegion>> currentAnimations;
     protected Map<Direction, Animation<TextureAtlas.AtlasRegion>> idleAnimations;
     protected Map<Direction, Animation<TextureAtlas.AtlasRegion>> walkingAnimations;
+    protected Direction currentDirection;
 
     public MobGameObject(String region, Vector2 position, World world, short collisionMask) {
         super(region + "_idle_front", position, world, collisionMask);
@@ -33,8 +34,14 @@ public abstract class MobGameObject extends GameObject {
         walkingAnimations.put(DOWN, new Animation<>(0.15f, Assets.instance.getAnimationAtlasRegion(region + "_walk_front")));
     }
 
-    public void showAnimation(Direction direction) {
-        currentAnimation = currentAnimations.get(direction);
+    @Override
+    public void tick(float delta) {
+        super.tick(delta);
+        currentAnimation = currentAnimations.get(currentDirection);
+    }
+
+    public void setDirection(Direction direction) {
+        currentDirection = direction;
     }
 
     public void setWalking() {
