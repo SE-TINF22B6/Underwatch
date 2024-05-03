@@ -15,7 +15,6 @@ import de.dhbw.tinf22b6.util.PlayerStatistics;
 
 public class WorldController extends InputAdapter {
     private static final String TAG = WorldController.class.getName();
-    private final Vector2 motion = new Vector2(0, 0);
     private final Preferences prefs = Gdx.app.getPreferences("Controls");
     private final int left = prefs.getInteger("left", Input.Keys.A);
     private final int right = prefs.getInteger("right", Input.Keys.D);
@@ -30,6 +29,7 @@ public class WorldController extends InputAdapter {
     private World world;
     private Camera camera;
     private GameScreen gameScreen;
+
     public WorldController(Game game, World world, Camera camera, GameScreen gameScreen, PlayerStatistics playerStatistics) {
         this.game = game;
         this.world = world;
@@ -92,26 +92,21 @@ public class WorldController extends InputAdapter {
 
     @Override
     public boolean keyDown(int keycode) {
+        // Set Motion Vector
         if (keycode == left) {
-            motion.x = -1;
-            player.showAnimation(Direction.LEFT);
+            player.getMotionVector().x = -1;
         } else if (keycode == right) {
-            motion.x = 1;
-            player.showAnimation(Direction.RIGHT);
+            player.getMotionVector().x = 1;
         } else if (keycode == up) {
-            motion.y = 1;
-            player.showAnimation(Direction.UP);
+            player.getMotionVector().y = 1;
         } else if (keycode == down) {
-            motion.y = -1;
-            player.showAnimation(Direction.DOWN);
+            player.getMotionVector().y = -1;
         }
-        if (keycode == left || keycode == right || keycode == up || keycode == down) {
-            player.applyForce(motion.setLength(1));
-            player.setWalking();
-        }
+
         if (keycode == inventory) {
             Gdx.app.debug(TAG, "Objects in List: " + EntitySystem.instance.getGameObjects().size());
         }
+
         if (keycode == dodge) player.dodge();
         if (keycode == Input.Keys.ESCAPE) gameScreen.setPaused();
         if (keycode == Input.Keys.C) debugBox2D = !debugBox2D;
@@ -121,13 +116,13 @@ public class WorldController extends InputAdapter {
 
     @Override
     public boolean keyUp(int keycode) {
+        // Reset Motion Vector
         if (keycode == left || keycode == right) {
-            motion.x = 0;
+            player.getMotionVector().x = 0;
         } else if (keycode == up || keycode == down) {
-            motion.y = 0;
+            player.getMotionVector().y = 0;
         }
-        if (keycode == left || keycode == right || keycode == up || keycode == down)
-            player.applyForce(motion.setLength(1));
+
         if (keycode == Input.Keys.R) {
             game.setScreen(new GameScreen(game, WorldType.LEVEL2.getMap()));
             Gdx.app.debug(TAG, "Game world reset");

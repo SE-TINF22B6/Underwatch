@@ -31,6 +31,7 @@ public class Player extends MobGameObject {
     private boolean dodging;
     private float dodgeStateTime;
     private boolean movedDuringDash;
+    private Vector2 motionVector;
 
     public Player(World world, Vector2 position, PlayerStatistics statistics, Camera camera) {
         super("c1", position, world, Constants.PLAYER_BIT);
@@ -38,6 +39,8 @@ public class Player extends MobGameObject {
         this.playerStatistics = statistics;
         this.dodgeAnimation = new Animation<>(0.1f, Assets.instance.getAnimationAtlasRegion("priest1_dash"));
         this.speed = 50;
+        this.motionVector = new Vector2();
+
         // create Body
         BodyDef bodyDef = new BodyDef();
         bodyDef.position.set(pos.x + TILE_SIZE / 2f, pos.y + TILE_SIZE / 4f);
@@ -102,6 +105,7 @@ public class Player extends MobGameObject {
     public void tick(float delta) {
         super.tick(delta);
         weapon.updateRemainingCoolDown(delta);
+        applyForce(motionVector.setLength(1));
         dodgeStateTime += delta;
         if (!dodging) {
             pos.x = body.getPosition().x - (float) TILE_SIZE / 2;
@@ -189,5 +193,9 @@ public class Player extends MobGameObject {
 
     public int getKills() {
         return playerStatistics.enemies_killed();
+    }
+
+    public Vector2 getMotionVector() {
+        return motionVector;
     }
 }
