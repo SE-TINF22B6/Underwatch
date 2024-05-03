@@ -36,10 +36,6 @@ public class WorldController extends InputAdapter {
         init();
     }
 
-    public Player getPlayer() {
-        return player;
-    }
-
     private void init() {
         Gdx.input.setInputProcessor(this);
         Gdx.graphics.setSystemCursor(Cursor.SystemCursor.Crosshair);
@@ -112,6 +108,16 @@ public class WorldController extends InputAdapter {
         if (keycode == Input.Keys.C) debugBox2D = !debugBox2D;
 
         return super.keyDown(keycode);
+    }
+
+    @Override
+    public boolean scrolled(float amountX, float amountY) {
+        if (amountY < 0) {
+            player.cycleWeapon(false);
+        } else if (amountY > 0) {
+            player.cycleWeapon(true);
+        }
+        return super.scrolled(amountX, amountY);
     }
 
     @Override

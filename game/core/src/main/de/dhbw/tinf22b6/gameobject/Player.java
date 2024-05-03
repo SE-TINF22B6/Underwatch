@@ -13,9 +13,10 @@ import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
 import de.dhbw.tinf22b6.util.Assets;
 import de.dhbw.tinf22b6.util.Constants;
-import de.dhbw.tinf22b6.util.PlayerStatistics;
 import de.dhbw.tinf22b6.weapon.Bow;
 import de.dhbw.tinf22b6.weapon.Weapon;
+
+import java.util.ArrayList;
 
 import static com.badlogic.gdx.math.MathUtils.cosDeg;
 import static com.badlogic.gdx.math.MathUtils.sinDeg;
@@ -30,6 +31,8 @@ public class Player extends MobGameObject {
     private float dodgeStateTime;
     private boolean movedDuringDash;
     private final Vector2 motionVector;
+    private final ArrayList<Weapon> inventory;
+    private boolean canSwitchWeapon = true;
 
     public Player(World world, Vector2 position, Camera camera) {
         super("c1", position, world, Constants.PLAYER_BIT);
@@ -37,6 +40,7 @@ public class Player extends MobGameObject {
         this.dodgeAnimation = new Animation<>(0.1f, Assets.instance.getAnimationAtlasRegion("priest1_dash"));
         this.speed = 50;
         this.motionVector = new Vector2();
+        this.inventory = new ArrayList<>();
 
         // create Body
         BodyDef bodyDef = new BodyDef();
@@ -57,8 +61,11 @@ public class Player extends MobGameObject {
         body.createFixture(fixtureDef).setUserData(this);
         boxShape.dispose();
 
+        // add starter weapon to inventory
+        inventory.add(new Bow(world));
+
         // equip weapon
-        this.weapon = new Bow(world);
+        this.weapon = inventory.get(0);
     }
 
     public float getAngle() {
@@ -149,17 +156,9 @@ public class Player extends MobGameObject {
         }
     }
 
-    public Weapon getWeapon() {
-        return weapon;
-    }
-
-    public void setWeapon(Weapon weapon) {
+    public void pickupWeapon(Weapon weapon) {
+        this.inventory.add(weapon);
         this.weapon = weapon;
-    }
-
-    public void hit() {
-        PlayerStatistics.instance.hitHP();
-        Gdx.audio.newSound(Gdx.files.internal("sfx/player_hit.mp3")).play(1);
     }
 
     public boolean isDodging() {
@@ -191,5 +190,31 @@ public class Player extends MobGameObject {
 
     public Vector2 getMotionVector() {
         return motionVector;
+    }
+
+    public void cycleWeapon(boolean direction) {
+        if (canSwitchWeapon && inventory.size() > 1) {
+            canSwitchWeapon = false;
+            for (int i = 0; i < inventory.toArray().length; i++) {
+                if (inventory.get(i) == weapon) {
+                    if (direction) {
+                        this.weapon = inventory.get(Math.floorMod(i - 1, inventory.size()));
+                    } else {
+                        this.weapon = inventory.get(Math.floorMod(i + 1, inventory.size()));
+                    }
+                    // TODO: new SFX, change Weapon
+                    Gdx.audio.newSound(Gdx.files.internal("sfx/Grunt.mp3")).play(Gdx.app.getPreferences("Controls").getFloat("sfx"));
+                    break;
+                }
+            }
+            new Thread(() -> {
+                try {
+                    Thread.sleep(500);
+                    canSwitchWeapon = true;
+                } catch (InterruptedException e) {
+                    throw new RuntimeException(e);
+                }
+            }).start();
+        }
     }
 }
