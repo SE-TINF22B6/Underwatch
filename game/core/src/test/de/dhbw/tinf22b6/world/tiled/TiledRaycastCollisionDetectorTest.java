@@ -36,6 +36,40 @@ public class TiledRaycastCollisionDetectorTest {
     }
 
     @Test
+    public void testCollides_FreePath_Reversed() {
+        // Create a world map with no obstacles
+        TiledGraph<FlatTiledNode> worldMap = createEmptyWorldMap();
+        TiledRaycastCollisionDetector<FlatTiledNode> detector = new TiledRaycastCollisionDetector<>(worldMap);
+
+        // Create a ray that passes through empty space
+        Ray<Vector2> ray = createRay(new Vector2(2, 2), new Vector2(0, 0));
+
+        assertFalse(detector.collides(ray));
+    }
+
+    @Test
+    public void testCollides_FreePath_Steep() {
+        // Create a world map with no obstacles
+        TiledGraph<FlatTiledNode> worldMap = createEmptyWorldMap();
+        TiledRaycastCollisionDetector<FlatTiledNode> detector = new TiledRaycastCollisionDetector<>(worldMap);
+
+        // Create a ray that passes through empty space
+        Ray<Vector2> ray = createRay(new Vector2(1, 2), new Vector2(0, 0));
+
+        assertFalse(detector.collides(ray));
+    }
+    @Test
+    public void testCollides_FreePath_yStep() {
+        // Create a world map with no obstacles
+        TiledGraph<FlatTiledNode> worldMap = createEmptyWorldMap();
+        TiledRaycastCollisionDetector<FlatTiledNode> detector = new TiledRaycastCollisionDetector<>(worldMap);
+
+        // Create a ray that passes through empty space
+        Ray<Vector2> ray = createRay(new Vector2(1, 0), new Vector2(0, 2));
+
+        assertFalse(detector.collides(ray));
+    }
+    @Test
     public void testCollides_WithWall() {
         // Create a world map with a wall
         TiledGraph<FlatTiledNode> worldMap = createWorldMapWithWall();
@@ -43,6 +77,18 @@ public class TiledRaycastCollisionDetectorTest {
 
         // Create a ray that collides with the wall
         Ray<Vector2> ray = createRay(new Vector2(0, 0), new Vector2(2, 2));
+
+        assertTrue(detector.collides(ray));
+    }
+
+    @Test
+    public void testCollides_WithWall_Reversed() {
+        // Create a world map with no obstacles
+        TiledGraph<FlatTiledNode> worldMap = createWorldMapWithWall();
+        TiledRaycastCollisionDetector<FlatTiledNode> detector = new TiledRaycastCollisionDetector<>(worldMap);
+
+        // Create a ray that passes through empty space
+        Ray<Vector2> ray = createRay(new Vector2(2, 2), new Vector2(0, 0));
 
         assertTrue(detector.collides(ray));
     }
