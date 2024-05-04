@@ -63,6 +63,6 @@ public class TiledSmoothableGraphPath<N extends TiledNode<N>> extends DefaultGra
 
     @Override
     public String toString() {
-        return super.toString();
+        return String.format("TiledSmoothableGraphPath [nodes=%s, tmpPosition=%s, getCount()=%s", nodes, tmpPosition, getCount());
     }
 }
