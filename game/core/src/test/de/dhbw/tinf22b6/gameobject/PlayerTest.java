@@ -4,6 +4,8 @@ import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.verify;
 
+import de.dhbw.tinf22b6.UnderwatchGame;
+import de.dhbw.tinf22b6.screen.AbstractGameScreen;
 import de.dhbw.tinf22b6.weapon.Weapon;
 
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -12,6 +14,7 @@ import com.badlogic.gdx.physics.box2d.World;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 
 public class PlayerTest {
 
@@ -27,10 +30,9 @@ public class PlayerTest {
 
     //     World world = new World(new Vector2(0, 0), false);
 
-    //     OrthographicCamera camera =
-    //             new OrthographicCamera(VIEWPORT_WIDTH, VIEWPORT_HEIGHT);
+    //     OrthographicCamera camera = new OrthographicCamera(VIEWPORT_WIDTH, VIEWPORT_HEIGHT);
     //     // Create a player with mock dependencies
-    //     player = new Player(world, new Vector2(0, 0), camera );
+    //     player = new Player(world, new Vector2(0, 0), camera);
     //     // player.setWeapon(weapon);
     // }
 
@@ -60,53 +62,53 @@ public class PlayerTest {
 
     // @Test
     // public void testTick_SetPlayerState_Idle() {
-    // // Set up
-    // player.getMotionVector().set(0, 0);
+    //     // Set up
+    //     player.getMotionVector().set(0, 0);
 
-    // // Execute
-    // player.tick(0.1f);
+    //     // Execute
+    //     player.tick(0.1f);
 
-    // // Verify
-    // assertEquals(PlayerState.IDLE, player.getState());
+    //     // Verify
+    //     assertEquals(PlayerState.IDLE, player.getState());
     // }
 
     // @Test
     // public void testTick_SetPlayerState_Walking() {
-    // // Set up
-    // player.getMotionVector().set(1, 0); // non-zero motion vector
+    //     // Set up
+    //     player.getMotionVector().set(1, 0); // non-zero motion vector
 
-    // // Execute
-    // player.tick(0.1f);
+    //     // Execute
+    //     player.tick(0.1f);
 
-    // // Verify
-    // assertEquals(PlayerState.WALKING, player.getState());
+    //     // Verify
+    //     assertEquals(PlayerState.WALKING, player.getState());
     // }
 
     // @Test
     // public void testTick_SetPlayerDirection() {
-    // // Set up
-    // player.getMotionVector().set(1, 0); // Non-zero motion vector
+    //     // Set up
+    //     player.getMotionVector().set(1, 0); // Non-zero motion vector
 
-    // // Execute
-    // player.tick(0.1f);
+    //     // Execute
+    //     player.tick(0.1f);
 
-    // // Verify
-    // assertEquals(Direction.RIGHT, player.getDirection());
+    //     // Verify
+    //     assertEquals(Direction.RIGHT, player.getDirection());
     // }
 
     // // Similarly, write tests for updating the dodge state time and position
 
     // @Test
     // public void testTick_UpdateDodgeStateTime() {
-    // // Set up
-    // float initialDodgeStateTime = player.getDodgeStateTime();
-    // float delta = 0.1f;
+    //     // Set up
+    //     float initialDodgeStateTime = player.getDodgeStateTime();
+    //     float delta = 0.1f;
 
-    // // Execute
-    // player.tick(delta);
+    //     // Execute
+    //     player.tick(delta);
 
-    // // Verify
-    // assertEquals(initialDodgeStateTime + delta, player.getDodgeStateTime());
+    //     // Verify
+    //     assertEquals(initialDodgeStateTime + delta, player.getDodgeStateTime());
     // }
 
     // @Test
