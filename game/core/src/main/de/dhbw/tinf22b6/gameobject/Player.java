@@ -1,5 +1,19 @@
 package de.dhbw.tinf22b6.gameobject;
 
+import static com.badlogic.gdx.math.MathUtils.cosDeg;
+import static com.badlogic.gdx.math.MathUtils.sinDeg;
+import static de.dhbw.tinf22b6.util.Constants.PLAYER_BIT;
+import static de.dhbw.tinf22b6.util.Constants.TILE_SIZE;
+
+import de.dhbw.tinf22b6.util.Assets;
+import de.dhbw.tinf22b6.util.Constants;
+import de.dhbw.tinf22b6.weapon.Bow;
+import de.dhbw.tinf22b6.weapon.CrossBow;
+import de.dhbw.tinf22b6.weapon.Weapon;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.g2d.Animation;
@@ -11,19 +25,6 @@ import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
-import de.dhbw.tinf22b6.util.Assets;
-import de.dhbw.tinf22b6.util.Constants;
-import de.dhbw.tinf22b6.weapon.Bow;
-import de.dhbw.tinf22b6.weapon.CrossBow;
-import de.dhbw.tinf22b6.weapon.Weapon;
-
-import java.util.ArrayList;
-import java.util.Arrays;
-
-import static com.badlogic.gdx.math.MathUtils.cosDeg;
-import static com.badlogic.gdx.math.MathUtils.sinDeg;
-import static de.dhbw.tinf22b6.util.Constants.PLAYER_BIT;
-import static de.dhbw.tinf22b6.util.Constants.TILE_SIZE;
 
 public class Player extends MobGameObject {
     private final Animation<TextureAtlas.AtlasRegion> dodgeAnimation;

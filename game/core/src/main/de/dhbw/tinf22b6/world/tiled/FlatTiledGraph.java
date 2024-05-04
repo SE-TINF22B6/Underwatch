@@ -39,6 +39,15 @@ public class FlatTiledGraph implements TiledGraph<FlatTiledNode> {
         this.init(map);
     }
 
+    public FlatTiledGraph(int[][] map, boolean diagonal) {
+        this.sizeX = map.length;
+        this.sizeY = map[0].length;
+        this.nodes = new Array<>(sizeX * sizeY);
+        this.diagonal = diagonal;
+        this.startNode = null;
+        this.init(map);
+    }
+
     @Override
     public void init(int[][] map) {
         this.sizeX = map.length;

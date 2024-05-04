@@ -261,8 +261,7 @@ public class FlatTiledGraphTest {
                 { 1, 1, 1 },
                 { 1, 1, 1 }
         };
-        FlatTiledGraph worldMap = new FlatTiledGraph(map);
-        worldMap.diagonal = false;
+        FlatTiledGraph worldMap = new FlatTiledGraph(map, false);
 
         // Act
         FlatTiledNode node = worldMap.getNode(1, 1);
@@ -270,7 +269,24 @@ public class FlatTiledGraphTest {
 
         // Assert
         assertNotNull(connections); // Connections should not be null
-        assertEquals(8, connections.size); // The connections are always 8
+        assertEquals(4, connections.size); // The connections are always 8
+    }
+
+    @Test
+    @DisplayName("Stupid 100% coverage test")
+    public void test_getNode() {
+
+        // Arrange
+        int[][] map = {
+                { 1, 1, 1 },
+                { 1, 2, 1 },
+                { 1, 1, 1 }
+        };
+        FlatTiledGraph worldMap = new FlatTiledGraph(map);
+
+        // Act
+        FlatTiledNode node = worldMap.getNode(0);
+        assertEquals(worldMap.getNode(0, 0), node);
     }
 
 }
