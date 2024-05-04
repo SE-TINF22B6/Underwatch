@@ -41,7 +41,7 @@ public class FlatTiledConnectionTest {
                 FlatTiledGraph worldMap = new FlatTiledGraph(map, false);
                 FlatTiledNode fromNode = worldMap.getNode(0, 0);
                 worldMap.startNode = fromNode;
-                FlatTiledNode toNode = worldMap.getNode(1, 1);
+                FlatTiledNode toNode = worldMap.getNode(2, 2);
                 FlatTiledConnection connection = new FlatTiledConnection(worldMap, fromNode, toNode);
 
                 // Act
