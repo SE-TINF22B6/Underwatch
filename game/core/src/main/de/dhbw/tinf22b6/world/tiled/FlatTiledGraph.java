@@ -49,6 +49,22 @@ public class FlatTiledGraph implements TiledGraph<FlatTiledNode> {
             }
         }
 
+        if (!diagonal) {
+            for (int x = 0; x < sizeX; x++) {
+                for (int y = 0; y < sizeY; y++) {
+                    FlatTiledNode n = getNode(x, y);
+                    if (x > 0)
+                        addConnection(n, -1, 0);
+                    if (y > 0)
+                        addConnection(n, 0, -1);
+                    if (x < sizeX - 1)
+                        addConnection(n, 1, 0);
+                    if (y < sizeY - 1)
+                        addConnection(n, 0, 1);
+                }
+            }
+            return;
+        }
         for (int x = 0; x < sizeX; x++) {
             for (int y = 0; y < sizeY; y++) {
                 FlatTiledNode n = getNode(x, y);

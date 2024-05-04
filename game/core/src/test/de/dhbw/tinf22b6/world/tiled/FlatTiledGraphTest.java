@@ -1,15 +1,23 @@
 package de.dhbw.tinf22b6.world.tiled;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 import java.util.Arrays;
 
+import com.badlogic.gdx.ai.pfa.Connection;
 import com.badlogic.gdx.ai.pfa.Heuristic;
 import com.badlogic.gdx.ai.pfa.PathSmoother;
 import com.badlogic.gdx.ai.pfa.indexed.IndexedAStarPathFinder;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.TimeUtils;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+
 /**
  * FlatTiledGraphTest
  */
@@ -179,6 +187,90 @@ public class FlatTiledGraphTest {
             System.out.println("Open list peak.................. = " + pathFinder.metrics.openListPeak);
             System.out.println("Path finding elapsed time (ms).. = " + elapsed);
         }
+    }
+
+    @Test
+    @DisplayName("Initialization with Diagonal Connections")
+    public void testInitWithDiagonal() {
+        // Arrange
+        int[][] map = {
+                { 1, 1, 1 },
+                { 1, 2, 1 },
+                { 1, 1, 1 }
+        };
+
+        // Act
+        FlatTiledGraph worldMap = new FlatTiledGraph(map);
+        worldMap.startNode = worldMap.getNode(0, 0);
+
+        // Assert
+        assertNotNull(worldMap); // Ensure world map is initialized
+        assertEquals(3, worldMap.sizeX); // Check sizeX
+        assertEquals(3, worldMap.sizeY); // Check sizeY
+        assertTrue(worldMap.diagonal); // Diagonal should be true by default
+        assertNotNull(worldMap.startNode); // Start node should not be null
+        assertEquals(FlatTiledNode.class, worldMap.startNode.getClass()); // Start node should be of type FlatTiledNode
+        assertEquals(9, worldMap.getNodeCount()); // Total nodes should match sizeX * sizeY
+    }
+
+    @Test
+    @DisplayName("Disable Diagonal Connections")
+    public void testInitWithoutDiagonal() {
+        // Arrange
+        int[][] map = {
+                { 1, 1, 1 },
+                { 1, 2, 1 },
+                { 1, 1, 1 }
+        };
+
+        // Act
+        FlatTiledGraph worldMap = new FlatTiledGraph(map);
+        worldMap.diagonal = false;
+
+        // Assert
+        assertFalse(worldMap.diagonal); // Diagonal should be false now
+    }
+
+    @Test
+    @DisplayName("Retrieve Node from Map")
+    public void testGetNode() {
+        // Arrange
+        int[][] map = {
+                { 1, 1, 1 },
+                { 1, 2, 1 },
+                { 1, 1, 1 }
+        };
+        FlatTiledGraph worldMap = new FlatTiledGraph(map);
+
+        // Act
+        FlatTiledNode node = worldMap.getNode(1, 1);
+
+        // Assert
+        assertNotNull(node); // Node should not be null
+        assertEquals(1, node.x); // Node's x-coordinate should match
+        assertEquals(1, node.y); // Node's y-coordinate should match
+        assertEquals(2, node.type); // Node's type should be 2 (wall)
+    }
+
+    @Test
+    @DisplayName("Retrieve Connections for a Node")
+    public void testGetConnections() {
+        // Arrange
+        int[][] map = {
+                { 1, 1, 1 },
+                { 1, 1, 1 },
+                { 1, 1, 1 }
+        };
+        FlatTiledGraph worldMap = new FlatTiledGraph(map);
+        worldMap.diagonal = false;
+
+        // Act
+        FlatTiledNode node = worldMap.getNode(1, 1);
+        Array<Connection<FlatTiledNode>> connections = worldMap.getConnections(node);
+
+        // Assert
+        assertNotNull(connections); // Connections should not be null
+        assertEquals(8, connections.size); // The connections are always 8
     }
 
 }

@@ -12,8 +12,21 @@ buildscript {
 }
 
 allprojects {
+    apply plugin: "java"
     apply plugin: "eclipse"
     apply plugin: "jacoco"
+
+    test {
+        useJUnitPlatform()
+        finalizedBy jacocoTestReport // report is always generated after tests run
+    }
+    jacocoTestReport {
+        reports {
+            xml.required = false
+            csv.required = false
+            html.outputLocation = layout.buildDirectory.dir('jacocoHtml')
+        }
+    }
 
     version = '1.0'
     ext {
