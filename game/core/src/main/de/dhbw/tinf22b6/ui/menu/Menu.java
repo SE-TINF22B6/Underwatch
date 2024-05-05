@@ -16,7 +16,6 @@ import de.dhbw.tinf22b6.screen.GameScreen;
 import de.dhbw.tinf22b6.util.Assets;
 import de.dhbw.tinf22b6.util.PlayerStatistics;
 import de.dhbw.tinf22b6.world.WorldType;
-
 import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
@@ -53,56 +52,49 @@ public class Menu extends Stage {
 
         Button btnStart = new Button(skin);
         btnStart.add(new Label("Start Game", skin));
-        btnStart.addListener(
-                new ClickListener() {
-                    @Override
-                    public void clicked(InputEvent event, float x, float y) {
-                        // initialize player statistics
-                        PlayerStatistics.instance.init();
-                        game.setScreen(new GameScreen(game, WorldType.LEVEL1.getMap()));
-                        Gdx.audio.newSound(Gdx.files.internal("sfx/LevelUp.mp3")).play();
+        btnStart.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                // initialize player statistics
+                PlayerStatistics.instance.init();
+                game.setScreen(new GameScreen(game, WorldType.LEVEL1.getMap()));
+                Gdx.audio.newSound(Gdx.files.internal("sfx/LevelUp.mp3")).play();
+            }
 
-                    }
-
-                    @Override
-                    public void enter(InputEvent event, float x, float y, int pointer, Actor fromActor) {
-                        Gdx.audio.newSound(Gdx.files.internal("sfx/button_hover.mp3")).play();
-                        super.enter(event, x, y, pointer, fromActor);
-                    }
-                }
-        );
+            @Override
+            public void enter(InputEvent event, float x, float y, int pointer, Actor fromActor) {
+                Gdx.audio.newSound(Gdx.files.internal("sfx/button_hover.mp3")).play();
+                super.enter(event, x, y, pointer, fromActor);
+            }
+        });
         table.add(btnStart).pad(20);
         table.row();
 
         Button btnSettings = new Button(skin);
         btnSettings.add(new Label("Settings", skin));
-        btnSettings.addListener(
-                new ClickListener() {
-                    @Override
-                    public void clicked(InputEvent event, float x, float y) {
-                        stageManager.setStage(new Settings(stageManager, music));
-                    }
+        btnSettings.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                stageManager.setStage(new Settings(stageManager, music));
+            }
 
-                    @Override
-                    public void enter(InputEvent event, float x, float y, int pointer, Actor fromActor) {
-                        Gdx.audio.newSound(Gdx.files.internal("sfx/button_hover.mp3")).play();
-                        super.enter(event, x, y, pointer, fromActor);
-                    }
-                }
-        );
+            @Override
+            public void enter(InputEvent event, float x, float y, int pointer, Actor fromActor) {
+                Gdx.audio.newSound(Gdx.files.internal("sfx/button_hover.mp3")).play();
+                super.enter(event, x, y, pointer, fromActor);
+            }
+        });
         table.add(btnSettings).pad(20);
         table.row();
 
         Button btnQuit = new Button(skin);
         btnQuit.add(new Label("Quit Game", skin));
-        btnQuit.addListener(
-                new ClickListener() {
-                    @Override
-                    public void clicked(InputEvent event, float x, float y) {
-                        Gdx.app.exit();
-                    }
-                }
-        );
+        btnQuit.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                Gdx.app.exit();
+            }
+        });
         btnQuit.addListener(new ClickListener() {
             @Override
             public void enter(InputEvent event, float x, float y, int pointer, Actor fromActor) {

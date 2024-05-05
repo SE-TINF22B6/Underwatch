@@ -1,4 +1,3 @@
-
 /*******************************************************************************
  * Copyright 2014 See AUTHORS file.
  *
@@ -14,7 +13,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  ******************************************************************************/
-
 package de.dhbw.tinf22b6.world.tiled;
 
 import com.badlogic.gdx.ai.pfa.indexed.IndexedGraph;
@@ -22,10 +20,7 @@ import com.badlogic.gdx.ai.pfa.indexed.IndexedGraph;
 /**
  * Graph interface representing a generic tiled map.
  *
- * @param <N>
- *            Type of node, either flat or hierarchical, extending the
- *            {@link TiledNode} class
- *
+ * @param <N> Type of node, either flat or hierarchical, extending the {@link TiledNode} class
  * @author davebaol
  */
 public interface TiledGraph<N extends TiledNode<N>> extends IndexedGraph<N> {
@@ -35,5 +30,4 @@ public interface TiledGraph<N extends TiledNode<N>> extends IndexedGraph<N> {
     public N getNode(int x, int y);
 
     public N getNode(int index);
-
 }

@@ -29,6 +29,38 @@ allprojects {
             html.outputLocation = layout.buildDirectory.dir('jacocoHtml')
         }
     }
+    spotless {
+        java {
+            // Use the default importOrder configuration
+            importOrder()
+            // optional: you can specify import groups directly
+            // note: you can use an empty string for all the imports you didn't specify explicitly, '|' to join group without blank line, and '\\#` prefix for static imports
+            // importOrder('java|javax', 'com.acme', '', '\\#com.acme', '\\#')
+            // optional: instead of specifying import groups directly you can specify a config file
+            // export config file: https://github.com/diffplug/spotless/blob/main/ECLIPSE_SCREENSHOTS.md#creating-spotlessimportorder
+            // importOrderFile('eclipse-import-order.txt') // import order file as exported from eclipse
+
+            // removeUnusedImports()
+
+            // Cleanthat will refactor your code, but it may break your style: apply it before your formatter
+            // cleanthat()          // has its own section below
+
+            // Choose one of these formatters.
+            // googleJavaFormat()   // has its own section below
+             palantirJavaFormat()
+            // optional: you can specify a specific version and/or switch to AOSP/GOOGLE style
+            // palantirJavaFormat('2.9.0').style("GOOGLE")
+            // optional: you can also format Javadocs, requires at least Palantir 2.39.0
+            // palantirJavaFormat('2.39.0').formatJavadoc(true)
+            // eclipse()            // has its own section below
+            // prettier()           // has its own section below
+            // clangFormat()        // has its own section below
+
+            formatAnnotations()  // fixes formatting of type annotations, see below
+
+            // licenseHeader '/* (C) $YEAR */' // or licenseHeaderFile
+        }
+    }
 
     dependencies {
         testImplementation "org.mockito:mockito-core:5.+"

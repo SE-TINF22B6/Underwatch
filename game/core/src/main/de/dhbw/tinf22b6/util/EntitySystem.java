@@ -3,7 +3,6 @@ package de.dhbw.tinf22b6.util;
 import com.badlogic.gdx.Gdx;
 import de.dhbw.tinf22b6.gameobject.GameObject;
 import de.dhbw.tinf22b6.gameobject.Player;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,8 +12,7 @@ public class EntitySystem {
     private List<GameObject> gameObjects;
 
     // singleton: prevent instantiation from other classes
-    private EntitySystem() {
-    }
+    private EntitySystem() {}
 
     public void init(List<GameObject> objectList) {
         this.gameObjects = objectList;
@@ -35,8 +33,7 @@ public class EntitySystem {
 
     public Player getPlayer() {
         for (GameObject object : gameObjects) {
-            if (object instanceof Player)
-                return (Player) object;
+            if (object instanceof Player) return (Player) object;
         }
         return null;
     }

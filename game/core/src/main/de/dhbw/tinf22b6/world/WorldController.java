@@ -54,11 +54,15 @@ public class WorldController extends InputAdapter {
         // tick objects
         EntitySystem.instance.getGameObjects().forEach(gameObject -> gameObject.tick(deltaTime));
         // remove deleted objects from the World
-        EntitySystem.instance.getGameObjects().stream().filter(GameObject::isRemove).forEach(gameObject -> {
-            if (!world.isLocked()) world.destroyBody(gameObject.getBody());
-        });
+        EntitySystem.instance.getGameObjects().stream()
+                .filter(GameObject::isRemove)
+                .forEach(gameObject -> {
+                    if (!world.isLocked()) world.destroyBody(gameObject.getBody());
+                });
         // remove deleted objects from the Map
-        EntitySystem.instance.getGameObjects().stream().filter(GameObject::isRemove).forEach(EntitySystem.instance::remove);
+        EntitySystem.instance.getGameObjects().stream()
+                .filter(GameObject::isRemove)
+                .forEach(EntitySystem.instance::remove);
     }
 
     private void handleInput(float deltaTime) {

@@ -1,15 +1,14 @@
 package de.dhbw.tinf22b6.gameobject;
 
+import static de.dhbw.tinf22b6.gameobject.Direction.*;
+
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.World;
 import de.dhbw.tinf22b6.util.Assets;
-
 import java.util.HashMap;
 import java.util.Map;
-
-import static de.dhbw.tinf22b6.gameobject.Direction.*;
 
 public abstract class MobGameObject extends GameObject {
     protected Map<Direction, Animation<TextureAtlas.AtlasRegion>> currentAnimations;
@@ -24,15 +23,23 @@ public abstract class MobGameObject extends GameObject {
         this.currentAnimations = this.idleAnimations;
         this.currentDirection = DOWN;
 
-        this.idleAnimations.put(LEFT, new Animation<>(0.2f, Assets.instance.getAnimationAtlasRegion(region + "_idle_left")));
-        this.idleAnimations.put(RIGHT, new Animation<>(0.2f, Assets.instance.getAnimationAtlasRegion(region + "_idle_right")));
-        this.idleAnimations.put(UP, new Animation<>(0.2f, Assets.instance.getAnimationAtlasRegion(region + "_idle_back")));
-        this.idleAnimations.put(DOWN, new Animation<>(0.2f, Assets.instance.getAnimationAtlasRegion(region + "_idle_front")));
+        this.idleAnimations.put(
+                LEFT, new Animation<>(0.2f, Assets.instance.getAnimationAtlasRegion(region + "_idle_left")));
+        this.idleAnimations.put(
+                RIGHT, new Animation<>(0.2f, Assets.instance.getAnimationAtlasRegion(region + "_idle_right")));
+        this.idleAnimations.put(
+                UP, new Animation<>(0.2f, Assets.instance.getAnimationAtlasRegion(region + "_idle_back")));
+        this.idleAnimations.put(
+                DOWN, new Animation<>(0.2f, Assets.instance.getAnimationAtlasRegion(region + "_idle_front")));
 
-        this.walkingAnimations.put(LEFT, new Animation<>(0.15f, Assets.instance.getAnimationAtlasRegion(region + "_walk_left")));
-        this.walkingAnimations.put(RIGHT, new Animation<>(0.15f, Assets.instance.getAnimationAtlasRegion(region + "_walk_right")));
-        this.walkingAnimations.put(UP, new Animation<>(0.15f, Assets.instance.getAnimationAtlasRegion(region + "_walk_back")));
-        this.walkingAnimations.put(DOWN, new Animation<>(0.15f, Assets.instance.getAnimationAtlasRegion(region + "_walk_front")));
+        this.walkingAnimations.put(
+                LEFT, new Animation<>(0.15f, Assets.instance.getAnimationAtlasRegion(region + "_walk_left")));
+        this.walkingAnimations.put(
+                RIGHT, new Animation<>(0.15f, Assets.instance.getAnimationAtlasRegion(region + "_walk_right")));
+        this.walkingAnimations.put(
+                UP, new Animation<>(0.15f, Assets.instance.getAnimationAtlasRegion(region + "_walk_back")));
+        this.walkingAnimations.put(
+                DOWN, new Animation<>(0.15f, Assets.instance.getAnimationAtlasRegion(region + "_walk_front")));
     }
 
     @Override

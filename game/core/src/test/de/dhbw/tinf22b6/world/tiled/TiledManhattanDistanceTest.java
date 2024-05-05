@@ -4,9 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.junit.jupiter.api.Test;
 
-/**
- * TiledManhattanDistanceTest
- */
+/** TiledManhattanDistanceTest */
 public class TiledManhattanDistanceTest {
 
     @Test
@@ -14,9 +12,9 @@ public class TiledManhattanDistanceTest {
 
         // Arrange
         int[][] map = {
-                { 1, 1, 1 },
-                { 1, 2, 1 },
-                { 1, 1, 1 }
+            {1, 1, 1},
+            {1, 2, 1},
+            {1, 1, 1}
         };
         FlatTiledGraph worldMap = new FlatTiledGraph(map);
 

@@ -12,7 +12,6 @@ import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import de.dhbw.tinf22b6.util.Assets;
-
 import java.util.concurrent.atomic.AtomicReference;
 
 public class Settings extends Stage {
@@ -142,7 +141,8 @@ public class Settings extends Stage {
             // check if the new keycode is already bound
             AtomicReference<Boolean> canEdit = new AtomicReference<>(true);
             preferences.get().forEach((s, o) -> {
-                if (!settingToBeEdited.get().equals(s)) if (String.valueOf(keycode).equals(o)) canEdit.set(false);
+                if (!settingToBeEdited.get().equals(s))
+                    if (String.valueOf(keycode).equals(o)) canEdit.set(false);
             });
 
             // update preferences and persist them
@@ -154,6 +154,4 @@ public class Settings extends Stage {
             return super.keyDown(event, keycode);
         }
     }
-
 }
-

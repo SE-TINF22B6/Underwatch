@@ -1,21 +1,5 @@
 package de.dhbw.tinf22b6.gameobject;
 
-import static org.junit.jupiter.api.Assertions.assertNotEquals;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.verify;
-
-import de.dhbw.tinf22b6.UnderwatchGame;
-import de.dhbw.tinf22b6.screen.AbstractGameScreen;
-import de.dhbw.tinf22b6.weapon.Weapon;
-
-import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.physics.box2d.World;
-
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-
 public class PlayerTest {
 
     // private static final float VIEWPORT_WIDTH = 500;

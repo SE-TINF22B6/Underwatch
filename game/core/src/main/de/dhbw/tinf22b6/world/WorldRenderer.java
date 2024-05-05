@@ -1,5 +1,7 @@
 package de.dhbw.tinf22b6.world;
 
+import static de.dhbw.tinf22b6.util.Constants.VIEWPORT_HEIGHT;
+
 import box2dLight.RayHandler;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -12,11 +14,8 @@ import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.Disposable;
 import de.dhbw.tinf22b6.gameobject.GameObject;
 import de.dhbw.tinf22b6.util.EntitySystem;
-
 import java.util.ArrayList;
 import java.util.List;
-
-import static de.dhbw.tinf22b6.util.Constants.VIEWPORT_HEIGHT;
 
 public class WorldRenderer implements Disposable {
     private final OrthographicCamera camera;
@@ -28,7 +27,6 @@ public class WorldRenderer implements Disposable {
     private final RayHandler rayHandler;
     private final int[] renderBelow;
     private final int[] renderAbove;
-
 
     public WorldRenderer(WorldController worldController, World world, TiledMap map, OrthographicCamera camera) {
         this.worldController = worldController;
@@ -76,8 +74,7 @@ public class WorldRenderer implements Disposable {
         renderMapObjects();
         renderer.render(renderAbove);
 
-        if (worldController.debugBox2D)
-            box2DDebugRenderer.render(world, camera.combined);
+        if (worldController.debugBox2D) box2DDebugRenderer.render(world, camera.combined);
         rayHandler.setCombinedMatrix(camera);
         rayHandler.updateAndRender();
     }

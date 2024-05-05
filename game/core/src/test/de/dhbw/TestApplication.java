@@ -227,7 +227,8 @@
 //     @Override
 //     public void exit() {
 //         synchronized (lifecycleListeners) {
-//             for (final LifecycleListener lifecycleListener : new Array.ArrayIterator<>(lifecycleListeners)) {
+//             for (final LifecycleListener lifecycleListener : new
+// Array.ArrayIterator<>(lifecycleListeners)) {
 //                 lifecycleListener.pause();
 //                 lifecycleListener.dispose();
 //             }

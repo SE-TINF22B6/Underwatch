@@ -31,7 +31,7 @@ public class StageManager implements Disposable {
         currentStage.getViewport().update(width, height, true);
     }
 
-    public Game getGame(){
+    public Game getGame() {
         return game;
     }
 
@@ -44,5 +44,3 @@ public class StageManager implements Disposable {
         return music;
     }
 }
-
-

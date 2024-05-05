@@ -30,22 +30,32 @@ public abstract class Weapon {
 
     public boolean shoot() {
         if (this.ammo <= 0 || isShooting || remainingWeaponCooldown > 0) {
-            Gdx.app.debug(TAG, "Can't shoot right now:" + "{ ammo: " + ammo + ", isShooting: " + isShooting + ", weaponCooldown: " + remainingWeaponCooldown + "}");
+            Gdx.app.debug(
+                    TAG,
+                    "Can't shoot right now:"
+                            + "{ ammo: "
+                            + ammo
+                            + ", isShooting: "
+                            + isShooting
+                            + ", weaponCooldown: "
+                            + remainingWeaponCooldown
+                            + "}");
             // TODO play empty magazine sound
             return false;
         }
         this.isShooting = true;
         new Thread(() -> {
-            try {
-                Thread.sleep((long) (shootingAnimation.getAnimationDuration() * 1000));
-                sound.play(Gdx.app.getPreferences("Controls").getFloat("sfx"));
-                this.remainingWeaponCooldown = this.weaponCooldown;
-                this.weaponStateTime = 0;
-                this.isShooting = false;
-            } catch (InterruptedException e) {
-                throw new RuntimeException(e);
-            }
-        }).start();
+                    try {
+                        Thread.sleep((long) (shootingAnimation.getAnimationDuration() * 1000));
+                        sound.play(Gdx.app.getPreferences("Controls").getFloat("sfx"));
+                        this.remainingWeaponCooldown = this.weaponCooldown;
+                        this.weaponStateTime = 0;
+                        this.isShooting = false;
+                    } catch (InterruptedException e) {
+                        throw new RuntimeException(e);
+                    }
+                })
+                .start();
         this.ammo--;
         return true;
     }

@@ -5,22 +5,19 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import com.badlogic.gdx.ai.utils.Ray;
 import com.badlogic.gdx.math.Vector2;
-
 import org.junit.jupiter.api.Test;
 
-/**
- * TiledRaycastCollisionDetectorTest
- */
+/** TiledRaycastCollisionDetectorTest */
 public class TiledRaycastCollisionDetectorTest {
     private static int[][] noObstacles3x3Map = {
-            { 1, 1, 1 },
-            { 1, 1, 1 },
-            { 1, 1, 1 },
+        {1, 1, 1},
+        {1, 1, 1},
+        {1, 1, 1},
     };
     private static int[][] horizontalWall3x3Map = {
-            { 1, 1, 1 },
-            { 2, 2, 2 },
-            { 1, 1, 1 },
+        {1, 1, 1},
+        {2, 2, 2},
+        {1, 1, 1},
     };
 
     @Test
@@ -58,6 +55,7 @@ public class TiledRaycastCollisionDetectorTest {
 
         assertFalse(detector.collides(ray));
     }
+
     @Test
     public void testCollides_FreePath_yStep() {
         // Create a world map with no obstacles
@@ -69,6 +67,7 @@ public class TiledRaycastCollisionDetectorTest {
 
         assertFalse(detector.collides(ray));
     }
+
     @Test
     public void testCollides_WithWall() {
         // Create a world map with a wall

@@ -24,4 +24,3 @@ public class UnderwatchGame extends Game {
         setScreen(new MenuScreen(this));
     }
 }
-

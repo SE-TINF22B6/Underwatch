@@ -11,8 +11,7 @@ public class PlayerStatistics {
     private float gameTime;
 
     // singleton: prevent instantiation from other classes
-    private PlayerStatistics() {
-    }
+    private PlayerStatistics() {}
 
     public void init() {
         this.hp = 5;

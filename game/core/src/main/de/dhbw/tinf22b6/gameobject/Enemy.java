@@ -2,16 +2,15 @@ package de.dhbw.tinf22b6.gameobject;
 
 import static de.dhbw.tinf22b6.util.Constants.TILE_SIZE;
 
-import de.dhbw.tinf22b6.ai.EnemyStateMachine;
-import de.dhbw.tinf22b6.util.Constants;
-import de.dhbw.tinf22b6.weapon.Weapon;
-
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
+import de.dhbw.tinf22b6.ai.EnemyStateMachine;
+import de.dhbw.tinf22b6.util.Constants;
+import de.dhbw.tinf22b6.weapon.Weapon;
 
 public class Enemy extends GameObject {
     private static final String TAG = Enemy.class.getName();
