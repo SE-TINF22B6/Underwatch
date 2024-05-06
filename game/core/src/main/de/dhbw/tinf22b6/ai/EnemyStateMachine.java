@@ -1,7 +1,5 @@
 package de.dhbw.tinf22b6.ai;
 
-import static de.dhbw.tinf22b6.util.Constants.TILE_SIZE;
-
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.ai.pfa.Heuristic;
 import com.badlogic.gdx.ai.pfa.indexed.IndexedAStarPathFinder;
@@ -16,28 +14,28 @@ import de.dhbw.tinf22b6.world.tiled.FlatTiledGraph;
 import de.dhbw.tinf22b6.world.tiled.FlatTiledNode;
 import de.dhbw.tinf22b6.world.tiled.TiledSmoothableGraphPath;
 
+import static de.dhbw.tinf22b6.util.Constants.TILE_SIZE;
+
 public class EnemyStateMachine {
 
     private static final String TAG = EnemyStateMachine.class.getName();
     private static final float COOLDOWN = 1;
-    private EnemyState currentState;
     private final Enemy enemy;
     private final World world;
     float shootCountdown = 0;
+    private EnemyState currentState;
     private EnemyState oldState;
     private FlatTiledGraph worldGraph;
     private IndexedAStarPathFinder<FlatTiledNode> finder;
-    private int[][] initMap;
-    private float timer;
     private Vector2 currentMovementVector;
 
     // private
     // private NavigationGrid<GridCell> gridCells;
     // AStarGridFinder<GridCell> finder;
+    private Vector2 checkPoint = new Vector2();
 
     public EnemyStateMachine(Enemy enemy, World world, int[][] rawMap) {
         this.world = world;
-        this.initMap = rawMap;
         this.enemy = enemy;
         this.currentState = EnemyState.WALKING;
         this.worldGraph = new FlatTiledGraph(rawMap);
@@ -48,7 +46,6 @@ public class EnemyStateMachine {
     }
 
     public void tick(float delta) {
-        timer += delta;
         if (oldState != currentState) {
             Gdx.app.debug(TAG, currentState.name());
             oldState = currentState;
@@ -85,71 +82,31 @@ public class EnemyStateMachine {
         worldGraph.startNode = startNode;
         finder.searchNodePath(startNode, endNode, heuristic, path);
 
-        int[][] rawMap = new int[initMap.length][initMap[0].length];
-        for (int x = 0; x < initMap.length; x++) {
-            for (int y = 0; y < initMap[x].length; y++) {
-                rawMap[x][y] = initMap[x][y];
-            }
-        }
-        System.out.println("#########################");
-        for (int i = path.getCount() - 1; i > 0; i--) {
-            FlatTiledNode node = path.get(i);
-            rawMap[node.x][node.y] = 8;
-        }
-        rawMap[(int) player.getPos().x / TILE_SIZE][(int) player.getPos().y / TILE_SIZE] = 0;
-        rawMap[(int) enemy.getPos().x / TILE_SIZE][(int) enemy.getPos().y / TILE_SIZE] = 5;
-
-        printRawMap(rawMap);
-
         if (path.nodes.size == 1) {
             return new Vector2(0, 0);
         }
-        // if ((int) enemy.getPos().x / TILE_SIZE != path.get(0).x * TILE_SIZE && (int)
-        // enemy.getPos().y / TILE_SIZE != path.get(0).y * TILE_SIZE) {
-        // tmp = new Vector2(path.get(0).x * TILE_SIZE + (float) TILE_SIZE / 2,
-        // path.get(0).y * TILE_SIZE + (float) TILE_SIZE / 1.3f);
-        // Gdx.app.debug(TAG, "Chasing old Node");
-        // } else {
-        // tmp = new Vector2(path.get(1).x * TILE_SIZE + (float) TILE_SIZE / 2,
-        // path.get(1).y * TILE_SIZE + (float) TILE_SIZE / 1.3f);
-        // Gdx.app.debug(TAG, "Chasing new Node");
-        // }
 
-        // float x = path.get(1).x * TILE_SIZE - enemy.getPos().x;
-        // float y = path.get(1).y * TILE_SIZE - enemy.getPos().y;
-        // System.out.printf("x=%.2f\ty=%.2f%n", x, y);
-        // float scaleX = 2;
-        // float scaleY = 2;
-        // if (x < 0 && y > 0) {
-        // scaleX = 2.3f;
-        // }
-        // if (x < 0 && y < 0) {
-        // scaleX = 1.3f;
-        // }
-        // if (x > 0 && y < 0) {
-        // scaleY = 1.3f;
-        // }
-        // if (x > 0 && y > 0) {
-        // scaleY = 1.3f;
-        // }
-        // tmp = new Vector2(x + (float) TILE_SIZE / scaleX, y + (float) TILE_SIZE /
-        // scaleY);
-
-        if ((timer > 0.5f || inRange(path)) || currentMovementVector == null) {
-
-            timer = 0;
+        if (!inRange(path) || currentMovementVector == null) {
+            checkPoint = new Vector2(path.get(1).x * TILE_SIZE, path.get(1).y * TILE_SIZE);
             currentMovementVector = new Vector2(
-                    path.get(1).x * TILE_SIZE + (float) TILE_SIZE / 2,
-                    path.get(1).y * TILE_SIZE + (float) TILE_SIZE / 2f);
+                    path.get(1).x * TILE_SIZE ,
+                    path.get(1).y * TILE_SIZE);
             currentMovementVector.sub(enemy.getPos());
             currentMovementVector.setLength(1);
             Gdx.app.debug(TAG, "New Vector: " + currentMovementVector);
         }
-        // Gdx.app.debug(TAG, "Direction: " + currentMovementVector);
         return currentMovementVector;
     }
 
     private boolean inRange(TiledSmoothableGraphPath<FlatTiledNode> path) {
+//        float tx = checkPoint.x;
+//        float ty = checkPoint.y;
+//        float ex = enemy.getPos().x;
+//        float ey = enemy.getPos().y;
+//        float sizeEnemy = (float) TILE_SIZE / 3;
+//        Gdx.app.debug(TAG, "Enemy Pos: [" + tx + ", " + ty + "], [" + ex + ", " + ey + "]");
+//        return (Math.abs(tx - sizeEnemy) / 2 + tx == ex && Math.abs(ty - sizeEnemy) / 2 + ty == ey);
+
         // return enemy.getPos().epsilonEquals(path.get(0).x * TILE_SIZE, path.get(0).y
         // * TILE_SIZE);
         int outerX1 = path.get(1).x * TILE_SIZE;
@@ -162,15 +119,6 @@ public class EnemyStateMachine {
         int innerX2 = innerX1 + TILE_SIZE / 3;
         int innerY2 = innerY1 + TILE_SIZE / 3;
         return innerX1 >= outerX1 && innerY1 >= outerY1 && innerX2 <= outerX2 && innerY2 <= outerY2;
-    }
-
-    private void printRawMap(int[][] rawMap) {
-        for (int j = rawMap[0].length - 1; j > 0; j--) {
-            for (int i = 0; i < rawMap.length; i++) {
-                System.out.printf("%d", rawMap[i][j]);
-            }
-            System.out.println();
-        }
     }
 
     private void shoot() {
