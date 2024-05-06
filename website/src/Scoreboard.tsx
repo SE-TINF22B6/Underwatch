@@ -85,7 +85,6 @@ const Scoreboard = () => {
         // Überprüfen, ob das Datum gültig ist
         if (!date || !(date instanceof Date) || isNaN(date.getTime())) {
             console.error("Invalid date object:", date);
-            console.log("Object is from type: "+typeof(date));
             return null; // oder einen Standardwert zurückgeben, je nach Bedarf
         }
     
@@ -100,7 +99,6 @@ const Scoreboard = () => {
 
     // ---------- Paging ----------
     const handleChangePage = (event: unknown, newPage: number) => {
-        console.log(newPage);
         setRequestedPage(newPage);
     }
 
@@ -237,7 +235,6 @@ const Scoreboard = () => {
                 (cookieObject.startDate == null) &&
                 (cookieObject.endDate == null)
             ) {
-                console.log("Alle Cookies werden gelöscht");
                 document.cookie = `filterData=; expires=Thu, 01 Jan 1970 00:00:00 UTC;`;
                 document.cookie = `filterData=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;`;
             }
