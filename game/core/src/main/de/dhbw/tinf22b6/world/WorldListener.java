@@ -9,6 +9,7 @@ import de.dhbw.tinf22b6.screen.GameScreen;
 import de.dhbw.tinf22b6.util.PlayerStatistics;
 
 public class WorldListener implements ContactListener {
+
     private static final String TAG = GameScreen.class.getName();
     private final GameScreen gameScreen;
 
