@@ -19,6 +19,7 @@ import {
     FormControl,
     OutlinedInput,
     TableSortLabel,
+    TablePagination,
 } from '@mui/material';
 import {theme2} from './theme';
 import NavigationMenu from './NavigationMenu';
@@ -59,9 +60,49 @@ let cookieObject : CookieObject = {
 }
 
 const Scoreboard = () => {
-    // ---------- getApiData ----------
+    // ---------- States ----------
+    const [totalElements, setTotalElements] = React.useState(-1);
+    const [requestedPage, setRequestedPage] = React.useState(0);
+
+    const [order, setOrder] = useState<'asc' | 'desc' | undefined>('desc');
+    const [orderBy, setOrderBy] = useState<'score' | 'playerName' | 'timestamp' | 'coins' | 'kills' | 'damageDealt' | 'dps' | 'game_time' | ''>('score');
+
     const [apiData, setApiData] = useState<ScoreData[]>([JSON.parse('{"id": 0,"playerName": "","score": 0,"coins": 0,"kills": 0,"damageDealt": 0,"dps": 0,"timestamp": "","game_time": 0}')]);
 
+    const [showFilterMask, setShowSecondElement] = useState(false);
+    const [filterButtonText, setFilterButtonText] = useState('Show Filter');
+
+    const [inputValue, setInputValue] = useState('');
+
+    const [scoreStartDate, setScoreStartDate] = useState<Date>(new Date(0));
+    const [scoreEndDate, setScoreEndDate] = useState<Date>(new Date());
+    const [scoreDate, setScoreDate] = useState<DateRange<Dayjs>>([null, null]);
+
+    const [minScore, setMinScore] = useState(0);
+
+    // ---------- apiDate ----------
+    const createApiDateString = (date: Date | null, startDate: boolean) => {
+        // Überprüfen, ob das Datum gültig ist
+        if (!date || !(date instanceof Date) || isNaN(date.getTime())) {
+            console.error("Invalid date object:", date);
+            return null; // oder einen Standardwert zurückgeben, je nach Bedarf
+        }
+    
+        if (startDate)
+            return date.toISOString().split("T")[0] + "%2000%3A00%3A00";
+        else
+            return date.toISOString().split("T")[0] + "%2023%3A59%3A59";
+    }
+    
+    
+    
+
+    // ---------- Paging ----------
+    const handleChangePage = (event: unknown, newPage: number) => {
+        setRequestedPage(newPage);
+    }
+
+    // ---------- getApiData ----------
     async function getApiData(url: string): Promise<ScoreData[]> {
         try {
             const response = await fetch(url);
@@ -69,6 +110,7 @@ const Scoreboard = () => {
                 throw new Error('Network response was not ok');
             }
             const data = await response.json();
+            setTotalElements(data.page.totalElements);
             return data._embedded.scores;
         } catch (error) {
             console.error('Beim Laden der API-Daten ist folgender Fehler aufgetreten:', error);
@@ -83,9 +125,10 @@ const Scoreboard = () => {
         }
     }
     useEffect(() => {
-        getApiData("https://underwatch.freemine.de/api/scores?page=0&size=30&sort=score%2Cdesc")
+        getApiData(`https://underwatch.freemine.de/api/scores/search/filterQuery?page=${requestedPage}&size=10&sort=${orderBy}%2C${order}&score=${minScore}&playerName=${inputValue}&timeStampA=${createApiDateString(scoreStartDate, true)}&timeStampB=${createApiDateString(scoreEndDate, false)}`)
         .then((scores) => {
-            setApiData(scores);
+            if(scores.length >= 1)
+                setApiData(scores);
         })
         .catch((error) => {
             console.error('Fehler beim Abrufen der API-Daten:', error);
@@ -97,7 +140,7 @@ const Scoreboard = () => {
                 }
             });
         });
-    }, []);
+    }, [requestedPage, order, orderBy, inputValue, scoreStartDate, scoreEndDate, minScore]);
 
     // ---------- CookieHandling ----------
     useEffect(() => {
@@ -119,9 +162,9 @@ const Scoreboard = () => {
             setScoreEndDate(new Date(cookieObject.endDate));
             setScoreDate([dayjs(new Date(cookieObject.startDate)), dayjs(new Date(cookieObject.endDate))]);
         } else if (cookieObject.startDate) {
-            setScoreStartDate(cookieObject.startDate);
+            setScoreStartDate(new Date(cookieObject.startDate));
         } else if (cookieObject.endDate) {
-            setScoreEndDate(cookieObject.endDate);
+            setScoreEndDate(new Date(cookieObject.endDate));
         }
         if (cookieObject.minScore) {
             setMinScore(cookieObject.minScore);
@@ -138,13 +181,21 @@ const Scoreboard = () => {
         setScoreEndDate(new Date());
         setScoreDate([null, null]);
         setMinScore(0);
-        document.cookie = `filterData=; expires=Thu, 01 Jan 1970 00:00:00 UTC;`;
-        document.cookie = `filterData=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;`;
+
+        if(showFilterMask) {
+            cookieObject = {
+                username: "",
+                startDate: null,
+                endDate: null,
+                dateRange: [null, null],
+                minScore: 0,
+                isFilterOpen: true,
+            }
+            document.cookie = `filterData=${JSON.stringify(cookieObject)}`;
+        }
     }
 
     // ---------- Sortierung ----------
-    const [order, setOrder] = useState<'asc' | 'desc' | undefined>('desc');
-    const [orderBy, setOrderBy] = useState<'score' | 'playerName' | 'timestamp' | 'coins' | 'kills' | 'damageDealt' | 'dps' | 'game_time' | ''>('score');
     const sortedData = [...apiData].sort((a, b) => {
         if (orderBy === '') {
             return 1;
@@ -175,14 +226,22 @@ const Scoreboard = () => {
     }
 
     // ---------- Filtermaske ----------
-    const [showFilterMask, setShowSecondElement] = useState(false);
-    const [filterButtonText, setFilterButtonText] = useState('Show Filter');
     const clickFilterButton = () => {
         if (showFilterMask) {
             setShowSecondElement(false);
             setFilterButtonText("Show Filter");
-            cookieObject.isFilterOpen = false;
-            document.cookie = `filterData=${JSON.stringify(cookieObject)}`;    
+            if(
+                (cookieObject.username === "") &&
+                (cookieObject.startDate == null) &&
+                (cookieObject.endDate == null)
+            ) {
+                document.cookie = `filterData=; expires=Thu, 01 Jan 1970 00:00:00 UTC;`;
+                document.cookie = `filterData=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;`;
+            }
+            else {
+                cookieObject.isFilterOpen = false;
+                document.cookie = `filterData=${JSON.stringify(cookieObject)}`;    
+            }
         } else {
             setShowSecondElement(true);
             setFilterButtonText("Hide Filter");
@@ -192,7 +251,6 @@ const Scoreboard = () => {
     };
 
     // ---------- Username ----------
-    const [inputValue, setInputValue] = useState('');
     const handleInputChange = (event: { target: { value: React.SetStateAction<string>; }; }) => {
         setInputValue(event.target.value);
         cookieObject.username = event.target.value.toString();
@@ -200,10 +258,6 @@ const Scoreboard = () => {
     }
 
     // ---------- Date ----------
-    const [scoreStartDate, setScoreStartDate] = useState<Date>(new Date(0));
-    const [scoreEndDate, setScoreEndDate] = useState<Date>(new Date());
-    const [scoreDate, setScoreDate] = useState<DateRange<Dayjs>>([null, null]);
-
     function handleDateInput(dateData: DateRange<Dayjs>) {
         setScoreDate(dateData);
         cookieObject.dateRange = dateData;
@@ -226,7 +280,6 @@ const Scoreboard = () => {
     }
 
     // ---------- minScore ----------
-    const [minScore, setMinScore] = useState(0);
     function handleMinScoreChange(minScore:number) {
         setMinScore(minScore);
         cookieObject.minScore = minScore;
@@ -251,6 +304,7 @@ const Scoreboard = () => {
         {label: 'Date', sortKey: 'timestamp'}
     ]
     const desiredKeys = ['playerName', 'score', 'coins', 'kills', 'damageDealt', 'dps', 'game_time', 'timestamp'];
+
 
     return (
         <ThemeProvider theme={theme2}>
@@ -323,7 +377,17 @@ const Scoreboard = () => {
                                 ))}
                             </TableBody>
                         </Table>
+                        <TablePagination
+                            rowsPerPageOptions={[10]}
+                            component="div"
+                            rowsPerPage={10}
+                            page={requestedPage}
+                            count={totalElements}
+                            onPageChange={handleChangePage}
+                            style={{color: theme2.palette.primary.contrastText}}
+                        />
                     </TableContainer>
+                    
 
                     {showFilterMask && (
                         <Paper elevation={1} sx={{
