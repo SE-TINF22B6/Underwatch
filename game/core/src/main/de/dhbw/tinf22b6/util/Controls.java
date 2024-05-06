@@ -7,8 +7,7 @@ import com.badlogic.gdx.Preferences;
 public class Controls {
     public static void setupControls() {
         Preferences preferences = Gdx.app.getPreferences("Controls");
-        if (preferences.contains("interact"))
-            return;
+        if (preferences.contains("interact")) return;
         preferences.putInteger("left", Input.Keys.A);
         preferences.putInteger("right", Input.Keys.D);
         preferences.putInteger("up", Input.Keys.W);

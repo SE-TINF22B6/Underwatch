@@ -1,4 +1,3 @@
-
 /*******************************************************************************
  * Copyright FlatTile014 See AUTHORS file.
  *
@@ -39,6 +38,15 @@ public class FlatTiledGraph implements TiledGraph<FlatTiledNode> {
         this.init(map);
     }
 
+    public FlatTiledGraph(int[][] map, boolean diagonal) {
+        this.sizeX = map.length;
+        this.sizeY = map[0].length;
+        this.nodes = new Array<>(sizeX * sizeY);
+        this.diagonal = diagonal;
+        this.startNode = null;
+        this.init(map);
+    }
+
     @Override
     public void init(int[][] map) {
         this.sizeX = map.length;
@@ -49,13 +57,26 @@ public class FlatTiledGraph implements TiledGraph<FlatTiledNode> {
             }
         }
 
+        if (!diagonal) {
+            for (int x = 0; x < sizeX; x++) {
+                for (int y = 0; y < sizeY; y++) {
+                    FlatTiledNode n = getNode(x, y);
+                    if (x > 0) addConnection(n, -1, 0);
+                    if (y > 0) addConnection(n, 0, -1);
+                    if (x < sizeX - 1) addConnection(n, 1, 0);
+                    if (y < sizeY - 1) addConnection(n, 0, 1);
+                }
+            }
+            return;
+        }
         for (int x = 0; x < sizeX; x++) {
             for (int y = 0; y < sizeY; y++) {
                 FlatTiledNode n = getNode(x, y);
                 // inside the map
                 if (x > 1 && x < sizeX - 1 && y > 1 && y < sizeY - 1 && n.type != FlatTiledNode.TILE_WALL) {
                     // check if wall is above and below
-                    if (getNode(x, y + 1).type == FlatTiledNode.TILE_WALL && getNode(x, y - 1).type == FlatTiledNode.TILE_WALL) {
+                    if (getNode(x, y + 1).type == FlatTiledNode.TILE_WALL
+                            && getNode(x, y - 1).type == FlatTiledNode.TILE_WALL) {
                         // W
                         addConnection(n, -1, 0);
                         // E
@@ -63,7 +84,8 @@ public class FlatTiledGraph implements TiledGraph<FlatTiledNode> {
                         continue;
                     }
                     // check if wall is left and right
-                    if (getNode(x + 1, y).type == FlatTiledNode.TILE_WALL && getNode(x - 1, y).type == FlatTiledNode.TILE_WALL) {
+                    if (getNode(x + 1, y).type == FlatTiledNode.TILE_WALL
+                            && getNode(x - 1, y).type == FlatTiledNode.TILE_WALL) {
                         // S
                         addConnection(n, 0, -1);
                         // N
@@ -151,24 +173,15 @@ public class FlatTiledGraph implements TiledGraph<FlatTiledNode> {
                     // SE
                     addConnection(n, 1, -1);
                     continue;
-
                 }
-                if (x > 0)
-                    addConnection(n, -1, 0);
-                if (y > 0)
-                    addConnection(n, 0, -1);
-                if (x > 0 && y > 0)
-                    addConnection(n, -1, -1);
-                if (x < sizeX - 1)
-                    addConnection(n, 1, 0);
-                if (y < sizeY - 1)
-                    addConnection(n, 0, 1);
-                if (x < sizeX - 1 && y < sizeY - 1)
-                    addConnection(n, 1, 1);
-                if (x < sizeX - 1 && y > 0)
-                    addConnection(n, 1, -1);
-                if (y < sizeY - 1 && x > 0)
-                    addConnection(n, -1, 1);
+                if (x > 0) addConnection(n, -1, 0);
+                if (y > 0) addConnection(n, 0, -1);
+                if (x > 0 && y > 0) addConnection(n, -1, -1);
+                if (x < sizeX - 1) addConnection(n, 1, 0);
+                if (y < sizeY - 1) addConnection(n, 0, 1);
+                if (x < sizeX - 1 && y < sizeY - 1) addConnection(n, 1, 1);
+                if (x < sizeX - 1 && y > 0) addConnection(n, 1, -1);
+                if (y < sizeY - 1 && x > 0) addConnection(n, -1, 1);
             }
         }
     }
@@ -200,8 +213,6 @@ public class FlatTiledGraph implements TiledGraph<FlatTiledNode> {
 
     private void addConnection(FlatTiledNode n, int xOffset, int yOffset) {
         FlatTiledNode target = getNode(n.x + xOffset, n.y + yOffset);
-        if (target.type != FlatTiledNode.TILE_WALL)
-            n.getConnections().add(new FlatTiledConnection(this, n, target));
+        if (target.type != FlatTiledNode.TILE_WALL) n.getConnections().add(new FlatTiledConnection(this, n, target));
     }
-
 }

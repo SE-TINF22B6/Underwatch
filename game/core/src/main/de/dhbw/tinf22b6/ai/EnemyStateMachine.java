@@ -2,6 +2,11 @@ package de.dhbw.tinf22b6.ai;
 
 import static de.dhbw.tinf22b6.util.Constants.TILE_SIZE;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.ai.pfa.Heuristic;
+import com.badlogic.gdx.ai.pfa.indexed.IndexedAStarPathFinder;
+import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.physics.box2d.World;
 import de.dhbw.tinf22b6.gameobject.Bullet;
 import de.dhbw.tinf22b6.gameobject.Enemy;
 import de.dhbw.tinf22b6.gameobject.Player;
@@ -10,12 +15,6 @@ import de.dhbw.tinf22b6.util.EntitySystem;
 import de.dhbw.tinf22b6.world.tiled.FlatTiledGraph;
 import de.dhbw.tinf22b6.world.tiled.FlatTiledNode;
 import de.dhbw.tinf22b6.world.tiled.TiledSmoothableGraphPath;
-
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.ai.pfa.Heuristic;
-import com.badlogic.gdx.ai.pfa.indexed.IndexedAStarPathFinder;
-import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.physics.box2d.World;
 
 public class EnemyStateMachine {
 
@@ -75,11 +74,14 @@ public class EnemyStateMachine {
 
     private Vector2 getMovementVector() {
         Player player = EntitySystem.instance.getPlayer();
-        FlatTiledNode startNode = worldGraph.getNode((int) enemy.getPos().x / TILE_SIZE, (int) enemy.getPos().y / TILE_SIZE);
-        FlatTiledNode endNode = worldGraph.getNode((int) player.getPos().x / TILE_SIZE, (int) player.getPos().y / TILE_SIZE);
+        FlatTiledNode startNode =
+                worldGraph.getNode((int) enemy.getPos().x / TILE_SIZE, (int) enemy.getPos().y / TILE_SIZE);
+        FlatTiledNode endNode =
+                worldGraph.getNode((int) player.getPos().x / TILE_SIZE, (int) player.getPos().y / TILE_SIZE);
 
         TiledSmoothableGraphPath<FlatTiledNode> path = new TiledSmoothableGraphPath<>();
-        Heuristic<FlatTiledNode> heuristic = (node, end) -> (float) Math.sqrt(Math.pow(node.x - end.x, 2) + Math.pow(node.y - end.y, 2));
+        Heuristic<FlatTiledNode> heuristic =
+                (node, end) -> (float) Math.sqrt(Math.pow(node.x - end.x, 2) + Math.pow(node.y - end.y, 2));
         worldGraph.startNode = startNode;
         finder.searchNodePath(startNode, endNode, heuristic, path);
 
@@ -136,7 +138,8 @@ public class EnemyStateMachine {
         if ((timer > 0.5f || inRange(path)) || currentMovementVector == null) {
 
             timer = 0;
-            currentMovementVector = new Vector2(path.get(1).x * TILE_SIZE + (float) TILE_SIZE / 2,
+            currentMovementVector = new Vector2(
+                    path.get(1).x * TILE_SIZE + (float) TILE_SIZE / 2,
                     path.get(1).y * TILE_SIZE + (float) TILE_SIZE / 2f);
             currentMovementVector.sub(enemy.getPos());
             currentMovementVector.setLength(1);
@@ -175,7 +178,11 @@ public class EnemyStateMachine {
             Player player = EntitySystem.instance.getPlayer();
             if (player != null) {
                 Vector2 direction = new Vector2(player.getPos()).sub(enemy.getPos());
-                EntitySystem.instance.add(new Bullet(new Vector2(enemy.getPos().x + Constants.TILE_SIZE / 2f, enemy.getPos().y), world, direction.angleDeg(), Constants.WEAPON_ENEMY_BIT));
+                EntitySystem.instance.add(new Bullet(
+                        new Vector2(enemy.getPos().x + Constants.TILE_SIZE / 2f, enemy.getPos().y),
+                        world,
+                        direction.angleDeg(),
+                        Constants.WEAPON_ENEMY_BIT));
                 shootCountdown = COOLDOWN;
             }
         }
@@ -184,18 +191,20 @@ public class EnemyStateMachine {
     private void rayCast() {
         Player player = EntitySystem.instance.getPlayer();
         if (player != null) {
-            world.rayCast((fixture, point, normal, fraction) -> {
-                if (fixture.getFilterData().categoryBits == Constants.WALL_BIT) {
-                    this.currentState = EnemyState.WALKING;
-                    return 0;
-                }
-                if (fixture.getFilterData().categoryBits == Constants.PLAYER_BIT) {
-                    this.currentState = EnemyState.RUNANDGUN;
-                    return 0;
-                }
-                return -1;
-            }, enemy.getBody().getPosition(), player.getBody().getPosition());
+            world.rayCast(
+                    (fixture, point, normal, fraction) -> {
+                        if (fixture.getFilterData().categoryBits == Constants.WALL_BIT) {
+                            this.currentState = EnemyState.WALKING;
+                            return 0;
+                        }
+                        if (fixture.getFilterData().categoryBits == Constants.PLAYER_BIT) {
+                            this.currentState = EnemyState.RUNANDGUN;
+                            return 0;
+                        }
+                        return -1;
+                    },
+                    enemy.getBody().getPosition(),
+                    player.getBody().getPosition());
         }
     }
-
 }

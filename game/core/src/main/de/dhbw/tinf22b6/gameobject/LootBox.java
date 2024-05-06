@@ -1,5 +1,8 @@
 package de.dhbw.tinf22b6.gameobject;
 
+import static de.dhbw.tinf22b6.util.Constants.TILE_SIZE;
+import static de.dhbw.tinf22b6.world.WorldParser.getStaticBodyDef;
+
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.math.Rectangle;
@@ -11,9 +14,6 @@ import com.badlogic.gdx.physics.box2d.World;
 import de.dhbw.tinf22b6.util.Assets;
 import de.dhbw.tinf22b6.util.Constants;
 
-import static de.dhbw.tinf22b6.util.Constants.TILE_SIZE;
-import static de.dhbw.tinf22b6.world.WorldParser.getStaticBodyDef;
-
 public class LootBox extends GameObject {
     private final Animation<TextureAtlas.AtlasRegion> closedAnimation;
     private final Animation<TextureAtlas.AtlasRegion> openAnimation;
@@ -23,7 +23,9 @@ public class LootBox extends GameObject {
         this.openAnimation = new Animation<>(0.2f, Assets.instance.getAnimationAtlasRegion("chest_open"));
         this.closedAnimation = currentAnimation;
 
-        body = world.createBody(getStaticBodyDef(pos.x + TILE_SIZE / 2f + rectangle.getX() - (TILE_SIZE - rectangle.getWidth()) / 2f, pos.y + 1 + TILE_SIZE / 2f + rectangle.getY() - (TILE_SIZE - rectangle.getHeight()) / 2f));
+        body = world.createBody(getStaticBodyDef(
+                pos.x + TILE_SIZE / 2f + rectangle.getX() - (TILE_SIZE - rectangle.getWidth()) / 2f,
+                pos.y + 1 + TILE_SIZE / 2f + rectangle.getY() - (TILE_SIZE - rectangle.getHeight()) / 2f));
         PolygonShape polygonShape = new PolygonShape();
         polygonShape.setAsBox(rectangle.getWidth() / 2f, rectangle.getHeight() / 2f);
 

@@ -13,7 +13,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  ******************************************************************************/
-
 package de.dhbw.tinf22b6.world.tiled;
 
 import com.badlogic.gdx.ai.pfa.DefaultGraphPath;
@@ -23,25 +22,20 @@ import com.badlogic.gdx.math.Vector2;
 /**
  * A smoothable path for a generic tiled graph.
  *
- * @param <N>
- *            Type of node, either flat or hierarchical, extending the
- *            {@link TiledNode} class
- *
+ * @param <N> Type of node, either flat or hierarchical, extending the {@link TiledNode} class
  * @author davebaol
  */
-public class TiledSmoothableGraphPath<N extends TiledNode<N>> extends DefaultGraphPath<N> implements
-        SmoothableGraphPath<N, Vector2> {
+public class TiledSmoothableGraphPath<N extends TiledNode<N>> extends DefaultGraphPath<N>
+        implements SmoothableGraphPath<N, Vector2> {
 
     private Vector2 tmpPosition = new Vector2();
 
     /**
      * Returns the position of the node at the given index.
-     * <p>
-     * <b>Note that the same Vector2 instance is returned each time this method is
-     * called.</b>
      *
-     * @param index
-     *            the index of the node you want to know the position
+     * <p><b>Note that the same Vector2 instance is returned each time this method is called.</b>
+     *
+     * @param index the index of the node you want to know the position
      */
     @Override
     public Vector2 getNodePosition(int index) {
@@ -63,6 +57,7 @@ public class TiledSmoothableGraphPath<N extends TiledNode<N>> extends DefaultGra
 
     @Override
     public String toString() {
-        return super.toString();
+        return String.format(
+                "TiledSmoothableGraphPath [nodes=%s, tmpPosition=%s, getCount()=%s", nodes, tmpPosition, getCount());
     }
 }

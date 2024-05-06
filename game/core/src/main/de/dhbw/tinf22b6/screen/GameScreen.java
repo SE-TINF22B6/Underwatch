@@ -3,15 +3,6 @@ package de.dhbw.tinf22b6.screen;
 import static de.dhbw.tinf22b6.util.Constants.VIEWPORT_HEIGHT;
 import static de.dhbw.tinf22b6.util.Constants.VIEWPORT_WIDTH;
 
-import de.dhbw.tinf22b6.ui.ingame.InGameStageHandler;
-import de.dhbw.tinf22b6.util.EntitySystem;
-import de.dhbw.tinf22b6.util.PlayerStatistics;
-import de.dhbw.tinf22b6.world.WorldController;
-import de.dhbw.tinf22b6.world.WorldListener;
-import de.dhbw.tinf22b6.world.WorldParser;
-import de.dhbw.tinf22b6.world.WorldRenderer;
-import de.dhbw.tinf22b6.world.WorldType;
-
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Music;
@@ -24,9 +15,11 @@ import de.dhbw.tinf22b6.ui.ingame.InGameStageHandler;
 import de.dhbw.tinf22b6.util.EntitySystem;
 import de.dhbw.tinf22b6.util.PlayerStatistics;
 import de.dhbw.tinf22b6.world.*;
-
-import static de.dhbw.tinf22b6.util.Constants.VIEWPORT_HEIGHT;
-import static de.dhbw.tinf22b6.util.Constants.VIEWPORT_WIDTH;
+import de.dhbw.tinf22b6.world.WorldController;
+import de.dhbw.tinf22b6.world.WorldListener;
+import de.dhbw.tinf22b6.world.WorldParser;
+import de.dhbw.tinf22b6.world.WorldRenderer;
+import de.dhbw.tinf22b6.world.WorldType;
 
 public class GameScreen extends AbstractGameScreen {
     private TiledMap map;
@@ -71,14 +64,16 @@ public class GameScreen extends AbstractGameScreen {
 
     @Override
     public void show() {
-        m.setVolume(Gdx.app.getPreferences("Controls").getBoolean("muteMusic") ? 0 : Gdx.app.getPreferences("Controls").getFloat("music"));
+        m.setVolume(
+                Gdx.app.getPreferences("Controls").getBoolean("muteMusic")
+                        ? 0
+                        : Gdx.app.getPreferences("Controls").getFloat("music"));
         m.play();
         World world = new World(new Vector2(0, 0), false);
         WorldParser.parseStaticObjects(map, world);
         world.setContactListener(new WorldListener(this));
         EntitySystem.instance.init(WorldParser.parseGameObjects(map, world));
-        OrthographicCamera camera =
-                new OrthographicCamera(VIEWPORT_WIDTH, VIEWPORT_HEIGHT);
+        OrthographicCamera camera = new OrthographicCamera(VIEWPORT_WIDTH, VIEWPORT_HEIGHT);
         worldController = new WorldController(game, world, camera, this);
         worldRenderer = new WorldRenderer(worldController, world, map, camera);
         stageHandler = new InGameStageHandler(game, this);

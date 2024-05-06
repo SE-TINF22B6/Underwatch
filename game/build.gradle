@@ -8,12 +8,63 @@ buildscript {
         google()
     }
     dependencies {
+        classpath "com.diffplug.spotless:spotless-plugin-gradle:6.25.0"
     }
 }
 
 allprojects {
+    apply plugin: "java"
     apply plugin: "eclipse"
     apply plugin: "jacoco"
+    apply plugin: "com.diffplug.spotless"
+
+    test {
+        useJUnitPlatform()
+        finalizedBy jacocoTestReport // report is always generated after tests run
+    }
+    jacocoTestReport {
+        reports {
+            xml.required = false
+            csv.required = false
+            html.outputLocation = layout.buildDirectory.dir('jacocoHtml')
+        }
+    }
+    spotless {
+        java {
+            // Use the default importOrder configuration
+            importOrder()
+            // optional: you can specify import groups directly
+            // note: you can use an empty string for all the imports you didn't specify explicitly, '|' to join group without blank line, and '\\#` prefix for static imports
+            // importOrder('java|javax', 'com.acme', '', '\\#com.acme', '\\#')
+            // optional: instead of specifying import groups directly you can specify a config file
+            // export config file: https://github.com/diffplug/spotless/blob/main/ECLIPSE_SCREENSHOTS.md#creating-spotlessimportorder
+            // importOrderFile('eclipse-import-order.txt') // import order file as exported from eclipse
+
+            // removeUnusedImports()
+
+            // Cleanthat will refactor your code, but it may break your style: apply it before your formatter
+            // cleanthat()          // has its own section below
+
+            // Choose one of these formatters.
+            // googleJavaFormat()   // has its own section below
+             palantirJavaFormat()
+            // optional: you can specify a specific version and/or switch to AOSP/GOOGLE style
+            // palantirJavaFormat('2.9.0').style("GOOGLE")
+            // optional: you can also format Javadocs, requires at least Palantir 2.39.0
+            // palantirJavaFormat('2.39.0').formatJavadoc(true)
+            // eclipse()            // has its own section below
+            // prettier()           // has its own section below
+            // clangFormat()        // has its own section below
+
+            formatAnnotations()  // fixes formatting of type annotations, see below
+
+            // licenseHeader '/* (C) $YEAR */' // or licenseHeaderFile
+        }
+    }
+
+    dependencies {
+        testImplementation "org.mockito:mockito-core:5.+"
+    }
 
     version = '1.0'
     ext {
@@ -65,8 +116,12 @@ project(":core") {
         api "com.badlogicgames.gdx:gdx-ai:$aiVersion"
         api "com.badlogicgames.ashley:ashley:$ashleyVersion"
         api "com.badlogicgames.gdx:gdx-freetype:$gdxVersion"
+        api "com.badlogicgames.gdx:gdx-backend-lwjgl3:$gdxVersion"
 
-        testImplementation 'org.junit.jupiter:junit-jupiter:5.7.1'
-        testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+
+        // https://mvnrepository.com/artifact/com.badlogicgames.gdx/gdx-backend-headless
+        testImplementation "com.badlogicgames.gdx:gdx-backend-headless:$gdxVersion"
+        testImplementation "org.junit.jupiter:junit-jupiter:5.7.1"
+        testRuntimeOnly "org.junit.platform:junit-platform-launcher"
     }
 }

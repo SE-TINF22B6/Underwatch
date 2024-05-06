@@ -21,10 +21,7 @@ import com.badlogic.gdx.utils.Array;
 /**
  * A node for a {@link TiledGraph}.
  *
- * @param <N>
- *            Type of node, either flat or hierarchical, extending the
- *            {@link TiledNode} class
- *
+ * @param <N> Type of node, either flat or hierarchical, extending the {@link TiledNode} class
  * @author davebaol
  */
 public abstract class TiledNode<N extends TiledNode<N>> {
@@ -44,10 +41,7 @@ public abstract class TiledNode<N extends TiledNode<N>> {
     /** The y coordinate of this tile */
     public final int y;
 
-    /**
-     * The type of this tile, see {@link #TILE_EMPTY}, {@link #TILE_FLOOR} and
-     * {@link #TILE_WALL}
-     */
+    /** The type of this tile, see {@link #TILE_EMPTY}, {@link #TILE_FLOOR} and {@link #TILE_WALL} */
     public final int type;
 
     protected Array<Connection<N>> connections;
@@ -64,5 +58,4 @@ public abstract class TiledNode<N extends TiledNode<N>> {
     public Array<Connection<N>> getConnections() {
         return this.connections;
     }
-
 }

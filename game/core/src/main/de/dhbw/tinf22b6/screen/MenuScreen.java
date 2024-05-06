@@ -1,5 +1,8 @@
 package de.dhbw.tinf22b6.screen;
 
+import static de.dhbw.tinf22b6.util.Constants.VIEWPORT_HEIGHT;
+import static de.dhbw.tinf22b6.util.Constants.VIEWPORT_WIDTH;
+
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Music;
@@ -17,9 +20,6 @@ import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.utils.GdxRuntimeException;
 import de.dhbw.tinf22b6.ui.menu.StageManager;
 import de.dhbw.tinf22b6.world.WorldType;
-
-import static de.dhbw.tinf22b6.util.Constants.VIEWPORT_HEIGHT;
-import static de.dhbw.tinf22b6.util.Constants.VIEWPORT_WIDTH;
 
 public class MenuScreen extends AbstractGameScreen {
     private static final float MAX_BLUR = 4f;
@@ -46,7 +46,8 @@ public class MenuScreen extends AbstractGameScreen {
     }
 
     private ShaderProgram createBlurShader() {
-        ShaderProgram program = new ShaderProgram(Gdx.files.internal("shaders/blurShader.vert"), Gdx.files.internal("shaders/blurShader.frag"));
+        ShaderProgram program = new ShaderProgram(
+                Gdx.files.internal("shaders/blurShader.vert"), Gdx.files.internal("shaders/blurShader.frag"));
         if (!program.isCompiled()) {
             throw new GdxRuntimeException(program.getLog());
         }
@@ -65,8 +66,10 @@ public class MenuScreen extends AbstractGameScreen {
         fbo = frameBufferBuilder.build();
 
         float blurScale = 1f;
-        blurTargetA = new FrameBuffer(Pixmap.Format.RGBA8888, (int) (width * blurScale), (int) (height * blurScale), false);
-        blurTargetB = new FrameBuffer(Pixmap.Format.RGBA8888, (int) (width * blurScale), (int) (height * blurScale), false);
+        blurTargetA =
+                new FrameBuffer(Pixmap.Format.RGBA8888, (int) (width * blurScale), (int) (height * blurScale), false);
+        blurTargetB =
+                new FrameBuffer(Pixmap.Format.RGBA8888, (int) (width * blurScale), (int) (height * blurScale), false);
     }
 
     private Texture blurTexture(Texture fboTex) {
@@ -79,7 +82,16 @@ public class MenuScreen extends AbstractGameScreen {
             blurShader.setUniformf("dir", .5f, 0);
             blurShader.setUniformf("radius", MAX_BLUR);
             blurShader.setUniformf("resolution", Gdx.graphics.getWidth());
-            spriteBatch.draw(i == 0 ? fboTex : blurTargetB.getColorBufferTexture(), 0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight(), 0, 0, 1, 1);
+            spriteBatch.draw(
+                    i == 0 ? fboTex : blurTargetB.getColorBufferTexture(),
+                    0,
+                    0,
+                    Gdx.graphics.getWidth(),
+                    Gdx.graphics.getHeight(),
+                    0,
+                    0,
+                    1,
+                    1);
             spriteBatch.end();
             blurTargetA.end();
 
@@ -89,7 +101,16 @@ public class MenuScreen extends AbstractGameScreen {
             blurShader.setUniformf("dir", 0, .5f);
             blurShader.setUniformf("radius", MAX_BLUR);
             blurShader.setUniformf("resolution", Gdx.graphics.getHeight());
-            spriteBatch.draw(blurTargetA.getColorBufferTexture(), 0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight(), 0, 0, 1, 1);
+            spriteBatch.draw(
+                    blurTargetA.getColorBufferTexture(),
+                    0,
+                    0,
+                    Gdx.graphics.getWidth(),
+                    Gdx.graphics.getHeight(),
+                    0,
+                    0,
+                    1,
+                    1);
             spriteBatch.end();
             blurTargetB.end();
         }
@@ -129,7 +150,10 @@ public class MenuScreen extends AbstractGameScreen {
     @Override
     public void show() {
         menuMusic.setLooping(true);
-        menuMusic.setVolume(Gdx.app.getPreferences("Controls").getBoolean("muteMusic") ? 0 : Gdx.app.getPreferences("Controls").getFloat("music"));
+        menuMusic.setVolume(
+                Gdx.app.getPreferences("Controls").getBoolean("muteMusic")
+                        ? 0
+                        : Gdx.app.getPreferences("Controls").getFloat("music"));
         menuMusic.play();
         stageManager = new StageManager(game, menuMusic);
         camera.position.set(150, 300, 0);
@@ -142,9 +166,7 @@ public class MenuScreen extends AbstractGameScreen {
     }
 
     @Override
-    public void pause() {
-
-    }
+    public void pause() {}
 
     @Override
     public void resize(int width, int height) {
@@ -156,5 +178,4 @@ public class MenuScreen extends AbstractGameScreen {
     public void dispose() {
         stageManager.dispose();
     }
-
 }

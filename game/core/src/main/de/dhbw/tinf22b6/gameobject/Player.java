@@ -1,5 +1,10 @@
 package de.dhbw.tinf22b6.gameobject;
 
+import static com.badlogic.gdx.math.MathUtils.cosDeg;
+import static com.badlogic.gdx.math.MathUtils.sinDeg;
+import static de.dhbw.tinf22b6.util.Constants.PLAYER_BIT;
+import static de.dhbw.tinf22b6.util.Constants.TILE_SIZE;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.g2d.Animation;
@@ -16,14 +21,8 @@ import de.dhbw.tinf22b6.util.Constants;
 import de.dhbw.tinf22b6.weapon.Bow;
 import de.dhbw.tinf22b6.weapon.CrossBow;
 import de.dhbw.tinf22b6.weapon.Weapon;
-
 import java.util.ArrayList;
 import java.util.Arrays;
-
-import static com.badlogic.gdx.math.MathUtils.cosDeg;
-import static com.badlogic.gdx.math.MathUtils.sinDeg;
-import static de.dhbw.tinf22b6.util.Constants.PLAYER_BIT;
-import static de.dhbw.tinf22b6.util.Constants.TILE_SIZE;
 
 public class Player extends MobGameObject {
     private final Animation<TextureAtlas.AtlasRegion> dodgeAnimation;
@@ -83,24 +82,30 @@ public class Player extends MobGameObject {
             float angle = getAngle();
             int r = 5;
             if (angle > 20 && angle < 160) {
-                batch.draw(weapon.getRegion(),
+                batch.draw(
+                        weapon.getRegion(),
                         (pos.x + 4) + r * cosDeg(angle),
                         (pos.y + 4) + r * sinDeg(angle),
-                        8, 8,
+                        8,
+                        8,
                         weapon.getRegion().originalWidth,
                         weapon.getRegion().originalHeight,
-                        1, 1,
+                        1,
+                        1,
                         angle - 45);
                 super.render(batch);
             } else {
                 super.render(batch);
-                batch.draw(weapon.getRegion(),
+                batch.draw(
+                        weapon.getRegion(),
                         (pos.x + 4) + r * cosDeg(angle),
                         (pos.y + 4) + r * sinDeg(angle),
-                        8, 8,
+                        8,
+                        8,
                         weapon.getRegion().originalWidth,
                         weapon.getRegion().originalHeight,
-                        1, 1,
+                        1,
+                        1,
                         angle - 45);
             }
             return;
@@ -143,15 +148,16 @@ public class Player extends MobGameObject {
             if (movedDuringDash) return;
             movedDuringDash = true;
             new Thread(() -> {
-                try {
-                    Thread.sleep(200);
-                    body.setLinearVelocity(motionVector.x * 3000, motionVector.y * 3000);
-                    pos.x = body.getPosition().x - (float) TILE_SIZE / 2;
-                    pos.y = body.getPosition().y - (float) TILE_SIZE / 4;
-                } catch (InterruptedException e) {
-                    throw new RuntimeException(e);
-                }
-            }).start();
+                        try {
+                            Thread.sleep(200);
+                            body.setLinearVelocity(motionVector.x * 3000, motionVector.y * 3000);
+                            pos.x = body.getPosition().x - (float) TILE_SIZE / 2;
+                            pos.y = body.getPosition().y - (float) TILE_SIZE / 4;
+                        } catch (InterruptedException e) {
+                            throw new RuntimeException(e);
+                        }
+                    })
+                    .start();
         } else {
             body.setLinearVelocity(motionVector.x * speed, motionVector.y * speed);
             pos.x = body.getPosition().x - (float) TILE_SIZE / 2;
@@ -166,7 +172,9 @@ public class Player extends MobGameObject {
     @Override
     public void interact(Player player) {
         if (interactionTarget != null) {
-            Gdx.audio.newSound(Gdx.files.internal("sfx/game_over.mp3")).play(Gdx.app.getPreferences("Controls").getFloat("sfx"));
+            Gdx.audio
+                    .newSound(Gdx.files.internal("sfx/game_over.mp3"))
+                    .play(Gdx.app.getPreferences("Controls").getFloat("sfx"));
             interactionTarget.interact(this);
         }
     }
@@ -181,17 +189,18 @@ public class Player extends MobGameObject {
         dodgeStateTime = 0;
         this.currentAnimation = dodgeAnimation;
         new Thread(() -> {
-            try {
-                Thread.sleep((long) (dodgeAnimation.getAnimationDuration() * 1000));
-                setIdle();
-                setDirection(Direction.UP);
-                this.dodging = false;
-                this.movedDuringDash = false;
-                this.applyForce(new Vector2(0, 0));
-            } catch (InterruptedException e) {
-                throw new RuntimeException(e);
-            }
-        }).start();
+                    try {
+                        Thread.sleep((long) (dodgeAnimation.getAnimationDuration() * 1000));
+                        setIdle();
+                        setDirection(Direction.UP);
+                        this.dodging = false;
+                        this.movedDuringDash = false;
+                        this.applyForce(new Vector2(0, 0));
+                    } catch (InterruptedException e) {
+                        throw new RuntimeException(e);
+                    }
+                })
+                .start();
     }
 
     public void shoot() {
@@ -213,18 +222,21 @@ public class Player extends MobGameObject {
                         this.weapon = inventory.get(Math.floorMod(i + 1, inventory.size()));
                     }
                     // TODO: new SFX, change Weapon
-                    Gdx.audio.newSound(Gdx.files.internal("sfx/Grunt.mp3")).play(Gdx.app.getPreferences("Controls").getFloat("sfx"));
+                    Gdx.audio
+                            .newSound(Gdx.files.internal("sfx/Grunt.mp3"))
+                            .play(Gdx.app.getPreferences("Controls").getFloat("sfx"));
                     break;
                 }
             }
             new Thread(() -> {
-                try {
-                    Thread.sleep(500);
-                    canSwitchWeapon = true;
-                } catch (InterruptedException e) {
-                    throw new RuntimeException(e);
-                }
-            }).start();
+                        try {
+                            Thread.sleep(500);
+                            canSwitchWeapon = true;
+                        } catch (InterruptedException e) {
+                            throw new RuntimeException(e);
+                        }
+                    })
+                    .start();
         }
     }
 

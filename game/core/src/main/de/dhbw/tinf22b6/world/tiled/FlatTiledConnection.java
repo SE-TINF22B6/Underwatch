@@ -15,7 +15,6 @@ package de.dhbw.tinf22b6.world.tiled;
  * See the License for the specific language governing permissions and
  * limitations under the License.
  ******************************************************************************/
-
 import com.badlogic.gdx.ai.pfa.DefaultConnection;
 
 /**
@@ -25,7 +24,7 @@ import com.badlogic.gdx.ai.pfa.DefaultConnection;
  */
 public class FlatTiledConnection extends DefaultConnection<FlatTiledNode> {
 
-    static final float NON_DIAGONAL_COST = (float) Math.sqrt(2);
+    static final float DIAGONAL_COST = (float) Math.sqrt(2);
 
     FlatTiledGraph worldMap;
 
@@ -36,8 +35,10 @@ public class FlatTiledConnection extends DefaultConnection<FlatTiledNode> {
 
     @Override
     public float getCost() {
-        if (worldMap.diagonal)
-            return 1;
-        return getToNode().x != worldMap.startNode.x && getToNode().y != worldMap.startNode.y ? NON_DIAGONAL_COST : 1;
+        if (worldMap.diagonal) return 1;
+        if (getToNode().x != worldMap.startNode.x && getToNode().y != worldMap.startNode.y) {
+            return DIAGONAL_COST;
+        }
+        return 1;
     }
 }

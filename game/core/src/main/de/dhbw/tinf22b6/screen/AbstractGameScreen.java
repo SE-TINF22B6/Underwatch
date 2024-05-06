@@ -30,4 +30,3 @@ public abstract class AbstractGameScreen implements Screen {
         Assets.instance.dispose();
     }
 }
-

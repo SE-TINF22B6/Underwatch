@@ -13,26 +13,20 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  ******************************************************************************/
-
 package de.dhbw.tinf22b6.world.tiled;
 
 import com.badlogic.gdx.ai.pfa.Heuristic;
 
 /**
- * A Manhattan distance heuristic for a {@link TiledGraph}. It simply calculates
- * the Manhattan distance between two given
- * tiles.
+ * A Manhattan distance heuristic for a {@link TiledGraph}. It simply calculates the Manhattan
+ * distance between two given tiles.
  *
- * @param <N>
- *            Type of node, either flat or hierarchical, extending the
- *            {@link TiledNode} class
- *
+ * @param <N> Type of node, either flat or hierarchical, extending the {@link TiledNode} class
  * @author davebaol
  */
 public class TiledManhattanDistance<N extends TiledNode<N>> implements Heuristic<N> {
 
-    public TiledManhattanDistance() {
-    }
+    public TiledManhattanDistance() {}
 
     @Override
     public float estimate(N node, N endNode) {

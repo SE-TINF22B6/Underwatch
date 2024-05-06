@@ -1,5 +1,7 @@
 package de.dhbw.tinf22b6.world;
 
+import static de.dhbw.tinf22b6.util.Constants.TILE_SIZE;
+
 import box2dLight.PointLight;
 import box2dLight.RayHandler;
 import com.badlogic.gdx.Gdx;
@@ -18,10 +20,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.*;
 import de.dhbw.tinf22b6.gameobject.*;
 import de.dhbw.tinf22b6.util.Constants;
-
 import java.util.ArrayList;
-
-import static de.dhbw.tinf22b6.util.Constants.TILE_SIZE;
 
 public class WorldParser {
     static final int TILE_EMPTY = 0;
@@ -37,19 +36,21 @@ public class WorldParser {
         for (int x = 0; x < layer.getWidth(); x++) {
             for (int y = 0; y < layer.getHeight(); y++) {
                 TiledMapTileLayer.Cell cell = layer.getCell(x, y);
-                if (cell == null)
-                    continue;
+                if (cell == null) continue;
 
                 MapObjects cellObjects = cell.getTile().getObjects();
-                if (cellObjects.getCount() != 1)
-                    continue;
+                if (cellObjects.getCount() != 1) continue;
 
                 MapObject mapObject = cellObjects.get(0);
 
                 if (mapObject instanceof RectangleMapObject rectangleObject) {
                     Rectangle rectangle = rectangleObject.getRectangle();
-                    BodyDef bodyDef = getStaticBodyDef(x * TILE_SIZE + TILE_SIZE / 2f + rectangle.getX() - (TILE_SIZE - rectangle.getWidth()) / 2f,
-                            y * TILE_SIZE + TILE_SIZE / 2f + rectangle.getY() - (TILE_SIZE - rectangle.getHeight()) / 2f);
+                    BodyDef bodyDef = getStaticBodyDef(
+                            x * TILE_SIZE + TILE_SIZE / 2f + rectangle.getX() - (TILE_SIZE - rectangle.getWidth()) / 2f,
+                            y * TILE_SIZE
+                                    + TILE_SIZE / 2f
+                                    + rectangle.getY()
+                                    - (TILE_SIZE - rectangle.getHeight()) / 2f);
 
                     Body body = world.createBody(bodyDef);
                     PolygonShape polygonShape = new PolygonShape();
@@ -58,10 +59,14 @@ public class WorldParser {
                     polygonShape.dispose();
                 } else if (mapObject instanceof EllipseMapObject circleMapObject) {
                     Ellipse ellipse = circleMapObject.getEllipse();
-                    BodyDef bodyDef = getStaticBodyDef(x * TILE_SIZE + TILE_SIZE / 2f + ellipse.x, y * TILE_SIZE + TILE_SIZE / 2f + ellipse.y);
+                    BodyDef bodyDef = getStaticBodyDef(
+                            x * TILE_SIZE + TILE_SIZE / 2f + ellipse.x, y * TILE_SIZE + TILE_SIZE / 2f + ellipse.y);
 
                     if (ellipse.width != ellipse.height)
-                        Gdx.app.error(TAG, "Only circles are allowed.", new IllegalArgumentException("Only circles are allowed."));
+                        Gdx.app.error(
+                                TAG,
+                                "Only circles are allowed.",
+                                new IllegalArgumentException("Only circles are allowed."));
 
                     Body body = world.createBody(bodyDef);
                     CircleShape circleShape = new CircleShape();
@@ -79,27 +84,23 @@ public class WorldParser {
                     polygonShape.dispose();
                 }
             }
-
         }
     }
 
     public static ArrayList<GameObject> parseGameObjects(TiledMap map, World world) {
         ArrayList<GameObject> list = new ArrayList<>();
         // TODO refactor animated game objects using an enum
-        String[] objects = new String[]{"coins", "torch", "chests", "enemy", "teleporter"};
+        String[] objects = new String[] {"coins", "torch", "chests", "enemy", "teleporter"};
         for (String s : objects) {
             TiledMapTileLayer layer = (TiledMapTileLayer) map.getLayers().get(s);
-            if (layer == null)
-                continue;
+            if (layer == null) continue;
             for (int x = 0; x < layer.getWidth(); x++) {
                 for (int y = 0; y < layer.getHeight(); y++) {
                     TiledMapTileLayer.Cell cell = layer.getCell(x, y);
-                    if (cell == null)
-                        continue;
+                    if (cell == null) continue;
 
                     MapObjects cellObjects = cell.getTile().getObjects();
-                    if (cellObjects.getCount() != 1)
-                        continue;
+                    if (cellObjects.getCount() != 1) continue;
 
                     MapObject cellObject = cellObjects.get(0);
                     int[][] rawMap = parseNavigationMap(map);
@@ -130,19 +131,22 @@ public class WorldParser {
 
     public static void parseTorches(TiledMap map, RayHandler rayHandler) {
         TiledMapTileLayer layer = (TiledMapTileLayer) map.getLayers().get("torch");
-        if (layer == null)
-            return;
+        if (layer == null) return;
 
         for (int x = 0; x < layer.getWidth(); x++) {
             for (int y = 0; y < layer.getHeight(); y++) {
                 TiledMapTileLayer.Cell cell = layer.getCell(x, y);
-                if (cell == null)
-                    continue;
+                if (cell == null) continue;
 
                 MapObjects cellObjects = cell.getTile().getObjects();
-                if (cellObjects.getCount() != 1)
-                    continue;
-                PointLight light = new PointLight(rayHandler, 100, new Color(0.95f, 0.37f, 0.07f, 1f), TILE_SIZE * 5, x * TILE_SIZE + 8, y * TILE_SIZE + 8);
+                if (cellObjects.getCount() != 1) continue;
+                PointLight light = new PointLight(
+                        rayHandler,
+                        100,
+                        new Color(0.95f, 0.37f, 0.07f, 1f),
+                        TILE_SIZE * 5,
+                        x * TILE_SIZE + 8,
+                        y * TILE_SIZE + 8);
                 light.setSoftnessLength(10);
                 light.setContactFilter((short) 0b11111111111, (short) 0, (short) 0b11111111111);
             }
@@ -181,8 +185,7 @@ public class WorldParser {
 
     public static int[][] parseNavigationMap(TiledMap tiledMap) {
         TiledMapTileLayer layer = (TiledMapTileLayer) tiledMap.getLayers().get("walls");
-        if (layer == null)
-            return new int[][]{};
+        if (layer == null) return new int[][] {};
 
         // first we fill the entire map with empty cells
         int[][] map = new int[layer.getWidth()][layer.getHeight()];
@@ -196,8 +199,7 @@ public class WorldParser {
                 }
 
                 MapObjects cellObjects = cell.getTile().getObjects();
-                if (cellObjects.getCount() != 0)
-                    map[x][y] = TILE_WALL;
+                if (cellObjects.getCount() != 0) map[x][y] = TILE_WALL;
             }
         }
         return map;
