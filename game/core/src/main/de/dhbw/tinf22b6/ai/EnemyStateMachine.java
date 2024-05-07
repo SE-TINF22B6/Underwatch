@@ -2,6 +2,11 @@ package de.dhbw.tinf22b6.ai;
 
 import static de.dhbw.tinf22b6.util.Constants.TILE_SIZE;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.ai.pfa.Heuristic;
+import com.badlogic.gdx.ai.pfa.indexed.IndexedAStarPathFinder;
+import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.physics.box2d.World;
 import de.dhbw.tinf22b6.gameobject.Bullet;
 import de.dhbw.tinf22b6.gameobject.Enemy;
 import de.dhbw.tinf22b6.gameobject.Player;
@@ -11,12 +16,6 @@ import de.dhbw.tinf22b6.world.tiled.FlatTiledGraph;
 import de.dhbw.tinf22b6.world.tiled.FlatTiledNode;
 import de.dhbw.tinf22b6.world.tiled.TiledMetricHeuristic;
 import de.dhbw.tinf22b6.world.tiled.TiledSmoothableGraphPath;
-
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.ai.pfa.Heuristic;
-import com.badlogic.gdx.ai.pfa.indexed.IndexedAStarPathFinder;
-import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.physics.box2d.World;
 
 public class EnemyStateMachine {
 
@@ -80,8 +79,10 @@ public class EnemyStateMachine {
     // Steering läuft.
     private Vector2 getMovementVector() {
         Player player = EntitySystem.instance.getPlayer();
-        FlatTiledNode startNode = worldGraph.getNode((int) enemy.getPos().x / TILE_SIZE, (int) enemy.getPos().y / TILE_SIZE);
-        FlatTiledNode endNode = worldGraph.getNode((int) player.getPos().x / TILE_SIZE, (int) player.getPos().y / TILE_SIZE);
+        FlatTiledNode startNode =
+                worldGraph.getNode((int) enemy.getPos().x / TILE_SIZE, (int) enemy.getPos().y / TILE_SIZE);
+        FlatTiledNode endNode =
+                worldGraph.getNode((int) player.getPos().x / TILE_SIZE, (int) player.getPos().y / TILE_SIZE);
 
         worldGraph.startNode = startNode;
         // searchNodePath returns true if path was found, otherwise returns false, we
@@ -153,19 +154,19 @@ public class EnemyStateMachine {
         Player player = EntitySystem.instance.getPlayer();
         if (player != null) {
             world.rayCast(
-                          (fixture, point, normal, fraction) -> {
-                              if (fixture.getFilterData().categoryBits == Constants.WALL_BIT) {
-                                  this.currentState = EnemyState.WALKING;
-                                  return 0;
-                              }
-                              if (fixture.getFilterData().categoryBits == Constants.PLAYER_BIT) {
-                                  this.currentState = EnemyState.RUNANDGUN;
-                                  return 0;
-                              }
-                              return -1;
-                          },
-                          enemy.getBody().getPosition(),
-                          player.getBody().getPosition());
+                    (fixture, point, normal, fraction) -> {
+                        if (fixture.getFilterData().categoryBits == Constants.WALL_BIT) {
+                            this.currentState = EnemyState.WALKING;
+                            return 0;
+                        }
+                        if (fixture.getFilterData().categoryBits == Constants.PLAYER_BIT) {
+                            this.currentState = EnemyState.RUNANDGUN;
+                            return 0;
+                        }
+                        return -1;
+                    },
+                    enemy.getBody().getPosition(),
+                    player.getBody().getPosition());
         }
     }
 }
