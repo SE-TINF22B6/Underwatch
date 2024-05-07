@@ -1,5 +1,7 @@
 package de.dhbw.tinf22b6.world;
 
+import static de.dhbw.tinf22b6.util.Constants.VIEWPORT_HEIGHT;
+
 import box2dLight.RayHandler;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -12,11 +14,8 @@ import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.Disposable;
 import de.dhbw.tinf22b6.gameobject.GameObject;
 import de.dhbw.tinf22b6.util.EntitySystem;
-
 import java.util.ArrayList;
 import java.util.List;
-
-import static de.dhbw.tinf22b6.util.Constants.VIEWPORT_HEIGHT;
 
 public class WorldRenderer implements Disposable {
     private final OrthographicCamera camera;

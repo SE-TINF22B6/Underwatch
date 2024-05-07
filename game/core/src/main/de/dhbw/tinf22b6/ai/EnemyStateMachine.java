@@ -1,5 +1,7 @@
 package de.dhbw.tinf22b6.ai;
 
+import static de.dhbw.tinf22b6.util.Constants.TILE_SIZE;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.ai.pfa.Heuristic;
 import com.badlogic.gdx.ai.pfa.indexed.IndexedAStarPathFinder;
@@ -12,9 +14,8 @@ import de.dhbw.tinf22b6.util.Constants;
 import de.dhbw.tinf22b6.util.EntitySystem;
 import de.dhbw.tinf22b6.world.tiled.FlatTiledGraph;
 import de.dhbw.tinf22b6.world.tiled.FlatTiledNode;
+import de.dhbw.tinf22b6.world.tiled.TiledManhattanDistance;
 import de.dhbw.tinf22b6.world.tiled.TiledSmoothableGraphPath;
-
-import static de.dhbw.tinf22b6.util.Constants.TILE_SIZE;
 
 public class EnemyStateMachine {
 
@@ -28,11 +29,13 @@ public class EnemyStateMachine {
     private FlatTiledGraph worldGraph;
     private IndexedAStarPathFinder<FlatTiledNode> finder;
     private Vector2 currentMovementVector;
+    private Heuristic<FlatTiledNode> heuristic;
 
     // private
     // private NavigationGrid<GridCell> gridCells;
     // AStarGridFinder<GridCell> finder;
     private Vector2 checkPoint = new Vector2();
+    private TiledSmoothableGraphPath<FlatTiledNode> path;
 
     public EnemyStateMachine(Enemy enemy, World world, int[][] rawMap) {
         this.world = world;
@@ -40,6 +43,8 @@ public class EnemyStateMachine {
         this.currentState = EnemyState.WALKING;
         this.worldGraph = new FlatTiledGraph(rawMap);
         this.finder = new IndexedAStarPathFinder<>(worldGraph, true);
+        this.path = new TiledSmoothableGraphPath<>();
+        this.heuristic = new TiledManhattanDistance<>();
         // this.gridCells = grid;
 
         // finder = new AStarGridFinder<>(GridCell.class);
@@ -66,7 +71,7 @@ public class EnemyStateMachine {
                 // shoot();
                 break;
         }
-        //enemy.applyForce(moveVector);
+        // enemy.applyForce(moveVector);
     }
 
     private Vector2 getMovementVector() {
@@ -76,9 +81,6 @@ public class EnemyStateMachine {
         FlatTiledNode endNode =
                 worldGraph.getNode((int) player.getPos().x / TILE_SIZE, (int) player.getPos().y / TILE_SIZE);
 
-        TiledSmoothableGraphPath<FlatTiledNode> path = new TiledSmoothableGraphPath<>();
-        Heuristic<FlatTiledNode> heuristic =
-                (node, end) -> (float) Math.sqrt(Math.pow(node.x - end.x, 2) + Math.pow(node.y - end.y, 2));
         worldGraph.startNode = startNode;
         finder.searchNodePath(startNode, endNode, heuristic, path);
 
@@ -88,9 +90,7 @@ public class EnemyStateMachine {
 
         if (!inRange(path) || currentMovementVector == null) {
             checkPoint = new Vector2(path.get(1).x * TILE_SIZE, path.get(1).y * TILE_SIZE);
-            currentMovementVector = new Vector2(
-                    path.get(1).x * TILE_SIZE ,
-                    path.get(1).y * TILE_SIZE);
+            currentMovementVector = new Vector2(path.get(1).x * TILE_SIZE, path.get(1).y * TILE_SIZE);
             currentMovementVector.sub(enemy.getPos());
             currentMovementVector.setLength(1);
             Gdx.app.debug(TAG, "New Vector: " + currentMovementVector);
@@ -99,13 +99,15 @@ public class EnemyStateMachine {
     }
 
     private boolean inRange(TiledSmoothableGraphPath<FlatTiledNode> path) {
-//        float tx = checkPoint.x;
-//        float ty = checkPoint.y;
-//        float ex = enemy.getPos().x;
-//        float ey = enemy.getPos().y;
-//        float sizeEnemy = (float) TILE_SIZE / 3;
-//        Gdx.app.debug(TAG, "Enemy Pos: [" + tx + ", " + ty + "], [" + ex + ", " + ey + "]");
-//        return (Math.abs(tx - sizeEnemy) / 2 + tx == ex && Math.abs(ty - sizeEnemy) / 2 + ty == ey);
+        // float tx = checkPoint.x;
+        // float ty = checkPoint.y;
+        // float ex = enemy.getPos().x;
+        // float ey = enemy.getPos().y;
+        // float sizeEnemy = (float) TILE_SIZE / 3;
+        // Gdx.app.debug(TAG, "Enemy Pos: [" + tx + ", " + ty + "], [" + ex + ", " + ey
+        // + "]");
+        // return (Math.abs(tx - sizeEnemy) / 2 + tx == ex && Math.abs(ty - sizeEnemy) /
+        // 2 + ty == ey);
 
         // return enemy.getPos().epsilonEquals(path.get(0).x * TILE_SIZE, path.get(0).y
         // * TILE_SIZE);

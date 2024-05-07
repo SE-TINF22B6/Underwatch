@@ -1,20 +1,20 @@
-//package de.dhbw.tinf22b6.gameobject;
+// package de.dhbw.tinf22b6.gameobject;
 //
-//import com.badlogic.gdx.graphics.OrthographicCamera;
-//import com.badlogic.gdx.math.Vector2;
-//import com.badlogic.gdx.physics.box2d.World;
-//import de.dhbw.tinf22b6.ApplicationTest;
-//import de.dhbw.tinf22b6.weapon.Weapon;
-//import org.junit.jupiter.api.BeforeEach;
-//import org.junit.jupiter.api.Test;
-//import org.junit.jupiter.api.extension.ExtendWith;
+// import com.badlogic.gdx.graphics.OrthographicCamera;
+// import com.badlogic.gdx.math.Vector2;
+// import com.badlogic.gdx.physics.box2d.World;
+// import de.dhbw.tinf22b6.ApplicationTest;
+// import de.dhbw.tinf22b6.weapon.Weapon;
+// import org.junit.jupiter.api.BeforeEach;
+// import org.junit.jupiter.api.Test;
+// import org.junit.jupiter.api.extension.ExtendWith;
 //
-//import static org.junit.jupiter.api.Assertions.assertNotEquals;
-//import static org.mockito.ArgumentMatchers.any;
-//import static org.mockito.Mockito.verify;
+// import static org.junit.jupiter.api.Assertions.assertNotEquals;
+// import static org.mockito.ArgumentMatchers.any;
+// import static org.mockito.Mockito.verify;
 //
-//@ExtendWith(ApplicationTest.class)
-//public class PlayerTest {
+// @ExtendWith(ApplicationTest.class)
+// public class PlayerTest {
 //    private static final float VIEWPORT_WIDTH = 500;
 //    private static final float VIEWPORT_HEIGHT = 500;
 //    private Player player;
@@ -121,4 +121,4 @@
 //        assertNotEquals(initialX, player.getPos().x);
 //        assertNotEquals(initialY, player.getPos().y);
 //    }
-//}
+// }

@@ -1,9 +1,14 @@
 package de.dhbw.tinf22b6.gameobject;
 
+import static de.dhbw.tinf22b6.util.Constants.TILE_SIZE;
+
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.ai.fsm.DefaultStateMachine;
 import com.badlogic.gdx.ai.steer.Steerable;
 import com.badlogic.gdx.ai.steer.SteeringAcceleration;
 import com.badlogic.gdx.ai.steer.SteeringBehavior;
+import com.badlogic.gdx.ai.steer.behaviors.FollowPath;
+import com.badlogic.gdx.ai.steer.utils.Path.PathParam;
 import com.badlogic.gdx.ai.utils.Location;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.BodyDef;
@@ -11,18 +16,19 @@ import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
 import de.dhbw.tinf22b6.ai.Box2DLocation;
+import de.dhbw.tinf22b6.ai.EnemyFSMState;
 import de.dhbw.tinf22b6.ai.EnemyStateMachine;
 import de.dhbw.tinf22b6.ai.EnemySteeringBehaviour;
 import de.dhbw.tinf22b6.util.Constants;
 import de.dhbw.tinf22b6.util.SteeringUtils;
 
-import static de.dhbw.tinf22b6.util.Constants.TILE_SIZE;
-
 public class Enemy extends GameObject implements Steerable<Vector2> {
     private static final String TAG = Enemy.class.getName();
     private static SteeringAcceleration<Vector2> steeringOutput;
     protected SteeringBehavior<Vector2> steeringBehavior;
+    private FollowPath<Vector2, PathParam> followPath;
     private EnemyStateMachine stateMachine;
+    private DefaultStateMachine<Enemy, EnemyFSMState> defaultStateMachine;
     private int health;
     private float boundingRadius;
     private boolean tagged;
@@ -51,7 +57,7 @@ public class Enemy extends GameObject implements Steerable<Vector2> {
         FixtureDef fixtureDef = new FixtureDef();
         fixtureDef.shape = boxShape;
         fixtureDef.filter.categoryBits = collisionMask;
-        //fixtureDef.isSensor = true;
+        // fixtureDef.isSensor = true;
         fixtureDef.restitution = 0.0f;
 
         PolygonShape sightShape = new PolygonShape();
@@ -65,6 +71,7 @@ public class Enemy extends GameObject implements Steerable<Vector2> {
         body.createFixture(sightDef).setUserData(this);
         boxShape.dispose();
         body.setUserData(this);
+        this.defaultStateMachine = new DefaultStateMachine<Enemy, EnemyFSMState>(this, EnemyFSMState.DO_NOTHING);
     }
 
     @Override
@@ -137,8 +144,7 @@ public class Enemy extends GameObject implements Steerable<Vector2> {
     }
 
     @Override
-    public void setMaxAngularSpeed(float maxAngularSpeed) {
-    }
+    public void setMaxAngularSpeed(float maxAngularSpeed) {}
 
     @Override
     public float getMaxAngularAcceleration() {
@@ -146,8 +152,7 @@ public class Enemy extends GameObject implements Steerable<Vector2> {
     }
 
     @Override
-    public void setMaxAngularAcceleration(float maxAngularAcceleration) {
-    }
+    public void setMaxAngularAcceleration(float maxAngularAcceleration) {}
 
     @Override
     public float getZeroLinearSpeedThreshold() {

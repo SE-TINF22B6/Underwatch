@@ -1,28 +1,28 @@
-//package de.dhbw;
+// package de.dhbw;
 //
-//import com.badlogic.gdx.*;
-//import com.badlogic.gdx.backends.headless.*;
-//import com.badlogic.gdx.backends.headless.mock.audio.MockAudio;
-//import com.badlogic.gdx.backends.lwjgl3.Lwjgl3ApplicationConfiguration;
-//import com.badlogic.gdx.backends.lwjgl3.Lwjgl3NativesLoader;
-//import com.badlogic.gdx.backends.lwjgl3.Lwjgl3Window;
-//import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-//import com.badlogic.gdx.utils.Array;
-//import com.badlogic.gdx.utils.Clipboard;
-//import com.badlogic.gdx.utils.ObjectMap;
-//import org.lwjgl.glfw.GLFW;
-//import org.lwjgl.glfw.GLFWErrorCallback;
+// import com.badlogic.gdx.*;
+// import com.badlogic.gdx.backends.headless.*;
+// import com.badlogic.gdx.backends.headless.mock.audio.MockAudio;
+// import com.badlogic.gdx.backends.lwjgl3.Lwjgl3ApplicationConfiguration;
+// import com.badlogic.gdx.backends.lwjgl3.Lwjgl3NativesLoader;
+// import com.badlogic.gdx.backends.lwjgl3.Lwjgl3Window;
+// import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+// import com.badlogic.gdx.utils.Array;
+// import com.badlogic.gdx.utils.Clipboard;
+// import com.badlogic.gdx.utils.ObjectMap;
+// import org.lwjgl.glfw.GLFW;
+// import org.lwjgl.glfw.GLFWErrorCallback;
 //
-//import static com.badlogic.gdx.backends.lwjgl3.Lwjgl3Application.createGlfwWindow;
-//import static org.lwjgl.glfw.GLFW.glfwTerminate;
+// import static com.badlogic.gdx.backends.lwjgl3.Lwjgl3Application.createGlfwWindow;
+// import static org.lwjgl.glfw.GLFW.glfwTerminate;
 //
-///**
+/// **
 // * Similar to {@link HeadlessApplication}, except that it provides a real OpenGL
 // * context using LWJGL3. This makes it
 // * possible to test things that use features that depend on OpenGL, like a
 // * {@link SpriteBatch}.
 // */
-//public class TestApplication implements Application {
+// public class TestApplication implements Application {
 //    private final ObjectMap<String, Preferences> preferences = new ObjectMap<>();
 //    private final Array<Runnable> runnables = new Array<>();
 //    private final Array<Runnable> executedRunnables = new Array<>();
@@ -237,4 +237,4 @@
 //            lifecycleListeners.removeValue(listener, true);
 //        }
 //    }
-//}
+// }

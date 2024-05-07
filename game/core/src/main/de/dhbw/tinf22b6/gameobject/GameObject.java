@@ -1,5 +1,7 @@
 package de.dhbw.tinf22b6.gameobject;
 
+import static de.dhbw.tinf22b6.util.Constants.TILE_SIZE;
+
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Batch;
@@ -8,8 +10,6 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.World;
 import de.dhbw.tinf22b6.util.Assets;
-
-import static de.dhbw.tinf22b6.util.Constants.TILE_SIZE;
 
 public abstract class GameObject {
     protected Animation<TextureAtlas.AtlasRegion> currentAnimation;
@@ -30,7 +30,10 @@ public abstract class GameObject {
     }
 
     public void render(Batch batch) {
-        batch.draw(currentAnimation.getKeyFrame(stateTime, true), body.getPosition().x - currentAnimation.getKeyFrame(0).originalWidth / 2f, body.getPosition().y - currentAnimation.getKeyFrame(0).originalHeight / 2f);
+        batch.draw(
+                currentAnimation.getKeyFrame(stateTime, true),
+                body.getPosition().x - currentAnimation.getKeyFrame(0).originalWidth / 2f,
+                body.getPosition().y - currentAnimation.getKeyFrame(0).originalHeight / 2f);
     }
 
     public void tick(float delta) {
