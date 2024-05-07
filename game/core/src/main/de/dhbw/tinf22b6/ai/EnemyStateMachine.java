@@ -76,20 +76,18 @@ public class EnemyStateMachine {
 
     private Vector2 getMovementVector() {
         Player player = EntitySystem.instance.getPlayer();
-        FlatTiledNode startNode =
-                worldGraph.getNode((int) enemy.getPos().x / TILE_SIZE, (int) enemy.getPos().y / TILE_SIZE);
-        FlatTiledNode endNode =
-                worldGraph.getNode((int) player.getPos().x / TILE_SIZE, (int) player.getPos().y / TILE_SIZE);
+        FlatTiledNode startNode = worldGraph.getNode((int) enemy.getPos().x / TILE_SIZE, (int) enemy.getPos().y / TILE_SIZE);
+        FlatTiledNode endNode = worldGraph.getNode((int) player.getPos().x / TILE_SIZE, (int) player.getPos().y / TILE_SIZE);
 
         worldGraph.startNode = startNode;
         finder.searchNodePath(startNode, endNode, heuristic, path);
+
 
         if (path.nodes.size == 1) {
             return new Vector2(0, 0);
         }
 
         if (!inRange(path) || currentMovementVector == null) {
-            checkPoint = new Vector2(path.get(1).x * TILE_SIZE, path.get(1).y * TILE_SIZE);
             currentMovementVector = new Vector2(path.get(1).x * TILE_SIZE, path.get(1).y * TILE_SIZE);
             currentMovementVector.sub(enemy.getPos());
             currentMovementVector.setLength(1);
@@ -142,19 +140,19 @@ public class EnemyStateMachine {
         Player player = EntitySystem.instance.getPlayer();
         if (player != null) {
             world.rayCast(
-                    (fixture, point, normal, fraction) -> {
-                        if (fixture.getFilterData().categoryBits == Constants.WALL_BIT) {
-                            this.currentState = EnemyState.WALKING;
-                            return 0;
-                        }
-                        if (fixture.getFilterData().categoryBits == Constants.PLAYER_BIT) {
-                            this.currentState = EnemyState.RUNANDGUN;
-                            return 0;
-                        }
-                        return -1;
-                    },
-                    enemy.getBody().getPosition(),
-                    player.getBody().getPosition());
+                          (fixture, point, normal, fraction) -> {
+                              if (fixture.getFilterData().categoryBits == Constants.WALL_BIT) {
+                                  this.currentState = EnemyState.WALKING;
+                                  return 0;
+                              }
+                              if (fixture.getFilterData().categoryBits == Constants.PLAYER_BIT) {
+                                  this.currentState = EnemyState.RUNANDGUN;
+                                  return 0;
+                              }
+                              return -1;
+                          },
+                          enemy.getBody().getPosition(),
+                          player.getBody().getPosition());
         }
     }
 }

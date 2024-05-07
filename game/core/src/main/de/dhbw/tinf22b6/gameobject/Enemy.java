@@ -77,6 +77,7 @@ public class Enemy extends GameObject implements Steerable<Vector2> {
     @Override
     public void tick(float delta) {
         super.tick(delta);
+        stateMachine.tick(delta);
         update(delta);
     }
 
