@@ -94,6 +94,9 @@ public class Enemy extends GameObject implements Steerable<Vector2> {
             // Calculate steering acceleration
             steeringOutput = steeringBehavior.calculateSteering(steeringOutput);
             // Apply steering acceleration
+            // Ja hier wird er nach dem applySteering behaviour geupdated. Da müssen wir das
+            // mit der Path generation rein kriegen, dann brauchen wir auch die
+            // EnemyStateMachine nicht mehr.
             applySteering(deltaTime);
         }
     }
@@ -145,7 +148,8 @@ public class Enemy extends GameObject implements Steerable<Vector2> {
     }
 
     @Override
-    public void setMaxAngularSpeed(float maxAngularSpeed) {}
+    public void setMaxAngularSpeed(float maxAngularSpeed) {
+    }
 
     @Override
     public float getMaxAngularAcceleration() {
@@ -153,7 +157,8 @@ public class Enemy extends GameObject implements Steerable<Vector2> {
     }
 
     @Override
-    public void setMaxAngularAcceleration(float maxAngularAcceleration) {}
+    public void setMaxAngularAcceleration(float maxAngularAcceleration) {
+    }
 
     @Override
     public float getZeroLinearSpeedThreshold() {
