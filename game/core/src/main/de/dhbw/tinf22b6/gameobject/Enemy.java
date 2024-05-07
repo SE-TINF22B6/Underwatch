@@ -6,6 +6,7 @@ import de.dhbw.tinf22b6.ai.Box2DLocation;
 import de.dhbw.tinf22b6.ai.EnemyStateMachine;
 import de.dhbw.tinf22b6.ai.EnemySteeringBehaviour;
 import de.dhbw.tinf22b6.util.Constants;
+import de.dhbw.tinf22b6.util.EntitySystem;
 import de.dhbw.tinf22b6.util.SteeringUtils;
 import de.dhbw.tinf22b6.world.tiled.FlatTiledGraph;
 import de.dhbw.tinf22b6.world.tiled.FlatTiledNode;
@@ -118,9 +119,10 @@ public class Enemy extends GameObject implements Steerable<Vector2> {
 
     protected void applySteering(float delta) {
         boolean anyAccelerations = false;
-        // FlatTiledNode startNode = worldGraph.getNode((int) this.getPos().x / TILE_SIZE, (int) this.getPos().y / TILE_SIZE);
-        // FlatTiledNode endNode = worldGraph.getNode((int) player.getPos().x / TILE_SIZE, (int) player.getPos().y / TILE_SIZE);
-        // followp = new FollowPath<Vector2, LinePathParam>(this, new LinePath<Vector2>(), 0f, 0f);
+        Player player = EntitySystem.instance.getPlayer();
+        FlatTiledNode startNode = worldGraph.getNode((int) this.getPos().x / TILE_SIZE, (int) this.getPos().y / TILE_SIZE);
+        FlatTiledNode endNode = worldGraph.getNode((int) player.getPos().x / TILE_SIZE, (int) player.getPos().y / TILE_SIZE);
+        // followp = new FollowPath<Vector2, LinePathParam>(this, new LinePath<Vector2>(finder.searchNodePath(startNode, endNode, heuristic, path)), 0f, 0f);
         // Update position and linear velocity.
         if (!steeringOutput.linear.isZero()) {
             // this method internally scales the force by deltaTime
