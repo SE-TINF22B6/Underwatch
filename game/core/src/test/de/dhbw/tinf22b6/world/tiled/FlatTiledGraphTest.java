@@ -23,20 +23,22 @@ public class FlatTiledGraphTest {
     @DisplayName("Test A* No Obstructions")
     void testNavigation() {
         int[][] rawMap = new int[][] {
-                new int[] { 2, 2, 2, 2, 2, 2, 2 },
-                new int[] { 2, 1, 1, 1, 1, 1, 2 },
-                new int[] { 2, 1, 1, 1, 1, 1, 2 },
-                new int[] { 2, 1, 1, 1, 1, 1, 2 },
-                new int[] { 2, 1, 1, 1, 1, 1, 2 },
-                new int[] { 2, 1, 1, 1, 1, 1, 2 },
-                new int[] { 2, 2, 2, 2, 2, 2, 2 }
+            new int[] {2, 2, 2, 2, 2, 2, 2},
+            new int[] {2, 1, 1, 1, 1, 1, 2},
+            new int[] {2, 1, 1, 1, 1, 1, 2},
+            new int[] {2, 1, 1, 1, 1, 1, 2},
+            new int[] {2, 1, 1, 1, 1, 1, 2},
+            new int[] {2, 1, 1, 1, 1, 1, 2},
+            new int[] {2, 2, 2, 2, 2, 2, 2}
         };
         FlatTiledGraph worldMap = new FlatTiledGraph(rawMap);
 
         TiledSmoothableGraphPath<FlatTiledNode> path = new TiledSmoothableGraphPath<>();
-        Heuristic<FlatTiledNode> heuristic = (node, endNode) -> (float) Math.sqrt(Math.pow(node.x - endNode.x, 2) + Math.pow(node.y - endNode.y, 2));
+        Heuristic<FlatTiledNode> heuristic =
+                (node, endNode) -> (float) Math.sqrt(Math.pow(node.x - endNode.x, 2) + Math.pow(node.y - endNode.y, 2));
         IndexedAStarPathFinder<FlatTiledNode> pathFinder = new IndexedAStarPathFinder<>(worldMap, true);
-        PathSmoother<FlatTiledNode, Vector2> pathSmoother = new PathSmoother<>(new TiledRaycastCollisionDetector<FlatTiledNode>(worldMap));
+        PathSmoother<FlatTiledNode, Vector2> pathSmoother =
+                new PathSmoother<>(new TiledRaycastCollisionDetector<FlatTiledNode>(worldMap));
 
         FlatTiledNode startNode = worldMap.getNode(1, 1);
         FlatTiledNode endNode = worldMap.getNode(5, 5);
@@ -62,20 +64,22 @@ public class FlatTiledGraphTest {
     @DisplayName("Test A* With Obstructions")
     void testNavigation_2() {
         int[][] rawMap = new int[][] {
-                new int[] { 2, 2, 2, 2, 2, 2, 2 },
-                new int[] { 2, 1, 1, 1, 1, 1, 2 },
-                new int[] { 2, 1, 1, 1, 2, 1, 2 },
-                new int[] { 2, 1, 1, 1, 2, 1, 2 },
-                new int[] { 2, 2, 2, 2, 2, 1, 2 },
-                new int[] { 2, 1, 1, 1, 1, 1, 2 },
-                new int[] { 2, 2, 2, 2, 2, 2, 2 }
+            new int[] {2, 2, 2, 2, 2, 2, 2},
+            new int[] {2, 1, 1, 1, 1, 1, 2},
+            new int[] {2, 1, 1, 1, 2, 1, 2},
+            new int[] {2, 1, 1, 1, 2, 1, 2},
+            new int[] {2, 2, 2, 2, 2, 1, 2},
+            new int[] {2, 1, 1, 1, 1, 1, 2},
+            new int[] {2, 2, 2, 2, 2, 2, 2}
         };
         FlatTiledGraph worldMap = new FlatTiledGraph(rawMap);
 
         TiledSmoothableGraphPath<FlatTiledNode> path = new TiledSmoothableGraphPath<>();
-        Heuristic<FlatTiledNode> heuristic = (node, endNode) -> (float) Math.sqrt(Math.pow(node.x - endNode.x, 2) + Math.pow(node.y - endNode.y, 2));
+        Heuristic<FlatTiledNode> heuristic =
+                (node, endNode) -> (float) Math.sqrt(Math.pow(node.x - endNode.x, 2) + Math.pow(node.y - endNode.y, 2));
         IndexedAStarPathFinder<FlatTiledNode> pathFinder = new IndexedAStarPathFinder<>(worldMap, true);
-        PathSmoother<FlatTiledNode, Vector2> pathSmoother = new PathSmoother<>(new TiledRaycastCollisionDetector<FlatTiledNode>(worldMap));
+        PathSmoother<FlatTiledNode, Vector2> pathSmoother =
+                new PathSmoother<>(new TiledRaycastCollisionDetector<FlatTiledNode>(worldMap));
 
         FlatTiledNode startNode = worldMap.getNode(1, 1);
         FlatTiledNode endNode = worldMap.getNode(5, 5);
@@ -101,20 +105,22 @@ public class FlatTiledGraphTest {
     @DisplayName("Test A* With No valid Path")
     void testNavigation_3() {
         int[][] rawMap = new int[][] {
-                new int[] { 2, 2, 2, 2, 2, 2, 2 },
-                new int[] { 2, 1, 1, 1, 2, 1, 2 },
-                new int[] { 2, 1, 1, 1, 2, 1, 2 },
-                new int[] { 2, 1, 1, 1, 2, 1, 2 },
-                new int[] { 2, 2, 2, 2, 2, 1, 2 },
-                new int[] { 2, 1, 1, 1, 1, 1, 2 },
-                new int[] { 2, 2, 2, 2, 2, 2, 2 }
+            new int[] {2, 2, 2, 2, 2, 2, 2},
+            new int[] {2, 1, 1, 1, 2, 1, 2},
+            new int[] {2, 1, 1, 1, 2, 1, 2},
+            new int[] {2, 1, 1, 1, 2, 1, 2},
+            new int[] {2, 2, 2, 2, 2, 1, 2},
+            new int[] {2, 1, 1, 1, 1, 1, 2},
+            new int[] {2, 2, 2, 2, 2, 2, 2}
         };
         FlatTiledGraph worldMap = new FlatTiledGraph(rawMap);
 
         TiledSmoothableGraphPath<FlatTiledNode> path = new TiledSmoothableGraphPath<>();
-        Heuristic<FlatTiledNode> heuristic = (node, endNode) -> (float) Math.sqrt(Math.pow(node.x - endNode.x, 2) + Math.pow(node.y - endNode.y, 2));
+        Heuristic<FlatTiledNode> heuristic =
+                (node, endNode) -> (float) Math.sqrt(Math.pow(node.x - endNode.x, 2) + Math.pow(node.y - endNode.y, 2));
         IndexedAStarPathFinder<FlatTiledNode> pathFinder = new IndexedAStarPathFinder<>(worldMap, true);
-        PathSmoother<FlatTiledNode, Vector2> pathSmoother = new PathSmoother<>(new TiledRaycastCollisionDetector<FlatTiledNode>(worldMap));
+        PathSmoother<FlatTiledNode, Vector2> pathSmoother =
+                new PathSmoother<>(new TiledRaycastCollisionDetector<FlatTiledNode>(worldMap));
 
         FlatTiledNode startNode = worldMap.getNode(1, 1);
         FlatTiledNode endNode = worldMap.getNode(5, 5);
@@ -140,20 +146,22 @@ public class FlatTiledGraphTest {
     @DisplayName("Test A* With some block in the middle Path")
     void testNavigation_4() {
         int[][] rawMap = new int[][] {
-                new int[] { 2, 2, 2, 2, 2, 2, 2 },
-                new int[] { 2, 1, 1, 1, 1, 1, 2 },
-                new int[] { 2, 1, 1, 1, 1, 1, 2 },
-                new int[] { 2, 1, 2, 1, 1, 1, 2 },
-                new int[] { 2, 1, 1, 1, 1, 1, 2 },
-                new int[] { 2, 1, 1, 1, 1, 1, 2 },
-                new int[] { 2, 2, 2, 2, 2, 2, 2 }
+            new int[] {2, 2, 2, 2, 2, 2, 2},
+            new int[] {2, 1, 1, 1, 1, 1, 2},
+            new int[] {2, 1, 1, 1, 1, 1, 2},
+            new int[] {2, 1, 2, 1, 1, 1, 2},
+            new int[] {2, 1, 1, 1, 1, 1, 2},
+            new int[] {2, 1, 1, 1, 1, 1, 2},
+            new int[] {2, 2, 2, 2, 2, 2, 2}
         };
         FlatTiledGraph worldMap = new FlatTiledGraph(rawMap);
 
         TiledSmoothableGraphPath<FlatTiledNode> path = new TiledSmoothableGraphPath<>();
-        Heuristic<FlatTiledNode> heuristic = (node, endNode) -> (float) Math.sqrt(Math.pow(node.x - endNode.x, 2) + Math.pow(node.y - endNode.y, 2));
+        Heuristic<FlatTiledNode> heuristic =
+                (node, endNode) -> (float) Math.sqrt(Math.pow(node.x - endNode.x, 2) + Math.pow(node.y - endNode.y, 2));
         IndexedAStarPathFinder<FlatTiledNode> pathFinder = new IndexedAStarPathFinder<>(worldMap, true);
-        PathSmoother<FlatTiledNode, Vector2> pathSmoother = new PathSmoother<>(new TiledRaycastCollisionDetector<FlatTiledNode>(worldMap));
+        PathSmoother<FlatTiledNode, Vector2> pathSmoother =
+                new PathSmoother<>(new TiledRaycastCollisionDetector<FlatTiledNode>(worldMap));
 
         FlatTiledNode startNode = worldMap.getNode(1, 1);
         FlatTiledNode endNode = worldMap.getNode(5, 5);
@@ -190,9 +198,9 @@ public class FlatTiledGraphTest {
     public void testInitWithDiagonal() {
         // Arrange
         int[][] map = {
-                { 1, 1, 1 },
-                { 1, 2, 1 },
-                { 1, 1, 1 }
+            {1, 1, 1},
+            {1, 2, 1},
+            {1, 1, 1}
         };
 
         // Act
@@ -214,9 +222,9 @@ public class FlatTiledGraphTest {
     public void testInitWithoutDiagonal() {
         // Arrange
         int[][] map = {
-                { 1, 1, 1 },
-                { 1, 2, 1 },
-                { 1, 1, 1 }
+            {1, 1, 1},
+            {1, 2, 1},
+            {1, 1, 1}
         };
 
         // Act
@@ -232,9 +240,9 @@ public class FlatTiledGraphTest {
     public void testGetNode() {
         // Arrange
         int[][] map = {
-                { 1, 1, 1 },
-                { 1, 2, 1 },
-                { 1, 1, 1 }
+            {1, 1, 1},
+            {1, 2, 1},
+            {1, 1, 1}
         };
         FlatTiledGraph worldMap = new FlatTiledGraph(map);
 
@@ -253,9 +261,9 @@ public class FlatTiledGraphTest {
     public void testGetConnections() {
         // Arrange
         int[][] map = {
-                { 1, 1, 1 },
-                { 1, 1, 1 },
-                { 1, 1, 1 }
+            {1, 1, 1},
+            {1, 1, 1},
+            {1, 1, 1}
         };
         FlatTiledGraph worldMap = new FlatTiledGraph(map, false);
 
@@ -274,9 +282,9 @@ public class FlatTiledGraphTest {
 
         // Arrange
         int[][] map = {
-                { 1, 1, 1 },
-                { 1, 2, 1 },
-                { 1, 1, 1 }
+            {1, 1, 1},
+            {1, 2, 1},
+            {1, 1, 1}
         };
         FlatTiledGraph worldMap = new FlatTiledGraph(map);
 
