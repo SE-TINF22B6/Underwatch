@@ -3,7 +3,7 @@
         "height": 4300,
         "width": 2
     },
-    "activeFile": "startMap.tmx",
+    "activeFile": "pathfinding.tmx",
     "expandedProjectPaths": [
         "."
     ],
@@ -88,6 +88,12 @@
                 "y": 1405.999831465408
             }
         },
+        "babo.tsx": {
+            "scaleInDock": 1
+        },
+        "dungeon assets.tsx": {
+            "scaleInDock": 1
+        },
         "dungeon1(amogus).tmx": {
             "scale": 0.3954,
             "selectedLayer": 0,
@@ -96,9 +102,23 @@
                 "y": 758.7253414264037
             }
         },
+        "fences.tsx": {
+            "scaleInDock": 1
+        },
         "neuesTileset.tsx": {
             "scaleInDock": 1.8723,
             "scaleInEditor": 3.668
+        },
+        "pathfinding.tmx": {
+            "scale": 2.06921875,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 160.447028618893,
+                "y": 160.2053915275995
+            }
+        },
+        "plains.tsx": {
+            "scaleInDock": 1
         },
         "startMap.tmx": {
             "scale": 1.3697,
@@ -120,14 +140,16 @@
     "openFiles": [
         "Dungeon_Tileset.tsx",
         "TeleportTestFixed.tmx",
-        "startMap.tmx"
+        "startMap.tmx",
+        "pathfinding.tmx"
     ],
     "project": "Underwatch.tiled-project",
     "property.type": "bool",
     "recentFiles": [
-        "startMap.tmx",
-        "TeleportTestFixed.tmx",
         "Dungeon_Tileset.tsx",
+        "TeleportTestFixed.tmx",
+        "startMap.tmx",
+        "pathfinding.tmx",
         "Sample.tmx",
         "2.0Map.tmx",
         "TeleportTest.tmx",
@@ -135,8 +157,7 @@
         "/Users/martin/repos/Underwatch/game/assets/haus map.tmx",
         "/Users/martin/repos/Underwatch/game/assets/Haus_map_neu.tmx",
         "neuesTileset.tsx",
-        "50x50MapMitHitbox.tmx",
-        "Interior.tsx"
+        "50x50MapMitHitbox.tmx"
     ],
     "tileset.lastUsedFormat": "tsx",
     "tileset.tileSize": {

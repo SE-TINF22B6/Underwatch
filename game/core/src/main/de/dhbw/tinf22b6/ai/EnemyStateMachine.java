@@ -66,7 +66,7 @@ public class EnemyStateMachine {
                 // shoot();
                 break;
         }
-        enemy.applyForce(moveVector);
+        //enemy.applyForce(moveVector);
     }
 
     private Vector2 getMovementVector() {

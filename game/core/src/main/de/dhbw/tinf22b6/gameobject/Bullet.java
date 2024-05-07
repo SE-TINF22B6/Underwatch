@@ -1,8 +1,5 @@
 package de.dhbw.tinf22b6.gameobject;
 
-import static com.badlogic.gdx.math.MathUtils.cosDeg;
-import static com.badlogic.gdx.math.MathUtils.sinDeg;
-
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
@@ -11,10 +8,14 @@ import com.badlogic.gdx.physics.box2d.World;
 import de.dhbw.tinf22b6.util.Constants;
 import de.dhbw.tinf22b6.world.WorldParser;
 
+import static com.badlogic.gdx.math.MathUtils.cosDeg;
+import static com.badlogic.gdx.math.MathUtils.sinDeg;
+
 public class Bullet extends GameObject {
     protected boolean active;
     protected float angle;
     protected float r;
+    private float speed;
 
     // be careful when adjusting this parameter, as this is not the range in tiles but rather a
     // counting of delta times
