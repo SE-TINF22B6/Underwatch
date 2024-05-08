@@ -1,6 +1,7 @@
 package de.dhbw.tinf22b6.world;
 
 import com.badlogic.gdx.Files;
+import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.backends.headless.HeadlessApplication;
 import com.badlogic.gdx.backends.headless.HeadlessApplicationConfiguration;
@@ -19,6 +20,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.mockito.Mockito.mock;
 
 class WorldParserTest {
 
@@ -45,7 +47,11 @@ class WorldParserTest {
     public void initApplication() {
         if (headlessApplication == null) {
             HeadlessApplicationConfiguration config = new HeadlessApplicationConfiguration();
-            headlessApplication = new HeadlessApplication(new UnderwatchGame(), config);
+            headlessApplication = new HeadlessApplication(new Game() {
+                @Override
+                public void create() {
+                }
+            }, config);
             assertNotNull(Gdx.files);
         }
     }
