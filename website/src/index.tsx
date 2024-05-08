@@ -61,7 +61,7 @@ const router = createBrowserRouter([
 root.render(
   <React.StrictMode>
     <div><Toaster/></div>
-    <ViedeoBackground path="./Gameplay.mov"/>
+    <div><ViedeoBackground path="/Gameplay.mov"/></div>
     <RouterProvider router={router}/>
   </React.StrictMode>
 );
