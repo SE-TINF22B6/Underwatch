@@ -28,10 +28,11 @@ import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
+import com.badlogic.gdx.utils.Array;
 
 public class Enemy extends GameObject implements Steerable<Vector2> {
     private static final String TAG = Enemy.class.getName();
-    private static SteeringAcceleration<Vector2> steeringOutput;
+    private static SteeringAcceleration<Vector2> steeringOutput = new SteeringAcceleration<Vector2>(new Vector2());;
     protected SteeringBehavior<Vector2> steeringBehavior;
     private FollowPath<Vector2, LinePathParam> followp;
     private EnemyStateMachine stateMachine;
@@ -46,7 +47,9 @@ public class Enemy extends GameObject implements Steerable<Vector2> {
     private float maxLinearSpeed;
     private float maxLinearAcceleration;
 
-    public Enemy(Vector2 position, World world, // Player player,
+    public Enemy(
+                 Vector2 position,
+                 World world, // Player player,
                  int[][] rawMap) {
         super("skeleton_v2", position, world, Constants.ENEMY_BIT);
         this.health = 3;
@@ -59,6 +62,7 @@ public class Enemy extends GameObject implements Steerable<Vector2> {
         this.finder = new IndexedAStarPathFinder<>(worldGraph, true);
         this.path = new TiledSmoothableGraphPath<>();
         this.heuristic = new TiledMetricHeuristic<>();
+
         // this.player = player;
 
         // create Body
@@ -106,6 +110,37 @@ public class Enemy extends GameObject implements Steerable<Vector2> {
     }
 
     public void update(float deltaTime) {
+        // This now lets the steering use the gaph. The pathfinding is still fucked
+        Player player = EntitySystem.instance.getPlayer();
+        FlatTiledNode startNode = worldGraph.getNode((int) this.getPos().x / TILE_SIZE, (int) this.getPos().y / TILE_SIZE);
+        FlatTiledNode endNode = worldGraph.getNode((int) player.getPos().x / TILE_SIZE, (int) player.getPos().y / TILE_SIZE);
+        TiledSmoothableGraphPath<FlatTiledNode> path = new TiledSmoothableGraphPath<>();
+        finder.searchNodePath(startNode, endNode, heuristic, path);
+        Array<Vector2> vecArray = new Array<>();
+        for (int i = 1; i < path.nodes.size; i++) {
+            vecArray.add(new Vector2(path.nodes.get(i).x * TILE_SIZE, path.nodes.get(i).y * TILE_SIZE));
+        }
+        // Exception in thread "main" java.lang.IllegalArgumentException: waypoints
+        // cannot be null and must contain at least two (2) waypoints
+        // at
+        // com.badlogic.gdx.ai.steer.utils.paths.LinePath.createPath(LinePath.java:185)
+        // at com.badlogic.gdx.ai.steer.utils.paths.LinePath.<init>(LinePath.java:55)
+        //
+        // Fix for the error above
+        if (vecArray.size < 2) {
+            vecArray.add(this.getPos());
+            vecArray.add(player.getPos());
+        }
+
+        LinePath<Vector2> linePath = new LinePath<Vector2>(vecArray, true);
+        followp = new FollowPath<Vector2, LinePathParam>(this, linePath);
+        steeringBehavior = followp;
+        // Once arrived at an extremity of the path we want to go the other way around
+        Vector2 extremity = followp.getPathOffset() >= 0 ? linePath.getEndPoint() : linePath.getStartPoint();
+        float tolerance = followp.getArrivalTolerance();
+        if (getPosition().dst2(extremity) < tolerance * tolerance) {
+            followp.setPathOffset(-followp.getPathOffset());
+        }
         if (steeringBehavior != null) {
             // Calculate steering acceleration
             steeringOutput = steeringBehavior.calculateSteering(steeringOutput);
@@ -119,10 +154,6 @@ public class Enemy extends GameObject implements Steerable<Vector2> {
 
     protected void applySteering(float delta) {
         boolean anyAccelerations = false;
-        Player player = EntitySystem.instance.getPlayer();
-        FlatTiledNode startNode = worldGraph.getNode((int) this.getPos().x / TILE_SIZE, (int) this.getPos().y / TILE_SIZE);
-        FlatTiledNode endNode = worldGraph.getNode((int) player.getPos().x / TILE_SIZE, (int) player.getPos().y / TILE_SIZE);
-        // followp = new FollowPath<Vector2, LinePathParam>(this, new LinePath<Vector2>(finder.searchNodePath(startNode, endNode, heuristic, path)), 0f, 0f);
         // Update position and linear velocity.
         if (!steeringOutput.linear.isZero()) {
             // this method internally scales the force by deltaTime
