@@ -21,18 +21,19 @@ export default function Download() {
 
             <Paper style={{
                 width: "80%",
-                height: "200px",
+                //height: "300px",
                 backgroundColor: theme2.palette.primary.main,
                 margin: "auto",
                 marginTop: "20px",
                 paddingTop: "50px",
+                paddingBottom: "50px",
                 paddingLeft: "5%",
                 paddingRight: "5%",
             }}>
                 <Typography variant="body1" align="center" style={{
                     color:theme2.palette.primary.contrastText,
                 }}>
-                    Altough the game is not yet finished, you can download it via the pages below.
+                    Altough the game is <b>not yet finished</b>, you can download it via the pages below.
                 </Typography>
                 <table style={{marginTop:"20px", borderCollapse: "separate", borderSpacing:"0 10px"}}>
                     <tbody>
@@ -72,6 +73,62 @@ export default function Download() {
                                 }}>
                                     Give it to me
                                 </Button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <Typography variant="body1" style={{color:theme2.palette.primary.contrastText, paddingTop:"50px"}}>
+                    Note: always look for the desktop-[version].jar at the GitHub last release page.<br />
+                    You can execute this file as descibed below:
+                </Typography>
+                <table style={{marginTop:"20px", borderCollapse: "collapse"}}>
+                    <tbody>
+                        <tr>
+                            <td style={{paddingRight:"20px"}}>
+                                <Typography variant="body1" align="left" style={{
+                                    color:theme2.palette.primary.contrastText,
+                                }}>
+                                    Windows:
+                                </Typography>
+                            </td>
+                            <td>
+                                <Typography variant="body1" align="left" style={{
+                                    color:theme2.palette.primary.contrastText,
+                                }}>
+                                    double-click it
+                                </Typography>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <Typography variant="body1" align="left" style={{
+                                    color:theme2.palette.primary.contrastText,
+                                }}>
+                                    Linux:
+                                </Typography>
+                            </td>
+                            <td>
+                                <Typography variant="body1" align="left" style={{
+                                    color:theme2.palette.primary.contrastText,
+                                }}>
+                                    run <code>java -jar desktop-[version].jar</code>
+                                </Typography>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <Typography variant="body1" align="left" style={{
+                                    color:theme2.palette.primary.contrastText,
+                                }}>
+                                    MacOS:
+                                </Typography>
+                            </td>
+                            <td>
+                                <Typography variant="body1" align="left" style={{
+                                    color:theme2.palette.primary.contrastText,
+                                }}>
+                                    run <code>java -jar -XstartOnFirstThread desktop-[version].jar</code>
+                                </Typography>
                             </td>
                         </tr>
                     </tbody>
