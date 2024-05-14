@@ -80,7 +80,7 @@
             "selectedLayer": 1,
             "viewCenter": {
                 "x": 458.0707707222491,
-                "y": 473.420584908709
+                "y": 471.8048149943448
             }
         },
         "Dungeon_Monsters1.tsx": {
@@ -192,6 +192,7 @@
     "project": "Underwatch.tiled-project",
     "property.type": "string",
     "recentFiles": [
+        "Dungeon3.tmx",
         "Demo.tmx",
         "Dungeon1.tmx",
         "pathfinding.tmx",
@@ -202,8 +203,7 @@
         "babo.tsx",
         "50x50MapMitHitbox.tmx",
         "TeleportTestFixed.tmx",
-        "dungeon1(amogus).tmx",
-        "startMap.tmx"
+        "dungeon1(amogus).tmx"
     ],
     "tileset.lastUsedFormat": "tsx",
     "tileset.tileSize": {
