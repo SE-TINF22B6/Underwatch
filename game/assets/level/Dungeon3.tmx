@@ -6,6 +6,9 @@
  <tileset firstgid="1" source="../tileSets/tilesetsDungeon/Dungeon_Tileset.tsx"/>
  <tileset firstgid="101" source="../tileSets/tilesetsDungeon/Dungeon_Monster.tsx"/>
  <layer id="1" name="bottom" width="50" height="50">
+  <properties>
+   <property name="render" value="below"/>
+  </properties>
   <data encoding="csv">
 14,34,22,13,35,14,15,35,15,33,24,35,13,25,34,33,14,23,33,24,25,24,22,32,22,35,23,32,33,34,12,12,15,23,33,33,32,24,13,23,13,34,22,12,25,12,33,13,14,24,
 14,24,13,32,12,35,15,35,14,23,32,35,33,35,33,12,35,35,14,15,32,14,25,24,25,24,24,14,22,35,12,14,14,32,35,33,23,32,14,34,34,35,15,25,13,32,15,24,23,22,
@@ -117,6 +120,9 @@
 </data>
  </layer>
  <layer id="2" name="walls" width="50" height="50">
+  <properties>
+   <property name="render" value="below"/>
+  </properties>
   <data encoding="csv">
 1,4,3,4,4,5,2,3,3,5,5,3,2,3,4,3,3,5,3,3,3,2,4,4,4,5,5,2,4,3,2,5,2,4,3,4,4,2,3,2,5,2,4,2,2,2,5,3,3,26,
 21,0,0,0,0,0,0,0,0,0,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,26,
