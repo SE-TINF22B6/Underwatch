@@ -18,9 +18,8 @@ import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
 import de.dhbw.tinf22b6.util.Assets;
 import de.dhbw.tinf22b6.util.Constants;
-import de.dhbw.tinf22b6.weapon.Bow;
-import de.dhbw.tinf22b6.weapon.CrossBow;
-import de.dhbw.tinf22b6.weapon.Weapon;
+import de.dhbw.tinf22b6.weapon.*;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -64,7 +63,7 @@ public class Player extends MobGameObject {
         boxShape.dispose();
 
         // add starter weapon to inventory
-        inventory.add(new Bow(world));
+        inventory.add(new Ak(world));
 
         // equip weapon
         this.weapon = inventory.get(0);
@@ -92,7 +91,7 @@ public class Player extends MobGameObject {
                         weapon.getRegion().originalHeight,
                         1,
                         1,
-                        angle - 45);
+                        angle);
                 super.render(batch);
             } else {
                 super.render(batch);
@@ -106,7 +105,7 @@ public class Player extends MobGameObject {
                         weapon.getRegion().originalHeight,
                         1,
                         1,
-                        angle - 45);
+                        angle);
             }
             return;
         }
@@ -221,7 +220,6 @@ public class Player extends MobGameObject {
                     } else {
                         this.weapon = inventory.get(Math.floorMod(i + 1, inventory.size()));
                     }
-                    // TODO: new SFX, change Weapon
                     Gdx.audio
                             .newSound(Gdx.files.internal("sfx/Grunt.mp3"))
                             .play(Gdx.app.getPreferences("Controls").getFloat("sfx"));
@@ -242,7 +240,7 @@ public class Player extends MobGameObject {
 
     // TODO: here we should roll for a new weapon, which the player does not have yet
     public void pickupWeapon() {
-        this.inventory.add(new CrossBow(world));
+        this.inventory.add(new M4(world));
     }
 
     public String getInventoryInfo() {

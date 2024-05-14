@@ -29,18 +29,13 @@ public abstract class Weapon {
     }
 
     public boolean shoot() {
-        if (this.ammo <= 0 || isShooting || remainingWeaponCooldown > 0) {
-            Gdx.app.debug(
-                    TAG,
-                    "Can't shoot right now:"
-                            + "{ ammo: "
-                            + ammo
-                            + ", isShooting: "
-                            + isShooting
-                            + ", weaponCooldown: "
-                            + remainingWeaponCooldown
-                            + "}");
-            // TODO play empty magazine sound
+        if (this.ammo <= 0) {
+            Gdx.audio
+                    .newSound(Gdx.files.internal("sfx/empty_magazine.mp3"))
+                    .play(Gdx.app.getPreferences("Controls").getFloat("sfx"));
+            return false;
+        }
+        if (isShooting || remainingWeaponCooldown > 0) {
             return false;
         }
         this.isShooting = true;
