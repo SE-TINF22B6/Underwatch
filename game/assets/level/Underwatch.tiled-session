@@ -5,10 +5,13 @@
     },
     "activeFile": "pathfinding.tmx",
     "expandedProjectPaths": [
-        "."
     ],
     "file.lastUsedOpenFilter": "All Files (*)",
     "fileStates": {
+        "/Users/benny/Dungeon_Monsters1.tsx": {
+            "dynamicWrapping": true,
+            "scaleInDock": 1
+        },
         "/Users/benny/software-engeneering/50x50map mit hitbox.tmx": {
             "scale": 1.31,
             "selectedLayer": 4,
@@ -16,9 +19,6 @@
                 "x": 279.7709923664122,
                 "y": 546.1832061068701
             }
-        },
-        "/Users/martin/Dungeon_Monsters1.tsx": {
-            "scaleInDock": 1
         },
         "/Users/martin/repos/Underwatch/game/Keks.biz/02_Semester/Theoretische Informatik/Dozenten/Li/Li, Nuo/iso-64x64-building.tsx": {
             "scaleInDock": 1
@@ -43,65 +43,46 @@
             "scaleInDock": 1,
             "scaleInEditor": 1
         },
-        "/Users/martin/repos/Underwatch/game/assets/tileSets/tilesetsAussenwelt/fences.tsx": {
-            "scaleInDock": 1
-        },
-        "/Users/martin/repos/Underwatch/game/assets/tileSets/tilesetsAussenwelt/plains.tsx": {
-            "scaleInDock": 1
-        },
-        "/Users/martin/repos/Underwatch/game/assets/tileSets/tilesetsDungeon/Dungeon Monster.tsx": {
-            "scaleInDock": 1,
-            "scaleInEditor": 5.7112
-        },
-        "/Users/martin/repos/Underwatch/game/assets/tileSets/tilesetsDungeon/Dungeon Monsters.tsx": {
-            "scaleInDock": 1,
-            "scaleInEditor": 2.2956
-        },
-        "/Users/martin/repos/Underwatch/game/assets/tileSets/tilesetsDungeon/Dungeon_Monster.tsx": {
-            "scaleInDock": 1
-        },
-        "/Users/martin/repos/Underwatch/game/assets/tileSets/tilesetsDungeon/Dungeon_Tileset.tsx": {
-            "scaleInDock": 1
-        },
         "2.0Map.tmx": {
-            "scale": 1.009,
+            "scale": 0.9133,
             "selectedLayer": 6,
             "viewCenter": {
-                "x": 339.9405351833499,
-                "y": 445.986124876115
+                "x": 399.64962224898727,
+                "y": 233.22019051790213
             }
         },
         "50x50MapMitHitbox.tmx": {
-            "scale": 0.6744,
+            "scale": 1.2025,
             "selectedLayer": 1,
             "viewCenter": {
-                "x": 387.0106761565836,
-                "y": 372.1826809015421
+                "x": 399.1683991683992,
+                "y": 399.1683991683992
             }
         },
         "Demo.tmx": {
-            "scale": 0.8276874999999999,
-            "selectedLayer": 6,
+            "scale": 0.9369374999999999,
+            "selectedLayer": 5,
             "viewCenter": {
-                "x": 402.32575700370006,
-                "y": 398.0971079060636
+                "x": 288.70655726769394,
+                "y": 399.1728370355547
             }
         },
         "Dungeon1.tmx": {
-            "scale": 1.2558,
-            "selectedLayer": 0,
+            "scale": 0.7644,
+            "selectedLayer": 7,
             "viewCenter": {
-                "x": 182.35387800605193,
-                "y": 1434.5437171524127
+                "x": 246.5986394557823,
+                "y": 290.4238618524333
             }
         },
         "Dungeon_Monsters1.tsx": {
             "scaleInDock": 1,
-            "scaleInEditor": 1
+            "scaleInEditor": 1.4751
         },
         "Dungeon_Tileset.tsx": {
-            "scaleInDock": 1.8712,
-            "scaleInEditor": 5.5
+            "dynamicWrapping": false,
+            "scaleInDock": 2.136,
+            "scaleInEditor": 10.7
         },
         "Interior.tsx": {
             "scaleInDock": 1.5,
@@ -127,49 +108,53 @@
             "scale": 1.1867,
             "selectedLayer": 2,
             "viewCenter": {
-                "x": 799.6966377348949,
-                "y": 799.2753012555827
+                "x": 798.8539647762702,
+                "y": 798.8539647762702
             }
         },
         "babo.tsx": {
             "scaleInDock": 1,
-            "scaleInEditor": 1
+            "scaleInEditor": 10.7
         },
         "dungeon assets.tsx": {
-            "scaleInDock": 1
+            "scaleInDock": 1,
+            "scaleInEditor": 1
         },
         "dungeon1(amogus).tmx": {
-            "scale": 0.9089,
+            "scale": 0.3954,
             "selectedLayer": 0,
             "viewCenter": {
-                "x": 763.5603476730113,
-                "y": 399.3838706128287
+                "x": 799.1906929691452,
+                "y": 414.7698533131007
             }
         },
         "fences.tsx": {
-            "scaleInDock": 1
+            "scaleInDock": 1,
+            "scaleInEditor": 1
         },
         "neuesTileset.tsx": {
             "scaleInDock": 1.8723,
-            "scaleInEditor": 3.668
+            "scaleInEditor": 10.7
         },
         "pathfinding.tmx": {
-            "scale": 1.1993749999999999,
+            "scale": 1.4398437499999999,
             "selectedLayer": 0,
             "viewCenter": {
-                "x": 160.91714434601354,
-                "y": 189.68212610734764
+                "x": 411.85024416711883,
+                "y": 343.787303309821
             }
         },
         "plains.tsx": {
-            "scaleInDock": 1
+            "dynamicWrapping": false,
+            "scaleInDock": 1,
+            "scaleInEditor": 1
         },
         "startMap.tmx": {
-            "scale": 1.4915,
-            "selectedLayer": 0,
+            "scale": 0.8702,
+            "selectedLayer": 7,
             "viewCenter": {
-                "x": 170.96882333221592,
-                "y": 680.8581964465304
+                "x": 399.9080671110089,
+                "y": 399.90806711100896
             }
         }
     },
@@ -183,25 +168,34 @@
     "map.tileWidth": 16,
     "map.width": 100,
     "openFiles": [
+        "Dungeon_Tileset.tsx",
+        "2.0Map.tmx",
         "startMap.tmx",
-        "Dungeon1.tmx",
+        "dungeon1(amogus).tmx",
+        "TeleportTestFixed.tmx",
+        "50x50MapMitHitbox.tmx",
+        "babo.tsx",
+        "Dungeon_Monsters1.tsx",
+        "dungeon assets.tsx",
+        "plains.tsx",
+        "fences.tsx",
         "pathfinding.tmx"
     ],
     "project": "Underwatch.tiled-project",
     "property.type": "bool",
     "recentFiles": [
-        "Dungeon1.tmx",
-        "startMap.tmx",
         "pathfinding.tmx",
+        "fences.tsx",
+        "plains.tsx",
+        "dungeon assets.tsx",
+        "Dungeon_Monsters1.tsx",
+        "babo.tsx",
         "50x50MapMitHitbox.tmx",
-        "2.0Map.tmx",
-        "Dungeon_Tileset.tsx",
         "TeleportTestFixed.tmx",
         "dungeon1(amogus).tmx",
-        "/Users/martin/repos/Underwatch/game/assets/tileSets/tilesetsDungeon/Dungeon Monster.tsx",
-        "/Users/martin/repos/Underwatch/game/assets/tileSets/tilesetsDungeon/Dungeon Monsters.tsx",
-        "babo.tsx",
-        "Dungeon_Monsters1.tsx"
+        "startMap.tmx",
+        "2.0Map.tmx",
+        "Dungeon_Tileset.tsx"
     ],
     "tileset.lastUsedFormat": "tsx",
     "tileset.tileSize": {

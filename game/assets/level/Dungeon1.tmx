@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="right-down" width="100" height="100" tilewidth="16" tileheight="16" infinite="0" nextlayerid="6" nextobjectid="1">
+<map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="right-down" width="100" height="100" tilewidth="16" tileheight="16" infinite="0" nextlayerid="9" nextobjectid="1">
  <tileset firstgid="1" source="../tileSets/tilesetsDungeon/Dungeon_Tileset.tsx"/>
  <tileset firstgid="101" source="../tileSets/tilesetsDungeon/Dungeon_Monster.tsx"/>
  <layer id="1" name="bottom" width="100" height="100">
@@ -31,12 +31,19 @@
    eJzt2EsOgCAMBUDufwMTD+vCuDFg4gfLZ+YEDZRHISUAAGAES3QBAC/JMYBxyXioyxkDAAAAAHL8HfbBPnHQC8+1tHYt1QIzcfaAkdTKNFkJAMCZGREA+IKZAgCAErMiAABAfyLect6PAAAAAAB5a3QBBa3WBVf0LQDA3MyDANCPu/e2ex7gX3IXPQC7DbrXDwo=
   </data>
  </layer>
- <layer id="4" name="animatedObjects" width="100" height="100">
-  <properties>
-   <property name="inside" type="bool" value="true"/>
-  </properties>
+ <layer id="6" name="coins" width="100" height="100">
   <data encoding="base64" compression="zlib">
-   eJzt3MsOgjAQBVB/0rjj/z/DGENi8AGYPqbTczboxmBvO1aYcLkQzdL7BAZl3AAAxmDfBlCfWgsAY7jtHGlnLwuZtPXYz76O/XXzvvR+1/45JrnMTf4AAAC0/m+4bI4AQBvLl9eA9QEA5GZ/E5Nc6ln7Itd+SGPdV4Y+4WxzaOQsiCXb2gCYhfoNzECtA2AEkfupI54Tfc00J2b6rryTP5y3vfdoHfXnfnAcGfolspFFHNbHU6TfzZrPHYR//Xo+5utxT605ffRzM6wpz4+NRyYAQDYZ9s0AAABAG3vXEVxnYFbmfizygM+9DNdO53JWqTUcrRboL4lj9CyO9i7pbfrf0fpRKouemZSslRHqrvld1x2cLyy7
+   eJzt3LENgCAARUG2dP9NHAELIA9z19jzYsUPYwAAAAAAAHDaM/lyzqyFJudpAQAAAAAAAAAAAPyFHWSHbWqPFgAAAAAAAMAK7h57NOmwl+jRosP/0aMFRd4s7dCiRxMAAAAAAAAAoMyWoUeTjttbfN0u2Tbtt6qFJus4y71e+Ckagw==
+  </data>
+ </layer>
+ <layer id="7" name="torch" width="100" height="100">
+  <data encoding="base64" compression="zlib">
+   eJzt3UsOhSAMAEBPyv2P8fbqi0QBWzuz0ZVB+rEmJm4b0bS3F5CUfQMAyMHcBjCfXgsAQGZX8+zoedf8HJO41Cb+AAAArH43bLsjALBG+3MOqA8A4NvMNzGJyzz7vbXXPCWH4JzaAMhJ/wYq0OsAyCDy99QR18S7KuVEpXvlSPzhOXUEAP2iPjejrgvumpXTvddVUwAAcM3cDAAAAPRa/a89yELuxyIekNuoGtYLgLsq9Y+R91pp36r6AcUzEOU=
+  </data>
+ </layer>
+ <layer id="8" name="chests" width="100" height="100">
+  <data encoding="base64" compression="zlib">
+   eJzt2qERAAAIAzGWZP9V8FgEcJdMUFX1EQAAAAAAAAA35fYAAAAAAAAAAAAAgCE9JAAAAAAAAAAA0OmKAH7x2wAAAAAAAAAA8JsGCACYKLTrAao=
   </data>
  </layer>
 </map>
