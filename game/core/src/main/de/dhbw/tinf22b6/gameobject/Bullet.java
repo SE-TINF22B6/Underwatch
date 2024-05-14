@@ -20,7 +20,7 @@ public class Bullet extends GameObject {
     // counting of delta times
     // speed until the "range" is reached
     // TODO: this needs to be refactored to actually represent a value in tiles
-    protected float range = 1.5f;
+    protected float range = 2.3f;
 
     public Bullet(Vector2 position, World world, float angle, short mask) {
         super(
