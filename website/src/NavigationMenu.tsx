@@ -27,6 +27,7 @@ export default function NavigationMenu() {
                 aria-haspopup="true"
                 aria-expanded={open ? 'true' : undefined}
                 onClick={handleClick}
+                data-testid="navigation-menu-button"
             >
                 <MenuIcon style={{color: theme2.palette.primary.contrastText}}/>
             </Button>
