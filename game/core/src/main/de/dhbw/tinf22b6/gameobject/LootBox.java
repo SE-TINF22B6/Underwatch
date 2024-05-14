@@ -35,6 +35,7 @@ public class LootBox extends GameObject {
 
         FixtureDef fixtureDef = new FixtureDef();
         fixtureDef.shape = polygonShape;
+        fixtureDef.filter.categoryBits = Constants.WALL_BIT;
 
         FixtureDef fixtureActiveArea = new FixtureDef();
         fixtureActiveArea.shape = circleShape;
@@ -44,6 +45,7 @@ public class LootBox extends GameObject {
         body.createFixture(fixtureDef).setUserData(this);
         body.createFixture(fixtureActiveArea).setUserData(this);
         polygonShape.dispose();
+        circleShape.dispose();
     }
 
     public void open() {

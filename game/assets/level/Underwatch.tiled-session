@@ -3,7 +3,7 @@
         "height": 4300,
         "width": 2
     },
-    "activeFile": "2.0Map.tmx",
+    "activeFile": "pathfinding.tmx",
     "expandedProjectPaths": [
         "."
     ],
@@ -145,6 +145,14 @@
             "scaleInDock": 1.8723,
             "scaleInEditor": 3.668
         },
+        "pathfinding.tmx": {
+            "scale": 1.1993749999999999,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 160.08337675872855,
+                "y": 189.2652423137051
+            }
+        },
         "plains.tsx": {
             "scaleInDock": 1
         },
@@ -169,14 +177,15 @@
     "openFiles": [
         "startMap.tmx",
         "Dungeon1.tmx",
-        "2.0Map.tmx"
+        "pathfinding.tmx"
     ],
     "project": "Underwatch.tiled-project",
     "property.type": "bool",
     "recentFiles": [
-        "50x50MapMitHitbox.tmx",
         "startMap.tmx",
         "Dungeon1.tmx",
+        "pathfinding.tmx",
+        "50x50MapMitHitbox.tmx",
         "2.0Map.tmx",
         "Dungeon_Tileset.tsx",
         "TeleportTestFixed.tmx",
@@ -184,8 +193,7 @@
         "/Users/martin/repos/Underwatch/game/assets/tileSets/tilesetsDungeon/Dungeon Monster.tsx",
         "/Users/martin/repos/Underwatch/game/assets/tileSets/tilesetsDungeon/Dungeon Monsters.tsx",
         "babo.tsx",
-        "Dungeon_Monsters1.tsx",
-        "Sample.tmx"
+        "Dungeon_Monsters1.tsx"
     ],
     "tileset.lastUsedFormat": "tsx",
     "tileset.tileSize": {

@@ -4,11 +4,11 @@ import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 
 public enum WorldType {
-    MAIN_MENU("level/startMap.tmx"),
+    MAIN_MENU("level/Demo.tmx"),
     LEVEL1("level/startMap.tmx"),
-    LEVEL2("level/TeleportTestFixed.tmx"),
+    LEVEL2("level/Dungeon1.tmx"),
     LEVEL3("level/2.0Map.tmx"),
-    LEVEL4("level/pathfinding.tmx");
+    PATHFINDING("level/pathfinding.tmx");
 
     private final String path;
 

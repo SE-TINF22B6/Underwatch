@@ -32,8 +32,6 @@ public class WorldListener implements ContactListener {
                     ((LootBox) fixB.getUserData()).close();
                     ((Player) fixA.getUserData()).canPickUp(null);
                 }
-                // TODO: sfx close box
-                // Gdx.audio.newSound(Gdx.files.internal("sfx/coin_pickup.mp3")).play(Gdx.app.getPreferences("Controls").getFloat("sfx"));
                 break;
         }
     }
