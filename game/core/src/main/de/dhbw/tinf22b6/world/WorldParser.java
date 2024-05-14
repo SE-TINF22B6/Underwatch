@@ -1,7 +1,5 @@
 package de.dhbw.tinf22b6.world;
 
-import static de.dhbw.tinf22b6.util.Constants.TILE_SIZE;
-
 import box2dLight.PointLight;
 import box2dLight.RayHandler;
 import com.badlogic.gdx.Gdx;
@@ -20,7 +18,10 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.*;
 import de.dhbw.tinf22b6.gameobject.*;
 import de.dhbw.tinf22b6.util.Constants;
+
 import java.util.ArrayList;
+
+import static de.dhbw.tinf22b6.util.Constants.TILE_SIZE;
 
 public class WorldParser {
     static final int TILE_EMPTY = 0;
@@ -90,7 +91,7 @@ public class WorldParser {
     public static ArrayList<GameObject> parseGameObjects(TiledMap map, World world) {
         ArrayList<GameObject> list = new ArrayList<>();
         // TODO refactor animated game objects using an enum
-        String[] objects = new String[] {"coins", "torch", "chests", "enemy", "teleporter"};
+        String[] objects = new String[]{"coins", "torch", "chests", "enemy", "teleporter"};
         for (String s : objects) {
             TiledMapTileLayer layer = (TiledMapTileLayer) map.getLayers().get(s);
             if (layer == null) continue;
@@ -119,7 +120,10 @@ public class WorldParser {
                                 list.add(new Enemy(new Vector2(x, y), world, rawMap));
                                 break;
                             case "teleporter":
-                                list.add(new Teleporter(new Vector2(x, y), world, rectangleObject.getRectangle()));
+                                list.add(new Teleporter(new Vector2(x, y),
+                                        world,
+                                        rectangleObject.getRectangle(),
+                                        layer.getProperties().get("destination", String.class)));
                                 break;
                         }
                     }
@@ -185,7 +189,7 @@ public class WorldParser {
 
     public static int[][] parseNavigationMap(TiledMap tiledMap) {
         TiledMapTileLayer layer = (TiledMapTileLayer) tiledMap.getLayers().get("walls");
-        if (layer == null) return new int[][] {};
+        if (layer == null) return new int[][]{};
 
         // first we fill the entire map with empty cells
         int[][] map = new int[layer.getWidth()][layer.getHeight()];

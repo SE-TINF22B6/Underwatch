@@ -79,12 +79,20 @@
                 "y": 372.1826809015421
             }
         },
+        "Demo.tmx": {
+            "scale": 0.8276874999999999,
+            "selectedLayer": 6,
+            "viewCenter": {
+                "x": 402.32575700370006,
+                "y": 398.0971079060636
+            }
+        },
         "Dungeon1.tmx": {
-            "scale": 0.6632,
+            "scale": 1.2558,
             "selectedLayer": 0,
             "viewCenter": {
-                "x": 280.45838359469246,
-                "y": 1093.1845597104946
+                "x": 182.35387800605193,
+                "y": 1434.5437171524127
             }
         },
         "Dungeon_Monsters1.tsx": {
@@ -149,19 +157,19 @@
             "scale": 1.1993749999999999,
             "selectedLayer": 0,
             "viewCenter": {
-                "x": 160.08337675872855,
-                "y": 189.2652423137051
+                "x": 160.91714434601354,
+                "y": 189.68212610734764
             }
         },
         "plains.tsx": {
             "scaleInDock": 1
         },
         "startMap.tmx": {
-            "scale": 0.9893,
-            "selectedLayer": 7,
+            "scale": 1.4915,
+            "selectedLayer": 0,
             "viewCenter": {
-                "x": 400.283028403922,
-                "y": 398.26139694733655
+                "x": 170.96882333221592,
+                "y": 680.8581964465304
             }
         }
     },
@@ -182,8 +190,8 @@
     "project": "Underwatch.tiled-project",
     "property.type": "bool",
     "recentFiles": [
-        "startMap.tmx",
         "Dungeon1.tmx",
+        "startMap.tmx",
         "pathfinding.tmx",
         "50x50MapMitHitbox.tmx",
         "2.0Map.tmx",

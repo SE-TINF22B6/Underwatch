@@ -37,8 +37,11 @@
   </data>
  </layer>
  <layer id="5" name="teleporter" width="50" height="50">
+  <properties>
+   <property name="destination" value="LEVEL2"/>
+  </properties>
   <data encoding="base64" compression="zlib">
-   eJztw7EJAAAIA7C+7ucuHXxBSCAJAAAAAAAAAAAA/DJ9LTk0AQM=
+   eJzt1rEJAAAIBLFf3c0dwFoESSa48hIAAAAAAAAA2FPXAQDAS5X5GQ196AGE
   </data>
  </layer>
  <layer id="6" name="stuffOnBottom" width="50" height="50">
