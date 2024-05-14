@@ -84,9 +84,16 @@
             "scale": 1.1867,
             "selectedLayer": 2,
             "viewCenter": {
-                "x": 221.2016516389989,
-                "y": 1406.4211679447205
+                "x": 221.6229881183113,
+                "y": 1405.999831465408
             }
+        },
+        "babo.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "dungeon assets.tsx": {
+            "scaleInDock": 1
         },
         "dungeon1(amogus).tmx": {
             "scale": 0.3954,
@@ -96,16 +103,22 @@
                 "y": 758.7253414264037
             }
         },
+        "fences.tsx": {
+            "scaleInDock": 1
+        },
         "neuesTileset.tsx": {
             "scaleInDock": 1.8723,
             "scaleInEditor": 3.668
         },
+        "plains.tsx": {
+            "scaleInDock": 1
+        },
         "startMap.tmx": {
             "scale": 1.3697,
-            "selectedLayer": 2,
+            "selectedLayer": 7,
             "viewCenter": {
-                "x": 455.209169891217,
-                "y": 610.3526319632037
+                "x": 454.84412645104766,
+                "y": 609.9875885230342
             }
         }
     },
@@ -120,14 +133,16 @@
     "openFiles": [
         "Dungeon_Tileset.tsx",
         "TeleportTestFixed.tmx",
-        "startMap.tmx"
+        "startMap.tmx",
+        "babo.tsx"
     ],
     "project": "Underwatch.tiled-project",
     "property.type": "bool",
     "recentFiles": [
-        "startMap.tmx",
-        "TeleportTestFixed.tmx",
         "Dungeon_Tileset.tsx",
+        "TeleportTestFixed.tmx",
+        "babo.tsx",
+        "startMap.tmx",
         "Sample.tmx",
         "2.0Map.tmx",
         "TeleportTest.tmx",
@@ -135,8 +150,7 @@
         "/Users/martin/repos/Underwatch/game/assets/haus map.tmx",
         "/Users/martin/repos/Underwatch/game/assets/Haus_map_neu.tmx",
         "neuesTileset.tsx",
-        "50x50MapMitHitbox.tmx",
-        "Interior.tsx"
+        "50x50MapMitHitbox.tmx"
     ],
     "tileset.lastUsedFormat": "tsx",
     "tileset.tileSize": {

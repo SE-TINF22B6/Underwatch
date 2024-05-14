@@ -55,7 +55,7 @@
    eJzt2jEOgCAMBVDufxfiFV1kISFGBmvrewsLSfmUjbZGtB59gCKOxZpRhSwVMgwVslTIMFTKAgAAAAAAAFll/rcbcxqrDJFzHE/vcd7/hX7sZrhb37Rbe35D0f3oV+2/zSadHIAfZw==
   </data>
  </layer>
- <layer id="4" name="enemys" width="50" height="50">
+ <layer id="4" name="enemy" width="50" height="50">
   <data encoding="base64" compression="zlib">
    eJztyKEBAAAIA6D9/5O/mRdtBogkAAAAAAAAANDm+AAAHywHgwF7
   </data>
