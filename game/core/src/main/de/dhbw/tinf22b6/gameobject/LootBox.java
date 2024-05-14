@@ -3,6 +3,7 @@ package de.dhbw.tinf22b6.gameobject;
 import static de.dhbw.tinf22b6.util.Constants.TILE_SIZE;
 import static de.dhbw.tinf22b6.world.WorldParser.getStaticBodyDef;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.math.Rectangle;
@@ -47,6 +48,9 @@ public class LootBox extends GameObject {
 
     public void open() {
         this.currentAnimation = openAnimation;
+        Gdx.audio
+                .newSound(Gdx.files.internal("sfx/chest_open.mp3"))
+                .play(Gdx.app.getPreferences("Controls").getFloat("sfx"));
     }
 
     public void close() {
