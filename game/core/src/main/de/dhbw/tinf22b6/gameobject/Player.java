@@ -221,7 +221,7 @@ public class Player extends MobGameObject {
                         this.weapon = inventory.get(Math.floorMod(i + 1, inventory.size()));
                     }
                     Gdx.audio
-                            .newSound(Gdx.files.internal("sfx/Grunt.mp3"))
+                            .newSound(Gdx.files.internal("sfx/change_weapon.mp3"))
                             .play(Gdx.app.getPreferences("Controls").getFloat("sfx"));
                     break;
                 }
