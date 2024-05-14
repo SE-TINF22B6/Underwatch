@@ -17,6 +17,9 @@
                 "y": 546.1832061068701
             }
         },
+        "/Users/martin/Dungeon_Monsters1.tsx": {
+            "scaleInDock": 1
+        },
         "/Users/martin/repos/Underwatch/game/Keks.biz/02_Semester/Theoretische Informatik/Dozenten/Li/Li, Nuo/iso-64x64-building.tsx": {
             "scaleInDock": 1
         },
@@ -40,6 +43,14 @@
             "scaleInDock": 1,
             "scaleInEditor": 1
         },
+        "/Users/martin/repos/Underwatch/game/assets/tileSets/tilesetsDungeon/Dungeon Monster.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 5.7112
+        },
+        "/Users/martin/repos/Underwatch/game/assets/tileSets/tilesetsDungeon/Dungeon Monsters.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 2.2956
+        },
         "2.0Map.tmx": {
             "scale": 0.9133,
             "selectedLayer": 6,
@@ -55,6 +66,10 @@
                 "x": 254.0540540540541,
                 "y": 510.60291060291064
             }
+        },
+        "Dungeon_Monsters1.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
         },
         "Dungeon_Tileset.tsx": {
             "scaleInDock": 1.8712,
@@ -84,8 +99,8 @@
             "scale": 1.1867,
             "selectedLayer": 2,
             "viewCenter": {
-                "x": 221.6229881183113,
-                "y": 1405.999831465408
+                "x": 799.6966377348949,
+                "y": 799.2753012555827
             }
         },
         "babo.tsx": {
@@ -96,11 +111,11 @@
             "scaleInDock": 1
         },
         "dungeon1(amogus).tmx": {
-            "scale": 0.3954,
+            "scale": 0.9089,
             "selectedLayer": 0,
             "viewCenter": {
-                "x": 929.4385432473446,
-                "y": 758.7253414264037
+                "x": 424.689184728793,
+                "y": 1299.3728683023432
             }
         },
         "fences.tsx": {
@@ -117,13 +132,14 @@
             "scale": 1.3697,
             "selectedLayer": 7,
             "viewCenter": {
-                "x": 454.84412645104766,
-                "y": 609.9875885230342
+                "x": 454.114039570709,
+                "y": 609.2575016426955
             }
         }
     },
     "frame.defaultDuration": 1,
-    "last.imagePath": "/home/martin/repos/Underwatch/tiled/2D Pixel Dungeon Asset Pack/character and tileset",
+    "last.externalTilesetPath": "/Users/martin/repos/Underwatch/game/assets/level",
+    "last.imagePath": "/Users/martin/repos/Underwatch/game/assets/tileSets/tilesetsDungeon",
     "map.fixedSize": true,
     "map.height": 100,
     "map.lastUsedFormat": "tmx",
@@ -139,22 +155,22 @@
     "project": "Underwatch.tiled-project",
     "property.type": "bool",
     "recentFiles": [
+        "/Users/martin/repos/Underwatch/game/assets/tileSets/tilesetsDungeon/Dungeon Monster.tsx",
+        "/Users/martin/repos/Underwatch/game/assets/tileSets/tilesetsDungeon/Dungeon Monsters.tsx",
+        "babo.tsx",
+        "dungeon1(amogus).tmx",
+        "Dungeon_Monsters1.tsx",
         "Dungeon_Tileset.tsx",
         "TeleportTestFixed.tmx",
-        "babo.tsx",
         "startMap.tmx",
         "Sample.tmx",
         "2.0Map.tmx",
         "TeleportTest.tmx",
-        "/Users/martin/repos/Underwatch/game/assets/iso-64x64-building.tsx",
-        "/Users/martin/repos/Underwatch/game/assets/haus map.tmx",
-        "/Users/martin/repos/Underwatch/game/assets/Haus_map_neu.tmx",
-        "neuesTileset.tsx",
-        "50x50MapMitHitbox.tmx"
+        "/Users/martin/repos/Underwatch/game/assets/iso-64x64-building.tsx"
     ],
     "tileset.lastUsedFormat": "tsx",
     "tileset.tileSize": {
-        "height": 16,
-        "width": 16
+        "height": 32,
+        "width": 24
     }
 }
