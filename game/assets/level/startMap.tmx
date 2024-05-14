@@ -3,11 +3,10 @@
  <properties>
   <property name="inside" type="bool" value="false"/>
  </properties>
- <tileset firstgid="1" source="plains.tsx"/>
- <tileset firstgid="73" source="fences.tsx"/>
- <tileset firstgid="89" source="dungeon assets.tsx"/>
- <tileset firstgid="189" source="babo.tsx"/>
- <tileset firstgid="190" source="Dungeon_Tileset.tsx"/>
+ <tileset firstgid="1" source="../tileSets/tilesetsAussenwelt/plains.tsx"/>
+ <tileset firstgid="73" source="../tileSets/tilesetsAussenwelt/fences.tsx"/>
+ <tileset firstgid="89" source="babo.tsx"/>
+ <tileset firstgid="90" source="../tileSets/tilesetsDungeon/Dungeon_Tileset.tsx"/>
  <layer id="1" name="bottom" width="50" height="50">
   <properties>
    <property name="render" value="below"/>
@@ -21,12 +20,12 @@
    <property name="render" value="below"/>
   </properties>
   <data encoding="base64" compression="zlib">
-   eJztWY1KAzEMzmuom8Z54mDqe/gLoqhvu03wvbzAFWtI2vTvPOU+CGO9NF++S9qubAkAF3/cjntbwXi47e0tYncGH7J7Ly7CuDoeKvlwP4Tp6XjKiIUwPR05sRBmHaXcGm4yYiFMT8d/WeezjvHwCPHz7Tnw7N2LNfV65MRCmHWUcteMhTDrKOWuGQt7O+vtqJItErhLwXUsod59Zp3AXYr/2lchHZuKvJy7ZiyEnzpq5x3irhkLYdy+8u96r2C7h2v24sVC0HXw2hxCeD9qXcsQEOx9xX2nBAR7bim+JbXJmYvQRkcIqXlK/nwMQc7tQBjTfGuhpIYIcm4nEV+fk/PHvlufWZ47IMi5xXRMDQh59WgJrQahHkCI63BzNF9rLlq/1Th3EKZXjxwg5OtocX7Tb4acuw7PzSGlHqG+1fw0EMep0VZsnvSOa/WVZc1yDsrRcrdbs3lTWh/Ewd+1dV5LHalriDgkHZe9XQl2HcnNqsO6Nqw+xNGqHjnnhwWSJuIYu6+sPZPSW8Qh6fD344Uw3glzCOcKh+U9ley9xCHpcOPSfiuNxzha9ZXfu35OfLyVjtq9RRwup40wbtFhqXlKPXLvpy36ir+T0r7KWR8bGGd9lP6m4hypfbUVxkPcKPhyxM5F6Q7i30Ncvlpf7Xv78Mbpu6ZDAyb48lytII7QfkU5cx07+N19V+PQ6rGH77wdSNN2GLf+j9Ml+OZaN+jgPN2Q/27I/XMwp4M+vwD2n3Lk
+   eJztWY1KAzEMzmuom8Z54mDqe/gLoqiwTfD9X8ILXLGGpE3/zlPugzDWS/Plu6TtypYAcPHH7bi3FYyH297eInZn8CG79+IijKvjoZIP90OYno6njFgI09OREwth1lHKreEmIxbC9HT8l3U+6xgPjxA/354Dz969WFOvR04shFlHKXfNWAizjlLumrGwt7PejirZIoG7FFzHEurdZ9YJ3KX4r30V0rGpyMu5a8ZC+Kmjdt4h7pqxEMbtK/+u9wq2e7hmL14sBF0Hr80hhPej1rUMAcHeV9x3SkCw55biW1KbnLkIbXSEkJqn5M/HEOTcDoQxzbcWSmqIIOd2EvH1OTl/7Lv1meW5A4KcW0zH1ICQV4+W0GoQ6gGEuA43R/O15qL1W41zB2F69cgBQr6OFuc3/WbIuevw3BxS6hHqW81PA3GcGm3F5knvuFZfWdYs56AcLXe7NZs3pfVBHPxdW+e11JG6hohD0nHZ25Vg15HcrDqsa8PqQxyt6pFzflggaSKOsfvK2jMpvUUckg5/P14I450wh3CucFjeU8neSxySDjcu7bfSeIyjVV/5vevnxMdb6ajdW8ThctoI4xYdlpqn1CP3ftqir/g7Ke2rnPWxgXHWR+lvKs6R2ldbYTzEjYIvR+xclO4g/j3E5av11b63D2+cvms6NGCCL8/VCuII7VeUM9exg9/ddzUOrR57+M7bgTRth3Hr/zhdgm+udYMOztMN+e+G3D8Hczro8wswiGno
   </data>
  </layer>
  <layer id="8" name="chests" width="50" height="50">
   <data encoding="base64" compression="zlib">
-   eJzt0iEBAAAIwDCoQP+wREAgEGz29hEAAAAAAAAAAPBD5a7DxEO3GtUFADo=
+   eJzt0iEBAAAIxMDvH4aMREAgENzZ2SUAAAAAAAAAAPBDLTtMPHSrAWCaAgs=
   </data>
  </layer>
  <layer id="7" name="stuffOnCeiling" width="50" height="50">
@@ -39,7 +38,7 @@
  </layer>
  <layer id="5" name="teleporter" width="50" height="50">
   <data encoding="base64" compression="zlib">
-   eJztw7EJAAAIA7Ce7ukuHXxBSCAJAAAAAAAAAAAA/DJ9LTkQAQE=
+   eJztw7EJAAAIA7C+7ucuHXxBSCAJAAAAAAAAAAAA/DJ9LTk0AQM=
   </data>
  </layer>
  <layer id="6" name="stuffOnBottom" width="50" height="50">
@@ -47,17 +46,17 @@
    <property name="render" value="below"/>
   </properties>
   <data encoding="base64" compression="zlib">
-   eJzt1SEOACAMA0DQ/P+/CIJBDpIt5M7NdTVtDQAAAAAA/jF6dgIAyHVu4b5vNtK+5qrSf5UcUa/z/9BHtR+iear9kUUPsEzETgCp
+   eJzt1bENACAIBED3X8Q1LexMbNQIIXclBXm+oTUAAAAAAKijRwcAgGDrL+yb+c1O/srSf5Ycp17nr9BHthtO82S7I4oeYBpfRAkj
   </data>
  </layer>
  <layer id="3" name="animatedObjects" width="50" height="50">
   <data encoding="base64" compression="zlib">
-   eJzt2jEOgCAMBVDufxfiFV1kISFGBmvrewsLSfmUjbZGtB59gCKOxZpRhSwVMgwVslTIMFTKAgAAAAAAAFll/rcbcxqrDJFzHE/vcd7/hX7sZrhb37Rbe35D0f3oV+2/zSadHIAfZw==
+   eJzt2jEOgCAMBVDufxjiEV1kISFGBmvrewsLSfmUjbZGtB59gCKOxZpRhSwVMgwVslTIMFTKAgAAAAAAAFll/rcbcxqrDJFzHE/vcd7/hX7sZrhb37Rbe35D0f3oV+2/zSad8oYflQ==
   </data>
  </layer>
  <layer id="4" name="enemy" width="50" height="50">
   <data encoding="base64" compression="zlib">
-   eJztyKEBAAAIA6D9/5O/mRdtBogkAAAAAAAAANDm+AAAHywHgwF7
+   eJztyKEBAAAIA6C96f+PmBdtBogkAAAAAAAAANDm+AAAHyw3WgCz
   </data>
  </layer>
 </map>
