@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="right-down" width="100" height="100" tilewidth="16" tileheight="16" infinite="0" nextlayerid="9" nextobjectid="1">
+ <properties>
+  <property name="inside" type="bool" value="true"/>
+ </properties>
  <tileset firstgid="1" source="../tileSets/tilesetsDungeon/Dungeon_Tileset.tsx"/>
  <tileset firstgid="101" source="../tileSets/tilesetsDungeon/Dungeon_Monster.tsx"/>
  <layer id="1" name="bottom" width="100" height="100">
