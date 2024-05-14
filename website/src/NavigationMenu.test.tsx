@@ -1,18 +1,20 @@
 import React from 'react';
-import { render, fireEvent } from '@testing-library/react';
+import { screen, render, fireEvent } from '@testing-library/react';
 import NavigationMenu from './NavigationMenu';
+import { MemoryRouter } from 'react-router-dom';
+import { Navigation } from '@mui/icons-material';
 
 test('renders NavigationMenu component', () => {
-  const { getByText } = render(<NavigationMenu />);
-  const menuButton = getByText(/MenuIcon/i);
+  const { getByTestId, getByText } = render(<MemoryRouter><NavigationMenu/></MemoryRouter>);
+  const menuButton = screen.getByTestId('navigation-menu-button');
   expect(menuButton).toBeInTheDocument();
 });
 
 
 test('opens menu when button is clicked', () => {
-  const { getByLabelText, getByText } = render(<NavigationMenu />);
-  const menuButton = getByLabelText('basic-button');
-  fireEvent.click(menuButton);
-  const basicMenu = getByText('Landing Page');
-  expect(basicMenu).toBeInTheDocument();
-});
+    const { getByTestId, getByText } = render(<MemoryRouter><NavigationMenu/></MemoryRouter>);
+    const menuButton = screen.getByTestId('navigation-menu-button');
+    fireEvent.click(menuButton);
+    const basicMenu = screen.getByText('Landing Page');
+    expect(basicMenu).toBeInTheDocument();
+  });
