@@ -8,7 +8,7 @@ test('All three Registers exist', () => {
     render(<MemoryRouter><WikiRegisters tabIdents={[3,3,3]}/></MemoryRouter>);
     const weaponsRegister = screen.getByText('Weapons');
     const mobsRegister = screen.getByText('Mobs');
-    const tippsRegister = screen.getByText("Game Law");
+    const tippsRegister = screen.getByText("Game Lore");
     expect(weaponsRegister).toBeInTheDocument();
     expect(mobsRegister).toBeInTheDocument();
     expect(tippsRegister).toBeInTheDocument();

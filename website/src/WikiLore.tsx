@@ -6,7 +6,7 @@ import {Link} from "react-router-dom";
 import NavigationMenu from "./NavigationMenu";
 import WikiRegisters from './WikiRegisters';
 
-function WikiLaw() {
+function WikiLore() {
 
     
 
@@ -18,7 +18,7 @@ function WikiLaw() {
                     <Link to="/" className="link">
                         <img src="../../Logo.png" alt="Underwatch-logo" className="logo" />
                     </Link>
-                    <Typography variant='h1' style={{margin: 'auto', fontSize: '35px', fontWeight: 'bold'}}>Wiki:Law</Typography>
+                    <Typography variant='h1' style={{margin: 'auto', fontSize: '35px', fontWeight: 'bold'}}>Wiki:Lore</Typography>
                     <NavigationMenu/>
                 </Toolbar>
             </AppBar>
@@ -32,4 +32,4 @@ function WikiLaw() {
     );
 }
 
-export default WikiLaw;
+export default WikiLore;

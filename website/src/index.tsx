@@ -12,7 +12,7 @@ import Champions from './Champions';
 import Download from './Download';
 import ViedeoBackground from './VideoBackground';
 import {Toaster} from 'react-hot-toast';
-import WikiLaw from './WikiLaw';
+import WikiLore from './WikiLore';
 
 
 const root = ReactDOM.createRoot(
@@ -45,8 +45,8 @@ const router = createBrowserRouter([
     element: <WikiMobs/>
   },
   {
-    path: '/wiki/law/',
-    element: <WikiLaw/>
+    path: '/wiki/lore/',
+    element: <WikiLore/>
   },
   {
     path: '*',
