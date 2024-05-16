@@ -1,7 +1,7 @@
 import { Typography } from "@mui/material";
 import { theme2 } from "./theme";
 
-function WikiCard(props:{title:string, attributes:string[], values:string[]}) {
+function WikiCard(props:{title:string, attributes:string[], values:string[], pictureLink:string}) {
     return (
         <div className="wiki-card" style={{
             backgroundColor: theme2.palette.primary.main,
@@ -11,9 +11,14 @@ function WikiCard(props:{title:string, attributes:string[], values:string[]}) {
             width: "180px",
         }}>
             <Typography variant="h6" align="center">{props.title}</Typography>
-            <img src={"https://placehold.co/120x100"} alt="placeholder" style={{
+            <img src={props.pictureLink} alt="placeholder" style={{
                 display: "block",
                 margin: "auto",
+                maxHeight: "100px",
+                maxWidth: "120px",
+                height: "100px",
+                width: "auto",
+                objectFit: "contain",
             }}/>
             <div className="wiki-card-stats" style={{
                 width: "calc(100% - 40px)",

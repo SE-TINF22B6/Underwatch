@@ -1,30 +1,19 @@
 
 //test data
 const weapons = [
-    { id: 1, name: 'Sword', damage: 10, type: 'melee' },
-    { id: 2, name: 'Raser', damage: 15, type: 'long' },
-    { id: 3, name: 'Magic Staff', damage: 20, type: 'long' },
-    { id: 4, name: 'Pistol', damage: 10, type: 'gun' },
-    { id: 5, name: 'Rifle', damage: 15, type: 'gun' },
-    { id: 6, name: 'Sniper', damage: 30, type: 'gun' },
+    { id: 1, name: 'AK', damage: 50, firerate: 0.7, range: 20, type: 'gun', picturePath: "/AK.png" },
+    { id: 2, name: 'M4', damage: 40, firerate: 0.5, range: 16, type: 'gun', picturePath: "/M4.png" },
 ];
 
 const enemies = [
-    { id: 1, name: 'Goblin', health: 20, damage: 2 },
-    { id: 2, name: 'Orc', health: 30, damage: 5 },
-    { id: 3, name: 'Dragon', health: 100, damage: 20 },
-    { id: 4, name: 'Skeletton', health: 20, damage: 2 },
-    { id: 5, name: 'Bomber', health: 10, damage: 50 },
-    { id: 6, name: 'Boss', health: 500, damage: 35 },
-    { id: 7, name: 'TestMob', health: "-", damage: "-" },
-    { id: 7, name: 'TestMob', health: "-", damage: "-" },
-    { id: 7, name: 'TestMob', health: "-", damage: "-" },
-    { id: 7, name: 'TestMob', health: "-", damage: "-" },
-    { id: 7, name: 'TestMob', health: "-", damage: "-" },
-    { id: 7, name: 'TestMob', health: "-", damage: "-" },
-    { id: 7, name: 'TestMob', health: "-", damage: "-" },
-    { id: 7, name: 'TestMob', health: "-", damage: "-" },
-   /* { id: 7, name: 'TestMob', health: "-", damage: "-" },*/
+    { id: 1, name: 'Snarg (orc1)', health: 150, damage: 20, picturePath: "/Orc1.png" },
+    { id: 2, name: 'Grommok (orc2)', health: 300, damage: 30, picturePath: "/Orc2.png" },
+    { id: 3, name: 'Grakor (orc3)', health: 450, damage: 40, picturePath: "/Orc3.png" },
+    { id: 4, name: 'Durgosh (orc4)', health: 600, damage: 50, picturePath: "/Orc4.png" },
+    { id: 5, name: 'Morglak (orc5)', health: 750, damage: 60, picturePath: "/Orc5.png" },
+    { id: 6, name: 'OrcBabo', health: 1000, damage: 70, picturePath: "/OrcBabo.png" },
+    { id: 7, name: 'Skeleton', health: 300, damage: 50, picturePath: "/Skeleton.png" },
+    { id: 8, name: 'SkeletonHad', health: 800, damage: 80, picturePath: "/SkeletonHad.png" }
 ];
 export const getWeapons = () => weapons;
 export const getEnemies = () => enemies;
