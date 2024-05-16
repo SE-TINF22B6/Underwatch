@@ -87,7 +87,6 @@ public class WorldRenderer implements Disposable {
             object.render(batch);
         }
         batch.end();
-        world.clearForces();
     }
 
     public void resize(int width, int height) {

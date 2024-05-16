@@ -15,6 +15,7 @@ public class Bullet extends GameObject {
     protected boolean active;
     protected float angle;
     protected float r;
+    private float speed;
 
     // be careful when adjusting this parameter, as this is not the range in tiles but rather a
     // counting of delta times

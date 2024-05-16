@@ -1,10 +1,5 @@
 package de.dhbw.tinf22b6.gameobject;
 
-import static com.badlogic.gdx.math.MathUtils.cosDeg;
-import static com.badlogic.gdx.math.MathUtils.sinDeg;
-import static de.dhbw.tinf22b6.util.Constants.PLAYER_BIT;
-import static de.dhbw.tinf22b6.util.Constants.TILE_SIZE;
-
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.g2d.Animation;
@@ -18,14 +13,25 @@ import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
 import de.dhbw.tinf22b6.util.Assets;
 import de.dhbw.tinf22b6.util.Constants;
-import de.dhbw.tinf22b6.weapon.*;
+import de.dhbw.tinf22b6.weapon.Ak;
+import de.dhbw.tinf22b6.weapon.M4;
+import de.dhbw.tinf22b6.weapon.Weapon;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 
+import static com.badlogic.gdx.math.MathUtils.cosDeg;
+import static com.badlogic.gdx.math.MathUtils.sinDeg;
+import static de.dhbw.tinf22b6.util.Constants.PLAYER_BIT;
+import static de.dhbw.tinf22b6.util.Constants.TILE_SIZE;
+
+
 public class Player extends MobGameObject {
     private final Animation<TextureAtlas.AtlasRegion> dodgeAnimation;
     private final Camera camera;
+    private final Vector2 motionVector;
+    private final ArrayList<Weapon> inventory;
+    private final float speed;
     private Weapon weapon;
     private boolean dodging;
     private float dodgeStateTime;
@@ -52,7 +58,9 @@ public class Player extends MobGameObject {
         body = world.createBody(bodyDef);
 
         PolygonShape boxShape = new PolygonShape();
-        boxShape.setAsBox((float) 15 / 2, (float) 20 / 4);
+        boxShape.setAsBox(
+                currentAnimation.getKeyFrame(0).originalWidth / 4f,
+                currentAnimation.getKeyFrame(0).originalHeight / 12f);
 
         FixtureDef fixtureDef = new FixtureDef();
         fixtureDef.shape = boxShape;
@@ -83,8 +91,8 @@ public class Player extends MobGameObject {
             if (angle > 20 && angle < 160) {
                 batch.draw(
                         weapon.getRegion(),
-                        (pos.x + 4) + r * cosDeg(angle),
-                        (pos.y + 4) + r * sinDeg(angle),
+                        (pos.x) + r * cosDeg(angle),
+                        (pos.y) + 5 + r * sinDeg(angle),
                         8,
                         8,
                         weapon.getRegion().originalWidth,
@@ -92,13 +100,19 @@ public class Player extends MobGameObject {
                         1,
                         1,
                         angle);
-                super.render(batch);
+                batch.draw(
+                        currentAnimation.getKeyFrame(stateTime, true),
+                        body.getPosition().x - currentAnimation.getKeyFrame(0).originalWidth / 2f + 0.5f,
+                        body.getPosition().y - 2);
             } else {
-                super.render(batch);
+                batch.draw(
+                        currentAnimation.getKeyFrame(stateTime, true),
+                        body.getPosition().x - currentAnimation.getKeyFrame(0).originalWidth / 2f + 0.5f,
+                        body.getPosition().y - 2);
                 batch.draw(
                         weapon.getRegion(),
-                        (pos.x + 4) + r * cosDeg(angle),
-                        (pos.y + 4) + r * sinDeg(angle),
+                        (pos.x) + r * cosDeg(angle),
+                        (pos.y) + 5 + r * sinDeg(angle),
                         8,
                         8,
                         weapon.getRegion().originalWidth,

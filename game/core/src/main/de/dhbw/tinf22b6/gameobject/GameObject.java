@@ -20,7 +20,6 @@ public abstract class GameObject {
     protected Vector2 pos;
     protected float stateTime;
     protected boolean remove;
-    protected float speed;
     protected short collisionMask;
 
     public GameObject(String region, Vector2 position, World world, short collisionMask) {
@@ -31,7 +30,10 @@ public abstract class GameObject {
     }
 
     public void render(Batch batch) {
-        batch.draw(currentAnimation.getKeyFrame(stateTime, true), pos.x, pos.y);
+        batch.draw(
+                currentAnimation.getKeyFrame(stateTime, true),
+                body.getPosition().x - currentAnimation.getKeyFrame(0).originalWidth / 2f,
+                body.getPosition().y - currentAnimation.getKeyFrame(0).originalHeight / 2f);
     }
 
     public void tick(float delta) {

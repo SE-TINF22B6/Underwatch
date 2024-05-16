@@ -26,8 +26,8 @@ import com.badlogic.gdx.utils.Array;
 public class FlatTiledGraph implements TiledGraph<FlatTiledNode> {
     public boolean diagonal;
     public FlatTiledNode startNode;
-    protected Array<FlatTiledNode> nodes;
     public int sizeX, sizeY;
+    protected Array<FlatTiledNode> nodes;
 
     public FlatTiledGraph(int[][] map) {
         this.sizeX = map.length;
@@ -118,11 +118,11 @@ public class FlatTiledGraph implements TiledGraph<FlatTiledNode> {
                         addConnection(n, 1, 0);
                         // N
                         addConnection(n, 0, 1);
-                        // // NE
-                        // addConnection(n, 1, 1);
-                        // // NW
-                        // addConnection(n, -1, 1);
-
+                        // NE
+                        addConnection(n, 1, 1);
+                        // NW
+                        addConnection(n, -1, 1);
+                        continue;
                     }
                     // check if wall is left
                     if (getNode(x - 1, y).type == FlatTiledNode.TILE_WALL) {
@@ -134,10 +134,10 @@ public class FlatTiledGraph implements TiledGraph<FlatTiledNode> {
                         addConnection(n, 1, 0);
                         // N
                         addConnection(n, 0, 1);
-                        // // NE
-                        // addConnection(n, 1, 1);
-                        // // SE
-                        // addConnection(n, 1, -1);
+                        // NE
+                        addConnection(n, 1, 1);
+                        // SE
+                        addConnection(n, 1, -1);
                         continue;
                     }
                     // check if wall is right
@@ -174,6 +174,7 @@ public class FlatTiledGraph implements TiledGraph<FlatTiledNode> {
                     addConnection(n, 1, -1);
                     continue;
                 }
+                // Do not delete this part it is important for the edge
                 if (x > 0) addConnection(n, -1, 0);
                 if (y > 0) addConnection(n, 0, -1);
                 if (x > 0 && y > 0) addConnection(n, -1, -1);
