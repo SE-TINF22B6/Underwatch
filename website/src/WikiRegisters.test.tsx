@@ -3,7 +3,6 @@ import {MemoryRouter, Router} from 'react-router-dom';
 import { createMemoryHistory } from 'history';
 import '@testing-library/jest-dom';
 import WikiRegisters from './WikiRegisters';
-import Wiki from './Wiki';
 
 test('All three Registers exist', () => {
     render(<MemoryRouter><WikiRegisters tabIdents={[3,3,3]}/></MemoryRouter>);
