@@ -22,16 +22,21 @@ public class EnemyWeapon extends Weapon {
     public boolean shoot() {
         if (super.shoot()) {
             new Thread(() -> {
-                try {
-                    Thread.sleep((long) (shootingAnimation.getAnimationDuration() * 1000));
-                    float angle = enemy.getPosition().sub(EntitySystem.instance.getPlayer().getPos()).angleDeg() + 180;
-                    Vector2 pos = enemy.getPos();
-                    EntitySystem.instance.add(new Bullet(
-                            new Vector2(pos.x + 15 / 2f, pos.y + 5), world, angle, Constants.WEAPON_ENEMY_BIT));
-                } catch (InterruptedException e) {
-                    throw new RuntimeException(e);
-                }
-            })
+                        try {
+                            Thread.sleep((long) (shootingAnimation.getAnimationDuration() * 1000));
+                            float angle = enemy.getPosition()
+                                            .sub(EntitySystem.instance
+                                                    .getPlayer()
+                                                    .getPos())
+                                            .angleDeg()
+                                    + 180;
+                            Vector2 pos = enemy.getPos();
+                            EntitySystem.instance.add(new Bullet(
+                                    new Vector2(pos.x + 15 / 2f, pos.y + 5), world, angle, Constants.WEAPON_ENEMY_BIT));
+                        } catch (InterruptedException e) {
+                            throw new RuntimeException(e);
+                        }
+                    })
                     .start();
         }
         return true;

@@ -1,5 +1,9 @@
 package de.dhbw.tinf22b6.gameobject;
 
+import static com.badlogic.gdx.math.MathUtils.cosDeg;
+import static com.badlogic.gdx.math.MathUtils.sinDeg;
+import static de.dhbw.tinf22b6.util.Constants.TILE_SIZE;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.ai.pfa.Heuristic;
 import com.badlogic.gdx.ai.pfa.indexed.IndexedAStarPathFinder;
@@ -27,10 +31,6 @@ import de.dhbw.tinf22b6.world.tiled.FlatTiledGraph;
 import de.dhbw.tinf22b6.world.tiled.FlatTiledNode;
 import de.dhbw.tinf22b6.world.tiled.TiledMetricHeuristic;
 import de.dhbw.tinf22b6.world.tiled.TiledSmoothableGraphPath;
-
-import static com.badlogic.gdx.math.MathUtils.cosDeg;
-import static com.badlogic.gdx.math.MathUtils.sinDeg;
-import static de.dhbw.tinf22b6.util.Constants.TILE_SIZE;
 
 public abstract class Enemy extends MobGameObject implements Steerable<Vector2> {
     private static final String TAG = Enemy.class.getName();
@@ -95,7 +95,10 @@ public abstract class Enemy extends MobGameObject implements Steerable<Vector2> 
 
     @Override
     public void render(Batch batch) {
-        float angle = body.getPosition().sub(EntitySystem.instance.getPlayer().getPos()).angleDeg() + 180;
+        float angle = body.getPosition()
+                        .sub(EntitySystem.instance.getPlayer().getPos())
+                        .angleDeg()
+                + 180;
         int r = 5;
         if (angle > 20 && angle < 160) {
             if (body.isAwake())
@@ -248,8 +251,7 @@ public abstract class Enemy extends MobGameObject implements Steerable<Vector2> 
     }
 
     @Override
-    public void setMaxAngularSpeed(float maxAngularSpeed) {
-    }
+    public void setMaxAngularSpeed(float maxAngularSpeed) {}
 
     @Override
     public float getMaxAngularAcceleration() {
@@ -257,8 +259,7 @@ public abstract class Enemy extends MobGameObject implements Steerable<Vector2> 
     }
 
     @Override
-    public void setMaxAngularAcceleration(float maxAngularAcceleration) {
-    }
+    public void setMaxAngularAcceleration(float maxAngularAcceleration) {}
 
     @Override
     public float getZeroLinearSpeedThreshold() {

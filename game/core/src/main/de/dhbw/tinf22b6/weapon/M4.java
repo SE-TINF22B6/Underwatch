@@ -18,16 +18,16 @@ public class M4 extends Weapon {
     public boolean shoot() {
         if (super.shoot()) {
             new Thread(() -> {
-                try {
-                    Thread.sleep((long) (shootingAnimation.getAnimationDuration() * 1000));
-                    float angle = EntitySystem.instance.getPlayer().getAngle();
-                    Vector2 pos = EntitySystem.instance.getPlayer().getPos();
-                    EntitySystem.instance.add(new Bullet(
-                            new Vector2(pos.x + 15 / 2f, pos.y + 5), world, angle, Constants.WEAPON_BIT));
-                } catch (InterruptedException e) {
-                    throw new RuntimeException(e);
-                }
-            })
+                        try {
+                            Thread.sleep((long) (shootingAnimation.getAnimationDuration() * 1000));
+                            float angle = EntitySystem.instance.getPlayer().getAngle();
+                            Vector2 pos = EntitySystem.instance.getPlayer().getPos();
+                            EntitySystem.instance.add(new Bullet(
+                                    new Vector2(pos.x + 15 / 2f, pos.y + 5), world, angle, Constants.WEAPON_BIT));
+                        } catch (InterruptedException e) {
+                            throw new RuntimeException(e);
+                        }
+                    })
                     .start();
         }
         return true;

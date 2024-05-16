@@ -1,13 +1,13 @@
 package de.dhbw.tinf22b6.world;
 
+import static de.dhbw.tinf22b6.util.Constants.*;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.physics.box2d.*;
 import de.dhbw.tinf22b6.gameobject.*;
 import de.dhbw.tinf22b6.gameobject.bullet.Bullet;
 import de.dhbw.tinf22b6.screen.GameScreen;
 import de.dhbw.tinf22b6.util.PlayerStatistics;
-
-import static de.dhbw.tinf22b6.util.Constants.*;
 
 public class WorldListener implements ContactListener {
     private static final String TAG = GameScreen.class.getName();
@@ -41,7 +41,6 @@ public class WorldListener implements ContactListener {
                     ((Enemy) fixA.getUserData()).setTagged(false);
                 }
                 break;
-
         }
     }
 

@@ -1,5 +1,8 @@
 package de.dhbw.tinf22b6.world;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
+
 import com.badlogic.gdx.maps.MapLayer;
 import com.badlogic.gdx.maps.MapObject;
 import com.badlogic.gdx.maps.tiled.TiledMap;
@@ -8,9 +11,6 @@ import com.badlogic.gdx.physics.box2d.BodyDef;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
 class WorldParserTest {
     private TiledMap map;
@@ -37,16 +37,13 @@ class WorldParserTest {
     }
 
     @Test
-    void parseStaticObjects() {
-    }
+    void parseStaticObjects() {}
 
     @Test
-    void parseGameObjects() {
-    }
+    void parseGameObjects() {}
 
     @Test
-    void parseTorches() {
-    }
+    void parseTorches() {}
 
     @Test
     void getStaticBodyDef() {
@@ -77,7 +74,5 @@ class WorldParserTest {
     }
 
     @Test
-    void parseNavigationMap() {
-
-    }
+    void parseNavigationMap() {}
 }

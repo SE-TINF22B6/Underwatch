@@ -1,15 +1,14 @@
 package de.dhbw.tinf22b6.gameobject;
 
+import static de.dhbw.tinf22b6.gameobject.Direction.*;
+
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.World;
 import de.dhbw.tinf22b6.util.Assets;
-
 import java.util.HashMap;
 import java.util.Map;
-
-import static de.dhbw.tinf22b6.gameobject.Direction.*;
 
 public abstract class MobGameObject extends GameObject {
     protected Map<Direction, Animation<TextureAtlas.AtlasRegion>> currentAnimations;
