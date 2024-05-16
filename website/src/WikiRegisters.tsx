@@ -36,6 +36,7 @@ function WikiRegisters(props:{tabIdents:number[]}) {
         }}>
             {registerNames.map((text, index) => 
                 <div className="register-card" 
+                    key={"registerNo." + index}
                     style={{
                         color: theme2.palette.primary.contrastText,
                         backgroundColor: theme2.palette.primary.main,
