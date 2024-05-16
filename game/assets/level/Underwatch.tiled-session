@@ -60,27 +60,27 @@
             }
         },
         "Demo.tmx": {
-            "scale": 0.9369374999999999,
+            "scale": 0.8642,
             "selectedLayer": 5,
             "viewCenter": {
-                "x": 288.70655726769394,
-                "y": 399.1728370355547
+                "x": 302.59199259430693,
+                "y": 414.25595926868783
             }
         },
         "Dungeon1.tmx": {
-            "scale": 0.2511,
-            "selectedLayer": 1,
+            "scale": 0.4416,
+            "selectedLayer": 2,
             "viewCenter": {
-                "x": 1005.5754679410593,
-                "y": 748.7056949422541
+                "x": 596.6938405797101,
+                "y": 722.373188405797
             }
         },
         "Dungeon3.tmx": {
-            "scale": 0.6189,
+            "scale": 0.7693,
             "selectedLayer": 1,
             "viewCenter": {
-                "x": 458.0707707222491,
-                "y": 471.8048149943448
+                "x": 373.71636552710254,
+                "y": 352.2682958533733
             }
         },
         "Dungeon_Monsters1.tsx": {
@@ -140,6 +140,14 @@
             "scaleInDock": 1,
             "scaleInEditor": 1
         },
+        "level5.tmx": {
+            "scale": 0.7407,
+            "selectedLayer": 4,
+            "viewCenter": {
+                "x": 359.79478871337926,
+                "y": 491.4270284865667
+            }
+        },
         "neuesTileset.tsx": {
             "scaleInDock": 1.8723,
             "scaleInEditor": 10.7
@@ -168,7 +176,7 @@
     },
     "frame.defaultDuration": 1,
     "last.externalTilesetPath": "/Users/martin/repos/Underwatch/game/assets/tileSets/tilesetsDungeon",
-    "last.imagePath": "/Users/martin/repos/Underwatch/game/assets/tileSets/tilesetsDungeon",
+    "last.imagePath": "/Users/benny/software-engeneering/Underwatch/game/assets/tileSets/tilesetsDungeon",
     "map.fixedSize": true,
     "map.height": 50,
     "map.lastUsedFormat": "tmx",
