@@ -8,11 +8,11 @@ import NotFound from './NotFound';
 import Wiki from './Wiki';
 import WikiWeapons from './WikiWeapons';
 import WikiMobs from './WikiMobs';
-import WikiTipps from './WikiTipps';
 import Champions from './Champions';
 import Download from './Download';
 import ViedeoBackground from './VideoBackground';
 import {Toaster} from 'react-hot-toast';
+import WikiLaw from './WikiLaw';
 
 
 const root = ReactDOM.createRoot(
@@ -45,8 +45,8 @@ const router = createBrowserRouter([
     element: <WikiMobs/>
   },
   {
-    path: '/wiki/tipps/',
-    element: <WikiTipps/>
+    path: '/wiki/law/',
+    element: <WikiLaw/>
   },
   {
     path: '*',
