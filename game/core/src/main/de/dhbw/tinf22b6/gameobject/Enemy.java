@@ -94,6 +94,11 @@ public abstract class Enemy extends MobGameObject implements Steerable<Vector2> 
     }
 
     public void update() {
+        if(!tagged) {
+            setIdle();
+            body.setAwake(false);
+            return;
+        }
         Player player = EntitySystem.instance.getPlayer();
         FlatTiledNode startNode = worldGraph.getNode(
                 (int) this.getBody().getPosition().x / TILE_SIZE,
