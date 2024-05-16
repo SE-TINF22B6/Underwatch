@@ -21,7 +21,7 @@ import de.dhbw.tinf22b6.ai.EnemySteeringBehaviour;
 import de.dhbw.tinf22b6.util.Constants;
 import de.dhbw.tinf22b6.util.EntitySystem;
 import de.dhbw.tinf22b6.util.SteeringUtils;
-import de.dhbw.tinf22b6.weapon.Ak;
+import de.dhbw.tinf22b6.weapon.EnemyWeapon;
 import de.dhbw.tinf22b6.weapon.Weapon;
 import de.dhbw.tinf22b6.world.tiled.FlatTiledGraph;
 import de.dhbw.tinf22b6.world.tiled.FlatTiledNode;
@@ -47,7 +47,7 @@ public abstract class Enemy extends MobGameObject implements Steerable<Vector2> 
 
     public Enemy(String region, Vector2 position, World world, int[][] rawMap) {
         super(region, position, world, Constants.ENEMY_BIT);
-        this.weapon = new Ak(world);
+        this.weapon = new EnemyWeapon(world, this);
         this.health = 3;
         this.steeringBehavior = new EnemySteeringBehaviour(this);
         this.maxLinearSpeed = 20;
@@ -88,6 +88,7 @@ public abstract class Enemy extends MobGameObject implements Steerable<Vector2> 
     public void tick(float delta) {
         super.tick(delta);
         update();
+        weapon.updateRemainingCoolDown(delta);
         pos.x = body.getPosition().x - (float) TILE_SIZE / 2;
         pos.y = body.getPosition().y - (float) TILE_SIZE / 4;
     }
@@ -146,6 +147,9 @@ public abstract class Enemy extends MobGameObject implements Steerable<Vector2> 
             setIdle();
             body.setAwake(false);
             return;
+        }
+        if (weapon.canShoot()) {
+            weapon.shoot();
         }
         Player player = EntitySystem.instance.getPlayer();
         FlatTiledNode startNode = worldGraph.getNode(

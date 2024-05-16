@@ -40,16 +40,16 @@ public abstract class Weapon {
         }
         this.isShooting = true;
         new Thread(() -> {
-                    try {
-                        Thread.sleep((long) (shootingAnimation.getAnimationDuration() * 1000));
-                        sound.play(Gdx.app.getPreferences("Controls").getFloat("sfx"));
-                        this.remainingWeaponCooldown = this.weaponCooldown;
-                        this.weaponStateTime = 0;
-                        this.isShooting = false;
-                    } catch (InterruptedException e) {
-                        throw new RuntimeException(e);
-                    }
-                })
+            try {
+                Thread.sleep((long) (shootingAnimation.getAnimationDuration() * 1000));
+                sound.play(Gdx.app.getPreferences("Controls").getFloat("sfx"));
+                this.remainingWeaponCooldown = this.weaponCooldown;
+                this.weaponStateTime = 0;
+                this.isShooting = false;
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+        })
                 .start();
         this.ammo--;
         return true;
@@ -72,5 +72,9 @@ public abstract class Weapon {
             return idleAnimation;
         }
         return shootingAnimation.getKeyFrame(weaponStateTime, true);
+    }
+
+    public boolean canShoot() {
+        return ammo > 0 && !isShooting && remainingWeaponCooldown == 0;
     }
 }
