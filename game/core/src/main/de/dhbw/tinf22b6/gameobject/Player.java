@@ -36,8 +36,6 @@ public class Player extends MobGameObject {
     private boolean dodging;
     private float dodgeStateTime;
     private boolean movedDuringDash;
-    private final Vector2 motionVector;
-    private final ArrayList<Weapon> inventory;
     private boolean canSwitchWeapon = true;
     private GameObject interactionTarget;
 

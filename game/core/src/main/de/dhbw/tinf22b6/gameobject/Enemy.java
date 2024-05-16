@@ -8,7 +8,6 @@ import com.badlogic.gdx.ai.steer.SteeringAcceleration;
 import com.badlogic.gdx.ai.steer.SteeringBehavior;
 import com.badlogic.gdx.ai.steer.behaviors.FollowPath;
 import com.badlogic.gdx.ai.steer.utils.paths.LinePath;
-import com.badlogic.gdx.ai.steer.utils.paths.LinePath.LinePathParam;
 import com.badlogic.gdx.ai.utils.Location;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.BodyDef;
@@ -32,18 +31,22 @@ public class Enemy extends GameObject implements Steerable<Vector2> {
     private static final String TAG = Enemy.class.getName();
     private static SteeringAcceleration<Vector2> steeringOutput = new SteeringAcceleration<>(new Vector2());
     protected SteeringBehavior<Vector2> steeringBehavior;
-    private FollowPath<Vector2, LinePathParam> followp;
+    private FollowPath<Vector2, LinePath.LinePathParam> followp;
     private IndexedAStarPathFinder<FlatTiledNode> finder;
     private Heuristic<FlatTiledNode> heuristic;
     private FlatTiledGraph worldGraph;
     private TiledSmoothableGraphPath<FlatTiledNode> path;
     private int health;
     private boolean tagged;
+    private final float speed;
     private float maxLinearSpeed;
     private float maxLinearAcceleration;
 
     public Enemy(Vector2 position, World world, int[][] rawMap) {
         super("skeleton_v2", position, world, Constants.ENEMY_BIT);
+        // equip weapon
+        // this.weapon = new HandGun();
+        this.speed = 20;
         this.health = 3;
         this.steeringBehavior = new EnemySteeringBehaviour(this);
         this.maxLinearSpeed = 10;
