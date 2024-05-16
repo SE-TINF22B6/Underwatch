@@ -129,6 +129,9 @@ public abstract class Enemy extends MobGameObject implements Steerable<Vector2> 
             steeringOutput = steeringBehavior.calculateSteering(steeringOutput);
             // Apply steering acceleration
             applySteering();
+            super.setWalking();
+        } else {
+            super.setIdle();
         }
     }
 
@@ -138,6 +141,16 @@ public abstract class Enemy extends MobGameObject implements Steerable<Vector2> 
         if (!steeringOutput.linear.isZero()) {
             // this method internally scales the force by deltaTime
             body.applyForceToCenter(steeringOutput.linear, true);
+            float angle = steeringOutput.linear.angleDeg();
+            if (angle > 360 - 45 || angle < 45) {
+                setDirection(Direction.RIGHT);
+            } else if (angle > 45 && angle < 135) {
+                setDirection(Direction.UP);
+            } else if (angle > 135 && angle < 225) {
+                setDirection(Direction.LEFT);
+            } else {
+                setDirection(Direction.DOWN);
+            }
             anyAccelerations = true;
         }
 
