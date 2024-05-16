@@ -1,18 +1,5 @@
 package de.dhbw.tinf22b6.gameobject;
 
-import static de.dhbw.tinf22b6.util.Constants.TILE_SIZE;
-
-import de.dhbw.tinf22b6.ai.Box2DLocation;
-import de.dhbw.tinf22b6.ai.EnemyStateMachine;
-import de.dhbw.tinf22b6.ai.EnemySteeringBehaviour;
-import de.dhbw.tinf22b6.util.Constants;
-import de.dhbw.tinf22b6.util.EntitySystem;
-import de.dhbw.tinf22b6.util.SteeringUtils;
-import de.dhbw.tinf22b6.world.tiled.FlatTiledGraph;
-import de.dhbw.tinf22b6.world.tiled.FlatTiledNode;
-import de.dhbw.tinf22b6.world.tiled.TiledMetricHeuristic;
-import de.dhbw.tinf22b6.world.tiled.TiledSmoothableGraphPath;
-
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.ai.pfa.Heuristic;
 import com.badlogic.gdx.ai.pfa.indexed.IndexedAStarPathFinder;
@@ -29,10 +16,23 @@ import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.Array;
+import de.dhbw.tinf22b6.ai.Box2DLocation;
+import de.dhbw.tinf22b6.ai.EnemyStateMachine;
+import de.dhbw.tinf22b6.ai.EnemySteeringBehaviour;
+import de.dhbw.tinf22b6.util.Constants;
+import de.dhbw.tinf22b6.util.EntitySystem;
+import de.dhbw.tinf22b6.util.SteeringUtils;
+import de.dhbw.tinf22b6.world.tiled.FlatTiledGraph;
+import de.dhbw.tinf22b6.world.tiled.FlatTiledNode;
+import de.dhbw.tinf22b6.world.tiled.TiledMetricHeuristic;
+import de.dhbw.tinf22b6.world.tiled.TiledSmoothableGraphPath;
+
+import static de.dhbw.tinf22b6.util.Constants.TILE_SIZE;
 
 public class Enemy extends GameObject implements Steerable<Vector2> {
     private static final String TAG = Enemy.class.getName();
-    private static SteeringAcceleration<Vector2> steeringOutput = new SteeringAcceleration<Vector2>(new Vector2());;
+    private static SteeringAcceleration<Vector2> steeringOutput = new SteeringAcceleration<Vector2>(new Vector2());
+    ;
     protected SteeringBehavior<Vector2> steeringBehavior;
     private FollowPath<Vector2, LinePathParam> followp;
     private EnemyStateMachine stateMachine;
@@ -48,9 +48,9 @@ public class Enemy extends GameObject implements Steerable<Vector2> {
     private float maxLinearAcceleration;
 
     public Enemy(
-                 Vector2 position,
-                 World world, // Player player,
-                 int[][] rawMap) {
+            Vector2 position,
+            World world, // Player player,
+            int[][] rawMap) {
         super("skeleton_v2", position, world, Constants.ENEMY_BIT);
         this.health = 3;
         this.stateMachine = new EnemyStateMachine(this, world, rawMap);
@@ -97,7 +97,7 @@ public class Enemy extends GameObject implements Steerable<Vector2> {
     @Override
     public void tick(float delta) {
         super.tick(delta);
-        stateMachine.tick(delta);
+        //stateMachine.tick(delta);
         update(delta);
     }
 
@@ -112,13 +112,13 @@ public class Enemy extends GameObject implements Steerable<Vector2> {
     public void update(float deltaTime) {
         // This now lets the steering use the gaph. The pathfinding is still fucked
         Player player = EntitySystem.instance.getPlayer();
-        FlatTiledNode startNode = worldGraph.getNode((int) this.getPos().x / TILE_SIZE, (int) this.getPos().y / TILE_SIZE);
+        FlatTiledNode startNode = worldGraph.getNode((int) this.getBody().getPosition().x / TILE_SIZE, (int) this.getBody().getPosition().y / TILE_SIZE);
         FlatTiledNode endNode = worldGraph.getNode((int) player.getPos().x / TILE_SIZE, (int) player.getPos().y / TILE_SIZE);
         TiledSmoothableGraphPath<FlatTiledNode> path = new TiledSmoothableGraphPath<>();
         finder.searchNodePath(startNode, endNode, heuristic, path);
         Array<Vector2> vecArray = new Array<>();
         for (int i = 1; i < path.nodes.size; i++) {
-            vecArray.add(new Vector2(path.nodes.get(i).x * TILE_SIZE, path.nodes.get(i).y * TILE_SIZE));
+            vecArray.add(new Vector2(path.nodes.get(i).x * TILE_SIZE + TILE_SIZE / 2f, path.nodes.get(i).y * TILE_SIZE + TILE_SIZE / 2f));
         }
         // Exception in thread "main" java.lang.IllegalArgumentException: waypoints
         // cannot be null and must contain at least two (2) waypoints
@@ -132,8 +132,8 @@ public class Enemy extends GameObject implements Steerable<Vector2> {
             vecArray.add(player.getPos());
         }
 
-        LinePath<Vector2> linePath = new LinePath<Vector2>(vecArray, true);
-        followp = new FollowPath<Vector2, LinePathParam>(this, linePath);
+        LinePath<Vector2> linePath = new LinePath<>(vecArray, true);
+        followp = new FollowPath<>(this, linePath);
         steeringBehavior = followp;
         // Once arrived at an extremity of the path we want to go the other way around
         Vector2 extremity = followp.getPathOffset() >= 0 ? linePath.getEndPoint() : linePath.getStartPoint();
