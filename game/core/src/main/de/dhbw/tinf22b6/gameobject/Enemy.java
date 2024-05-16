@@ -38,7 +38,6 @@ public class Enemy extends GameObject implements Steerable<Vector2> {
     private TiledSmoothableGraphPath<FlatTiledNode> path;
     private int health;
     private boolean tagged;
-    private final float speed;
     private float maxLinearSpeed;
     private float maxLinearAcceleration;
 
@@ -46,10 +45,9 @@ public class Enemy extends GameObject implements Steerable<Vector2> {
         super("skeleton_v2", position, world, Constants.ENEMY_BIT);
         // equip weapon
         // this.weapon = new HandGun();
-        this.speed = 20;
         this.health = 3;
         this.steeringBehavior = new EnemySteeringBehaviour(this);
-        this.maxLinearSpeed = 10;
+        this.maxLinearSpeed = 20;
         this.maxLinearAcceleration = 100;
         this.worldGraph = new FlatTiledGraph(rawMap);
         this.finder = new IndexedAStarPathFinder<>(worldGraph, true);
