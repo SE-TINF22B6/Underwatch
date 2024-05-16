@@ -18,9 +18,9 @@ function mapTabIdents(array:number[]):number[]{
 }
 
 function WikiRegisters(props:{tabIdents:number[]}) {
-    const registerNames = ["Weapons", "Mobs", "Tipps'n Tricks"];
-    const wikiLinks = ["/wiki/weapons/", "/wiki/mobs/", "/wiki/tipps/"]
-    const registerText = ["gives an overview over all the playable weapons", "gives an overview over all the mobs you can meet", "tipps to have more fun with the game"]
+    const registerNames = ["Weapons", "Mobs", "Game Law"];
+    const wikiLinks = ["/wiki/weapons/", "/wiki/mobs/", "/wiki/law/"]
+    const registerText = ["gives an overview over all the playable weapons", "gives an overview over all the mobs you can meet", "just explore the story behind the game"]
     const tabIdentValues : number[] = mapTabIdents(props.tabIdents);
     const [hoveredCards, setHoveredCards] = useState(Array(tabIdentValues.length).fill(false));
 
