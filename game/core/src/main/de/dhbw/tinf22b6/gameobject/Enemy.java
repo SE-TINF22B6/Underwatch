@@ -27,7 +27,7 @@ import de.dhbw.tinf22b6.world.tiled.TiledSmoothableGraphPath;
 
 import static de.dhbw.tinf22b6.util.Constants.TILE_SIZE;
 
-public class Enemy extends GameObject implements Steerable<Vector2> {
+public abstract class Enemy extends MobGameObject implements Steerable<Vector2> {
     private static final String TAG = Enemy.class.getName();
     private static SteeringAcceleration<Vector2> steeringOutput = new SteeringAcceleration<>(new Vector2());
     private final IndexedAStarPathFinder<FlatTiledNode> finder;
@@ -39,8 +39,8 @@ public class Enemy extends GameObject implements Steerable<Vector2> {
     private float maxLinearSpeed;
     private float maxLinearAcceleration;
 
-    public Enemy(Vector2 position, World world, int[][] rawMap) {
-        super("skeleton_v2", position, world, Constants.ENEMY_BIT);
+    public Enemy(String region, Vector2 position, World world, int[][] rawMap) {
+        super(region, position, world, Constants.ENEMY_BIT);
         // equip weapon
         // this.weapon = new HandGun();
         this.health = 3;
