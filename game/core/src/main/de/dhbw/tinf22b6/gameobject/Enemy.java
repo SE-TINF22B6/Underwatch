@@ -17,7 +17,6 @@ import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.Array;
 import de.dhbw.tinf22b6.ai.Box2DLocation;
-import de.dhbw.tinf22b6.ai.EnemyStateMachine;
 import de.dhbw.tinf22b6.ai.EnemySteeringBehaviour;
 import de.dhbw.tinf22b6.util.Constants;
 import de.dhbw.tinf22b6.util.EntitySystem;
@@ -31,39 +30,28 @@ import static de.dhbw.tinf22b6.util.Constants.TILE_SIZE;
 
 public class Enemy extends GameObject implements Steerable<Vector2> {
     private static final String TAG = Enemy.class.getName();
-    private static SteeringAcceleration<Vector2> steeringOutput = new SteeringAcceleration<Vector2>(new Vector2());
-    ;
+    private static SteeringAcceleration<Vector2> steeringOutput = new SteeringAcceleration<>(new Vector2());
     protected SteeringBehavior<Vector2> steeringBehavior;
     private FollowPath<Vector2, LinePathParam> followp;
-    private EnemyStateMachine stateMachine;
     private IndexedAStarPathFinder<FlatTiledNode> finder;
     private Heuristic<FlatTiledNode> heuristic;
     private FlatTiledGraph worldGraph;
     private TiledSmoothableGraphPath<FlatTiledNode> path;
-    // private Player player;
     private int health;
-    private float boundingRadius;
     private boolean tagged;
     private float maxLinearSpeed;
     private float maxLinearAcceleration;
 
-    public Enemy(
-            Vector2 position,
-            World world, // Player player,
-            int[][] rawMap) {
+    public Enemy(Vector2 position, World world, int[][] rawMap) {
         super("skeleton_v2", position, world, Constants.ENEMY_BIT);
         this.health = 3;
-        this.stateMachine = new EnemyStateMachine(this, world, rawMap);
         this.steeringBehavior = new EnemySteeringBehaviour(this);
         this.maxLinearSpeed = 10;
-        this.boundingRadius = 5;
         this.maxLinearAcceleration = 100;
         this.worldGraph = new FlatTiledGraph(rawMap);
         this.finder = new IndexedAStarPathFinder<>(worldGraph, true);
         this.path = new TiledSmoothableGraphPath<>();
         this.heuristic = new TiledMetricHeuristic<>();
-
-        // this.player = player;
 
         // create Body
         BodyDef bodyDef = new BodyDef();
@@ -78,7 +66,6 @@ public class Enemy extends GameObject implements Steerable<Vector2> {
         FixtureDef fixtureDef = new FixtureDef();
         fixtureDef.shape = boxShape;
         fixtureDef.filter.categoryBits = collisionMask;
-        // fixtureDef.isSensor = true;
         fixtureDef.restitution = 0.0f;
 
         PolygonShape sightShape = new PolygonShape();
@@ -97,7 +84,6 @@ public class Enemy extends GameObject implements Steerable<Vector2> {
     @Override
     public void tick(float delta) {
         super.tick(delta);
-        //stateMachine.tick(delta);
         update(delta);
     }
 
@@ -110,23 +96,22 @@ public class Enemy extends GameObject implements Steerable<Vector2> {
     }
 
     public void update(float deltaTime) {
-        // This now lets the steering use the gaph. The pathfinding is still fucked
         Player player = EntitySystem.instance.getPlayer();
-        FlatTiledNode startNode = worldGraph.getNode((int) this.getBody().getPosition().x / TILE_SIZE, (int) this.getBody().getPosition().y / TILE_SIZE);
-        FlatTiledNode endNode = worldGraph.getNode((int) player.getPos().x / TILE_SIZE, (int) player.getPos().y / TILE_SIZE);
+        FlatTiledNode startNode = worldGraph.getNode(
+                (int) this.getBody().getPosition().x / TILE_SIZE,
+                (int) this.getBody().getPosition().y / TILE_SIZE);
+        FlatTiledNode endNode =
+                worldGraph.getNode((int) player.getPos().x / TILE_SIZE, (int) player.getPos().y / TILE_SIZE);
         TiledSmoothableGraphPath<FlatTiledNode> path = new TiledSmoothableGraphPath<>();
         finder.searchNodePath(startNode, endNode, heuristic, path);
         Array<Vector2> vecArray = new Array<>();
         for (int i = 1; i < path.nodes.size; i++) {
-            vecArray.add(new Vector2(path.nodes.get(i).x * TILE_SIZE + TILE_SIZE / 2f, path.nodes.get(i).y * TILE_SIZE + TILE_SIZE / 2f));
+            vecArray.add(new Vector2(
+                    path.nodes.get(i).x * TILE_SIZE + TILE_SIZE / 2f,
+                    path.nodes.get(i).y * TILE_SIZE + TILE_SIZE / 2f));
         }
-        // Exception in thread "main" java.lang.IllegalArgumentException: waypoints
-        // cannot be null and must contain at least two (2) waypoints
-        // at
-        // com.badlogic.gdx.ai.steer.utils.paths.LinePath.createPath(LinePath.java:185)
-        // at com.badlogic.gdx.ai.steer.utils.paths.LinePath.<init>(LinePath.java:55)
-        //
-        // Fix for the error above
+
+        // A Path always contains at least two waypoints
         if (vecArray.size < 2) {
             vecArray.add(this.getPos());
             vecArray.add(player.getPos());
@@ -145,9 +130,6 @@ public class Enemy extends GameObject implements Steerable<Vector2> {
             // Calculate steering acceleration
             steeringOutput = steeringBehavior.calculateSteering(steeringOutput);
             // Apply steering acceleration
-            // Ja hier wird er nach dem applySteering behaviour geupdated. Da müssen wir das
-            // mit der Path generation rein kriegen, dann brauchen wir auch die
-            // EnemyStateMachine nicht mehr.
             applySteering(deltaTime);
         }
     }
@@ -198,8 +180,7 @@ public class Enemy extends GameObject implements Steerable<Vector2> {
     }
 
     @Override
-    public void setMaxAngularSpeed(float maxAngularSpeed) {
-    }
+    public void setMaxAngularSpeed(float maxAngularSpeed) {}
 
     @Override
     public float getMaxAngularAcceleration() {
@@ -207,8 +188,7 @@ public class Enemy extends GameObject implements Steerable<Vector2> {
     }
 
     @Override
-    public void setMaxAngularAcceleration(float maxAngularAcceleration) {
-    }
+    public void setMaxAngularAcceleration(float maxAngularAcceleration) {}
 
     @Override
     public float getZeroLinearSpeedThreshold() {
@@ -247,7 +227,7 @@ public class Enemy extends GameObject implements Steerable<Vector2> {
 
     @Override
     public float getBoundingRadius() {
-        return boundingRadius;
+        return 0;
     }
 
     @Override
