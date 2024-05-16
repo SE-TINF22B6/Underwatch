@@ -73,4 +73,8 @@ public abstract class Weapon {
         }
         return shootingAnimation.getKeyFrame(weaponStateTime, true);
     }
+
+    public boolean canShoot() {
+        return ammo > 0 && !isShooting && remainingWeaponCooldown == 0;
+    }
 }

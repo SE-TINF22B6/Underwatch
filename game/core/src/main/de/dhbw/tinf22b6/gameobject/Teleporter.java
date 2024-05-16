@@ -1,5 +1,8 @@
 package de.dhbw.tinf22b6.gameobject;
 
+import static de.dhbw.tinf22b6.util.Constants.TILE_SIZE;
+import static de.dhbw.tinf22b6.world.WorldParser.getDynamicBodyDef;
+
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
@@ -7,9 +10,6 @@ import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
 import de.dhbw.tinf22b6.util.Constants;
 import de.dhbw.tinf22b6.world.WorldType;
-
-import static de.dhbw.tinf22b6.util.Constants.TILE_SIZE;
-import static de.dhbw.tinf22b6.world.WorldParser.getDynamicBodyDef;
 
 public class Teleporter extends GameObject {
     private final String destination;

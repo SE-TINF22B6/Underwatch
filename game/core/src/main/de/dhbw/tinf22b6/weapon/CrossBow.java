@@ -2,7 +2,7 @@ package de.dhbw.tinf22b6.weapon;
 
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.World;
-import de.dhbw.tinf22b6.gameobject.Bullet;
+import de.dhbw.tinf22b6.gameobject.bullet.Bullet;
 import de.dhbw.tinf22b6.util.Constants;
 import de.dhbw.tinf22b6.util.EntitySystem;
 

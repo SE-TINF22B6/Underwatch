@@ -1,5 +1,9 @@
 package de.dhbw.tinf22b6.gameobject;
 
+import static com.badlogic.gdx.math.MathUtils.cosDeg;
+import static com.badlogic.gdx.math.MathUtils.sinDeg;
+import static de.dhbw.tinf22b6.util.Constants.TILE_SIZE;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.ai.pfa.Heuristic;
 import com.badlogic.gdx.ai.pfa.indexed.IndexedAStarPathFinder;
@@ -9,6 +13,7 @@ import com.badlogic.gdx.ai.steer.SteeringBehavior;
 import com.badlogic.gdx.ai.steer.behaviors.FollowPath;
 import com.badlogic.gdx.ai.steer.utils.paths.LinePath;
 import com.badlogic.gdx.ai.utils.Location;
+import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
@@ -20,38 +25,35 @@ import de.dhbw.tinf22b6.ai.EnemySteeringBehaviour;
 import de.dhbw.tinf22b6.util.Constants;
 import de.dhbw.tinf22b6.util.EntitySystem;
 import de.dhbw.tinf22b6.util.SteeringUtils;
+import de.dhbw.tinf22b6.weapon.EnemyWeapon;
+import de.dhbw.tinf22b6.weapon.Weapon;
 import de.dhbw.tinf22b6.world.tiled.FlatTiledGraph;
 import de.dhbw.tinf22b6.world.tiled.FlatTiledNode;
 import de.dhbw.tinf22b6.world.tiled.TiledMetricHeuristic;
 import de.dhbw.tinf22b6.world.tiled.TiledSmoothableGraphPath;
 
-import static de.dhbw.tinf22b6.util.Constants.TILE_SIZE;
-
-public class Enemy extends GameObject implements Steerable<Vector2> {
+public abstract class Enemy extends MobGameObject implements Steerable<Vector2> {
     private static final String TAG = Enemy.class.getName();
     private static SteeringAcceleration<Vector2> steeringOutput = new SteeringAcceleration<>(new Vector2());
+    private final IndexedAStarPathFinder<FlatTiledNode> finder;
+    private final Heuristic<FlatTiledNode> heuristic;
+    private final FlatTiledGraph worldGraph;
+    private final Weapon weapon;
     protected SteeringBehavior<Vector2> steeringBehavior;
-    private FollowPath<Vector2, LinePath.LinePathParam> followp;
-    private IndexedAStarPathFinder<FlatTiledNode> finder;
-    private Heuristic<FlatTiledNode> heuristic;
-    private FlatTiledGraph worldGraph;
-    private TiledSmoothableGraphPath<FlatTiledNode> path;
     private int health;
     private boolean tagged;
     private float maxLinearSpeed;
     private float maxLinearAcceleration;
 
-    public Enemy(Vector2 position, World world, int[][] rawMap) {
-        super("skeleton_v2", position, world, Constants.ENEMY_BIT);
-        // equip weapon
-        // this.weapon = new HandGun();
+    public Enemy(String region, Vector2 position, World world, int[][] rawMap) {
+        super(region, position, world, Constants.ENEMY_BIT);
+        this.weapon = new EnemyWeapon(world, this);
         this.health = 3;
         this.steeringBehavior = new EnemySteeringBehaviour(this);
         this.maxLinearSpeed = 20;
         this.maxLinearAcceleration = 100;
         this.worldGraph = new FlatTiledGraph(rawMap);
         this.finder = new IndexedAStarPathFinder<>(worldGraph, true);
-        this.path = new TiledSmoothableGraphPath<>();
         this.heuristic = new TiledMetricHeuristic<>();
 
         // create Body
@@ -85,7 +87,54 @@ public class Enemy extends GameObject implements Steerable<Vector2> {
     @Override
     public void tick(float delta) {
         super.tick(delta);
-        update(delta);
+        update();
+        weapon.updateRemainingCoolDown(delta);
+        pos.x = body.getPosition().x - (float) TILE_SIZE / 2;
+        pos.y = body.getPosition().y - (float) TILE_SIZE / 4;
+    }
+
+    @Override
+    public void render(Batch batch) {
+        float angle = body.getPosition()
+                        .sub(EntitySystem.instance.getPlayer().getPos())
+                        .angleDeg()
+                + 180;
+        int r = 5;
+        if (angle > 20 && angle < 160) {
+            if (body.isAwake())
+                batch.draw(
+                        weapon.getRegion(),
+                        (pos.x) + r * cosDeg(angle),
+                        (pos.y) + 5 + r * sinDeg(angle),
+                        8,
+                        8,
+                        weapon.getRegion().originalWidth,
+                        weapon.getRegion().originalHeight,
+                        1,
+                        1,
+                        angle);
+            batch.draw(
+                    currentAnimation.getKeyFrame(stateTime, true),
+                    body.getPosition().x - currentAnimation.getKeyFrame(0).originalWidth / 2f + 0.5f,
+                    body.getPosition().y - 2);
+        } else {
+            batch.draw(
+                    currentAnimation.getKeyFrame(stateTime, true),
+                    body.getPosition().x - currentAnimation.getKeyFrame(0).originalWidth / 2f + 0.5f,
+                    body.getPosition().y - 2);
+            if (body.isAwake())
+                batch.draw(
+                        weapon.getRegion(),
+                        (pos.x) + r * cosDeg(angle),
+                        (pos.y) + 5 + r * sinDeg(angle),
+                        8,
+                        8,
+                        weapon.getRegion().originalWidth,
+                        weapon.getRegion().originalHeight,
+                        1,
+                        1,
+                        angle);
+        }
     }
 
     public void hit() {
@@ -96,7 +145,15 @@ public class Enemy extends GameObject implements Steerable<Vector2> {
         Gdx.audio.newSound(Gdx.files.internal("sfx/hitSound.mp3")).play(1);
     }
 
-    public void update(float deltaTime) {
+    public void update() {
+        if (!tagged) {
+            setIdle();
+            body.setAwake(false);
+            return;
+        }
+        if (weapon.canShoot()) {
+            weapon.shoot();
+        }
         Player player = EntitySystem.instance.getPlayer();
         FlatTiledNode startNode = worldGraph.getNode(
                 (int) this.getBody().getPosition().x / TILE_SIZE,
@@ -119,28 +176,41 @@ public class Enemy extends GameObject implements Steerable<Vector2> {
         }
 
         LinePath<Vector2> linePath = new LinePath<>(vecArray, true);
-        followp = new FollowPath<>(this, linePath);
-        steeringBehavior = followp;
+        FollowPath<Vector2, LinePath.LinePathParam> followPath = new FollowPath<>(this, linePath);
+        steeringBehavior = followPath;
         // Once arrived at an extremity of the path we want to go the other way around
-        Vector2 extremity = followp.getPathOffset() >= 0 ? linePath.getEndPoint() : linePath.getStartPoint();
-        float tolerance = followp.getArrivalTolerance();
+        Vector2 extremity = followPath.getPathOffset() >= 0 ? linePath.getEndPoint() : linePath.getStartPoint();
+        float tolerance = followPath.getArrivalTolerance();
         if (getPosition().dst2(extremity) < tolerance * tolerance) {
-            followp.setPathOffset(-followp.getPathOffset());
+            followPath.setPathOffset(-followPath.getPathOffset());
         }
         if (steeringBehavior != null) {
             // Calculate steering acceleration
             steeringOutput = steeringBehavior.calculateSteering(steeringOutput);
             // Apply steering acceleration
-            applySteering(deltaTime);
+            applySteering();
+            super.setWalking();
+        } else {
+            super.setIdle();
         }
     }
 
-    protected void applySteering(float delta) {
+    protected void applySteering() {
         boolean anyAccelerations = false;
         // Update position and linear velocity.
         if (!steeringOutput.linear.isZero()) {
             // this method internally scales the force by deltaTime
             body.applyForceToCenter(steeringOutput.linear, true);
+            float angle = steeringOutput.linear.angleDeg();
+            if (angle > 360 - 45 || angle < 45) {
+                setDirection(Direction.RIGHT);
+            } else if (angle > 45 && angle < 135) {
+                setDirection(Direction.UP);
+            } else if (angle > 135 && angle < 225) {
+                setDirection(Direction.LEFT);
+            } else {
+                setDirection(Direction.DOWN);
+            }
             anyAccelerations = true;
         }
 

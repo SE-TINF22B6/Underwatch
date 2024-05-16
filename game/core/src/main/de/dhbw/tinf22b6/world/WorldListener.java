@@ -5,6 +5,7 @@ import static de.dhbw.tinf22b6.util.Constants.*;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.physics.box2d.*;
 import de.dhbw.tinf22b6.gameobject.*;
+import de.dhbw.tinf22b6.gameobject.bullet.Bullet;
 import de.dhbw.tinf22b6.screen.GameScreen;
 import de.dhbw.tinf22b6.util.PlayerStatistics;
 
@@ -31,6 +32,13 @@ public class WorldListener implements ContactListener {
                 } else {
                     ((LootBox) fixB.getUserData()).close();
                     ((Player) fixA.getUserData()).canPickUp(null);
+                }
+                break;
+            case PLAYER_BIT | ENEMY_SIGHT_BIT:
+                if (fixA.getFilterData().categoryBits == PLAYER_BIT) {
+                    ((Enemy) fixB.getUserData()).setTagged(false);
+                } else {
+                    ((Enemy) fixA.getUserData()).setTagged(false);
                 }
                 break;
         }
@@ -109,6 +117,14 @@ public class WorldListener implements ContactListener {
                     gameScreen.changeMap(nextWorld);
                 }
                 Gdx.app.debug(TAG, "BEAM ME UP SCOTTY!");
+                break;
+            }
+            case PLAYER_BIT | ENEMY_SIGHT_BIT: {
+                if (fixA.getFilterData().categoryBits == PLAYER_BIT) {
+                    ((Enemy) fixB.getUserData()).setTagged(true);
+                } else {
+                    ((Enemy) fixA.getUserData()).setTagged(true);
+                }
                 break;
             }
         }
