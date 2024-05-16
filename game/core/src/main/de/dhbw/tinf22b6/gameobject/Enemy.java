@@ -9,6 +9,7 @@ import com.badlogic.gdx.ai.steer.SteeringBehavior;
 import com.badlogic.gdx.ai.steer.behaviors.FollowPath;
 import com.badlogic.gdx.ai.steer.utils.paths.LinePath;
 import com.badlogic.gdx.ai.utils.Location;
+import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
@@ -20,11 +21,15 @@ import de.dhbw.tinf22b6.ai.EnemySteeringBehaviour;
 import de.dhbw.tinf22b6.util.Constants;
 import de.dhbw.tinf22b6.util.EntitySystem;
 import de.dhbw.tinf22b6.util.SteeringUtils;
+import de.dhbw.tinf22b6.weapon.Ak;
+import de.dhbw.tinf22b6.weapon.Weapon;
 import de.dhbw.tinf22b6.world.tiled.FlatTiledGraph;
 import de.dhbw.tinf22b6.world.tiled.FlatTiledNode;
 import de.dhbw.tinf22b6.world.tiled.TiledMetricHeuristic;
 import de.dhbw.tinf22b6.world.tiled.TiledSmoothableGraphPath;
 
+import static com.badlogic.gdx.math.MathUtils.cosDeg;
+import static com.badlogic.gdx.math.MathUtils.sinDeg;
 import static de.dhbw.tinf22b6.util.Constants.TILE_SIZE;
 
 public abstract class Enemy extends MobGameObject implements Steerable<Vector2> {
@@ -33,6 +38,7 @@ public abstract class Enemy extends MobGameObject implements Steerable<Vector2> 
     private final IndexedAStarPathFinder<FlatTiledNode> finder;
     private final Heuristic<FlatTiledNode> heuristic;
     private final FlatTiledGraph worldGraph;
+    private final Weapon weapon;
     protected SteeringBehavior<Vector2> steeringBehavior;
     private int health;
     private boolean tagged;
@@ -41,8 +47,7 @@ public abstract class Enemy extends MobGameObject implements Steerable<Vector2> 
 
     public Enemy(String region, Vector2 position, World world, int[][] rawMap) {
         super(region, position, world, Constants.ENEMY_BIT);
-        // equip weapon
-        // this.weapon = new HandGun();
+        this.weapon = new Ak(world);
         this.health = 3;
         this.steeringBehavior = new EnemySteeringBehaviour(this);
         this.maxLinearSpeed = 20;
@@ -83,6 +88,49 @@ public abstract class Enemy extends MobGameObject implements Steerable<Vector2> 
     public void tick(float delta) {
         super.tick(delta);
         update();
+        pos.x = body.getPosition().x - (float) TILE_SIZE / 2;
+        pos.y = body.getPosition().y - (float) TILE_SIZE / 4;
+    }
+
+    @Override
+    public void render(Batch batch) {
+        float angle = body.getPosition().sub(EntitySystem.instance.getPlayer().getPos()).angleDeg() + 180;
+        int r = 5;
+        if (angle > 20 && angle < 160) {
+            if (body.isAwake())
+                batch.draw(
+                        weapon.getRegion(),
+                        (pos.x) + r * cosDeg(angle),
+                        (pos.y) + 5 + r * sinDeg(angle),
+                        8,
+                        8,
+                        weapon.getRegion().originalWidth,
+                        weapon.getRegion().originalHeight,
+                        1,
+                        1,
+                        angle);
+            batch.draw(
+                    currentAnimation.getKeyFrame(stateTime, true),
+                    body.getPosition().x - currentAnimation.getKeyFrame(0).originalWidth / 2f + 0.5f,
+                    body.getPosition().y - 2);
+        } else {
+            batch.draw(
+                    currentAnimation.getKeyFrame(stateTime, true),
+                    body.getPosition().x - currentAnimation.getKeyFrame(0).originalWidth / 2f + 0.5f,
+                    body.getPosition().y - 2);
+            if (body.isAwake())
+                batch.draw(
+                        weapon.getRegion(),
+                        (pos.x) + r * cosDeg(angle),
+                        (pos.y) + 5 + r * sinDeg(angle),
+                        8,
+                        8,
+                        weapon.getRegion().originalWidth,
+                        weapon.getRegion().originalHeight,
+                        1,
+                        1,
+                        angle);
+        }
     }
 
     public void hit() {
@@ -94,7 +142,7 @@ public abstract class Enemy extends MobGameObject implements Steerable<Vector2> 
     }
 
     public void update() {
-        if(!tagged) {
+        if (!tagged) {
             setIdle();
             body.setAwake(false);
             return;
