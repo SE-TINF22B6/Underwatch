@@ -30,12 +30,10 @@ import static de.dhbw.tinf22b6.util.Constants.TILE_SIZE;
 public class Enemy extends GameObject implements Steerable<Vector2> {
     private static final String TAG = Enemy.class.getName();
     private static SteeringAcceleration<Vector2> steeringOutput = new SteeringAcceleration<>(new Vector2());
+    private final IndexedAStarPathFinder<FlatTiledNode> finder;
+    private final Heuristic<FlatTiledNode> heuristic;
+    private final FlatTiledGraph worldGraph;
     protected SteeringBehavior<Vector2> steeringBehavior;
-    private FollowPath<Vector2, LinePath.LinePathParam> followp;
-    private IndexedAStarPathFinder<FlatTiledNode> finder;
-    private Heuristic<FlatTiledNode> heuristic;
-    private FlatTiledGraph worldGraph;
-    private TiledSmoothableGraphPath<FlatTiledNode> path;
     private int health;
     private boolean tagged;
     private float maxLinearSpeed;
@@ -51,7 +49,6 @@ public class Enemy extends GameObject implements Steerable<Vector2> {
         this.maxLinearAcceleration = 100;
         this.worldGraph = new FlatTiledGraph(rawMap);
         this.finder = new IndexedAStarPathFinder<>(worldGraph, true);
-        this.path = new TiledSmoothableGraphPath<>();
         this.heuristic = new TiledMetricHeuristic<>();
 
         // create Body
@@ -85,7 +82,7 @@ public class Enemy extends GameObject implements Steerable<Vector2> {
     @Override
     public void tick(float delta) {
         super.tick(delta);
-        update(delta);
+        update();
     }
 
     public void hit() {
@@ -96,7 +93,7 @@ public class Enemy extends GameObject implements Steerable<Vector2> {
         Gdx.audio.newSound(Gdx.files.internal("sfx/hitSound.mp3")).play(1);
     }
 
-    public void update(float deltaTime) {
+    public void update() {
         Player player = EntitySystem.instance.getPlayer();
         FlatTiledNode startNode = worldGraph.getNode(
                 (int) this.getBody().getPosition().x / TILE_SIZE,
@@ -119,23 +116,23 @@ public class Enemy extends GameObject implements Steerable<Vector2> {
         }
 
         LinePath<Vector2> linePath = new LinePath<>(vecArray, true);
-        followp = new FollowPath<>(this, linePath);
-        steeringBehavior = followp;
+        FollowPath<Vector2, LinePath.LinePathParam> followPath = new FollowPath<>(this, linePath);
+        steeringBehavior = followPath;
         // Once arrived at an extremity of the path we want to go the other way around
-        Vector2 extremity = followp.getPathOffset() >= 0 ? linePath.getEndPoint() : linePath.getStartPoint();
-        float tolerance = followp.getArrivalTolerance();
+        Vector2 extremity = followPath.getPathOffset() >= 0 ? linePath.getEndPoint() : linePath.getStartPoint();
+        float tolerance = followPath.getArrivalTolerance();
         if (getPosition().dst2(extremity) < tolerance * tolerance) {
-            followp.setPathOffset(-followp.getPathOffset());
+            followPath.setPathOffset(-followPath.getPathOffset());
         }
         if (steeringBehavior != null) {
             // Calculate steering acceleration
             steeringOutput = steeringBehavior.calculateSteering(steeringOutput);
             // Apply steering acceleration
-            applySteering(deltaTime);
+            applySteering();
         }
     }
 
-    protected void applySteering(float delta) {
+    protected void applySteering() {
         boolean anyAccelerations = false;
         // Update position and linear velocity.
         if (!steeringOutput.linear.isZero()) {
@@ -181,7 +178,8 @@ public class Enemy extends GameObject implements Steerable<Vector2> {
     }
 
     @Override
-    public void setMaxAngularSpeed(float maxAngularSpeed) {}
+    public void setMaxAngularSpeed(float maxAngularSpeed) {
+    }
 
     @Override
     public float getMaxAngularAcceleration() {
@@ -189,7 +187,8 @@ public class Enemy extends GameObject implements Steerable<Vector2> {
     }
 
     @Override
-    public void setMaxAngularAcceleration(float maxAngularAcceleration) {}
+    public void setMaxAngularAcceleration(float maxAngularAcceleration) {
+    }
 
     @Override
     public float getZeroLinearSpeedThreshold() {
