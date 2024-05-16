@@ -17,6 +17,7 @@ import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.*;
 import de.dhbw.tinf22b6.gameobject.*;
+import de.dhbw.tinf22b6.gameobject.enemy.Snarg;
 import de.dhbw.tinf22b6.util.Constants;
 
 import java.util.ArrayList;
@@ -117,7 +118,7 @@ public class WorldParser {
                                 list.add(new LootBox(new Vector2(x, y), world, rectangleObject.getRectangle()));
                                 break;
                             case "enemy":
-                                list.add(new Enemy(new Vector2(x, y), world, rawMap));
+                                list.add(new Snarg(new Vector2(x, y), world, rawMap));
                                 break;
                             case "teleporter":
                                 list.add(new Teleporter(new Vector2(x, y),
