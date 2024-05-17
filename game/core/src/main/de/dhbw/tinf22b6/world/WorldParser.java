@@ -19,9 +19,10 @@ import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.*;
 import de.dhbw.tinf22b6.gameobject.*;
-import de.dhbw.tinf22b6.gameobject.enemy.Snarg;
+import de.dhbw.tinf22b6.gameobject.enemy.*;
 import de.dhbw.tinf22b6.util.Constants;
 import java.util.ArrayList;
+import java.util.Random;
 
 public class WorldParser {
     static final int TILE_EMPTY = 0;
@@ -117,7 +118,18 @@ public class WorldParser {
                                 list.add(new LootBox(new Vector2(x, y), world, rectangleObject.getRectangle()));
                                 break;
                             case "enemy":
-                                list.add(new Snarg(new Vector2(x, y), world, rawMap));
+                                Random r = new Random();
+                                int next = r.nextInt(8);
+                                switch (next) {
+                                    case 0 -> list.add(new Snarg(new Vector2(x, y), world, rawMap));
+                                    case 1 -> list.add(new Grommok(new Vector2(x, y), world, rawMap));
+                                    case 2 -> list.add(new Grakor(new Vector2(x, y), world, rawMap));
+                                    case 3 -> list.add(new Durgosh(new Vector2(x, y), world, rawMap));
+                                    case 4 -> list.add(new Morglak(new Vector2(x, y), world, rawMap));
+                                    case 5 -> list.add(new Babo(new Vector2(x, y), world, rawMap));
+                                    case 6 -> list.add(new Skeleton(new Vector2(x, y), world, rawMap));
+                                    case 7 -> list.add(new SkeletonHat(new Vector2(x, y), world, rawMap));
+                                }
                                 break;
                             case "teleporter":
                                 list.add(new Teleporter(
