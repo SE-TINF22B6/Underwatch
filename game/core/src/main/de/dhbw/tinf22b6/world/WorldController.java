@@ -10,6 +10,7 @@ import de.dhbw.tinf22b6.gameobject.Player;
 import de.dhbw.tinf22b6.screen.GameScreen;
 import de.dhbw.tinf22b6.util.CameraHelper;
 import de.dhbw.tinf22b6.util.EntitySystem;
+import de.dhbw.tinf22b6.util.PlayerStatistics;
 
 public class WorldController extends InputAdapter {
     private static final String TAG = WorldController.class.getName();
@@ -105,7 +106,7 @@ public class WorldController extends InputAdapter {
         }
 
         if (keycode == inventory) {
-            Gdx.app.debug(TAG, "Inventory: " + player.getInventoryInfo());
+            Gdx.app.debug(TAG, "Inventory: " + PlayerStatistics.instance.getWeapons());
         }
 
         if (keycode == interact) player.interact(player);
