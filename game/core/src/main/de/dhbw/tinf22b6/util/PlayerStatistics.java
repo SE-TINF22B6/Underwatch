@@ -1,6 +1,9 @@
 package de.dhbw.tinf22b6.util;
 
 import com.badlogic.gdx.Gdx;
+import de.dhbw.tinf22b6.weapon.Weapon;
+import java.util.ArrayList;
+import java.util.List;
 
 public class PlayerStatistics {
     public static final String TAG = PlayerStatistics.class.getName();
@@ -9,11 +12,13 @@ public class PlayerStatistics {
     private int coins;
     private int enemies_kills;
     private float gameTime;
+    private List<Weapon> weapons;
 
     // singleton: prevent instantiation from other classes
     private PlayerStatistics() {}
 
     public void init() {
+        this.weapons = new ArrayList<>();
         this.hp = 5;
         this.coins = 0;
         this.enemies_kills = 0;
@@ -58,5 +63,9 @@ public class PlayerStatistics {
 
     public void incrementGameTime(float deltaTime) {
         this.gameTime += deltaTime;
+    }
+
+    public List<Weapon> getWeapons() {
+        return weapons;
     }
 }

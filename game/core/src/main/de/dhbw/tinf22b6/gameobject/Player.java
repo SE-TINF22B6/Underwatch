@@ -18,17 +18,16 @@ import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
 import de.dhbw.tinf22b6.util.Assets;
 import de.dhbw.tinf22b6.util.Constants;
+import de.dhbw.tinf22b6.util.PlayerStatistics;
 import de.dhbw.tinf22b6.weapon.Ak;
 import de.dhbw.tinf22b6.weapon.M4;
 import de.dhbw.tinf22b6.weapon.Weapon;
-import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.List;
 
 public class Player extends MobGameObject {
     private final Animation<TextureAtlas.AtlasRegion> dodgeAnimation;
     private final Camera camera;
     private final Vector2 motionVector;
-    private final ArrayList<Weapon> inventory;
     private final float speed;
     private Weapon weapon;
     private boolean dodging;
@@ -43,7 +42,6 @@ public class Player extends MobGameObject {
         this.dodgeAnimation = new Animation<>(0.1f, Assets.instance.getAnimationAtlasRegion("priest1_dash"));
         this.speed = 50;
         this.motionVector = new Vector2();
-        this.inventory = new ArrayList<>();
 
         // create Body
         BodyDef bodyDef = new BodyDef();
@@ -79,10 +77,10 @@ public class Player extends MobGameObject {
         boxShape.dispose();
 
         // add starter weapon to inventory
-        inventory.add(new Ak(world));
+        PlayerStatistics.instance.getWeapons().add(new Ak(world));
 
         // equip weapon
-        this.weapon = inventory.get(0);
+        this.weapon = PlayerStatistics.instance.getWeapons().get(0);
     }
 
     public float getAngle() {
@@ -233,6 +231,7 @@ public class Player extends MobGameObject {
     }
 
     public void cycleWeapon(boolean direction) {
+        List<Weapon> inventory = PlayerStatistics.instance.getWeapons();
         if (canSwitchWeapon && inventory.size() > 1) {
             canSwitchWeapon = false;
             for (int i = 0; i < inventory.toArray().length; i++) {
@@ -262,10 +261,6 @@ public class Player extends MobGameObject {
 
     // TODO: here we should roll for a new weapon, which the player does not have yet
     public void pickupWeapon() {
-        this.inventory.add(new M4(world));
-    }
-
-    public String getInventoryInfo() {
-        return Arrays.toString(inventory.toArray());
+        PlayerStatistics.instance.getWeapons().add(new M4(world));
     }
 }
