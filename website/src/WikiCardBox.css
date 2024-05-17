@@ -10,7 +10,7 @@ border-radius: 5px;
 
 ::-webkit-scrollbar-thumb {
 /*background: #6e4a48; /* Farbe des Scrollleisten-Daumens */
-background: #3d253b;
+background: #444444;
 border-radius: 5px; /* abgerundete Ecken des Scrollleisten-Daumens */
 }
 
