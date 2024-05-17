@@ -16,7 +16,7 @@ function WikiLore() {
             <AppBar position="static" className="appBar">
                 <Toolbar variant="dense">
                     <Link to="/" className="link">
-                        <img src="../../Logo.png" alt="Underwatch-logo" className="logo" />
+                        <img src="/Logo.png" alt="Underwatch-logo" className="logo" />
                     </Link>
                     <Typography variant='h1' style={{margin: 'auto', fontSize: '35px', fontWeight: 'bold'}}>Wiki:Lore</Typography>
                     <NavigationMenu/>
