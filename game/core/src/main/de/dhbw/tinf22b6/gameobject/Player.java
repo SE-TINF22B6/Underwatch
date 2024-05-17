@@ -63,6 +63,18 @@ public class Player extends MobGameObject {
         fixtureDef.filter.categoryBits = PLAYER_BIT;
         fixtureDef.restitution = 0.0f;
 
+        PolygonShape collisionShape = new PolygonShape();
+        collisionShape.setAsBox(
+            currentAnimation.getKeyFrame(0).originalWidth / 3.5f,
+            currentAnimation.getKeyFrame(0).originalHeight / 2.5f,
+             new Vector2(0, currentAnimation.getKeyFrame(0).originalHeight / 3f), 0);
+
+        FixtureDef collisionFixtureDef = new FixtureDef();
+        collisionFixtureDef.shape = collisionShape;
+        collisionFixtureDef.filter.categoryBits = PLAYER_BIT;
+        collisionFixtureDef.isSensor = true;
+
+        body.createFixture(collisionFixtureDef).setUserData(this);
         body.createFixture(fixtureDef).setUserData(this);
         boxShape.dispose();
 
