@@ -20,6 +20,7 @@ public class InGameStageHandler {
         stages.put("GameOver", new GameOverStage(game));
         stages.put("GameWon", new GameWonStage(game));
         this.gameScreen = gameScreen;
+        this.currentStage = stages.get("HUD");
     }
 
     public void drawAndAct() {
@@ -51,11 +52,18 @@ public class InGameStageHandler {
         switch (stageName) {
             case "HUD" -> currentStage = stages.get("HUD");
             case "Pause" -> currentStage = stages.get("Pause");
-            case "GameWon" -> currentStage = stages.get("GameWon");
+            case "GameWon" -> {
+                currentStage = stages.get("GameWon");
+                ((GameOverStage) currentStage).update();
+            }
             case "GameOver" -> {
                 currentStage = stages.get("GameOver");
                 ((GameOverStage) currentStage).update();
             }
         }
+    }
+
+    public void resize(int width, int height) {
+        currentStage.getViewport().update(width, height, true);
     }
 }

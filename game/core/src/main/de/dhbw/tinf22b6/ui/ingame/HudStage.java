@@ -3,11 +3,8 @@ package de.dhbw.tinf22b6.ui.ingame;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
-import com.badlogic.gdx.utils.TimeUtils;
 import de.dhbw.tinf22b6.util.Assets;
 import de.dhbw.tinf22b6.util.PlayerStatistics;
-
-import java.time.Duration;
 import java.util.concurrent.TimeUnit;
 
 public class HudStage extends Stage {
@@ -31,10 +28,12 @@ public class HudStage extends Stage {
         this.addActor(labelWeapon);
         this.addActor(labelElapsedTime);
 
-        labelWeapon.setPosition(getWidth() - labelAmmo.getWidth() - labelWeapon.getWidth() - labelAmmo.getWidth()/2, 0);
+        labelWeapon.setPosition(
+                getWidth() - labelAmmo.getWidth() - labelWeapon.getWidth() - labelAmmo.getWidth() / 2, 0);
         labelAmmo.setPosition(getWidth() - labelAmmo.getWidth(), 0);
         labelCoins.setPosition(0, getHeight() - labelCoins.getHeight());
-        labelElapsedTime.setPosition(getWidth() - labelElapsedTime.getWidth(), getHeight() - labelElapsedTime.getHeight());
+        labelElapsedTime.setPosition(
+                getWidth() - labelElapsedTime.getWidth(), getHeight() - labelElapsedTime.getHeight());
     }
 
     @Override
@@ -42,9 +41,11 @@ public class HudStage extends Stage {
         labelHP.setText("HP: " + PlayerStatistics.instance.hp());
         labelCoins.setText("Coins: " + PlayerStatistics.instance.coins());
         labelAmmo.setText(PlayerStatistics.instance.getCurrentWeapon().getAmmo());
-        labelWeapon.setText(PlayerStatistics.instance.getCurrentWeapon().getClass().getSimpleName());
+        labelWeapon.setText(
+                PlayerStatistics.instance.getCurrentWeapon().getClass().getSimpleName());
         long time = (long) PlayerStatistics.instance.getGameTime();
-        labelElapsedTime.setText(String.format("%2d:%2d:%2d", TimeUnit.SECONDS.toHours(time), TimeUnit.SECONDS.toMinutes(time), time % 60));
+        labelElapsedTime.setText(String.format(
+                "%2d:%2d:%2d", TimeUnit.SECONDS.toHours(time), TimeUnit.SECONDS.toMinutes(time), time % 60));
         super.draw();
     }
 }
