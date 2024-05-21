@@ -16,6 +16,7 @@ public class PlayerStatistics {
     private float gameTime;
     private List<Weapon> weapons;
     private int currentWeaponIndex;
+    private int initialHP;
 
     // singleton: prevent instantiation from other classes
     private PlayerStatistics() {}
@@ -25,6 +26,7 @@ public class PlayerStatistics {
         weapons.add(new Ak());
         this.canSwitchWeapon = true;
         this.hp = 5;
+        this.initialHP = hp;
         this.coins = 0;
         this.enemies_kills = 0;
         Gdx.app.debug(TAG, "PlayerStatistics initialized " + instance.toString());
@@ -110,5 +112,9 @@ public class PlayerStatistics {
         for (Weapon weapon : weapons) {
             weapon.reload();
         }
+    }
+
+    public void resetHP() {
+        this.hp = initialHP;
     }
 }
