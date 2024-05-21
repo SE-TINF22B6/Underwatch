@@ -80,4 +80,8 @@ public abstract class Weapon {
     public void reload() {
         this.ammo = this.initialAmmo;
     }
+
+    public int getAmmo() {
+        return ammo;
+    }
 }
