@@ -10,6 +10,7 @@ import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
 import de.dhbw.tinf22b6.gameobject.GameObject;
 import de.dhbw.tinf22b6.util.Constants;
+import de.dhbw.tinf22b6.world.Box2dWorld;
 import de.dhbw.tinf22b6.world.WorldParser;
 
 public class LaserBullet extends GameObject {
@@ -23,18 +24,15 @@ public class LaserBullet extends GameObject {
     protected float range = 2.3f;
     private float speed;
 
-    public LaserBullet(Vector2 position, World world, float angle, short mask) {
-        super(
-                "bullet7x13",
-                new Vector2(position.x / Constants.TILE_SIZE, position.y / Constants.TILE_SIZE),
-                world,
-                mask);
+    public LaserBullet(Vector2 position, float angle, short mask) {
+        super("bullet7x13", new Vector2(position.x / Constants.TILE_SIZE, position.y / Constants.TILE_SIZE), mask);
         this.angle = angle;
         active = true;
         speed = 3;
         width = 3;
         height = 6;
         // wait until world is unlocked before adding body
+        World world = Box2dWorld.instance.getWorld();
         boolean isLocked;
         do {
             isLocked = world.isLocked();

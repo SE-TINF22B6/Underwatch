@@ -4,7 +4,6 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
-import com.badlogic.gdx.physics.box2d.World;
 import de.dhbw.tinf22b6.util.Assets;
 
 public abstract class Weapon {
@@ -17,15 +16,13 @@ public abstract class Weapon {
     protected float weaponStateTime;
     protected boolean isShooting;
     protected Sound sound;
-    protected World world;
 
-    public Weapon(String regionName, int ammo, float weaponCooldown, World world) {
+    public Weapon(String regionName, int ammo, float weaponCooldown) {
         this.idleAnimation = Assets.instance.getSprite("idle" + regionName);
         this.shootingAnimation = new Animation<>(0.2f, Assets.instance.getAnimationAtlasRegion(regionName));
         this.ammo = ammo;
         this.weaponCooldown = weaponCooldown;
         this.sound = Gdx.audio.newSound(Gdx.files.internal("sfx/" + regionName + ".mp3"));
-        this.world = world;
     }
 
     public boolean shoot() {

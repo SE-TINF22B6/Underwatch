@@ -6,6 +6,6 @@ import de.dhbw.tinf22b6.util.Constants;
 
 public class Chest extends GameObject {
     public Chest(Vector2 position, World world) {
-        super("chest", position, world, Constants.BOX_COLLISION_BIT);
+        super("chest", position, Constants.BOX_COLLISION_BIT);
     }
 }

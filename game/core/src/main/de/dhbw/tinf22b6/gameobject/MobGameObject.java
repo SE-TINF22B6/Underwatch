@@ -5,7 +5,6 @@ import static de.dhbw.tinf22b6.gameobject.Direction.*;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.physics.box2d.World;
 import de.dhbw.tinf22b6.util.Assets;
 import java.util.HashMap;
 import java.util.Map;
@@ -16,8 +15,8 @@ public abstract class MobGameObject extends GameObject {
     protected Map<Direction, Animation<TextureAtlas.AtlasRegion>> walkingAnimations;
     protected Direction currentDirection;
 
-    public MobGameObject(String region, Vector2 position, World world, short collisionMask) {
-        super(region + "_idle_front", position, world, collisionMask);
+    public MobGameObject(String region, Vector2 position, short collisionMask) {
+        super(region + "_idle_front", position, collisionMask);
         this.idleAnimations = new HashMap<>();
         this.walkingAnimations = new HashMap<>();
         this.currentAnimations = this.idleAnimations;

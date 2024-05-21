@@ -9,8 +9,6 @@ import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.maps.tiled.TiledMap;
-import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.physics.box2d.World;
 import de.dhbw.tinf22b6.ui.ingame.InGameStageHandler;
 import de.dhbw.tinf22b6.util.EntitySystem;
 import de.dhbw.tinf22b6.util.PlayerStatistics;
@@ -69,13 +67,13 @@ public class GameScreen extends AbstractGameScreen {
                         ? 0
                         : Gdx.app.getPreferences("Controls").getFloat("music"));
         m.play();
-        World world = new World(new Vector2(0, 0), false);
-        WorldParser.parseStaticObjects(map, world);
-        world.setContactListener(new WorldListener(this));
-        EntitySystem.instance.init(WorldParser.parseGameObjects(map, world));
+        Box2dWorld.instance.init();
+        WorldParser.parseStaticObjects(map);
+        Box2dWorld.instance.getWorld().setContactListener(new WorldListener(this));
+        EntitySystem.instance.init(WorldParser.parseGameObjects(map));
         OrthographicCamera camera = new OrthographicCamera(VIEWPORT_WIDTH, VIEWPORT_HEIGHT);
-        worldController = new WorldController(game, world, camera, this);
-        worldRenderer = new WorldRenderer(worldController, world, map, camera);
+        worldController = new WorldController(game, camera, this);
+        worldRenderer = new WorldRenderer(worldController, map, camera);
         stageHandler = new InGameStageHandler(game, this);
     }
 
