@@ -18,7 +18,6 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
-import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.Array;
 import de.dhbw.tinf22b6.ai.Box2DLocation;
 import de.dhbw.tinf22b6.ai.EnemySteeringBehaviour;
@@ -27,6 +26,7 @@ import de.dhbw.tinf22b6.util.EntitySystem;
 import de.dhbw.tinf22b6.util.SteeringUtils;
 import de.dhbw.tinf22b6.weapon.EnemyWeapon;
 import de.dhbw.tinf22b6.weapon.Weapon;
+import de.dhbw.tinf22b6.world.Box2dWorld;
 import de.dhbw.tinf22b6.world.tiled.FlatTiledGraph;
 import de.dhbw.tinf22b6.world.tiled.FlatTiledNode;
 import de.dhbw.tinf22b6.world.tiled.TiledMetricHeuristic;
@@ -45,9 +45,9 @@ public abstract class Enemy extends MobGameObject implements Steerable<Vector2> 
     private float maxLinearSpeed;
     private float maxLinearAcceleration;
 
-    public Enemy(String region, Vector2 position, World world, int[][] rawMap) {
-        super(region, position, world, Constants.ENEMY_BIT);
-        this.weapon = new EnemyWeapon(world, this);
+    public Enemy(String region, Vector2 position, int[][] rawMap) {
+        super(region, position, Constants.ENEMY_BIT);
+        this.weapon = new EnemyWeapon(this);
         this.health = 3;
         this.steeringBehavior = new EnemySteeringBehaviour(this);
         this.maxLinearSpeed = 20;
@@ -61,7 +61,7 @@ public abstract class Enemy extends MobGameObject implements Steerable<Vector2> 
         bodyDef.position.set(pos.x + TILE_SIZE / 2f, pos.y + TILE_SIZE / 4f);
         bodyDef.fixedRotation = true;
         bodyDef.type = BodyDef.BodyType.DynamicBody;
-        body = world.createBody(bodyDef);
+        body = Box2dWorld.instance.getWorld().createBody(bodyDef);
 
         PolygonShape boxShape = new PolygonShape();
         boxShape.setAsBox((float) TILE_SIZE / 3, (float) TILE_SIZE / 3);

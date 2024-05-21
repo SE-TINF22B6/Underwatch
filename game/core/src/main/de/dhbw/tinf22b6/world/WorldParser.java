@@ -30,7 +30,8 @@ public class WorldParser {
     static final int TILE_WALL = 2;
     private static final String TAG = WorldRenderer.class.getName();
 
-    public static void parseStaticObjects(TiledMap map, World world) {
+    public static void parseStaticObjects(TiledMap map) {
+        World world = Box2dWorld.instance.getWorld();
         TiledMapTileLayer layer = (TiledMapTileLayer) map.getLayers().get("walls");
         if (layer == null) {
             return;
@@ -89,7 +90,7 @@ public class WorldParser {
         }
     }
 
-    public static ArrayList<GameObject> parseGameObjects(TiledMap map, World world) {
+    public static ArrayList<GameObject> parseGameObjects(TiledMap map) {
         ArrayList<GameObject> list = new ArrayList<>();
         // TODO refactor animated game objects using an enum
         String[] objects = new String[] {"coins", "torch", "chests", "enemy", "teleporter"};
@@ -109,32 +110,31 @@ public class WorldParser {
                     if (cellObject instanceof RectangleMapObject rectangleObject) {
                         switch (s) {
                             case "torch":
-                                list.add(new CandleStick(new Vector2(x, y), world, rectangleObject.getRectangle()));
+                                list.add(new CandleStick(new Vector2(x, y), rectangleObject.getRectangle()));
                                 break;
                             case "coins":
-                                list.add(new Coin(new Vector2(x, y), world, rectangleObject.getRectangle()));
+                                list.add(new Coin(new Vector2(x, y), rectangleObject.getRectangle()));
                                 break;
                             case "chests":
-                                list.add(new LootBox(new Vector2(x, y), world, rectangleObject.getRectangle()));
+                                list.add(new LootBox(new Vector2(x, y), rectangleObject.getRectangle()));
                                 break;
                             case "enemy":
                                 Random r = new Random();
                                 int next = r.nextInt(8);
                                 switch (next) {
-                                    case 0 -> list.add(new Snarg(new Vector2(x, y), world, rawMap));
-                                    case 1 -> list.add(new Grommok(new Vector2(x, y), world, rawMap));
-                                    case 2 -> list.add(new Grakor(new Vector2(x, y), world, rawMap));
-                                    case 3 -> list.add(new Durgosh(new Vector2(x, y), world, rawMap));
-                                    case 4 -> list.add(new Morglak(new Vector2(x, y), world, rawMap));
-                                    case 5 -> list.add(new Babo(new Vector2(x, y), world, rawMap));
-                                    case 6 -> list.add(new Skeleton(new Vector2(x, y), world, rawMap));
-                                    case 7 -> list.add(new SkeletonHat(new Vector2(x, y), world, rawMap));
+                                    case 0 -> list.add(new Snarg(new Vector2(x, y), rawMap));
+                                    case 1 -> list.add(new Grommok(new Vector2(x, y), rawMap));
+                                    case 2 -> list.add(new Grakor(new Vector2(x, y), rawMap));
+                                    case 3 -> list.add(new Durgosh(new Vector2(x, y), rawMap));
+                                    case 4 -> list.add(new Morglak(new Vector2(x, y), rawMap));
+                                    case 5 -> list.add(new Babo(new Vector2(x, y), rawMap));
+                                    case 6 -> list.add(new Skeleton(new Vector2(x, y), rawMap));
+                                    case 7 -> list.add(new SkeletonHat(new Vector2(x, y), rawMap));
                                 }
                                 break;
                             case "teleporter":
                                 list.add(new Teleporter(
                                         new Vector2(x, y),
-                                        world,
                                         rectangleObject.getRectangle(),
                                         layer.getProperties().get("destination", String.class)));
                                 break;

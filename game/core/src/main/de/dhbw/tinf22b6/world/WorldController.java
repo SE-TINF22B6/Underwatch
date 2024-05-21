@@ -28,13 +28,11 @@ public class WorldController extends InputAdapter {
     public boolean debugBox2D = false;
     private Game game;
     private Player player;
-    private World world;
     private Camera camera;
     private GameScreen gameScreen;
 
-    public WorldController(Game game, World world, Camera camera, GameScreen gameScreen) {
+    public WorldController(Game game, Camera camera, GameScreen gameScreen) {
         this.game = game;
-        this.world = world;
         this.camera = camera;
         this.gameScreen = gameScreen;
         init();
@@ -43,13 +41,14 @@ public class WorldController extends InputAdapter {
     private void init() {
         Gdx.input.setInputProcessor(this);
         Gdx.graphics.setSystemCursor(Cursor.SystemCursor.Crosshair);
-        player = new Player(world, new Vector2(5, 5), camera);
+        player = new Player(new Vector2(5, 5), camera);
         cameraHelper = new CameraHelper();
         cameraHelper.setTarget(player);
         EntitySystem.instance.add(player);
     }
 
     public void update(float deltaTime) {
+        World world = Box2dWorld.instance.getWorld();
         handleInput(deltaTime);
         cameraHelper.update(deltaTime);
 

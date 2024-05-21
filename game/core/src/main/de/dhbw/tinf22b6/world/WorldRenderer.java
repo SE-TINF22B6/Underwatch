@@ -10,7 +10,6 @@ import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapRenderer;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
-import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.Disposable;
 import de.dhbw.tinf22b6.gameobject.GameObject;
 import de.dhbw.tinf22b6.util.EntitySystem;
@@ -22,18 +21,16 @@ public class WorldRenderer implements Disposable {
     private final SpriteBatch batch;
     private final WorldController worldController;
     private final TiledMapRenderer renderer;
-    private final World world;
     private final Box2DDebugRenderer box2DDebugRenderer;
     private final RayHandler rayHandler;
     private final int[] renderBelow;
     private final int[] renderAbove;
 
-    public WorldRenderer(WorldController worldController, World world, TiledMap map, OrthographicCamera camera) {
+    public WorldRenderer(WorldController worldController, TiledMap map, OrthographicCamera camera) {
         this.worldController = worldController;
-        this.world = world;
         box2DDebugRenderer = new Box2DDebugRenderer();
         batch = new SpriteBatch();
-        rayHandler = new RayHandler(world);
+        rayHandler = new RayHandler(Box2dWorld.instance.getWorld());
         RayHandler.useDiffuseLight(true);
         rayHandler.setShadows(true);
         rayHandler.setBlurNum(1);
@@ -74,7 +71,7 @@ public class WorldRenderer implements Disposable {
         renderMapObjects();
         renderer.render(renderAbove);
 
-        if (worldController.debugBox2D) box2DDebugRenderer.render(world, camera.combined);
+        if (worldController.debugBox2D) box2DDebugRenderer.render(Box2dWorld.instance.getWorld(), camera.combined);
         rayHandler.setCombinedMatrix(camera);
         rayHandler.updateAndRender();
     }

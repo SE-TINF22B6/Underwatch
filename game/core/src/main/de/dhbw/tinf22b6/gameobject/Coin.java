@@ -7,16 +7,18 @@ import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
-import com.badlogic.gdx.physics.box2d.World;
 import de.dhbw.tinf22b6.util.Constants;
+import de.dhbw.tinf22b6.world.Box2dWorld;
 
 public class Coin extends GameObject {
-    public Coin(Vector2 position, World world, Rectangle rectangle) {
-        super("coin", position, world, Constants.COIN_BIT);
+    public Coin(Vector2 position, Rectangle rectangle) {
+        super("coin", position, Constants.COIN_BIT);
 
-        body = world.createBody(getDynamicBodyDef(
-                pos.x + TILE_SIZE / 2f + rectangle.getX() - (TILE_SIZE - rectangle.getWidth()) / 2f,
-                pos.y + 1 + TILE_SIZE / 2f + rectangle.getY() - (TILE_SIZE - rectangle.getHeight()) / 2f));
+        body = Box2dWorld.instance
+                .getWorld()
+                .createBody(getDynamicBodyDef(
+                        pos.x + TILE_SIZE / 2f + rectangle.getX() - (TILE_SIZE - rectangle.getWidth()) / 2f,
+                        pos.y + 1 + TILE_SIZE / 2f + rectangle.getY() - (TILE_SIZE - rectangle.getHeight()) / 2f));
         PolygonShape polygonShape = new PolygonShape();
         polygonShape.setAsBox(rectangle.getWidth() / 2f, rectangle.getHeight() / 2f);
 
