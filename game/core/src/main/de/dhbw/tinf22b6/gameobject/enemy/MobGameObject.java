@@ -1,10 +1,12 @@
-package de.dhbw.tinf22b6.gameobject;
+package de.dhbw.tinf22b6.gameobject.enemy;
 
 import static de.dhbw.tinf22b6.gameobject.Direction.*;
 
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.math.Vector2;
+import de.dhbw.tinf22b6.gameobject.Direction;
+import de.dhbw.tinf22b6.gameobject.GameObject;
 import de.dhbw.tinf22b6.util.Assets;
 import java.util.HashMap;
 import java.util.Map;

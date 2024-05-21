@@ -1,4 +1,4 @@
-package de.dhbw.tinf22b6.gameobject;
+package de.dhbw.tinf22b6.gameobject.enemy;
 
 import static com.badlogic.gdx.math.MathUtils.cosDeg;
 import static com.badlogic.gdx.math.MathUtils.sinDeg;
@@ -21,6 +21,8 @@ import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.utils.Array;
 import de.dhbw.tinf22b6.ai.Box2DLocation;
 import de.dhbw.tinf22b6.ai.EnemySteeringBehaviour;
+import de.dhbw.tinf22b6.gameobject.Direction;
+import de.dhbw.tinf22b6.gameobject.Player;
 import de.dhbw.tinf22b6.util.Constants;
 import de.dhbw.tinf22b6.util.EntitySystem;
 import de.dhbw.tinf22b6.util.PlayerStatistics;

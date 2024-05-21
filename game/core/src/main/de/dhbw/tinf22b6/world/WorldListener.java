@@ -6,6 +6,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.physics.box2d.*;
 import de.dhbw.tinf22b6.gameobject.*;
 import de.dhbw.tinf22b6.gameobject.bullet.Bullet;
+import de.dhbw.tinf22b6.gameobject.enemy.Enemy;
 import de.dhbw.tinf22b6.gameobject.interaction.InteractionObject;
 import de.dhbw.tinf22b6.gameobject.interaction.WeaponBox;
 import de.dhbw.tinf22b6.screen.GameScreen;

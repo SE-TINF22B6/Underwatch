@@ -2,7 +2,7 @@ package de.dhbw.tinf22b6.weapon;
 
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.math.Vector2;
-import de.dhbw.tinf22b6.gameobject.Enemy;
+import de.dhbw.tinf22b6.gameobject.enemy.Enemy;
 import de.dhbw.tinf22b6.gameobject.bullet.Bullet;
 import de.dhbw.tinf22b6.util.Assets;
 import de.dhbw.tinf22b6.util.Constants;

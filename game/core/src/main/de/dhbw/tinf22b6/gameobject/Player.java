@@ -15,6 +15,7 @@ import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
+import de.dhbw.tinf22b6.gameobject.enemy.MobGameObject;
 import de.dhbw.tinf22b6.util.Assets;
 import de.dhbw.tinf22b6.util.Constants;
 import de.dhbw.tinf22b6.util.PlayerStatistics;
@@ -71,6 +72,7 @@ public class Player extends MobGameObject {
         body.createFixture(collisionFixtureDef).setUserData(this);
         body.createFixture(fixtureDef).setUserData(this);
         boxShape.dispose();
+        collisionShape.dispose();
     }
 
     public float getAngle() {

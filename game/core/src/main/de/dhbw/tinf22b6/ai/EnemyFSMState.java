@@ -2,7 +2,7 @@ package de.dhbw.tinf22b6.ai;
 
 import com.badlogic.gdx.ai.fsm.State;
 import com.badlogic.gdx.ai.msg.Telegram;
-import de.dhbw.tinf22b6.gameobject.Enemy;
+import de.dhbw.tinf22b6.gameobject.enemy.Enemy;
 
 public enum EnemyFSMState implements State<Enemy> {
     WAALK() {
