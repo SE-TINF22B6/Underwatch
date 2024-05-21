@@ -7,6 +7,9 @@ import de.dhbw.tinf22b6.util.Assets;
 import de.dhbw.tinf22b6.util.Constants;
 import de.dhbw.tinf22b6.util.EntitySystem;
 
+import static com.badlogic.gdx.math.MathUtils.cosDeg;
+import static com.badlogic.gdx.math.MathUtils.sinDeg;
+
 public class Ak extends Weapon {
     public Ak() {
         super("ak", 25, 0.2f);
@@ -17,16 +20,22 @@ public class Ak extends Weapon {
     public boolean shoot() {
         if (super.shoot()) {
             new Thread(() -> {
-                        try {
-                            Thread.sleep((long) (shootingAnimation.getAnimationDuration() * 1000));
-                            float angle = EntitySystem.instance.getPlayer().getAngle();
-                            Vector2 pos = EntitySystem.instance.getPlayer().getPos();
-                            EntitySystem.instance.add(
-                                    new Bullet(new Vector2(pos.x + 15 / 2f, pos.y + 5), angle, Constants.WEAPON_BIT));
-                        } catch (InterruptedException e) {
-                            throw new RuntimeException(e);
-                        }
-                    })
+                try {
+                    Thread.sleep((long) (shootingAnimation.getAnimationDuration() * 1000));
+                    float angle = EntitySystem.instance.getPlayer().getAngle();
+                    Vector2 pos = EntitySystem.instance.getPlayer().getPos();
+                    int r = 30;
+                    EntitySystem.instance.add(
+                            new Bullet(
+                                    new Vector2(
+                                            pos.x + r * cosDeg(angle),
+                                            pos.y + 5 + r * sinDeg(angle)),
+                                    angle,
+                                    Constants.WEAPON_BIT));
+                } catch (InterruptedException e) {
+                    throw new RuntimeException(e);
+                }
+            })
                     .start();
         }
         return true;
