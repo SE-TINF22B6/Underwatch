@@ -6,7 +6,7 @@ import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.Disposable;
 
 public class Box2dWorld implements Disposable {
-    private static final String TAG = Box2dWorld.class.getSimpleName();
+    private static final String TAG = Box2dWorld.class.getName();
     public static final Box2dWorld instance = new Box2dWorld();
     private World world;
 
