@@ -18,22 +18,17 @@ import com.badlogic.gdx.physics.box2d.PolygonShape;
 import de.dhbw.tinf22b6.util.Assets;
 import de.dhbw.tinf22b6.util.Constants;
 import de.dhbw.tinf22b6.util.PlayerStatistics;
-import de.dhbw.tinf22b6.weapon.Ak;
-import de.dhbw.tinf22b6.weapon.M4;
 import de.dhbw.tinf22b6.weapon.Weapon;
 import de.dhbw.tinf22b6.world.Box2dWorld;
-import java.util.List;
 
 public class Player extends MobGameObject {
     private final Animation<TextureAtlas.AtlasRegion> dodgeAnimation;
     private final Camera camera;
     private final Vector2 motionVector;
     private final float speed;
-    private Weapon weapon;
     private boolean dodging;
     private float dodgeStateTime;
     private boolean movedDuringDash;
-    private boolean canSwitchWeapon = true;
     private GameObject interactionTarget;
 
     public Player(Vector2 position, Camera camera) {
@@ -63,9 +58,10 @@ public class Player extends MobGameObject {
 
         PolygonShape collisionShape = new PolygonShape();
         collisionShape.setAsBox(
-            currentAnimation.getKeyFrame(0).originalWidth / 3.5f,
-            currentAnimation.getKeyFrame(0).originalHeight / 2.5f,
-             new Vector2(0, currentAnimation.getKeyFrame(0).originalHeight / 3f), 0);
+                currentAnimation.getKeyFrame(0).originalWidth / 3.5f,
+                currentAnimation.getKeyFrame(0).originalHeight / 2.5f,
+                new Vector2(0, currentAnimation.getKeyFrame(0).originalHeight / 3f),
+                0);
 
         FixtureDef collisionFixtureDef = new FixtureDef();
         collisionFixtureDef.shape = collisionShape;
@@ -75,12 +71,6 @@ public class Player extends MobGameObject {
         body.createFixture(collisionFixtureDef).setUserData(this);
         body.createFixture(fixtureDef).setUserData(this);
         boxShape.dispose();
-
-        // add starter weapon to inventory
-        PlayerStatistics.instance.getWeapons().add(new Ak());
-
-        // equip weapon
-        this.weapon = PlayerStatistics.instance.getWeapons().get(0);
     }
 
     public float getAngle() {
@@ -91,6 +81,7 @@ public class Player extends MobGameObject {
 
     @Override
     public void render(Batch batch) {
+        Weapon weapon = PlayerStatistics.instance.getCurrentWeapon();
         if (!dodging) {
             float angle = getAngle();
             int r = 5;
@@ -135,7 +126,8 @@ public class Player extends MobGameObject {
     @Override
     public void tick(float delta) {
         super.tick(delta);
-        weapon.updateRemainingCoolDown(delta);
+
+        PlayerStatistics.instance.getCurrentWeapon().updateRemainingCoolDown(delta);
         applyForce(motionVector.setLength(1));
 
         if (motionVector.len() == 0) {
@@ -223,44 +215,14 @@ public class Player extends MobGameObject {
     }
 
     public void shoot() {
-        weapon.shoot();
+        PlayerStatistics.instance.getCurrentWeapon().shoot();
     }
 
     public Vector2 getMotionVector() {
         return motionVector;
     }
 
-    public void cycleWeapon(boolean direction) {
-        List<Weapon> inventory = PlayerStatistics.instance.getWeapons();
-        if (canSwitchWeapon && inventory.size() > 1) {
-            canSwitchWeapon = false;
-            for (int i = 0; i < inventory.toArray().length; i++) {
-                if (inventory.get(i) == weapon) {
-                    if (direction) {
-                        this.weapon = inventory.get(Math.floorMod(i - 1, inventory.size()));
-                    } else {
-                        this.weapon = inventory.get(Math.floorMod(i + 1, inventory.size()));
-                    }
-                    Gdx.audio
-                            .newSound(Gdx.files.internal("sfx/change_weapon.mp3"))
-                            .play(Gdx.app.getPreferences("Controls").getFloat("sfx"));
-                    break;
-                }
-            }
-            new Thread(() -> {
-                        try {
-                            Thread.sleep(500);
-                            canSwitchWeapon = true;
-                        } catch (InterruptedException e) {
-                            throw new RuntimeException(e);
-                        }
-                    })
-                    .start();
-        }
-    }
-
-    // TODO: here we should roll for a new weapon, which the player does not have yet
     public void pickupWeapon() {
-        PlayerStatistics.instance.getWeapons().add(new M4());
+        PlayerStatistics.instance.pickupWeapon();
     }
 }
