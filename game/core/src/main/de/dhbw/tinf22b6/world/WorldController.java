@@ -12,6 +12,8 @@ import de.dhbw.tinf22b6.util.CameraHelper;
 import de.dhbw.tinf22b6.util.EntitySystem;
 import de.dhbw.tinf22b6.util.PlayerStatistics;
 
+import java.util.Iterator;
+
 public class WorldController extends InputAdapter {
     private static final String TAG = WorldController.class.getName();
     private final Preferences prefs = Gdx.app.getPreferences("Controls");
@@ -49,20 +51,30 @@ public class WorldController extends InputAdapter {
         World world = Box2dWorld.instance.getWorld();
         handleInput(deltaTime);
         cameraHelper.update(deltaTime);
+
+//        // remove deleted objects from the World
+//        EntitySystem.instance.getGameObjects().stream()
+//            .filter(GameObject::isRemove)
+//            .forEach(gameObject -> {
+//                if (!world.isLocked()) world.destroyBody(gameObject.getBody());
+//            });
+//        // remove deleted objects from the Map
+//        EntitySystem.instance.getGameObjects().stream()
+//            .filter(GameObject::isRemove)
+//            .forEach(EntitySystem.instance::remove);
+        Iterator<GameObject> i = EntitySystem.instance.getGameObjects().iterator();
+        while (i.hasNext()) {
+            GameObject gameObject = i.next();
+            if (gameObject.isRemove()) {
+                EntitySystem.instance.remove(gameObject);
+                if (!world.isLocked()) world.destroyBody(gameObject.getBody());
+            }
+        }
+
         world.step(deltaTime, 6, 2);
 
         // tick objects
         EntitySystem.instance.getGameObjects().forEach(gameObject -> gameObject.tick(deltaTime));
-        // remove deleted objects from the World
-        EntitySystem.instance.getGameObjects().stream()
-                .filter(GameObject::isRemove)
-                .forEach(gameObject -> {
-                    if (!world.isLocked()) world.destroyBody(gameObject.getBody());
-                });
-        // remove deleted objects from the Map
-        EntitySystem.instance.getGameObjects().stream()
-                .filter(GameObject::isRemove)
-                .forEach(EntitySystem.instance::remove);
     }
 
     private void handleInput(float deltaTime) {
