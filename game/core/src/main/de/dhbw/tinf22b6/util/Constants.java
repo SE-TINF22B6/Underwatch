@@ -11,7 +11,7 @@ public class Constants {
     public static final short COIN_BIT = 2;
     public static final short WEAPON_BIT = 4;
     public static final short BOX_COLLISION_BIT = 8;
-    public static final short BOX_INTERACTION_BIT = 16;
+    public static final short INTERACTION_BIT = 16;
     public static final short DOOR_COLLISION_BIT = 32;
     public static final short DOOR_INTERACTION_BIT = 64;
     public static final short POTION_BIT = 128;

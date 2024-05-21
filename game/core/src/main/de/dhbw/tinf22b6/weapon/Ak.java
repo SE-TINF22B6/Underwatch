@@ -1,5 +1,8 @@
 package de.dhbw.tinf22b6.weapon;
 
+import static com.badlogic.gdx.math.MathUtils.cosDeg;
+import static com.badlogic.gdx.math.MathUtils.sinDeg;
+
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.math.Vector2;
 import de.dhbw.tinf22b6.gameobject.bullet.Bullet;
@@ -21,8 +24,11 @@ public class Ak extends Weapon {
                             Thread.sleep((long) (shootingAnimation.getAnimationDuration() * 1000));
                             float angle = EntitySystem.instance.getPlayer().getAngle();
                             Vector2 pos = EntitySystem.instance.getPlayer().getPos();
-                            EntitySystem.instance.add(
-                                    new Bullet(new Vector2(pos.x + 15 / 2f, pos.y + 5), angle, Constants.WEAPON_BIT));
+                            int r = 30;
+                            EntitySystem.instance.add(new Bullet(
+                                    new Vector2(pos.x + r * cosDeg(angle), pos.y + 5 + r * sinDeg(angle)),
+                                    angle,
+                                    Constants.WEAPON_BIT));
                         } catch (InterruptedException e) {
                             throw new RuntimeException(e);
                         }

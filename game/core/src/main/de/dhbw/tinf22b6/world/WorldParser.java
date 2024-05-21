@@ -20,6 +20,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.*;
 import de.dhbw.tinf22b6.gameobject.*;
 import de.dhbw.tinf22b6.gameobject.enemy.*;
+import de.dhbw.tinf22b6.gameobject.interaction.WeaponBox;
 import de.dhbw.tinf22b6.util.Constants;
 import java.util.ArrayList;
 import java.util.Random;
@@ -116,7 +117,7 @@ public class WorldParser {
                                 list.add(new Coin(new Vector2(x, y), rectangleObject.getRectangle()));
                                 break;
                             case "chests":
-                                list.add(new LootBox(new Vector2(x, y), rectangleObject.getRectangle()));
+                                list.add(new WeaponBox(new Vector2(x, y), rectangleObject.getRectangle()));
                                 break;
                             case "enemy":
                                 Random r = new Random();

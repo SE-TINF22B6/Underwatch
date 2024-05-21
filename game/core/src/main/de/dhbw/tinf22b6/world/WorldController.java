@@ -11,7 +11,6 @@ import de.dhbw.tinf22b6.screen.GameScreen;
 import de.dhbw.tinf22b6.util.CameraHelper;
 import de.dhbw.tinf22b6.util.EntitySystem;
 import de.dhbw.tinf22b6.util.PlayerStatistics;
-
 import java.util.Iterator;
 
 public class WorldController extends InputAdapter {
@@ -52,16 +51,16 @@ public class WorldController extends InputAdapter {
         handleInput(deltaTime);
         cameraHelper.update(deltaTime);
 
-//        // remove deleted objects from the World
-//        EntitySystem.instance.getGameObjects().stream()
-//            .filter(GameObject::isRemove)
-//            .forEach(gameObject -> {
-//                if (!world.isLocked()) world.destroyBody(gameObject.getBody());
-//            });
-//        // remove deleted objects from the Map
-//        EntitySystem.instance.getGameObjects().stream()
-//            .filter(GameObject::isRemove)
-//            .forEach(EntitySystem.instance::remove);
+        //        // remove deleted objects from the World
+        //        EntitySystem.instance.getGameObjects().stream()
+        //            .filter(GameObject::isRemove)
+        //            .forEach(gameObject -> {
+        //                if (!world.isLocked()) world.destroyBody(gameObject.getBody());
+        //            });
+        //        // remove deleted objects from the Map
+        //        EntitySystem.instance.getGameObjects().stream()
+        //            .filter(GameObject::isRemove)
+        //            .forEach(EntitySystem.instance::remove);
         Iterator<GameObject> i = EntitySystem.instance.getGameObjects().iterator();
         while (i.hasNext()) {
             GameObject gameObject = i.next();
@@ -116,10 +115,6 @@ public class WorldController extends InputAdapter {
             player.getMotionVector().y = -1;
         }
 
-        if (keycode == inventory) {
-            Gdx.app.debug(TAG, "Inventory: " + PlayerStatistics.instance.getWeapons());
-        }
-
         if (keycode == interact) player.interact(player);
         if (keycode == dodge) player.dodge();
         if (keycode == Input.Keys.ESCAPE) gameScreen.setPaused();
@@ -131,9 +126,9 @@ public class WorldController extends InputAdapter {
     @Override
     public boolean scrolled(float amountX, float amountY) {
         if (amountY < 0) {
-            player.cycleWeapon(false);
+            PlayerStatistics.instance.cycleWeapon(false);
         } else if (amountY > 0) {
-            player.cycleWeapon(true);
+            PlayerStatistics.instance.cycleWeapon(true);
         }
         return super.scrolled(amountX, amountY);
     }

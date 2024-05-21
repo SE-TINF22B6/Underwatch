@@ -1,4 +1,4 @@
-package de.dhbw.tinf22b6.gameobject;
+package de.dhbw.tinf22b6.gameobject.enemy;
 
 import static com.badlogic.gdx.math.MathUtils.cosDeg;
 import static com.badlogic.gdx.math.MathUtils.sinDeg;
@@ -21,8 +21,11 @@ import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.utils.Array;
 import de.dhbw.tinf22b6.ai.Box2DLocation;
 import de.dhbw.tinf22b6.ai.EnemySteeringBehaviour;
+import de.dhbw.tinf22b6.gameobject.Direction;
+import de.dhbw.tinf22b6.gameobject.Player;
 import de.dhbw.tinf22b6.util.Constants;
 import de.dhbw.tinf22b6.util.EntitySystem;
+import de.dhbw.tinf22b6.util.PlayerStatistics;
 import de.dhbw.tinf22b6.util.SteeringUtils;
 import de.dhbw.tinf22b6.weapon.EnemyWeapon;
 import de.dhbw.tinf22b6.weapon.Weapon;
@@ -141,6 +144,7 @@ public abstract class Enemy extends MobGameObject implements Steerable<Vector2> 
         this.health--;
         if (health == 0) {
             this.remove = true;
+            PlayerStatistics.instance.enemyKilled();
         }
         Gdx.audio.newSound(Gdx.files.internal("sfx/hitSound.mp3")).play(1);
     }

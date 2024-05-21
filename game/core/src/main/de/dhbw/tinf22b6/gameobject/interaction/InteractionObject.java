@@ -1,9 +1,8 @@
-package de.dhbw.tinf22b6.gameobject;
+package de.dhbw.tinf22b6.gameobject.interaction;
 
 import static de.dhbw.tinf22b6.util.Constants.TILE_SIZE;
 import static de.dhbw.tinf22b6.world.WorldParser.getStaticBodyDef;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.math.Rectangle;
@@ -11,18 +10,20 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.CircleShape;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
+import de.dhbw.tinf22b6.gameobject.GameObject;
+import de.dhbw.tinf22b6.gameobject.Player;
 import de.dhbw.tinf22b6.util.Assets;
 import de.dhbw.tinf22b6.util.Constants;
 import de.dhbw.tinf22b6.world.Box2dWorld;
 
-public class LootBox extends GameObject {
-    private final Animation<TextureAtlas.AtlasRegion> closedAnimation;
-    private final Animation<TextureAtlas.AtlasRegion> openAnimation;
+public abstract class InteractionObject extends GameObject {
+    private final Animation<TextureAtlas.AtlasRegion> inactiveAnimation;
+    private final Animation<TextureAtlas.AtlasRegion> activeAnimation;
 
-    public LootBox(Vector2 position, Rectangle rectangle) {
-        super("chest", position, Constants.BOX_INTERACTION_BIT);
-        this.openAnimation = new Animation<>(0.2f, Assets.instance.getAnimationAtlasRegion("chest_open"));
-        this.closedAnimation = currentAnimation;
+    public InteractionObject(String region, Vector2 position, Rectangle rectangle) {
+        super(region, position, Constants.INTERACTION_BIT);
+        this.activeAnimation = new Animation<>(0.2f, Assets.instance.getAnimationAtlasRegion(region + "_open"));
+        this.inactiveAnimation = currentAnimation;
 
         body = Box2dWorld.instance
                 .getWorld()
@@ -50,20 +51,16 @@ public class LootBox extends GameObject {
         circleShape.dispose();
     }
 
-    public void open() {
-        this.currentAnimation = openAnimation;
-        Gdx.audio
-                .newSound(Gdx.files.internal("sfx/chest_open.mp3"))
-                .play(Gdx.app.getPreferences("Controls").getFloat("sfx"));
+    public void activate() {
+        this.currentAnimation = activeAnimation;
     }
 
-    public void close() {
-        this.currentAnimation = closedAnimation;
+    public void deactivate() {
+        this.currentAnimation = inactiveAnimation;
     }
 
     @Override
     public void interact(Player player) {
-        player.pickupWeapon();
         super.interact(player);
     }
 }
