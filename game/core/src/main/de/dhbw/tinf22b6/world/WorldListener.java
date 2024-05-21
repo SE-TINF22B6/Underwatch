@@ -6,6 +6,8 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.physics.box2d.*;
 import de.dhbw.tinf22b6.gameobject.*;
 import de.dhbw.tinf22b6.gameobject.bullet.Bullet;
+import de.dhbw.tinf22b6.gameobject.interaction.InteractionObject;
+import de.dhbw.tinf22b6.gameobject.interaction.WeaponBox;
 import de.dhbw.tinf22b6.screen.GameScreen;
 import de.dhbw.tinf22b6.util.PlayerStatistics;
 
@@ -25,12 +27,12 @@ public class WorldListener implements ContactListener {
         int cDef = fixA.getFilterData().categoryBits | fixB.getFilterData().categoryBits;
 
         switch (cDef) {
-            case PLAYER_BIT | BOX_INTERACTION_BIT:
-                if (fixA.getFilterData().categoryBits == BOX_INTERACTION_BIT) {
-                    ((LootBox) fixA.getUserData()).close();
+            case PLAYER_BIT | INTERACTION_BIT:
+                if (fixA.getFilterData().categoryBits == INTERACTION_BIT) {
+                    ((InteractionObject) fixA.getUserData()).deactivate();
                     ((Player) fixB.getUserData()).canPickUp(null);
                 } else {
-                    ((LootBox) fixB.getUserData()).close();
+                    ((InteractionObject) fixB.getUserData()).deactivate();
                     ((Player) fixA.getUserData()).canPickUp(null);
                 }
                 break;
@@ -52,16 +54,14 @@ public class WorldListener implements ContactListener {
         int cDef = fixA.getFilterData().categoryBits | fixB.getFilterData().categoryBits;
 
         switch (cDef) {
-            case PLAYER_BIT | BOX_INTERACTION_BIT:
-                if (fixA.getFilterData().categoryBits == BOX_INTERACTION_BIT) {
-                    ((LootBox) fixA.getUserData()).open();
-                    ((Player) fixB.getUserData()).canPickUp(((LootBox) fixA.getUserData()));
+            case PLAYER_BIT | INTERACTION_BIT:
+                if (fixA.getFilterData().categoryBits == INTERACTION_BIT) {
+                    ((InteractionObject) fixA.getUserData()).activate();
+                    ((Player) fixB.getUserData()).canPickUp(((WeaponBox) fixA.getUserData()));
                 } else {
-                    ((LootBox) fixB.getUserData()).open();
-                    ((Player) fixA.getUserData()).canPickUp(((LootBox) fixB.getUserData()));
+                    ((InteractionObject) fixB.getUserData()).activate();
+                    ((Player) fixA.getUserData()).canPickUp(((WeaponBox) fixB.getUserData()));
                 }
-                // TODO: sfx open box
-                // Gdx.audio.newSound(Gdx.files.internal("sfx/coin_pickup.mp3")).play(Gdx.app.getPreferences("Controls").getFloat("sfx"));
                 break;
             case PLAYER_BIT | COIN_BIT:
                 if (fixA.getFilterData().categoryBits == COIN_BIT) {

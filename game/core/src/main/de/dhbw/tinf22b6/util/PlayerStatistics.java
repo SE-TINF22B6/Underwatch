@@ -105,4 +105,10 @@ public class PlayerStatistics {
         this.weapons.add(new M4());
         this.currentWeaponIndex = weapons.size() - 1;
     }
+
+    public void reloadWeapons() {
+        for (Weapon weapon : weapons) {
+            weapon.reload();
+        }
+    }
 }
