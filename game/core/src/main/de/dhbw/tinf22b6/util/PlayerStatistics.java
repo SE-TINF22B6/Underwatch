@@ -17,6 +17,7 @@ public class PlayerStatistics {
     private List<Weapon> weapons;
     private int currentWeaponIndex;
     private int initialHP;
+    private boolean won;
 
     // singleton: prevent instantiation from other classes
     private PlayerStatistics() {}
@@ -116,5 +117,13 @@ public class PlayerStatistics {
 
     public void resetHP() {
         this.hp = initialHP;
+    }
+
+    public void setWon() {
+        this.won = true;
+    }
+
+    public boolean hasWon() {
+        return won;
     }
 }
