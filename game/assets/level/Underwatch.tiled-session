@@ -60,27 +60,27 @@
             }
         },
         "Demo.tmx": {
-            "scale": 0.8642,
+            "scale": 0.7327,
             "selectedLayer": 5,
             "viewCenter": {
-                "x": 302.59199259430693,
-                "y": 414.25595926868783
+                "x": 434.69359901733316,
+                "y": 451.75378736181256
             }
         },
         "Dungeon1.tmx": {
-            "scale": 0.4416,
-            "selectedLayer": 2,
+            "scale": 0.3214,
+            "selectedLayer": 4,
             "viewCenter": {
-                "x": 596.6938405797101,
-                "y": 722.373188405797
+                "x": 1348.7865588052268,
+                "y": 790.2924704418169
             }
         },
         "Dungeon3.tmx": {
-            "scale": 0.7693,
-            "selectedLayer": 1,
+            "scale": 0.8415,
+            "selectedLayer": 3,
             "viewCenter": {
-                "x": 373.71636552710254,
-                "y": 352.2682958533733
+                "x": 541.2953060011884,
+                "y": 311.3487819370173
             }
         },
         "Dungeon_Monsters1.tsx": {
@@ -141,11 +141,11 @@
             "scaleInEditor": 1
         },
         "level5.tmx": {
-            "scale": 0.7407,
+            "scale": 1.2476,
             "selectedLayer": 4,
             "viewCenter": {
-                "x": 359.79478871337926,
-                "y": 491.4270284865667
+                "x": 934.9951907662712,
+                "y": 955.4344341134979
             }
         },
         "neuesTileset.tsx": {

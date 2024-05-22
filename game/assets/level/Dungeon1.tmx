@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="right-down" width="100" height="100" tilewidth="16" tileheight="16" infinite="0" nextlayerid="10" nextobjectid="1">
+<map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="right-down" width="100" height="100" tilewidth="16" tileheight="16" infinite="0" nextlayerid="12" nextobjectid="1">
  <properties>
   <property name="inside" type="bool" value="true"/>
  </properties>
@@ -24,6 +24,16 @@
  <layer id="9" name="start" width="100" height="100">
   <data encoding="base64" compression="zlib">
    eJztzjENAAAIA7DZxL8RRIyEp1XQBAA68x0AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAOLTBIABa
+  </data>
+ </layer>
+ <layer id="10" name="hp" width="100" height="100">
+  <data encoding="base64" compression="zlib">
+   eJzt2qENACAMRcHOiWX/HQi2jhJCmtyZ2sovXgQAAAAAAACwzXQBAAAAAAAAAAAAAHhHuw0AAAAAAADnxu8HALiilwDozR4HAAAAAAAAAIBetJtApgUEKhbkNQL+
+  </data>
+ </layer>
+ <layer id="11" name="speed" width="100" height="100">
+  <data encoding="base64" compression="zlib">
+   eJzt2jENADAMA8HAzFz+IEqga2opukPwowdXAQAAAAAAAC8nHQAAAAAAAAAArOSTAAAAGZ0OAAAAAACA5fxiAADgPzscAAAAAAAAAAAAAABg1gWRmgHh
   </data>
  </layer>
  <layer id="2" name="walls" width="100" height="100">
