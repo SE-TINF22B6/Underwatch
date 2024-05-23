@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.10" tiledversion="1.10.2" class="outside" orientation="orthogonal" renderorder="right-down" width="50" height="50" tilewidth="16" tileheight="16" infinite="0" nextlayerid="12" nextobjectid="1">
+<map version="1.10" tiledversion="1.10.2" class="outside" orientation="orthogonal" renderorder="right-down" width="50" height="50" tilewidth="16" tileheight="16" infinite="0" nextlayerid="13" nextobjectid="1">
  <properties>
   <property name="inside" type="bool" value="false"/>
  </properties>
@@ -13,6 +13,11 @@
   </properties>
   <data encoding="base64" compression="zlib">
    eJztmL0OgCAMhFk0Ifr+zyujg9byZ6/lhm8hIVyPa0PIKaVMCFGzFXbFWs1+C47CKax96Xzaj4gXnbWg5KhXF+r9oOoi7dlH65m3jKHPXq2P1jpn6kPL0ggPItZE5hA5K9Ib31Pd0hufPfIfnjIjUZOZ6DVHr280Fn7NONNibqLPavbCml73aEHyGkkLscOyt0aebZln5F5Cmp1RPSZ1oGfS81/vXTuiPi2etbfel2c83he9J6tzAf7RV6U=
+  </data>
+ </layer>
+ <layer id="12" name="trophy" width="50" height="50">
+  <data encoding="base64" compression="zlib">
+   eJztzkERAAAIA6D172Q3U+x8CAlIgG/mOgAAAAAAAAAAAAULEU4Avg==
   </data>
  </layer>
  <layer id="2" name="walls" width="50" height="50">
