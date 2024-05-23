@@ -80,6 +80,8 @@ const Scoreboard = () => {
 
     const [minScore, setMinScore] = useState(0);
 
+    const [useEffectTrigger, setUseEffectTrigger] = useState(0);
+
     // ---------- apiDate ----------
     const createApiDateString = (date: Date | null, startDate: boolean) => {
         // Überprüfen, ob das Datum gültig ist
@@ -140,7 +142,8 @@ const Scoreboard = () => {
                 }
             });
         });
-    }, [requestedPage, order, orderBy, inputValue, scoreStartDate, scoreEndDate, minScore]);
+    }, [requestedPage, order, orderBy, useEffectTrigger]);
+    //}, [requestedPage, order, orderBy, inputValue, scoreStartDate, scoreEndDate, minScore]);
 
     // ---------- CookieHandling ----------
     useEffect(() => {
@@ -193,6 +196,7 @@ const Scoreboard = () => {
             }
             document.cookie = `filterData=${JSON.stringify(cookieObject)}`;
         }
+        setUseEffectTrigger(prev => prev +1);
     }
 
     // ---------- Sortierung ----------
@@ -357,23 +361,17 @@ const Scoreboard = () => {
 
                             <TableBody>
                                 {sortedData.map((row: ScoreData, id) => (
-                                    (
-                                        (inputValue === "" || row.playerName.toLowerCase().includes(inputValue.toLowerCase())) &&
-                                        (row.score >= minScore) &&
-                                        (new Date(row.timestamp) >= scoreStartDate && new Date(row.timestamp) <= scoreEndDate)
-                                    ) && (
-                                        <TableRow key={id} sx={{'&:last-child td, &:last-child th': {border: 0}}}>
-                                            {desiredKeys.map((key, index) => (
-                                                <TableCell key={index} align={index > 0 ? "right" : "left"} style={{color: theme2.palette.primary.contrastText}}>
-                                                    {key === 'timestamp' ?
-                                                        new Date(row[key]).toLocaleString('de-DE', {timeZone: 'Europe/Berlin'}).split(',')[0]
-                                                        :
-                                                        row[key]
-                                                    }
-                                                </TableCell>
-                                            ))}
-                                        </TableRow>
-                                    )
+                                    <TableRow key={id} sx={{'&:last-child td, &:last-child th': {border: 0}}}>
+                                        {desiredKeys.map((key, index) => (
+                                            <TableCell key={index} align={index > 0 ? "right" : "left"} style={{color: theme2.palette.primary.contrastText}}>
+                                                {key === 'timestamp' ?
+                                                    new Date(row[key]).toLocaleString('de-DE', {timeZone: 'Europe/Berlin'}).split(',')[0]
+                                                    :
+                                                    row[key]
+                                                }
+                                            </TableCell>
+                                        ))}
+                                    </TableRow>
                                 ))}
                             </TableBody>
                         </Table>
@@ -464,6 +462,9 @@ const Scoreboard = () => {
                                 />
                             </div>
                             <div style={{display: 'flex', justifyContent: 'center'}}>
+                            <Button variant="contained" onClick={() => setUseEffectTrigger(prev => prev +1)} style={{fontWeight: 'bold', border: '1px solid #F36437', marginTop: "50px", width: "100%"}}>
+                                Apply Filter
+                            </Button>
                             <Button variant="contained" onClick={resetFilter} style={{fontWeight: 'bold', border: '1px solid #F36437', marginTop: "50px", width: "100%"}}>
                                 Reset Filter
                             </Button>
