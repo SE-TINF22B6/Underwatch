@@ -9,6 +9,7 @@ function WikiCard(props:{title:string, attributes:string[], values:string[], pic
             borderRadius: "10px 10px 10px 10px",
             height: "250px",
             width: "180px",
+            border: "1px solid #362034",
         }}>
             <Typography variant="h6" align="center">{props.title}</Typography>
             <img src={props.pictureLink} alt="placeholder" style={{
