@@ -60,27 +60,27 @@
             }
         },
         "Demo.tmx": {
-            "scale": 0.7327,
+            "scale": 0.8642,
             "selectedLayer": 5,
             "viewCenter": {
-                "x": 434.69359901733316,
-                "y": 450.3889722942542
+                "x": 302.59199259430693,
+                "y": 414.25595926868783
             }
         },
         "Dungeon1.tmx": {
-            "scale": 0.71,
-            "selectedLayer": 4,
+            "scale": 0.4416,
+            "selectedLayer": 2,
             "viewCenter": {
-                "x": 483.80281690140845,
-                "y": 1156.3380281690143
+                "x": 596.6938405797101,
+                "y": 722.373188405797
             }
         },
         "Dungeon3.tmx": {
-            "scale": 0.6299,
-            "selectedLayer": 0,
+            "scale": 0.7693,
+            "selectedLayer": 1,
             "viewCenter": {
-                "x": 167.4869026829656,
-                "y": 285.75964438799815
+                "x": 373.71636552710254,
+                "y": 352.2682958533733
             }
         },
         "Dungeon_Monsters1.tsx": {
@@ -141,11 +141,11 @@
             "scaleInEditor": 1
         },
         "level5.tmx": {
-            "scale": 0.7178,
-            "selectedLayer": 8,
+            "scale": 0.7407,
+            "selectedLayer": 4,
             "viewCenter": {
-                "x": 436.7511841738646,
-                "y": 512.6776260796879
+                "x": 359.79478871337926,
+                "y": 491.4270284865667
             }
         },
         "neuesTileset.tsx": {
@@ -178,7 +178,7 @@
     "last.externalTilesetPath": "/Users/martin/repos/Underwatch/game/assets/tileSets/tilesetsDungeon",
     "last.imagePath": "/Users/benny/software-engeneering/Underwatch/game/assets/tileSets/tilesetsDungeon",
     "map.fixedSize": true,
-    "map.height": 20,
+    "map.height": 50,
     "map.lastUsedFormat": "tmx",
     "map.tileHeight": 16,
     "map.tileWidth": 16,
@@ -198,7 +198,7 @@
         "pathfinding.tmx"
     ],
     "project": "Underwatch.tiled-project",
-    "property.type": "bool",
+    "property.type": "string",
     "recentFiles": [
         "Dungeon3.tmx",
         "Demo.tmx",
