@@ -1,11 +1,13 @@
 package de.dhbw.tinf22b6.util;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.math.Vector2;
 import de.dhbw.tinf22b6.weapon.Ak;
 import de.dhbw.tinf22b6.weapon.M4;
 import de.dhbw.tinf22b6.weapon.Weapon;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Vector;
 
 public class PlayerStatistics {
     public static final String TAG = PlayerStatistics.class.getName();
@@ -18,6 +20,7 @@ public class PlayerStatistics {
     private int currentWeaponIndex;
     private int initialHP;
     private boolean won;
+    private Vector2 startLocation;
 
     // singleton: prevent instantiation from other classes
     private PlayerStatistics() {}
@@ -125,5 +128,13 @@ public class PlayerStatistics {
 
     public boolean hasWon() {
         return won;
+    }
+
+    public void setStartLocation(Vector2 startLocation) {
+        this.startLocation = startLocation;
+    }
+
+    public Vector2 getStartLocation() {
+        return startLocation;
     }
 }

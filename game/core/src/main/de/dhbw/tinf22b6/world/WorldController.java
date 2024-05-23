@@ -40,7 +40,7 @@ public class WorldController extends InputAdapter {
     private void init() {
         Gdx.input.setInputProcessor(this);
         Gdx.graphics.setSystemCursor(Cursor.SystemCursor.Crosshair);
-        player = new Player(new Vector2(5, 5), camera);
+        player = new Player(PlayerStatistics.instance.getStartLocation(), camera);
         cameraHelper = new CameraHelper();
         cameraHelper.setTarget(player);
         EntitySystem.instance.add(player);
