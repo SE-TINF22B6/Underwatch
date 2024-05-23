@@ -124,140 +124,92 @@ export default function Champions() {
                 margin: "50px auto 0 auto",
                 width: "80%",
             }}>
-                { champions === 'overall' &&
-                    <Paper style={{
-                        backgroundColor: theme2.palette.primary.main,
-                        padding: "30px 5% 30px 5%",
-                        borderRadius: "5px 5px 5px 0px",
-                        border: "1px solid #362034"
-                    }}>
+
+                <Paper style={{
+                    backgroundColor: theme2.palette.primary.main,
+                    padding: "30px 5% 30px 5%",
+                    borderRadius: "5px 5px 5px 0px",
+                    border: "1px solid #362034"
+                }}>
+                    { champions === 'overall' &&
                         <Typography variant="h3" align="center" color={theme2.palette.primary.contrastText}>Best Players overall</Typography>
-                        <div className="podium" style={{
-                            width: "100%",
-                            height: "250px",
-                            display: "flex",
-                        }}>
-                            <div className="secondPlace" style={{flex: "0 0 32%", display: "flex", flexFlow: "column-reverse"}}>
-                                <div className="podiumBox" style={{
-                                    width: "100%",
-                                    height: "35%",
-                                    backgroundColor: theme2.palette.primary.dark,
-                                    color: theme2.palette.primary.contrastText,
-                                    display: "flex",
-                                    alignItems: "center",
-                                    justifyContent: "center",
-                                    borderRadius: "5px 0 0 0",
-                                }}>
-                                    <Typography variant="h2">2</Typography>
-                                </div>
-                                <div className="nameBox" style={{width: "100%", height:"30px"}}>
-                                    <Typography variant="h6" align="center" color={theme2.palette.primary.contrastText}>{dataLoaded? apiData[1].playerName: ""}</Typography>
-                                </div>
-                            </div>
-                            <div className="firstPlace" style={{flex: "1", display: "flex", flexFlow: "column-reverse"}}>
-                                <div className="podiumBox" style={{
-                                    width: "100%",
-                                    height: "55%",
-                                    backgroundColor: theme2.palette.primary.dark,
-                                    color: theme2.palette.primary.contrastText,
-                                    display: "flex",
-                                    alignItems: "center",
-                                    justifyContent: "center",
-                                    borderRadius: "5px 5px 0 0",
-                                }}>
-                                    <Typography variant="h1">1</Typography>
-                                </div>
-                                <div className="nameBox" style={{width: "100%", height:"30px"}}>
-                                <Typography variant="h6" align="center" color={theme2.palette.primary.contrastText}>{dataLoaded? apiData[0].playerName: ""}</Typography>
-                                </div>
-                            </div>
-                            <div  className="thirdPlace" style={{flex: "0 0 32%", display: "flex", flexFlow: "column-reverse"}}>
-                                <div className="podiumBox" style={{
-                                    width: "100%",
-                                    height: "25%",
-                                    backgroundColor: theme2.palette.primary.dark,
-                                    color: theme2.palette.primary.contrastText,
-                                    display: "flex",
-                                    alignItems: "center",
-                                    justifyContent: "center",
-                                    borderRadius: "0 5px 0 0",
-                                }}>
-                                    <Typography variant="h3">3</Typography>
-                                </div>
-                                <div className="nameBox" style={{width: "100%", height:"30px"}}>
-                                <Typography variant="h6" align="center" color={theme2.palette.primary.contrastText}>{dataLoaded? apiData[2].playerName: ""}</Typography>
-                                </div>
-                            </div>
-                        </div>
-                    </Paper>
-                }
-                { champions === 'current month' &&
-                    <Paper style={{
-                        backgroundColor: theme2.palette.primary.main,
-                        padding: "30px 5% 30px 5%",
-                        borderRadius: "5px 5px 5px 0px",
-                        border: "1px solid #362034",
-                    }}>
+                    }
+                    { champions === 'current month' &&
                         <Typography variant="h3" align="center" color={theme2.palette.primary.contrastText}>Best Players of current month</Typography>
-                        <div className="podium" style={{
-                            width: "100%",
-                            height: "250px",
-                            display: "flex",
-                        }}>
-                            <div className="secondPlace" style={{flex: "0 0 32%", display: "flex", flexFlow: "column-reverse"}}>
-                                <div className="podiumBox" style={{
-                                    width: "100%",
-                                    height: "35%",
-                                    backgroundColor: theme2.palette.primary.dark,
-                                    color: theme2.palette.primary.contrastText,
-                                    display: "flex",
-                                    alignItems: "center",
-                                    justifyContent: "center",
-                                    borderRadius: "5px 0 0 0",
-                                }}>
-                                    <Typography variant="h2">2</Typography>
-                                </div>
-                                <div className="nameBox" style={{width: "100%", height:"30px"}}>
+                    }
+                    <div className="podium" style={{
+                        width: "100%",
+                        height: "250px",
+                        display: "flex",
+                    }}>
+                        <div className="secondPlace" style={{flex: "0 0 32%", display: "flex", flexFlow: "column-reverse"}}>
+                            <div className="podiumBox" style={{
+                                width: "100%",
+                                height: "35%",
+                                backgroundColor: theme2.palette.primary.dark,
+                                color: theme2.palette.primary.contrastText,
+                                display: "flex",
+                                alignItems: "center",
+                                justifyContent: "center",
+                                borderRadius: "5px 0 0 0",
+                            }}>
+                                <Typography variant="h2">2</Typography>
+                            </div>
+                            <div className="nameBox" style={{width: "100%", height:"30px"}}>
+                                { champions === 'overall' &&
+                                    <Typography variant="h6" align="center" color={theme2.palette.primary.contrastText}>{dataLoaded? apiData[1].playerName: ""}</Typography>
+                                }
+                                { champions === 'current month' &&
                                     <Typography variant="h6" align="center" color={theme2.palette.primary.contrastText}>{dataLoaded? currentMonthData[1].playerName: ""}</Typography>
-                                </div>
-                            </div>
-                            <div className="firstPlace" style={{flex: "1", display: "flex", flexFlow: "column-reverse"}}>
-                                <div className="podiumBox" style={{
-                                    width: "100%",
-                                    height: "55%",
-                                    backgroundColor: theme2.palette.primary.dark,
-                                    color: theme2.palette.primary.contrastText,
-                                    display: "flex",
-                                    alignItems: "center",
-                                    justifyContent: "center",
-                                    borderRadius: "5px 5px 0 0",
-                                }}>
-                                    <Typography variant="h1">1</Typography>
-                                </div>
-                                <div className="nameBox" style={{width: "100%", height:"30px"}}>
-                                <Typography variant="h6" align="center" color={theme2.palette.primary.contrastText}>{dataLoaded? currentMonthData[0].playerName: ""}</Typography>
-                                </div>
-                            </div>
-                            <div  className="thirdPlace" style={{flex: "0 0 32%", display: "flex", flexFlow: "column-reverse"}}>
-                                <div className="podiumBox" style={{
-                                    width: "100%",
-                                    height: "25%",
-                                    backgroundColor: theme2.palette.primary.dark,
-                                    color: theme2.palette.primary.contrastText,
-                                    display: "flex",
-                                    alignItems: "center",
-                                    justifyContent: "center",
-                                    borderRadius: "0 5px 0 0",
-                                }}>
-                                    <Typography variant="h3">3</Typography>
-                                </div>
-                                <div className="nameBox" style={{width: "100%", height:"30px"}}>
-                                <Typography variant="h6" align="center" color={theme2.palette.primary.contrastText}>{dataLoaded? currentMonthData[2].playerName: ""}</Typography>
-                                </div>
+                                }
                             </div>
                         </div>
-                    </Paper>
-                }
+                        <div className="firstPlace" style={{flex: "1", display: "flex", flexFlow: "column-reverse"}}>
+                            <div className="podiumBox" style={{
+                                width: "100%",
+                                height: "55%",
+                                backgroundColor: theme2.palette.primary.dark,
+                                color: theme2.palette.primary.contrastText,
+                                display: "flex",
+                                alignItems: "center",
+                                justifyContent: "center",
+                                borderRadius: "5px 5px 0 0",
+                            }}>
+                                <Typography variant="h1">1</Typography>
+                            </div>
+                            <div className="nameBox" style={{width: "100%", height:"30px"}}>
+                            { champions === 'overall' &&
+                                <Typography variant="h6" align="center" color={theme2.palette.primary.contrastText}>{dataLoaded? apiData[0].playerName: ""}</Typography>
+                            }
+                            { champions === 'current month' &&
+                               <Typography variant="h6" align="center" color={theme2.palette.primary.contrastText}>{dataLoaded? currentMonthData[0].playerName: ""}</Typography>
+                            }
+                            </div>
+                        </div>
+                        <div  className="thirdPlace" style={{flex: "0 0 32%", display: "flex", flexFlow: "column-reverse"}}>
+                            <div className="podiumBox" style={{
+                                width: "100%",
+                                height: "25%",
+                                backgroundColor: theme2.palette.primary.dark,
+                                color: theme2.palette.primary.contrastText,
+                                display: "flex",
+                                alignItems: "center",
+                                justifyContent: "center",
+                                borderRadius: "0 5px 0 0",
+                            }}>
+                                <Typography variant="h3">3</Typography>
+                            </div>
+                            <div className="nameBox" style={{width: "100%", height:"30px"}}>
+                            { champions === 'overall' &&
+                                <Typography variant="h6" align="center" color={theme2.palette.primary.contrastText}>{dataLoaded? apiData[2].playerName: ""}</Typography>
+                            }
+                            { champions === 'current month' &&
+                                <Typography variant="h6" align="center" color={theme2.palette.primary.contrastText}>{dataLoaded? currentMonthData[2].playerName: ""}</Typography>
+                            }
+                            </div>
+                        </div>
+                    </div>
+                </Paper>              
                 <ToggleButtonGroup aria-label="champions choosing" value={{champions}} exclusive onChange={handleChange} style={{
                     backgroundColor: theme2.palette.primary.main,
                     color: theme2.palette.primary.contrastText,
