@@ -31,7 +31,10 @@ public class EnemyWeapon extends Weapon {
                                     + 180;
                             Vector2 pos = enemy.getPos();
                             EntitySystem.instance.add(new Bullet(
-                                    new Vector2(pos.x + 15 / 2f, pos.y + 5), angle, this.damage, Constants.WEAPON_ENEMY_BIT));
+                                    new Vector2(pos.x + 15 / 2f, pos.y + 5),
+                                    angle,
+                                    this.damage,
+                                    Constants.WEAPON_ENEMY_BIT));
                         } catch (InterruptedException e) {
                             throw new RuntimeException(e);
                         }
