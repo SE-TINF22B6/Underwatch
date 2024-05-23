@@ -31,7 +31,7 @@ public class PlayerStatistics {
     this.weapons = new ArrayList<>();
     weapons.add(new Ak());
     this.canSwitchWeapon = true;
-    this.hp = 100;
+    this.hp = 200;
     this.initialHP = hp;
     this.coins = 0;
     this.enemies_kills = 0;
