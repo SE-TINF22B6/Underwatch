@@ -58,10 +58,10 @@ public class WorldListener implements ContactListener {
             case PLAYER_BIT | INTERACTION_BIT:
                 if (fixA.getFilterData().categoryBits == INTERACTION_BIT) {
                     ((InteractionObject) fixA.getUserData()).activate();
-                    ((Player) fixB.getUserData()).canPickUp(((WeaponBox) fixA.getUserData()));
+                    ((Player) fixB.getUserData()).canPickUp(((InteractionObject) fixA.getUserData()));
                 } else {
                     ((InteractionObject) fixB.getUserData()).activate();
-                    ((Player) fixA.getUserData()).canPickUp(((WeaponBox) fixB.getUserData()));
+                    ((Player) fixA.getUserData()).canPickUp(((InteractionObject) fixB.getUserData()));
                 }
                 break;
             case PLAYER_BIT | COIN_BIT:
