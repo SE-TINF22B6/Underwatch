@@ -22,6 +22,7 @@ import de.dhbw.tinf22b6.gameobject.GameObject;
 import de.dhbw.tinf22b6.gameobject.Teleporter;
 import de.dhbw.tinf22b6.gameobject.enemy.*;
 import de.dhbw.tinf22b6.gameobject.interaction.HealthBox;
+import de.dhbw.tinf22b6.gameobject.interaction.SpeedBoost;
 import de.dhbw.tinf22b6.gameobject.interaction.WeaponBox;
 import de.dhbw.tinf22b6.util.Constants;
 import de.dhbw.tinf22b6.util.PlayerStatistics;
@@ -100,7 +101,7 @@ public class WorldParser {
   public static ArrayList<GameObject> parseGameObjects(TiledMap map) {
     ArrayList<GameObject> list = new ArrayList<>();
     // TODO refactor animated game objects using an enum
-    String[] objects = new String[]{"coins", "torch", "chests", "enemy", "teleporter", "start", "hp"};
+    String[] objects = new String[]{"coins", "torch", "chests", "enemy", "teleporter", "start", "hp", "speed"};
     for (String s : objects) {
       TiledMapTileLayer layer = (TiledMapTileLayer) map.getLayers().get(s);
       if (layer == null) continue;
@@ -115,6 +116,7 @@ public class WorldParser {
           MapObject cellObject = cellObjects.get(0);
           int[][] rawMap = parseNavigationMap(map);
           if (cellObject instanceof RectangleMapObject rectangleObject) {
+            Random r = new Random();
             switch (s) {
               case "torch":
                 list.add(new CandleStick(new Vector2(x, y), rectangleObject.getRectangle()));
@@ -126,7 +128,6 @@ public class WorldParser {
                 list.add(new WeaponBox(new Vector2(x, y), rectangleObject.getRectangle()));
                 break;
               case "enemy":
-                Random r = new Random();
                 int next = r.nextInt(8);
                 switch (next) {
                   case 0 -> list.add(new Snarg(new Vector2(x, y), rawMap));
@@ -149,7 +150,10 @@ public class WorldParser {
                 PlayerStatistics.instance.setStartLocation(new Vector2(x, y));
                 break;
               case "hp":
-                list.add(new HealthBox(new Vector2(x, y), rectangleObject.getRectangle()));
+                list.add(new HealthBox(new Vector2(x, y), rectangleObject.getRectangle(), r.nextBoolean()));
+                break;
+              case "speed":
+                list.add(new SpeedBoost(new Vector2(x, y), rectangleObject.getRectangle(), r.nextBoolean()));
                 break;
             }
           }

@@ -68,11 +68,11 @@
             }
         },
         "Dungeon1.tmx": {
-            "scale": 2.138,
-            "selectedLayer": 3,
+            "scale": 0.5797,
+            "selectedLayer": 4,
             "viewCenter": {
-                "x": 686.1552853133769,
-                "y": 365.0608044901777
+                "x": 690.0120752113162,
+                "y": 944.4540279454891
             }
         },
         "Dungeon3.tmx": {
@@ -167,9 +167,9 @@
         },
         "startMap.tmx": {
             "scale": 0.8452,
-            "selectedLayer": 8,
+            "selectedLayer": 10,
             "viewCenter": {
-                "x": 453.14718409843823,
+                "x": 451.96403218173214,
                 "y": 399.3137718883105
             }
         }
