@@ -142,8 +142,8 @@ const Scoreboard = () => {
                 }
             });
         });
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [requestedPage, order, orderBy, useEffectTrigger]);
-    //}, [requestedPage, order, orderBy, inputValue, scoreStartDate, scoreEndDate, minScore]);
 
     // ---------- CookieHandling ----------
     useEffect(() => {
