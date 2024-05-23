@@ -51,22 +51,23 @@ public class WorldController extends InputAdapter {
         handleInput(deltaTime);
         cameraHelper.update(deltaTime);
 
-        //        // remove deleted objects from the World
-        //        EntitySystem.instance.getGameObjects().stream()
-        //            .filter(GameObject::isRemove)
-        //            .forEach(gameObject -> {
-        //                if (!world.isLocked()) world.destroyBody(gameObject.getBody());
-        //            });
-        //        // remove deleted objects from the Map
-        //        EntitySystem.instance.getGameObjects().stream()
-        //            .filter(GameObject::isRemove)
-        //            .forEach(EntitySystem.instance::remove);
+        // // remove deleted objects from the World
+        // EntitySystem.instance.getGameObjects().stream()
+        // .filter(GameObject::isRemove)
+        // .forEach(gameObject -> {
+        // if (!world.isLocked()) world.destroyBody(gameObject.getBody());
+        // });
+        // // remove deleted objects from the Map
+        // EntitySystem.instance.getGameObjects().stream()
+        // .filter(GameObject::isRemove)
+        // .forEach(EntitySystem.instance::remove);
         Iterator<GameObject> i = EntitySystem.instance.getGameObjects().iterator();
         while (i.hasNext()) {
             GameObject gameObject = i.next();
             if (gameObject.isRemove()) {
                 EntitySystem.instance.remove(gameObject);
-                if (!world.isLocked()) world.destroyBody(gameObject.getBody());
+                if (!world.isLocked())
+                    world.destroyBody(gameObject.getBody());
             }
         }
 
@@ -80,20 +81,30 @@ public class WorldController extends InputAdapter {
         // Camera Controls (move)
         float camMoveSpeed = 32 * deltaTime;
         float camMoveSpeedAccelerationFactor = 5;
-        if (Gdx.input.isKeyPressed(Input.Keys.SHIFT_LEFT)) camMoveSpeed *= camMoveSpeedAccelerationFactor;
-        if (Gdx.input.isKeyPressed(Input.Keys.LEFT)) moveCamera(-camMoveSpeed, 0);
-        if (Gdx.input.isKeyPressed(Input.Keys.RIGHT)) moveCamera(camMoveSpeed, 0);
-        if (Gdx.input.isKeyPressed(Input.Keys.UP)) moveCamera(0, camMoveSpeed);
-        if (Gdx.input.isKeyPressed(Input.Keys.DOWN)) moveCamera(0, -camMoveSpeed);
-        if (Gdx.input.isKeyPressed(Input.Keys.BACKSPACE)) cameraHelper.setPosition(0, 0);
+        if (Gdx.input.isKeyPressed(Input.Keys.SHIFT_LEFT))
+            camMoveSpeed *= camMoveSpeedAccelerationFactor;
+        if (Gdx.input.isKeyPressed(Input.Keys.LEFT))
+            moveCamera(-camMoveSpeed, 0);
+        if (Gdx.input.isKeyPressed(Input.Keys.RIGHT))
+            moveCamera(camMoveSpeed, 0);
+        if (Gdx.input.isKeyPressed(Input.Keys.UP))
+            moveCamera(0, camMoveSpeed);
+        if (Gdx.input.isKeyPressed(Input.Keys.DOWN))
+            moveCamera(0, -camMoveSpeed);
+        if (Gdx.input.isKeyPressed(Input.Keys.BACKSPACE))
+            cameraHelper.setPosition(0, 0);
 
         // Camera Controls (zoom)
         float camZoomSpeed = 1 * deltaTime;
         float camZoomSpeedAccelerationFactor = 5;
-        if (Gdx.input.isKeyPressed(Input.Keys.SHIFT_LEFT)) camZoomSpeed *= camZoomSpeedAccelerationFactor;
-        if (Gdx.input.isKeyPressed(Input.Keys.COMMA)) cameraHelper.addZoom(camZoomSpeed);
-        if (Gdx.input.isKeyPressed(Input.Keys.PERIOD)) cameraHelper.addZoom(-camZoomSpeed);
-        if (Gdx.input.isKeyPressed(Input.Keys.SLASH)) cameraHelper.setZoom(1);
+        if (Gdx.input.isKeyPressed(Input.Keys.SHIFT_LEFT))
+            camZoomSpeed *= camZoomSpeedAccelerationFactor;
+        if (Gdx.input.isKeyPressed(Input.Keys.COMMA))
+            cameraHelper.addZoom(camZoomSpeed);
+        if (Gdx.input.isKeyPressed(Input.Keys.PERIOD))
+            cameraHelper.addZoom(-camZoomSpeed);
+        if (Gdx.input.isKeyPressed(Input.Keys.SLASH))
+            cameraHelper.setZoom(1);
     }
 
     @Override
@@ -115,10 +126,14 @@ public class WorldController extends InputAdapter {
             player.getMotionVector().y = -1;
         }
 
-        if (keycode == interact) player.interact(player);
-        if (keycode == dodge) player.dodge();
-        if (keycode == Input.Keys.ESCAPE) gameScreen.setPaused();
-        if (keycode == Input.Keys.C) debugBox2D = !debugBox2D;
+        if (keycode == interact)
+            player.interact(player);
+        if (keycode == dodge)
+            player.dodge();
+        if (keycode == Input.Keys.ESCAPE)
+            gameScreen.setPaused();
+        if (keycode == Input.Keys.C)
+            debugBox2D = !debugBox2D;
 
         return super.keyDown(keycode);
     }
@@ -136,10 +151,14 @@ public class WorldController extends InputAdapter {
     @Override
     public boolean keyUp(int keycode) {
         // Reset Motion Vector
-        if (keycode == left || keycode == right) {
+        if (keycode == left) {
+            player.getMotionVector().x = -0;
+        } else if (keycode == right) {
             player.getMotionVector().x = 0;
-        } else if (keycode == up || keycode == down) {
+        } else if (keycode == up) {
             player.getMotionVector().y = 0;
+        } else if (keycode == down) {
+            player.getMotionVector().y = -0;
         }
 
         if (keycode == Input.Keys.R) {
