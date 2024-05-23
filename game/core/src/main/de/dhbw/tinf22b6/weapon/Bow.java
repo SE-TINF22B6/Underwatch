@@ -7,7 +7,7 @@ import de.dhbw.tinf22b6.util.EntitySystem;
 
 public class Bow extends Weapon {
     public Bow() {
-        super("bow", 20, 1);
+        super("bow", 20, 1,100);
     }
 
     @Override
@@ -19,7 +19,7 @@ public class Bow extends Weapon {
                             float angle = EntitySystem.instance.getPlayer().getAngle();
                             Vector2 pos = EntitySystem.instance.getPlayer().getPos();
                             EntitySystem.instance.add(
-                                    new Bullet(new Vector2(pos.x + 15 / 2f, pos.y + 5), angle, Constants.WEAPON_BIT));
+                                    new Bullet(new Vector2(pos.x + 15 / 2f, pos.y + 5), angle, this.damage, Constants.WEAPON_BIT));
                         } catch (InterruptedException e) {
                             throw new RuntimeException(e);
                         }

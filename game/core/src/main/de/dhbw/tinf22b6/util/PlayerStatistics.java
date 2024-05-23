@@ -42,8 +42,8 @@ public class PlayerStatistics {
     return this.hp;
   }
 
-  public void hitHP() {
-    this.hp = this.hp - 1;
+  public void hitHP(int damage) {
+    this.hp -= damage;
   }
 
   public int coins() {
