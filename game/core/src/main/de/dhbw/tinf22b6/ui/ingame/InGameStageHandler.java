@@ -29,7 +29,7 @@ public class InGameStageHandler {
     }
 
     public void update() {
-        if (PlayerStatistics.instance.hp() == 0) {
+        if (PlayerStatistics.instance.hp() <= 0) {
             gameScreen.setPaused();
             changeStage("GameOver");
             Gdx.input.setInputProcessor(currentStage);
