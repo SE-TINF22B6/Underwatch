@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.10" tiledversion="1.10.2" class="outside" orientation="orthogonal" renderorder="right-down" width="50" height="50" tilewidth="16" tileheight="16" infinite="0" nextlayerid="9" nextobjectid="1">
+<map version="1.10" tiledversion="1.10.2" class="outside" orientation="orthogonal" renderorder="right-down" width="50" height="50" tilewidth="16" tileheight="16" infinite="0" nextlayerid="10" nextobjectid="1">
  <properties>
   <property name="inside" type="bool" value="false"/>
  </properties>
@@ -41,7 +41,7 @@
    <property name="destination" value="LEVEL2"/>
   </properties>
   <data encoding="base64" compression="zlib">
-   eJzt1rEJAAAIBLFf3c0dwFoESSa48hIAAAAAAAAA2FPXAQDAS5X5GQ196AGE
+   eJztw7EJAAAIA7C+7ucuHXxBSCAJAAAAAAAAAAAA/DJ9LTk0AQM=
   </data>
  </layer>
  <layer id="6" name="stuffOnBottom" width="50" height="50">
@@ -59,7 +59,12 @@
  </layer>
  <layer id="4" name="enemy" width="50" height="50">
   <data encoding="base64" compression="zlib">
-   eJztyKEBAAAIA6C96f+PmBdtBogkAAAAAAAAANDm+AAAHyw3WgCz
+   eJzt08sNgCAUBEDatP9GLEAhKMjHN3M1GtldUoJ1HZ3fb/0ejGKr997kEjHLiGdmvhG7s+15nmSvJ1rZ0P/oFOrU3hV3al+6i0XfZfLp5+ssdTXXTvnv9K9clfrLPdN5nmxYTZRNzjpnlHxXJHtKTkj/Cm8=
+  </data>
+ </layer>
+ <layer id="9" name="start" width="50" height="50">
+  <data encoding="base64" compression="zlib">
+   eJztzgENAAAIA6D3j2NCY1w3SEDCVdMOAAAAAAAAAAAAPLIzPgCz
   </data>
  </layer>
 </map>
