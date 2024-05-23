@@ -20,9 +20,9 @@ interface ScoreData {
 
 export default function Champions() {
     const [apiData, setApiData] = useState<ScoreData[]>([]);
+    const [dataLoaded, setDataLoaded] = useState<boolean>(false);
     const [currentMonthData, setCurrentMonthData] = useState<ScoreData[]>([]);
     const [monthDataLoaded, setMonthDataLoaded] = useState<boolean>(false);
-    const [dataLoaded, setDataLoaded] = useState<boolean>(false);
     const [champions, setChampions] = useState('overall');
 
     async function getApiData(url: string): Promise<ScoreData[]> {
@@ -156,7 +156,7 @@ export default function Champions() {
                                     <Typography variant="h6" align="center" color={theme2.palette.primary.contrastText}>{dataLoaded? apiData[1].playerName: ""}</Typography>
                                 }
                                 { champions === 'current month' &&
-                                    <Typography variant="h6" align="center" color={theme2.palette.primary.contrastText}>{dataLoaded? currentMonthData[1].playerName: ""}</Typography>
+                                    <Typography variant="h6" align="center" color={theme2.palette.primary.contrastText}>{monthDataLoaded? currentMonthData[1].playerName: ""}</Typography>
                                 }
                             </div>
                         </div>
@@ -178,7 +178,7 @@ export default function Champions() {
                                 <Typography variant="h6" align="center" color={theme2.palette.primary.contrastText}>{dataLoaded? apiData[0].playerName: ""}</Typography>
                             }
                             { champions === 'current month' &&
-                               <Typography variant="h6" align="center" color={theme2.palette.primary.contrastText}>{dataLoaded? currentMonthData[0].playerName: ""}</Typography>
+                               <Typography variant="h6" align="center" color={theme2.palette.primary.contrastText}>{monthDataLoaded? currentMonthData[0].playerName: ""}</Typography>
                             }
                             </div>
                         </div>
@@ -200,7 +200,7 @@ export default function Champions() {
                                 <Typography variant="h6" align="center" color={theme2.palette.primary.contrastText}>{dataLoaded? apiData[2].playerName: ""}</Typography>
                             }
                             { champions === 'current month' &&
-                                <Typography variant="h6" align="center" color={theme2.palette.primary.contrastText}>{dataLoaded? currentMonthData[2].playerName: ""}</Typography>
+                                <Typography variant="h6" align="center" color={theme2.palette.primary.contrastText}>{monthDataLoaded? currentMonthData[2].playerName: ""}</Typography>
                             }
                             </div>
                         </div>
