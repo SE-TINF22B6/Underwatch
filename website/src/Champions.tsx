@@ -1,12 +1,10 @@
 import { ThemeProvider } from "@emotion/react";
 import { theme2 } from "./theme";
-import { AppBar, Button, Paper, ToggleButton, ToggleButtonGroup, Toolbar, Typography } from "@mui/material";
+import { AppBar, Paper, ToggleButton, ToggleButtonGroup, Toolbar, Typography } from "@mui/material";
 import {Link} from "react-router-dom";
 import NavigationMenu from "./NavigationMenu";
 import { useState, useEffect } from "react";
 import toast from 'react-hot-toast';
-import { start } from "repl";
-import { ConnectingAirportsOutlined } from "@mui/icons-material";
 
 interface ScoreData {
     playerName: string;
