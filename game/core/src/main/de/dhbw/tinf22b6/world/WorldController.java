@@ -11,6 +11,8 @@ import de.dhbw.tinf22b6.screen.GameScreen;
 import de.dhbw.tinf22b6.util.CameraHelper;
 import de.dhbw.tinf22b6.util.EntitySystem;
 import de.dhbw.tinf22b6.util.PlayerStatistics;
+
+import java.util.HashSet;
 import java.util.Iterator;
 
 public class WorldController extends InputAdapter {
@@ -29,6 +31,7 @@ public class WorldController extends InputAdapter {
     private Player player;
     private Camera camera;
     private GameScreen gameScreen;
+    private HashSet<Integer> pressedKeys = new HashSet<>();
 
     public WorldController(Game game, Camera camera, GameScreen gameScreen) {
         this.game = game;
@@ -70,6 +73,24 @@ public class WorldController extends InputAdapter {
                     world.destroyBody(gameObject.getBody());
             }
         }
+        // Update motion vector based on the state of pressed keys
+        float motionX = 0;
+        float motionY = 0;
+
+        if (pressedKeys.contains(left) && !pressedKeys.contains(right)) {
+            motionX = -1;
+        } else if (pressedKeys.contains(right) && !pressedKeys.contains(left)) {
+            motionX = 1;
+        }
+
+        if (pressedKeys.contains(up) && !pressedKeys.contains(down)) {
+            motionY = 1;
+        } else if (pressedKeys.contains(down) && !pressedKeys.contains(up)) {
+            motionY = -1;
+        }
+
+        player.getMotionVector().x = motionX;
+        player.getMotionVector().y = motionY;
 
         world.step(deltaTime, 6, 2);
 
@@ -116,16 +137,7 @@ public class WorldController extends InputAdapter {
     @Override
     public boolean keyDown(int keycode) {
         // Set Motion Vector
-        if (keycode == left) {
-            player.getMotionVector().x = -1;
-        } else if (keycode == right) {
-            player.getMotionVector().x = 1;
-        } else if (keycode == up) {
-            player.getMotionVector().y = 1;
-        } else if (keycode == down) {
-            player.getMotionVector().y = -1;
-        }
-
+        pressedKeys.add(keycode);
         if (keycode == interact)
             player.interact(player);
         if (keycode == dodge)
@@ -151,16 +163,7 @@ public class WorldController extends InputAdapter {
     @Override
     public boolean keyUp(int keycode) {
         // Reset Motion Vector
-        if (keycode == left) {
-            player.getMotionVector().x = -0;
-        } else if (keycode == right) {
-            player.getMotionVector().x = 0;
-        } else if (keycode == up) {
-            player.getMotionVector().y = 0;
-        } else if (keycode == down) {
-            player.getMotionVector().y = -0;
-        }
-
+        pressedKeys.remove(keycode);
         if (keycode == Input.Keys.R) {
             game.setScreen(new GameScreen(game, WorldType.PATHFINDING.getMap()));
             Gdx.app.debug(TAG, "Game world reset");
