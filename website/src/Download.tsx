@@ -29,6 +29,7 @@ export default function Download() {
                 paddingBottom: "50px",
                 paddingLeft: "5%",
                 paddingRight: "5%",
+                border: "1px solid #362034"
             }}>
                 <Typography variant="body1" align="center" style={{
                     color:theme2.palette.primary.contrastText,
