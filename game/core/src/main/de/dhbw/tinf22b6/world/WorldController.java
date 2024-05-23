@@ -3,7 +3,6 @@ package de.dhbw.tinf22b6.world;
 import com.badlogic.gdx.*;
 import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.Cursor;
-import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.World;
 import de.dhbw.tinf22b6.gameobject.GameObject;
 import de.dhbw.tinf22b6.gameobject.Player;
