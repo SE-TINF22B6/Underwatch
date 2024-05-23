@@ -4,11 +4,12 @@ import static de.dhbw.tinf22b6.util.Constants.*;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.physics.box2d.*;
-import de.dhbw.tinf22b6.gameobject.*;
+import de.dhbw.tinf22b6.gameobject.Coin;
+import de.dhbw.tinf22b6.gameobject.Player;
+import de.dhbw.tinf22b6.gameobject.Teleporter;
 import de.dhbw.tinf22b6.gameobject.bullet.Bullet;
 import de.dhbw.tinf22b6.gameobject.enemy.Enemy;
 import de.dhbw.tinf22b6.gameobject.interaction.InteractionObject;
-import de.dhbw.tinf22b6.gameobject.interaction.WeaponBox;
 import de.dhbw.tinf22b6.screen.GameScreen;
 import de.dhbw.tinf22b6.util.PlayerStatistics;
 
@@ -58,10 +59,10 @@ public class WorldListener implements ContactListener {
             case PLAYER_BIT | INTERACTION_BIT:
                 if (fixA.getFilterData().categoryBits == INTERACTION_BIT) {
                     ((InteractionObject) fixA.getUserData()).activate();
-                    ((Player) fixB.getUserData()).canPickUp(((WeaponBox) fixA.getUserData()));
+                    ((Player) fixB.getUserData()).canPickUp(((InteractionObject) fixA.getUserData()));
                 } else {
                     ((InteractionObject) fixB.getUserData()).activate();
-                    ((Player) fixA.getUserData()).canPickUp(((WeaponBox) fixB.getUserData()));
+                    ((Player) fixA.getUserData()).canPickUp(((InteractionObject) fixB.getUserData()));
                 }
                 break;
             case PLAYER_BIT | COIN_BIT:
@@ -84,20 +85,20 @@ public class WorldListener implements ContactListener {
             case ENEMY_BIT | WEAPON_BIT:
                 if (fixA.getFilterData().categoryBits == WEAPON_BIT) {
                     ((Bullet) fixA.getUserData()).setRemove(true);
-                    ((Enemy) fixB.getUserData()).hit();
+                    ((Enemy) fixB.getUserData()).hit(((Bullet) fixA.getUserData()).getDamage());
                 } else {
                     ((Bullet) fixB.getUserData()).setRemove(true);
-                    ((Enemy) fixA.getUserData()).hit();
+                    ((Enemy) fixA.getUserData()).hit(((Bullet) fixB.getUserData()).getDamage());
                 }
-                Gdx.app.debug(TAG, "Weapon and Enemy");
                 break;
             case WEAPON_ENEMY_BIT | PLAYER_BIT:
                 if (fixA.getFilterData().categoryBits == WEAPON_ENEMY_BIT) {
                     ((Bullet) fixA.getUserData()).setRemove(true);
+                    PlayerStatistics.instance.hitHP(((Bullet) fixA.getUserData()).getDamage());
                 } else {
                     ((Bullet) fixB.getUserData()).setRemove(true);
+                    PlayerStatistics.instance.hitHP(((Bullet) fixB.getUserData()).getDamage());
                 }
-                PlayerStatistics.instance.hitHP();
                 Gdx.audio
                         .newSound(Gdx.files.internal("sfx/player_hit.mp3"))
                         .play(Gdx.app.getPreferences("Controls").getFloat("sfx"));
@@ -117,7 +118,6 @@ public class WorldListener implements ContactListener {
                     WorldType nextWorld = ((Teleporter) fixB.getUserData()).getDestination();
                     gameScreen.changeMap(nextWorld);
                 }
-                Gdx.app.debug(TAG, "BEAM ME UP SCOTTY!");
                 break;
             }
             case PLAYER_BIT | ENEMY_SIGHT_BIT: {

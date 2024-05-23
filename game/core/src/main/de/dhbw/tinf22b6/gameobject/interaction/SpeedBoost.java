@@ -4,13 +4,12 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import de.dhbw.tinf22b6.gameobject.Player;
-import de.dhbw.tinf22b6.util.PlayerStatistics;
 
-public class HealthBox extends InteractionObject {
+public class SpeedBoost extends InteractionObject {
     private final boolean big;
 
-    public HealthBox(Vector2 position, Rectangle rectangle, boolean big) {
-        super("flasks" + (big ? "_big" : "_small"), position, rectangle);
+    public SpeedBoost(Vector2 position, Rectangle rectangle, boolean big) {
+        super("speed" + (big ? "_big" : "_small"), position, rectangle);
         this.big = big;
     }
 
@@ -24,7 +23,7 @@ public class HealthBox extends InteractionObject {
 
     @Override
     public void interact(Player player) {
-        PlayerStatistics.instance.hpBox(big);
+        player.speedBoost(big);
         super.interact(player);
     }
 }

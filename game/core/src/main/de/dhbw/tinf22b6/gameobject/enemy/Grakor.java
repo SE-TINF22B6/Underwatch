@@ -4,6 +4,6 @@ import com.badlogic.gdx.math.Vector2;
 
 public class Grakor extends Enemy {
     public Grakor(Vector2 position, int[][] rawMap) {
-        super("O3", position, rawMap);
+        super("O3", position, rawMap, 40, 450);
     }
 }

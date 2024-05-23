@@ -18,10 +18,16 @@ import com.badlogic.gdx.math.Polygon;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.*;
-import de.dhbw.tinf22b6.gameobject.*;
+import de.dhbw.tinf22b6.gameobject.CandleStick;
+import de.dhbw.tinf22b6.gameobject.Coin;
+import de.dhbw.tinf22b6.gameobject.GameObject;
+import de.dhbw.tinf22b6.gameobject.Teleporter;
 import de.dhbw.tinf22b6.gameobject.enemy.*;
+import de.dhbw.tinf22b6.gameobject.interaction.HealthBox;
+import de.dhbw.tinf22b6.gameobject.interaction.SpeedBoost;
 import de.dhbw.tinf22b6.gameobject.interaction.WeaponBox;
 import de.dhbw.tinf22b6.util.Constants;
+import de.dhbw.tinf22b6.util.PlayerStatistics;
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -94,7 +100,7 @@ public class WorldParser {
     public static ArrayList<GameObject> parseGameObjects(TiledMap map) {
         ArrayList<GameObject> list = new ArrayList<>();
         // TODO refactor animated game objects using an enum
-        String[] objects = new String[] {"coins", "torch", "chests", "enemy", "teleporter"};
+        String[] objects = new String[] {"coins", "torch", "chests", "enemy", "teleporter", "start", "hp", "speed"};
         for (String s : objects) {
             TiledMapTileLayer layer = (TiledMapTileLayer) map.getLayers().get(s);
             if (layer == null) continue;
@@ -109,6 +115,7 @@ public class WorldParser {
                     MapObject cellObject = cellObjects.get(0);
                     int[][] rawMap = parseNavigationMap(map);
                     if (cellObject instanceof RectangleMapObject rectangleObject) {
+                        Random r = new Random();
                         switch (s) {
                             case "torch":
                                 list.add(new CandleStick(new Vector2(x, y), rectangleObject.getRectangle()));
@@ -120,7 +127,6 @@ public class WorldParser {
                                 list.add(new WeaponBox(new Vector2(x, y), rectangleObject.getRectangle()));
                                 break;
                             case "enemy":
-                                Random r = new Random();
                                 int next = r.nextInt(8);
                                 switch (next) {
                                     case 0 -> list.add(new Snarg(new Vector2(x, y), rawMap));
@@ -138,6 +144,17 @@ public class WorldParser {
                                         new Vector2(x, y),
                                         rectangleObject.getRectangle(),
                                         layer.getProperties().get("destination", String.class)));
+                                break;
+                            case "start":
+                                PlayerStatistics.instance.setStartLocation(new Vector2(x, y));
+                                break;
+                            case "hp":
+                                list.add(new HealthBox(
+                                        new Vector2(x, y), rectangleObject.getRectangle(), r.nextBoolean()));
+                                break;
+                            case "speed":
+                                list.add(new SpeedBoost(
+                                        new Vector2(x, y), rectangleObject.getRectangle(), r.nextBoolean()));
                                 break;
                         }
                     }
@@ -162,7 +179,7 @@ public class WorldParser {
                         rayHandler,
                         100,
                         new Color(0.95f, 0.37f, 0.07f, 1f),
-                        TILE_SIZE * 5,
+                        TILE_SIZE * 10,
                         x * TILE_SIZE + 8,
                         y * TILE_SIZE + 8);
                 light.setSoftnessLength(10);

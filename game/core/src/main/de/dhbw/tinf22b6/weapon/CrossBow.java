@@ -7,7 +7,7 @@ import de.dhbw.tinf22b6.util.EntitySystem;
 
 public class CrossBow extends Weapon {
     public CrossBow() {
-        super("bow", 20, 1);
+        super("bow", 20, 1, 100);
     }
 
     @Override
@@ -21,7 +21,10 @@ public class CrossBow extends Weapon {
                                 angle += i;
                                 Vector2 pos = EntitySystem.instance.getPlayer().getPos();
                                 EntitySystem.instance.add(new Bullet(
-                                        new Vector2(pos.x + 15 / 2f, pos.y + 5), angle, Constants.WEAPON_BIT));
+                                        new Vector2(pos.x + 15 / 2f, pos.y + 5),
+                                        angle,
+                                        this.damage,
+                                        Constants.WEAPON_BIT));
                             }
                         } catch (InterruptedException e) {
                             throw new RuntimeException(e);

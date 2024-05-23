@@ -1,6 +1,7 @@
 package de.dhbw.tinf22b6.util;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.math.Vector2;
 import de.dhbw.tinf22b6.weapon.Ak;
 import de.dhbw.tinf22b6.weapon.M4;
 import de.dhbw.tinf22b6.weapon.Weapon;
@@ -18,6 +19,8 @@ public class PlayerStatistics {
     private int currentWeaponIndex;
     private int initialHP;
     private boolean won;
+    private Vector2 startLocation;
+    private boolean canSwitchWeapon;
 
     // singleton: prevent instantiation from other classes
     private PlayerStatistics() {}
@@ -26,7 +29,7 @@ public class PlayerStatistics {
         this.weapons = new ArrayList<>();
         weapons.add(new Ak());
         this.canSwitchWeapon = true;
-        this.hp = 5;
+        this.hp = 200;
         this.initialHP = hp;
         this.coins = 0;
         this.enemies_kills = 0;
@@ -37,8 +40,8 @@ public class PlayerStatistics {
         return this.hp;
     }
 
-    public void hitHP() {
-        this.hp = this.hp - 1;
+    public void hitHP(int damage) {
+        this.hp -= damage;
     }
 
     public int coins() {
@@ -81,8 +84,6 @@ public class PlayerStatistics {
         return weapons.get(currentWeaponIndex);
     }
 
-    private boolean canSwitchWeapon;
-
     public void cycleWeapon(boolean direction) {
         List<Weapon> inventory = PlayerStatistics.instance.getWeapons();
         if (canSwitchWeapon && inventory.size() > 1) {
@@ -115,8 +116,8 @@ public class PlayerStatistics {
         }
     }
 
-    public void resetHP() {
-        this.hp = initialHP;
+    public void hpBox(boolean big) {
+        this.hp = big ? this.initialHP : (int) (this.initialHP * 0.20);
     }
 
     public void setWon() {
@@ -125,5 +126,13 @@ public class PlayerStatistics {
 
     public boolean hasWon() {
         return won;
+    }
+
+    public Vector2 getStartLocation() {
+        return startLocation;
+    }
+
+    public void setStartLocation(Vector2 startLocation) {
+        this.startLocation = startLocation;
     }
 }

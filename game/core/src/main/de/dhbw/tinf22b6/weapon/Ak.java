@@ -12,7 +12,7 @@ import de.dhbw.tinf22b6.util.EntitySystem;
 
 public class Ak extends Weapon {
     public Ak() {
-        super("ak", 25, 0.2f);
+        super("ak", 25, 0.2f, 50);
         this.shootingAnimation = new Animation<>(0.01f, Assets.instance.getAnimationAtlasRegion("ak"));
     }
 
@@ -28,6 +28,7 @@ public class Ak extends Weapon {
                             EntitySystem.instance.add(new Bullet(
                                     new Vector2(pos.x + r * cosDeg(angle), pos.y + 5 + r * sinDeg(angle)),
                                     angle,
+                                    this.damage,
                                     Constants.WEAPON_BIT));
                         } catch (InterruptedException e) {
                             throw new RuntimeException(e);

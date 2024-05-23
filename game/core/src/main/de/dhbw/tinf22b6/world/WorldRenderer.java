@@ -55,7 +55,7 @@ public class WorldRenderer implements Disposable {
         this.renderAbove = tmpAbove.stream().mapToInt(i -> i).toArray();
         if (map.getProperties().containsKey("inside")) {
             if ((Boolean) map.getProperties().get("inside")) {
-                rayHandler.setAmbientLight(0.3f, 0.3f, 0.7f, 0.4f);
+                rayHandler.setAmbientLight(0.3f, 0.3f, 0.7f, 0.8f);
             } else {
                 rayHandler.setAmbientLight(1f, 1f, 1f, 0.5f);
             }

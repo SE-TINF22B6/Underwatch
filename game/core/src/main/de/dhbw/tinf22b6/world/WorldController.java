@@ -3,7 +3,6 @@ package de.dhbw.tinf22b6.world;
 import com.badlogic.gdx.*;
 import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.Cursor;
-import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.World;
 import de.dhbw.tinf22b6.gameobject.GameObject;
 import de.dhbw.tinf22b6.gameobject.Player;
@@ -40,7 +39,7 @@ public class WorldController extends InputAdapter {
     private void init() {
         Gdx.input.setInputProcessor(this);
         Gdx.graphics.setSystemCursor(Cursor.SystemCursor.Crosshair);
-        player = new Player(new Vector2(5, 5), camera);
+        player = new Player(PlayerStatistics.instance.getStartLocation(), camera);
         cameraHelper = new CameraHelper();
         cameraHelper.setTarget(player);
         EntitySystem.instance.add(player);

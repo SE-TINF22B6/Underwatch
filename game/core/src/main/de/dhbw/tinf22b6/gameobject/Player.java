@@ -26,7 +26,7 @@ public class Player extends MobGameObject {
     private final Animation<TextureAtlas.AtlasRegion> dodgeAnimation;
     private final Camera camera;
     private final Vector2 motionVector;
-    private final float speed;
+    private float speed;
     private boolean dodging;
     private float dodgeStateTime;
     private boolean movedDuringDash;
@@ -190,6 +190,10 @@ public class Player extends MobGameObject {
                     .play(Gdx.app.getPreferences("Controls").getFloat("sfx"));
             interactionTarget.interact(this);
         }
+    }
+
+    public void speedBoost(boolean big) {
+        this.speed = big ? speed + speed * 0.10f : speed + speed * 0.02f;
     }
 
     public boolean isDodging() {

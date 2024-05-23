@@ -11,8 +11,8 @@ import de.dhbw.tinf22b6.util.EntitySystem;
 public class EnemyWeapon extends Weapon {
     private final Enemy enemy;
 
-    public EnemyWeapon(Enemy enemy) {
-        super("ak", 25, 1);
+    public EnemyWeapon(Enemy enemy, int damage) {
+        super("ak", 25, 1, damage);
         this.enemy = enemy;
         this.shootingAnimation = new Animation<>(0.01f, Assets.instance.getAnimationAtlasRegion("ak"));
     }
@@ -31,7 +31,10 @@ public class EnemyWeapon extends Weapon {
                                     + 180;
                             Vector2 pos = enemy.getPos();
                             EntitySystem.instance.add(new Bullet(
-                                    new Vector2(pos.x + 15 / 2f, pos.y + 5), angle, Constants.WEAPON_ENEMY_BIT));
+                                    new Vector2(pos.x + 15 / 2f, pos.y + 5),
+                                    angle,
+                                    this.damage,
+                                    Constants.WEAPON_ENEMY_BIT));
                         } catch (InterruptedException e) {
                             throw new RuntimeException(e);
                         }

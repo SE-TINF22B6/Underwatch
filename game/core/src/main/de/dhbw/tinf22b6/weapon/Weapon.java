@@ -17,9 +17,11 @@ public abstract class Weapon {
     protected boolean isShooting;
     protected Sound sound;
     protected int initialAmmo;
+    protected int damage;
 
-    public Weapon(String regionName, int ammo, float weaponCooldown) {
+    public Weapon(String regionName, int ammo, float weaponCooldown, int damage) {
         this.initialAmmo = ammo;
+        this.damage = damage;
         this.idleAnimation = Assets.instance.getSprite("idle" + regionName);
         this.shootingAnimation = new Animation<>(0.2f, Assets.instance.getAnimationAtlasRegion(regionName));
         this.ammo = ammo;

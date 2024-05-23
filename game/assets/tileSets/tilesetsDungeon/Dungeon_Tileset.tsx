@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <tileset version="1.10" tiledversion="1.10.2" name="Dungeon Tileset" tilewidth="16" tileheight="16" tilecount="100" columns="10">
- <image source="./Dungeon_Tileset.png" width="160" height="160"/>
+ <image source="Dungeon_Tileset.png" width="160" height="160"/>
  <tile id="0">
   <objectgroup draworder="index" id="2">
    <object id="1" x="0" y="0" width="16" height="16"/>
@@ -136,9 +136,39 @@
    <object id="1" x="3" y="4" width="10" height="10"/>
   </objectgroup>
  </tile>
+ <tile id="87">
+  <objectgroup draworder="index" id="2">
+   <object id="1" x="4" y="4" width="8" height="10"/>
+  </objectgroup>
+ </tile>
+ <tile id="88">
+  <objectgroup draworder="index" id="2">
+   <object id="1" x="3" y="5" width="11" height="8"/>
+  </objectgroup>
+ </tile>
+ <tile id="89">
+  <objectgroup draworder="index" id="2">
+   <object id="1" x="3" y="3" width="10" height="11"/>
+  </objectgroup>
+ </tile>
  <tile id="93">
   <objectgroup draworder="index" id="2">
    <object id="1" x="4" y="0" width="9" height="16"/>
+  </objectgroup>
+ </tile>
+ <tile id="97">
+  <objectgroup draworder="index" id="2">
+   <object id="1" x="3" y="3" width="10" height="11"/>
+  </objectgroup>
+ </tile>
+ <tile id="98">
+  <objectgroup draworder="index" id="2">
+   <object id="1" x="5" y="4" width="8" height="10"/>
+  </objectgroup>
+ </tile>
+ <tile id="99">
+  <objectgroup draworder="index" id="2">
+   <object id="1" x="3" y="5" width="11" height="8"/>
   </objectgroup>
  </tile>
 </tileset>

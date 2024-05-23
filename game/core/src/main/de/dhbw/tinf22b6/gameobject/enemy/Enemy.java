@@ -43,15 +43,17 @@ public abstract class Enemy extends MobGameObject implements Steerable<Vector2> 
     private final FlatTiledGraph worldGraph;
     private final Weapon weapon;
     protected SteeringBehavior<Vector2> steeringBehavior;
-    private int health;
-    private boolean tagged;
+    protected int health;
+    protected boolean tagged;
+    protected int damage;
     private float maxLinearSpeed;
     private float maxLinearAcceleration;
 
-    public Enemy(String region, Vector2 position, int[][] rawMap) {
+    public Enemy(String region, Vector2 position, int[][] rawMap, int damage, int hp) {
         super(region, position, Constants.ENEMY_BIT);
-        this.weapon = new EnemyWeapon(this);
-        this.health = 3;
+        this.weapon = new EnemyWeapon(this, damage);
+        this.health = hp;
+        this.damage = damage;
         this.steeringBehavior = new EnemySteeringBehaviour(this);
         this.maxLinearSpeed = 20;
         this.maxLinearAcceleration = 100;
@@ -140,9 +142,9 @@ public abstract class Enemy extends MobGameObject implements Steerable<Vector2> 
         }
     }
 
-    public void hit() {
-        this.health--;
-        if (health == 0) {
+    public void hit(int damage) {
+        this.health -= damage;
+        if (health <= 0) {
             this.remove = true;
             PlayerStatistics.instance.enemyKilled();
         }
@@ -227,6 +229,10 @@ public abstract class Enemy extends MobGameObject implements Steerable<Vector2> 
                 body.setLinearVelocity(velocity.scl(maxLinearSpeed / (float) Math.sqrt(currentSpeedSquare)));
             }
         }
+    }
+
+    public int getDamage() {
+        return damage;
     }
 
     @Override
