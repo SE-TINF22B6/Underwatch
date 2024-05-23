@@ -93,8 +93,7 @@ export default function Champions() {
         event: React.MouseEvent<HTMLElement>,
         newChampions: string,
       ) => {
-            //if (newChampions !== null){
-                setChampions(newChampions);
+            setChampions(newChampions);
         };
 
 
@@ -103,7 +102,6 @@ export default function Champions() {
         const currentMonth = currentDate.getMonth()+1;
         const startdate = currentDate.getFullYear().toString() + "-0" + currentMonth.toString() + "-01%2000%3A00%3A00";
         const enddate = currentDate.getFullYear().toString() + "-0" + currentMonth.toString() + "-31%2023%3A59%3A59";
-        //console.log([startdate, enddate]);
         return [startdate, enddate];
     }
 
