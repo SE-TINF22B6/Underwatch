@@ -31,6 +31,9 @@ public class PlayerStatistics {
         this.canSwitchWeapon = true;
         this.hp = 200;
         this.initialHP = hp;
+        this.won = false;
+        this.currentWeaponIndex = 0;
+        this.gameTime = 0;
         this.coins = 0;
         this.enemies_kills = 0;
         Gdx.app.debug(TAG, "PlayerStatistics initialized " + instance.toString());
