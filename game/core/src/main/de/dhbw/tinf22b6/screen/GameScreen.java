@@ -5,7 +5,6 @@ import static de.dhbw.tinf22b6.util.Constants.VIEWPORT_WIDTH;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.maps.tiled.TiledMap;
@@ -75,8 +74,7 @@ public class GameScreen extends AbstractGameScreen {
     }
 
     @Override
-    public void hide() {
-    }
+    public void hide() {}
 
     @Override
     public void pause() {
