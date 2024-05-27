@@ -3,7 +3,7 @@
  <properties>
   <property name="inside" type="bool" value="false"/>
  </properties>
- <tileset firstgid="1" source="Dungeon_Tileset.tsx"/>
+ <tileset firstgid="1" source="../tileSets/tilesetsDungeon/Dungeon_Tileset.tsx"/>
  <layer id="1" name="navigation" width="20" height="20">
   <properties>
    <property name="render" value="below"/>

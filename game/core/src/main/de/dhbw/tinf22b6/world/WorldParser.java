@@ -101,7 +101,8 @@ public class WorldParser {
     public static ArrayList<GameObject> parseGameObjects(TiledMap map) {
         ArrayList<GameObject> list = new ArrayList<>();
         // TODO refactor animated game objects using an enum
-        String[] objects = new String[] {"coins", "torch", "chests", "enemy", "teleporter", "start", "hp", "speed", "trophy"};
+        String[] objects =
+                new String[] {"coins", "torch", "chests", "enemy", "teleporter", "start", "hp", "speed", "trophy"};
         for (String s : objects) {
             TiledMapTileLayer layer = (TiledMapTileLayer) map.getLayers().get(s);
             if (layer == null) continue;

@@ -216,4 +216,51 @@ public class FlatTiledGraph implements TiledGraph<FlatTiledNode> {
         FlatTiledNode target = getNode(n.x + xOffset, n.y + yOffset);
         if (target.type != FlatTiledNode.TILE_WALL) n.getConnections().add(new FlatTiledConnection(this, n, target));
     }
+
+    private enum Direction {
+        N,
+        E,
+        S,
+        W,
+        NE,
+        NW,
+        SE,
+        SW
+    }
+
+    private void addConnection(FlatTiledNode n, Direction... directions) throws Exception {
+        if (directions.length > 8 || directions.length < 0) {
+            throw new Exception("Directions are fucked up");
+        }
+        for (Direction direction : directions) {
+            switch (direction) {
+                case N:
+                    addConnection(n, 0, 1);
+                    break;
+                case E:
+                    addConnection(n, 1, 0);
+                    break;
+                case S:
+                    addConnection(n, 0, -1);
+                    break;
+                case W:
+                    addConnection(n, -1, 0);
+                    break;
+                case NE:
+                    addConnection(n, 1, 0);
+                    break;
+                case NW:
+                    addConnection(n, -1, 1);
+                    break;
+                case SE:
+                    addConnection(n, 1, -1);
+                    break;
+                case SW:
+                    addConnection(n, -1, -1);
+                    break;
+                default:
+                    break;
+            }
+        }
+    }
 }
