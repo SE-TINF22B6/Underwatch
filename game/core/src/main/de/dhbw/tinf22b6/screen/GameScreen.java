@@ -11,6 +11,7 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import de.dhbw.tinf22b6.ui.ingame.InGameStageHandler;
 import de.dhbw.tinf22b6.util.EntitySystem;
+import de.dhbw.tinf22b6.util.MusicPlayer;
 import de.dhbw.tinf22b6.util.PlayerStatistics;
 import de.dhbw.tinf22b6.world.*;
 import de.dhbw.tinf22b6.world.WorldController;
@@ -21,7 +22,6 @@ import de.dhbw.tinf22b6.world.WorldType;
 
 public class GameScreen extends AbstractGameScreen {
     private TiledMap map;
-    Music m = Gdx.audio.newMusic(Gdx.files.internal("music/downfall.mp3"));
     private WorldController worldController;
     private WorldRenderer worldRenderer;
     private boolean paused;
@@ -63,11 +63,7 @@ public class GameScreen extends AbstractGameScreen {
 
     @Override
     public void show() {
-        m.setVolume(
-                Gdx.app.getPreferences("Controls").getBoolean("muteMusic")
-                        ? 0
-                        : Gdx.app.getPreferences("Controls").getFloat("music"));
-        m.play();
+        MusicPlayer.instance.setMusic(Gdx.audio.newMusic(Gdx.files.internal("music/downfall.mp3")));
         Box2dWorld.instance.init();
         WorldParser.parseStaticObjects(map);
         Box2dWorld.instance.getWorld().setContactListener(new WorldListener(this));
@@ -80,7 +76,6 @@ public class GameScreen extends AbstractGameScreen {
 
     @Override
     public void hide() {
-        m.stop();
     }
 
     @Override

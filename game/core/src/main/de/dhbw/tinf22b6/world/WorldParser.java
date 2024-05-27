@@ -24,6 +24,7 @@ import de.dhbw.tinf22b6.gameobject.GameObject;
 import de.dhbw.tinf22b6.gameobject.Teleporter;
 import de.dhbw.tinf22b6.gameobject.enemy.*;
 import de.dhbw.tinf22b6.gameobject.interaction.HealthBox;
+import de.dhbw.tinf22b6.gameobject.interaction.HolyGrail;
 import de.dhbw.tinf22b6.gameobject.interaction.SpeedBoost;
 import de.dhbw.tinf22b6.gameobject.interaction.WeaponBox;
 import de.dhbw.tinf22b6.util.Constants;
@@ -100,7 +101,7 @@ public class WorldParser {
     public static ArrayList<GameObject> parseGameObjects(TiledMap map) {
         ArrayList<GameObject> list = new ArrayList<>();
         // TODO refactor animated game objects using an enum
-        String[] objects = new String[] {"coins", "torch", "chests", "enemy", "teleporter", "start", "hp", "speed"};
+        String[] objects = new String[] {"coins", "torch", "chests", "enemy", "teleporter", "start", "hp", "speed", "trophy"};
         for (String s : objects) {
             TiledMapTileLayer layer = (TiledMapTileLayer) map.getLayers().get(s);
             if (layer == null) continue;
@@ -155,6 +156,9 @@ public class WorldParser {
                             case "speed":
                                 list.add(new SpeedBoost(
                                         new Vector2(x, y), rectangleObject.getRectangle(), r.nextBoolean()));
+                                break;
+                            case "trophy":
+                                list.add(new HolyGrail(new Vector2(x, y), rectangleObject.getRectangle()));
                                 break;
                         }
                     }

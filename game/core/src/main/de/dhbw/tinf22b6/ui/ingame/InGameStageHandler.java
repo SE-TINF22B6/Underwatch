@@ -54,7 +54,7 @@ public class InGameStageHandler {
             case "Pause" -> currentStage = stages.get("Pause");
             case "GameWon" -> {
                 currentStage = stages.get("GameWon");
-                ((GameOverStage) currentStage).update();
+                ((GameWonStage) currentStage).update();
             }
             case "GameOver" -> {
                 currentStage = stages.get("GameOver");

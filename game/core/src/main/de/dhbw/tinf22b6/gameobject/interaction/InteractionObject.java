@@ -17,8 +17,8 @@ import de.dhbw.tinf22b6.util.Constants;
 import de.dhbw.tinf22b6.world.Box2dWorld;
 
 public abstract class InteractionObject extends GameObject {
-    private final Animation<TextureAtlas.AtlasRegion> inactiveAnimation;
-    private final Animation<TextureAtlas.AtlasRegion> activeAnimation;
+    protected final Animation<TextureAtlas.AtlasRegion> inactiveAnimation;
+    protected final Animation<TextureAtlas.AtlasRegion> activeAnimation;
 
     public InteractionObject(String region, Vector2 position, Rectangle rectangle) {
         super(region, position, Constants.INTERACTION_BIT);
