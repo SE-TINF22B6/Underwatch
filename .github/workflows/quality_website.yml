@@ -2,6 +2,8 @@ name: Qodana
 on:
   workflow_dispatch:
   pull_request:
+    paths:
+      - 'website/**'
   push:
     branches: # Specify your branches here
       - main # The 'main' branch
@@ -22,10 +24,7 @@ jobs:
         uses: JetBrains/qodana-action@v2024.1
         with:
           pr-mode: false
-          args: -i,game
+          args: -i,website
           push-fixes: pull-request
         env:
-          QODANA_TOKEN: ${{ secrets.QODANA_TOKEN }}
-      - uses: github/codeql-action/upload-sarif@v3
-        with:
-          sarif_file: ${{ runner.temp }}/qodana/results/qodana.sarif.json
+          QODANA_TOKEN: ${{ secrets.WEBPAGE_TOKEN }}
