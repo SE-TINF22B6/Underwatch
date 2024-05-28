@@ -5,6 +5,7 @@ import com.badlogic.gdx.math.Vector2;
 import de.dhbw.tinf22b6.weapon.M4;
 import de.dhbw.tinf22b6.weapon.Shotgun;
 import de.dhbw.tinf22b6.weapon.Weapon;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,7 +24,8 @@ public class PlayerStatistics {
     private boolean canSwitchWeapon;
 
     // singleton: prevent instantiation from other classes
-    private PlayerStatistics() {}
+    private PlayerStatistics() {
+    }
 
     public void init() {
         this.weapons = new ArrayList<>();
@@ -68,7 +70,7 @@ public class PlayerStatistics {
     }
 
     public int getScore() {
-        return coins * 2 + enemies_kills * 5;
+        return Math.max(coins * 5 + enemies_kills * 10 + (hasWon() ? 100 : 0) - (int) (gameTime / 60), 0);
     }
 
     public float getGameTime() {
@@ -98,13 +100,13 @@ public class PlayerStatistics {
                     .play(Gdx.app.getPreferences("Controls").getFloat("sfx"));
         }
         new Thread(() -> {
-                    try {
-                        Thread.sleep(500);
-                        canSwitchWeapon = true;
-                    } catch (InterruptedException e) {
-                        throw new RuntimeException(e);
-                    }
-                })
+            try {
+                Thread.sleep(500);
+                canSwitchWeapon = true;
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+        })
                 .start();
     }
 

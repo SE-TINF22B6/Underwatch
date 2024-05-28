@@ -37,6 +37,7 @@ public class InGameStageHandler {
             return;
         }
         if (PlayerStatistics.instance.hasWon()) {
+            gameScreen.setPaused();
             changeStage("GameWon");
             Gdx.input.setInputProcessor(currentStage);
             return;
