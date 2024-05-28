@@ -13,7 +13,6 @@ import de.dhbw.tinf22b6.gameobject.enemy.Enemy;
 import de.dhbw.tinf22b6.gameobject.interaction.InteractionObject;
 import de.dhbw.tinf22b6.screen.GameScreen;
 import de.dhbw.tinf22b6.util.PlayerStatistics;
-import de.dhbw.tinf22b6.weapon.EnemyWeapon;
 
 public class WorldListener implements ContactListener {
     private static final String TAG = GameScreen.class.getName();

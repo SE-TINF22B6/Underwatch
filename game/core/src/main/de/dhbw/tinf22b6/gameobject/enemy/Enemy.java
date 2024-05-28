@@ -74,7 +74,6 @@ public abstract class Enemy extends MobGameObject implements Steerable<Vector2> 
         pixmap.fill();
         hpBar[1] = new Texture(pixmap);
 
-
         // create Body
         BodyDef bodyDef = new BodyDef();
         bodyDef.position.set(pos.x + TILE_SIZE / 2f, pos.y + TILE_SIZE / 4f);
@@ -133,9 +132,10 @@ public abstract class Enemy extends MobGameObject implements Steerable<Vector2> 
     @Override
     public void render(Batch batch) {
         float angle = (body.getPosition()
-                .sub(EntitySystem.instance.getPlayer().getPos())
-                .angleDeg()
-                + 180) % 360f;
+                                .sub(EntitySystem.instance.getPlayer().getPos())
+                                .angleDeg()
+                        + 180)
+                % 360f;
         int r = 5;
         if (angle > 20 && angle < 160) {
             if (body.isAwake())
@@ -172,9 +172,17 @@ public abstract class Enemy extends MobGameObject implements Steerable<Vector2> 
                         1,
                         angle);
         }
-        if (body.isAwake()){
-            batch.draw(hpBar[1], body.getPosition().x - currentAnimation.getKeyFrame(stateTime).originalWidth /3f, body.getPosition().y + currentAnimation.getKeyFrame(stateTime).originalHeight -4f);
-            batch.draw(hpBar[0], body.getPosition().x - currentAnimation.getKeyFrame(stateTime).originalWidth /3f, body.getPosition().y + currentAnimation.getKeyFrame(stateTime).originalHeight -4f, (float) health * hpBar[0].getWidth() / initialHp, hpBar[0].getHeight());
+        if (body.isAwake()) {
+            batch.draw(
+                    hpBar[1],
+                    body.getPosition().x - currentAnimation.getKeyFrame(stateTime).originalWidth / 3f,
+                    body.getPosition().y + currentAnimation.getKeyFrame(stateTime).originalHeight - 4f);
+            batch.draw(
+                    hpBar[0],
+                    body.getPosition().x - currentAnimation.getKeyFrame(stateTime).originalWidth / 3f,
+                    body.getPosition().y + currentAnimation.getKeyFrame(stateTime).originalHeight - 4f,
+                    (float) health * hpBar[0].getWidth() / initialHp,
+                    hpBar[0].getHeight());
         }
     }
 
@@ -296,8 +304,7 @@ public abstract class Enemy extends MobGameObject implements Steerable<Vector2> 
     }
 
     @Override
-    public void setMaxAngularSpeed(float maxAngularSpeed) {
-    }
+    public void setMaxAngularSpeed(float maxAngularSpeed) {}
 
     @Override
     public float getMaxAngularAcceleration() {
@@ -305,8 +312,7 @@ public abstract class Enemy extends MobGameObject implements Steerable<Vector2> 
     }
 
     @Override
-    public void setMaxAngularAcceleration(float maxAngularAcceleration) {
-    }
+    public void setMaxAngularAcceleration(float maxAngularAcceleration) {}
 
     @Override
     public float getZeroLinearSpeedThreshold() {
