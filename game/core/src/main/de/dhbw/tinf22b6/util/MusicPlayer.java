@@ -17,7 +17,10 @@ public class MusicPlayer implements Disposable {
         }
         this.music = music;
         this.music.setLooping(true);
-        this.music.setVolume(Gdx.app.getPreferences("Controls").getFloat("music"));
+        this.music.setVolume(
+                Gdx.app.getPreferences("Controls").getBoolean("muteMusic")
+                        ? 0
+                        : Gdx.app.getPreferences("Controls").getFloat("music"));
         this.music.play();
     }
 
@@ -28,5 +31,9 @@ public class MusicPlayer implements Disposable {
     @Override
     public void dispose() {
         if (music != null) music.dispose();
+    }
+
+    public void setVolume(float v) {
+        this.music.setVolume(v);
     }
 }

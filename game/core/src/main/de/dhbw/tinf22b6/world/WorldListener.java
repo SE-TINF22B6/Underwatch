@@ -90,6 +90,9 @@ public class WorldListener implements ContactListener {
                     ((Bullet) fixB.getUserData()).setRemove(true);
                     ((Enemy) fixA.getUserData()).hit(((Bullet) fixB.getUserData()).getDamage());
                 }
+                Gdx.audio
+                        .newSound(Gdx.files.internal("sfx/hitSound.mp3"))
+                        .play(Gdx.app.getPreferences("Controls").getFloat("sfx"));
                 break;
             case WEAPON_ENEMY_BIT | PLAYER_BIT:
                 if (fixA.getFilterData().categoryBits == WEAPON_ENEMY_BIT) {

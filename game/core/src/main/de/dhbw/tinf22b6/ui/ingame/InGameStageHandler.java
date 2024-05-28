@@ -4,6 +4,7 @@ import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import de.dhbw.tinf22b6.screen.GameScreen;
+import de.dhbw.tinf22b6.util.MusicPlayer;
 import de.dhbw.tinf22b6.util.PlayerStatistics;
 import java.util.HashMap;
 import java.util.Map;
@@ -55,10 +56,12 @@ public class InGameStageHandler {
             case "GameWon" -> {
                 currentStage = stages.get("GameWon");
                 ((GameWonStage) currentStage).update();
+                MusicPlayer.instance.setMusic(Gdx.audio.newMusic(Gdx.files.internal("sfx/holymoly.mp3")));
             }
             case "GameOver" -> {
                 currentStage = stages.get("GameOver");
                 ((GameOverStage) currentStage).update();
+                // TODO: Game Over Music
             }
         }
     }

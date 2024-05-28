@@ -3,7 +3,6 @@ package de.dhbw.tinf22b6.ui.menu;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Preferences;
-import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
@@ -12,6 +11,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import de.dhbw.tinf22b6.util.Assets;
+import de.dhbw.tinf22b6.util.MusicPlayer;
 import java.util.concurrent.atomic.AtomicReference;
 
 public class Settings extends Stage {
@@ -19,7 +19,7 @@ public class Settings extends Stage {
     private int lastKeyCode;
     private TextButton currentEntry;
 
-    public Settings(StageManager stageManager, Music music) {
+    public Settings(StageManager stageManager) {
         super();
         Skin skin = Assets.instance.getSkin();
 
@@ -42,7 +42,7 @@ public class Settings extends Stage {
                 preferences.putFloat("music", musicSlider.getValue());
                 preferences.putBoolean("muteMusic", false);
                 preferences.flush();
-                music.setVolume(musicSlider.getValue());
+                MusicPlayer.instance.setVolume(musicSlider.getValue());
             }
         });
         contentTable.add(musicSlider).row();
@@ -99,7 +99,7 @@ public class Settings extends Stage {
         btnBack.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                stageManager.setStage(new Menu(stageManager, stageManager.getMusic()));
+                stageManager.setStage(new Menu(stageManager));
             }
         });
         btnBack.setPosition(getWidth() / 2 - btnBack.getWidth() / 2, 10);

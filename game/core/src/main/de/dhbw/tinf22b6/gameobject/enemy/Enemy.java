@@ -4,7 +4,6 @@ import static com.badlogic.gdx.math.MathUtils.cosDeg;
 import static com.badlogic.gdx.math.MathUtils.sinDeg;
 import static de.dhbw.tinf22b6.util.Constants.TILE_SIZE;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.ai.pfa.Heuristic;
 import com.badlogic.gdx.ai.pfa.indexed.IndexedAStarPathFinder;
 import com.badlogic.gdx.ai.steer.Steerable;
@@ -69,23 +68,41 @@ public abstract class Enemy extends MobGameObject implements Steerable<Vector2> 
         body = Box2dWorld.instance.getWorld().createBody(bodyDef);
 
         PolygonShape boxShape = new PolygonShape();
-        boxShape.setAsBox((float) TILE_SIZE / 3, (float) TILE_SIZE / 3);
+        boxShape.setAsBox(
+                currentAnimation.getKeyFrame(0).originalWidth / 4f,
+                currentAnimation.getKeyFrame(0).originalHeight / 12f);
 
         FixtureDef fixtureDef = new FixtureDef();
         fixtureDef.shape = boxShape;
         fixtureDef.filter.categoryBits = collisionMask;
         fixtureDef.restitution = 0.0f;
 
+        PolygonShape hitBoxShape = new PolygonShape();
+        hitBoxShape.setAsBox(
+                currentAnimation.getKeyFrame(0).originalWidth / 3.5f,
+                currentAnimation.getKeyFrame(0).originalHeight / 2.75f,
+                new Vector2(0, currentAnimation.getKeyFrame(0).originalHeight / 3f),
+                0);
+
+        FixtureDef hitboxDef = new FixtureDef();
+        hitboxDef.shape = hitBoxShape;
+        hitboxDef.isSensor = true;
+        hitboxDef.filter.categoryBits = Constants.ENEMY_BIT;
+
         PolygonShape sightShape = new PolygonShape();
         sightShape.setAsBox(TILE_SIZE * 5, TILE_SIZE * 5);
+
         FixtureDef sightDef = new FixtureDef();
         sightDef.shape = sightShape;
         sightDef.isSensor = true;
         sightDef.filter.categoryBits = Constants.ENEMY_SIGHT_BIT;
 
         body.createFixture(fixtureDef).setUserData(this);
+        body.createFixture(hitboxDef).setUserData(this);
         body.createFixture(sightDef).setUserData(this);
         boxShape.dispose();
+        hitBoxShape.dispose();
+        sightShape.dispose();
         body.setUserData(this);
     }
 
@@ -148,7 +165,6 @@ public abstract class Enemy extends MobGameObject implements Steerable<Vector2> 
             this.remove = true;
             PlayerStatistics.instance.enemyKilled();
         }
-        Gdx.audio.newSound(Gdx.files.internal("sfx/hitSound.mp3")).play(1);
     }
 
     public void update() {
