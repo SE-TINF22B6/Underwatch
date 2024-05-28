@@ -13,7 +13,7 @@ import de.dhbw.tinf22b6.util.Constants;
 import de.dhbw.tinf22b6.world.Box2dWorld;
 import de.dhbw.tinf22b6.world.WorldParser;
 
-public class LaserBullet extends GameObject {
+public class EnemyBullet extends GameObject {
     protected boolean active;
     protected float angle;
     protected float r;
@@ -22,13 +22,15 @@ public class LaserBullet extends GameObject {
     // speed until the "range" is reached
     // TODO: this needs to be refactored to actually represent a value in tiles
     protected float range = 2.3f;
-    private float speed;
+    private final float speed;
+    private int damage;
 
-    public LaserBullet(Vector2 position, float angle, short mask) {
+    public EnemyBullet(Vector2 position, float angle, int damage, short mask) {
         super("bullet7x13", new Vector2(position.x / Constants.TILE_SIZE, position.y / Constants.TILE_SIZE), mask);
         this.angle = angle;
+        this.damage = damage;
         active = true;
-        speed = 3;
+        speed = 2;
         width = 3;
         height = 6;
         // wait until world is unlocked before adding body
@@ -85,5 +87,9 @@ public class LaserBullet extends GameObject {
                 active = false;
             }
         }
+    }
+
+    public int getDamage() {
+        return damage;
     }
 }
