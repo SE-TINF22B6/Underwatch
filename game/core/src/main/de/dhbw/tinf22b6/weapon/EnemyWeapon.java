@@ -2,7 +2,7 @@ package de.dhbw.tinf22b6.weapon;
 
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.math.Vector2;
-import de.dhbw.tinf22b6.gameobject.bullet.Bullet;
+import de.dhbw.tinf22b6.gameobject.bullet.EnemyBullet;
 import de.dhbw.tinf22b6.gameobject.enemy.Enemy;
 import de.dhbw.tinf22b6.util.Assets;
 import de.dhbw.tinf22b6.util.Constants;
@@ -30,7 +30,7 @@ public class EnemyWeapon extends Weapon {
                                             .angleDeg()
                                     + 180;
                             Vector2 pos = enemy.getPos();
-                            EntitySystem.instance.add(new Bullet(
+                            EntitySystem.instance.add(new EnemyBullet(
                                     new Vector2(pos.x + 15 / 2f, pos.y + 5),
                                     angle,
                                     this.damage,

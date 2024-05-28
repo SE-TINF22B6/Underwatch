@@ -2,8 +2,8 @@ package de.dhbw.tinf22b6.util;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Vector2;
+import de.dhbw.tinf22b6.weapon.Ak;
 import de.dhbw.tinf22b6.weapon.M4;
-import de.dhbw.tinf22b6.weapon.Shotgun;
 import de.dhbw.tinf22b6.weapon.Weapon;
 import java.util.ArrayList;
 import java.util.List;
@@ -27,7 +27,7 @@ public class PlayerStatistics {
 
     public void init() {
         this.weapons = new ArrayList<>();
-        weapons.add(new Shotgun());
+        weapons.add(new Ak());
         this.canSwitchWeapon = true;
         this.hp = 200;
         this.initialHP = hp;
@@ -68,7 +68,7 @@ public class PlayerStatistics {
     }
 
     public int getScore() {
-        return coins * 2 + enemies_kills * 5;
+        return Math.max(coins * 5 + enemies_kills * 10 + (hasWon() ? 100 : 0) - (int) (gameTime / 60), 0);
     }
 
     public float getGameTime() {
@@ -120,7 +120,7 @@ public class PlayerStatistics {
     }
 
     public void hpBox(boolean big) {
-        this.hp = big ? this.initialHP : (int) (this.initialHP * 0.20);
+        this.hp = big ? this.initialHP : Math.max(this.hp + (int) (this.initialHP * 0.20), this.initialHP);
     }
 
     public void setWon() {

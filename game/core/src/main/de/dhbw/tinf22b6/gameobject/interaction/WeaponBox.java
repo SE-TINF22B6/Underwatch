@@ -8,7 +8,7 @@ import de.dhbw.tinf22b6.gameobject.Player;
 public class WeaponBox extends InteractionObject {
 
     public WeaponBox(Vector2 position, Rectangle rectangle) {
-        super("chest", position, rectangle);
+        super("chest", position, rectangle, true);
     }
 
     @Override

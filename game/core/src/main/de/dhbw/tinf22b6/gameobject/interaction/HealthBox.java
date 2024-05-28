@@ -10,7 +10,7 @@ public class HealthBox extends InteractionObject {
     private final boolean big;
 
     public HealthBox(Vector2 position, Rectangle rectangle, boolean big) {
-        super("flasks" + (big ? "_big" : "_small"), position, rectangle);
+        super("flasks" + (big ? "_big" : "_small"), position, rectangle, false);
         this.big = big;
     }
 

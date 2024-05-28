@@ -3,17 +3,16 @@ package de.dhbw.tinf22b6.ui.menu;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Preferences;
-import com.badlogic.gdx.audio.Music;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.scenes.scene2d.ui.Button;
-import com.badlogic.gdx.scenes.scene2d.ui.Label;
-import com.badlogic.gdx.scenes.scene2d.ui.Skin;
-import com.badlogic.gdx.scenes.scene2d.ui.Table;
+import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.badlogic.gdx.scenes.scene2d.utils.SpriteDrawable;
 import de.dhbw.tinf22b6.screen.GameScreen;
 import de.dhbw.tinf22b6.util.Assets;
+import de.dhbw.tinf22b6.util.MusicPlayer;
 import de.dhbw.tinf22b6.util.PlayerStatistics;
 import de.dhbw.tinf22b6.world.WorldType;
 import java.net.URI;
@@ -22,7 +21,7 @@ import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 
 public class Menu extends Stage {
-    public Menu(StageManager stageManager, Music music) {
+    public Menu(StageManager stageManager) {
         super();
         Skin skin = Assets.instance.getSkin();
         Game game = stageManager.getGame();
@@ -35,14 +34,20 @@ public class Menu extends Stage {
         dadJoke.setFontScale(0.5f);
         table.add(dadJoke).row();
 
+        Button soundOn = new Button(new SpriteDrawable(new Sprite(Assets.instance.getSprite("volume_on"))));
+        Button soundOff = new Button(new SpriteDrawable(new Sprite(Assets.instance.getSprite("volume_mute"))));
+
         Button btnMute = new Button(skin);
+        btnMute.add(Gdx.app.getPreferences("Controls").getBoolean("muteMusic") ? soundOff : soundOn);
         btnMute.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 Preferences preferences = Gdx.app.getPreferences("Controls");
                 preferences.putBoolean("muteMusic", !preferences.getBoolean("muteMusic"));
                 preferences.flush();
-                music.setVolume(preferences.getBoolean("muteMusic") ? 0 : preferences.getFloat("music"));
+                MusicPlayer.instance.setVolume(preferences.getBoolean("muteMusic") ? 0 : preferences.getFloat("music"));
+                btnMute.clearChildren();
+                btnMute.add(Gdx.app.getPreferences("Controls").getBoolean("muteMusic") ? soundOff : soundOn);
                 super.clicked(event, x, y);
             }
         });
@@ -58,12 +63,16 @@ public class Menu extends Stage {
                 // initialize player statistics
                 PlayerStatistics.instance.init();
                 game.setScreen(new GameScreen(game, WorldType.LEVEL1.getMap()));
-                Gdx.audio.newSound(Gdx.files.internal("sfx/LevelUp.mp3")).play();
+                Gdx.audio
+                        .newSound(Gdx.files.internal("sfx/LevelUp.mp3"))
+                        .play(Gdx.app.getPreferences("Controls").getFloat("sfx"));
             }
 
             @Override
             public void enter(InputEvent event, float x, float y, int pointer, Actor fromActor) {
-                Gdx.audio.newSound(Gdx.files.internal("sfx/button_hover.mp3")).play();
+                Gdx.audio
+                        .newSound(Gdx.files.internal("sfx/button_hover.mp3"))
+                        .play(Gdx.app.getPreferences("Controls").getFloat("sfx"));
                 super.enter(event, x, y, pointer, fromActor);
             }
         });
@@ -75,12 +84,14 @@ public class Menu extends Stage {
         btnSettings.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                stageManager.setStage(new Settings(stageManager, music));
+                stageManager.setStage(new Settings(stageManager));
             }
 
             @Override
             public void enter(InputEvent event, float x, float y, int pointer, Actor fromActor) {
-                Gdx.audio.newSound(Gdx.files.internal("sfx/button_hover.mp3")).play();
+                Gdx.audio
+                        .newSound(Gdx.files.internal("sfx/button_hover.mp3"))
+                        .play(Gdx.app.getPreferences("Controls").getFloat("sfx"));
                 super.enter(event, x, y, pointer, fromActor);
             }
         });
@@ -98,7 +109,9 @@ public class Menu extends Stage {
         btnQuit.addListener(new ClickListener() {
             @Override
             public void enter(InputEvent event, float x, float y, int pointer, Actor fromActor) {
-                Gdx.audio.newSound(Gdx.files.internal("sfx/button_hover.mp3")).play();
+                Gdx.audio
+                        .newSound(Gdx.files.internal("sfx/button_hover.mp3"))
+                        .play(Gdx.app.getPreferences("Controls").getFloat("sfx"));
                 super.enter(event, x, y, pointer, fromActor);
             }
         });

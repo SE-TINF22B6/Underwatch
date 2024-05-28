@@ -36,7 +36,7 @@ public class Player extends MobGameObject {
         super("c1", position, Constants.PLAYER_BIT);
         this.camera = camera;
         this.dodgeAnimation = new Animation<>(0.1f, Assets.instance.getAnimationAtlasRegion("priest1_dash"));
-        this.speed = 50;
+        this.speed = 75;
         this.motionVector = new Vector2();
 
         // create Body

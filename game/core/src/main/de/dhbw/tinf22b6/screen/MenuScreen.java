@@ -5,7 +5,6 @@ import static de.dhbw.tinf22b6.util.Constants.VIEWPORT_WIDTH;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Pixmap;
@@ -19,11 +18,11 @@ import com.badlogic.gdx.maps.tiled.TiledMapRenderer;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.utils.GdxRuntimeException;
 import de.dhbw.tinf22b6.ui.menu.StageManager;
+import de.dhbw.tinf22b6.util.MusicPlayer;
 import de.dhbw.tinf22b6.world.WorldType;
 
 public class MenuScreen extends AbstractGameScreen {
     private static final float MAX_BLUR = 4f;
-    private final Music menuMusic = Gdx.audio.newMusic(Gdx.files.internal("music/main_menu.mp3"));
     private final TiledMapRenderer renderer;
     private final OrthographicCamera camera;
     private final Batch spriteBatch;
@@ -149,21 +148,14 @@ public class MenuScreen extends AbstractGameScreen {
 
     @Override
     public void show() {
-        menuMusic.setLooping(true);
-        menuMusic.setVolume(
-                Gdx.app.getPreferences("Controls").getBoolean("muteMusic")
-                        ? 0
-                        : Gdx.app.getPreferences("Controls").getFloat("music"));
-        menuMusic.play();
-        stageManager = new StageManager(game, menuMusic);
+        MusicPlayer.instance.setMusic(Gdx.audio.newMusic(Gdx.files.internal("music/main_menu.mp3")));
+        stageManager = new StageManager(game);
         camera.position.set(150, 300, 0);
         camera.update();
     }
 
     @Override
-    public void hide() {
-        menuMusic.stop();
-    }
+    public void hide() {}
 
     @Override
     public void pause() {}

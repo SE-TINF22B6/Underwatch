@@ -8,6 +8,7 @@ import de.dhbw.tinf22b6.gameobject.Coin;
 import de.dhbw.tinf22b6.gameobject.Player;
 import de.dhbw.tinf22b6.gameobject.Teleporter;
 import de.dhbw.tinf22b6.gameobject.bullet.Bullet;
+import de.dhbw.tinf22b6.gameobject.bullet.EnemyBullet;
 import de.dhbw.tinf22b6.gameobject.enemy.Enemy;
 import de.dhbw.tinf22b6.gameobject.interaction.InteractionObject;
 import de.dhbw.tinf22b6.screen.GameScreen;
@@ -90,14 +91,17 @@ public class WorldListener implements ContactListener {
                     ((Bullet) fixB.getUserData()).setRemove(true);
                     ((Enemy) fixA.getUserData()).hit(((Bullet) fixB.getUserData()).getDamage());
                 }
+                Gdx.audio
+                        .newSound(Gdx.files.internal("sfx/hitSound.mp3"))
+                        .play(Gdx.app.getPreferences("Controls").getFloat("sfx"));
                 break;
             case WEAPON_ENEMY_BIT | PLAYER_BIT:
                 if (fixA.getFilterData().categoryBits == WEAPON_ENEMY_BIT) {
-                    ((Bullet) fixA.getUserData()).setRemove(true);
-                    PlayerStatistics.instance.hitHP(((Bullet) fixA.getUserData()).getDamage());
+                    ((EnemyBullet) fixA.getUserData()).setRemove(true);
+                    PlayerStatistics.instance.hitHP(((EnemyBullet) fixA.getUserData()).getDamage());
                 } else {
-                    ((Bullet) fixB.getUserData()).setRemove(true);
-                    PlayerStatistics.instance.hitHP(((Bullet) fixB.getUserData()).getDamage());
+                    ((EnemyBullet) fixB.getUserData()).setRemove(true);
+                    PlayerStatistics.instance.hitHP(((EnemyBullet) fixB.getUserData()).getDamage());
                 }
                 Gdx.audio
                         .newSound(Gdx.files.internal("sfx/player_hit.mp3"))
@@ -105,9 +109,9 @@ public class WorldListener implements ContactListener {
                 break;
             case WEAPON_ENEMY_BIT | WALL_BIT:
                 if (fixA.getFilterData().categoryBits == WEAPON_ENEMY_BIT) {
-                    ((Bullet) fixA.getUserData()).setRemove(true);
+                    ((EnemyBullet) fixA.getUserData()).setRemove(true);
                 } else {
-                    ((Bullet) fixB.getUserData()).setRemove(true);
+                    ((EnemyBullet) fixB.getUserData()).setRemove(true);
                 }
                 break;
             case PLAYER_BIT | TELEPORTER_BIT: {

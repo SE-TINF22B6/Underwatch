@@ -61,14 +61,10 @@ public class FlatTiledGraph implements TiledGraph<FlatTiledNode> {
             for (int x = 0; x < sizeX; x++) {
                 for (int y = 0; y < sizeY; y++) {
                     FlatTiledNode n = getNode(x, y);
-                    if (x > 0)
-                        addConnection(n, -1, 0);
-                    if (y > 0)
-                        addConnection(n, 0, -1);
-                    if (x < sizeX - 1)
-                        addConnection(n, 1, 0);
-                    if (y < sizeY - 1)
-                        addConnection(n, 0, 1);
+                    if (x > 0) addConnection(n, -1, 0);
+                    if (y > 0) addConnection(n, 0, -1);
+                    if (x < sizeX - 1) addConnection(n, 1, 0);
+                    if (y < sizeY - 1) addConnection(n, 0, 1);
                 }
             }
             return;
@@ -93,80 +89,48 @@ public class FlatTiledGraph implements TiledGraph<FlatTiledNode> {
                     // check if wall is above
                     if (getNode(x, y + 1).type == FlatTiledNode.TILE_WALL) {
                         addConnection(
-                                      n,
-                                      Direction.N,
-                                      Direction.E,
-                                      Direction.S,
-                                      Direction.W,
-                                      Direction.SE,
-                                      Direction.SW);
+                                n, Direction.N, Direction.E, Direction.S, Direction.W, Direction.SE, Direction.SW);
                         continue;
                     }
                     // check if wall is below
                     if (getNode(x, y - 1).type == FlatTiledNode.TILE_WALL) {
                         addConnection(
-                                      n,
-                                      Direction.N,
-                                      Direction.E,
-                                      Direction.S,
-                                      Direction.W,
-                                      Direction.NE,
-                                      Direction.NW);
+                                n, Direction.N, Direction.E, Direction.S, Direction.W, Direction.NE, Direction.NW);
                         continue;
                     }
                     // check if wall is left
                     if (getNode(x - 1, y).type == FlatTiledNode.TILE_WALL) {
                         addConnection(
-                                      n,
-                                      Direction.N,
-                                      Direction.E,
-                                      Direction.S,
-                                      Direction.W,
-                                      Direction.NE,
-                                      Direction.SE);
+                                n, Direction.N, Direction.E, Direction.S, Direction.W, Direction.NE, Direction.SE);
                         continue;
                     }
                     // check if wall is right
                     if (getNode(x + 1, y).type == FlatTiledNode.TILE_WALL) {
                         addConnection(
-                                      n,
-                                      Direction.N,
-                                      Direction.E,
-                                      Direction.S,
-                                      Direction.W,
-                                      Direction.NW,
-                                      Direction.SW);
+                                n, Direction.N, Direction.E, Direction.S, Direction.W, Direction.NW, Direction.SW);
                         continue;
                     }
                     addConnection(
-                                  n,
-                                  Direction.N,
-                                  Direction.E,
-                                  Direction.S,
-                                  Direction.W,
-                                  Direction.NE,
-                                  Direction.SE,
-                                  Direction.NW,
-                                  Direction.SW);
+                            n,
+                            Direction.N,
+                            Direction.E,
+                            Direction.S,
+                            Direction.W,
+                            Direction.NE,
+                            Direction.SE,
+                            Direction.NW,
+                            Direction.SW);
                     continue;
                 }
                 // Do not delete this part it is important for the edge
-                if (x > 0)
-                    addConnection(n, Direction.W);
-                if (y > 0)
-                    addConnection(n, Direction.S);
-                if (x > 0 && y > 0)
-                    addConnection(n, Direction.SW);
-                if (x < sizeX - 1)
-                    addConnection(n, Direction.E);
-                if (y < sizeY - 1)
-                    addConnection(n, Direction.N);
-                if (x < sizeX - 1 && y < sizeY - 1)
-                    addConnection(n, Direction.NE);
-                if (x < sizeX - 1 && y > 0)
-                    addConnection(n, Direction.SE);
-                if (y < sizeY - 1 && x > 0)
-                    addConnection(n, Direction.NW);
+                if (x > 0) addConnection(n, Direction.W);
+                if (y > 0) addConnection(n, Direction.S);
+                if (x > 0 && y > 0) addConnection(n, Direction.SW);
+                if (x < sizeX - 1) addConnection(n, Direction.E);
+                if (y < sizeY - 1) addConnection(n, Direction.N);
+                if (x < sizeX - 1 && y < sizeY - 1) addConnection(n, Direction.NE);
+                if (x < sizeX - 1 && y > 0) addConnection(n, Direction.SE);
+                if (y < sizeY - 1 && x > 0) addConnection(n, Direction.NW);
             }
         }
     }
@@ -198,16 +162,22 @@ public class FlatTiledGraph implements TiledGraph<FlatTiledNode> {
 
     private void addConnection(FlatTiledNode n, int xOffset, int yOffset) {
         FlatTiledNode target = getNode(n.x + xOffset, n.y + yOffset);
-        if (target.type != FlatTiledNode.TILE_WALL)
-            n.getConnections().add(new FlatTiledConnection(this, n, target));
+        if (target.type != FlatTiledNode.TILE_WALL) n.getConnections().add(new FlatTiledConnection(this, n, target));
     }
 
     private enum Direction {
-        N, E, S, W, NE, NW, SE, SW
+        N,
+        E,
+        S,
+        W,
+        NE,
+        NW,
+        SE,
+        SW
     }
 
     private void addConnection(FlatTiledNode n, Direction... directions) // throws Exception
-    {
+            {
         // if (directions.length > 8 || directions.length < 0) {
         // throw new Exception("Directions are fucked up");
         // }

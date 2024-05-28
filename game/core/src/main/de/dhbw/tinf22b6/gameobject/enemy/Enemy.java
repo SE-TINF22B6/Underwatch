@@ -4,7 +4,6 @@ import static com.badlogic.gdx.math.MathUtils.cosDeg;
 import static com.badlogic.gdx.math.MathUtils.sinDeg;
 import static de.dhbw.tinf22b6.util.Constants.TILE_SIZE;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.ai.pfa.Heuristic;
 import com.badlogic.gdx.ai.pfa.indexed.IndexedAStarPathFinder;
 import com.badlogic.gdx.ai.steer.Steerable;
@@ -13,6 +12,8 @@ import com.badlogic.gdx.ai.steer.SteeringBehavior;
 import com.badlogic.gdx.ai.steer.behaviors.FollowPath;
 import com.badlogic.gdx.ai.steer.utils.paths.LinePath;
 import com.badlogic.gdx.ai.utils.Location;
+import com.badlogic.gdx.graphics.Pixmap;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.BodyDef;
@@ -48,11 +49,15 @@ public abstract class Enemy extends MobGameObject implements Steerable<Vector2> 
     protected int damage;
     private float maxLinearSpeed;
     private float maxLinearAcceleration;
+    private final Texture[] hpBar;
+    protected int initialHp;
 
     public Enemy(String region, Vector2 position, int[][] rawMap, int damage, int hp) {
         super(region, position, Constants.ENEMY_BIT);
         this.weapon = new EnemyWeapon(this, damage);
         this.health = hp;
+        this.initialHp = hp;
+        this.hpBar = new Texture[2];
         this.damage = damage;
         this.steeringBehavior = new EnemySteeringBehaviour(this);
         this.maxLinearSpeed = 20;
@@ -60,6 +65,14 @@ public abstract class Enemy extends MobGameObject implements Steerable<Vector2> 
         this.worldGraph = new FlatTiledGraph(rawMap);
         this.finder = new IndexedAStarPathFinder<>(worldGraph, true);
         this.heuristic = new TiledMetricHeuristic<>();
+
+        Pixmap pixmap = new Pixmap(TILE_SIZE, 2, Pixmap.Format.RGBA8888);
+        pixmap.setColor(1, 0, 0, 1);
+        pixmap.fill();
+        hpBar[0] = new Texture(pixmap);
+        pixmap.setColor(0.2f, 0.2f, 0.2f, 1);
+        pixmap.fill();
+        hpBar[1] = new Texture(pixmap);
 
         // create Body
         BodyDef bodyDef = new BodyDef();
@@ -69,23 +82,41 @@ public abstract class Enemy extends MobGameObject implements Steerable<Vector2> 
         body = Box2dWorld.instance.getWorld().createBody(bodyDef);
 
         PolygonShape boxShape = new PolygonShape();
-        boxShape.setAsBox((float) TILE_SIZE / 3, (float) TILE_SIZE / 3);
+        boxShape.setAsBox(
+                currentAnimation.getKeyFrame(0).originalWidth / 4f,
+                currentAnimation.getKeyFrame(0).originalHeight / 12f);
 
         FixtureDef fixtureDef = new FixtureDef();
         fixtureDef.shape = boxShape;
         fixtureDef.filter.categoryBits = collisionMask;
         fixtureDef.restitution = 0.0f;
 
+        PolygonShape hitBoxShape = new PolygonShape();
+        hitBoxShape.setAsBox(
+                currentAnimation.getKeyFrame(0).originalWidth / 3.5f,
+                currentAnimation.getKeyFrame(0).originalHeight / 2.75f,
+                new Vector2(0, currentAnimation.getKeyFrame(0).originalHeight / 3f),
+                0);
+
+        FixtureDef hitboxDef = new FixtureDef();
+        hitboxDef.shape = hitBoxShape;
+        hitboxDef.isSensor = true;
+        hitboxDef.filter.categoryBits = Constants.ENEMY_BIT;
+
         PolygonShape sightShape = new PolygonShape();
         sightShape.setAsBox(TILE_SIZE * 5, TILE_SIZE * 5);
+
         FixtureDef sightDef = new FixtureDef();
         sightDef.shape = sightShape;
         sightDef.isSensor = true;
         sightDef.filter.categoryBits = Constants.ENEMY_SIGHT_BIT;
 
         body.createFixture(fixtureDef).setUserData(this);
+        body.createFixture(hitboxDef).setUserData(this);
         body.createFixture(sightDef).setUserData(this);
         boxShape.dispose();
+        hitBoxShape.dispose();
+        sightShape.dispose();
         body.setUserData(this);
     }
 
@@ -100,10 +131,11 @@ public abstract class Enemy extends MobGameObject implements Steerable<Vector2> 
 
     @Override
     public void render(Batch batch) {
-        float angle = body.getPosition()
-                        .sub(EntitySystem.instance.getPlayer().getPos())
-                        .angleDeg()
-                + 180;
+        float angle = (body.getPosition()
+                                .sub(EntitySystem.instance.getPlayer().getPos())
+                                .angleDeg()
+                        + 180)
+                % 360f;
         int r = 5;
         if (angle > 20 && angle < 160) {
             if (body.isAwake())
@@ -140,6 +172,18 @@ public abstract class Enemy extends MobGameObject implements Steerable<Vector2> 
                         1,
                         angle);
         }
+        if (body.isAwake()) {
+            batch.draw(
+                    hpBar[1],
+                    body.getPosition().x - currentAnimation.getKeyFrame(stateTime).originalWidth / 3f,
+                    body.getPosition().y + currentAnimation.getKeyFrame(stateTime).originalHeight - 4f);
+            batch.draw(
+                    hpBar[0],
+                    body.getPosition().x - currentAnimation.getKeyFrame(stateTime).originalWidth / 3f,
+                    body.getPosition().y + currentAnimation.getKeyFrame(stateTime).originalHeight - 4f,
+                    (float) health * hpBar[0].getWidth() / initialHp,
+                    hpBar[0].getHeight());
+        }
     }
 
     public void hit(int damage) {
@@ -148,7 +192,6 @@ public abstract class Enemy extends MobGameObject implements Steerable<Vector2> 
             this.remove = true;
             PlayerStatistics.instance.enemyKilled();
         }
-        Gdx.audio.newSound(Gdx.files.internal("sfx/hitSound.mp3")).play(1);
     }
 
     public void update() {

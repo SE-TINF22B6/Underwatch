@@ -9,7 +9,7 @@ import de.dhbw.tinf22b6.util.PlayerStatistics;
 public class AmmoBox extends InteractionObject {
 
     public AmmoBox(Vector2 position, Rectangle rectangle) {
-        super("chest", position, rectangle);
+        super("chest", position, rectangle, true);
     }
 
     @Override
