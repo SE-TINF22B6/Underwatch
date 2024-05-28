@@ -12,6 +12,8 @@ import com.badlogic.gdx.ai.steer.SteeringBehavior;
 import com.badlogic.gdx.ai.steer.behaviors.FollowPath;
 import com.badlogic.gdx.ai.steer.utils.paths.LinePath;
 import com.badlogic.gdx.ai.utils.Location;
+import com.badlogic.gdx.graphics.Pixmap;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.BodyDef;
@@ -47,11 +49,15 @@ public abstract class Enemy extends MobGameObject implements Steerable<Vector2> 
     protected int damage;
     private float maxLinearSpeed;
     private float maxLinearAcceleration;
+    private final Texture[] hpBar;
+    protected int initialHp;
 
     public Enemy(String region, Vector2 position, int[][] rawMap, int damage, int hp) {
         super(region, position, Constants.ENEMY_BIT);
         this.weapon = new EnemyWeapon(this, damage);
         this.health = hp;
+        this.initialHp = hp;
+        this.hpBar = new Texture[2];
         this.damage = damage;
         this.steeringBehavior = new EnemySteeringBehaviour(this);
         this.maxLinearSpeed = 20;
@@ -59,6 +65,15 @@ public abstract class Enemy extends MobGameObject implements Steerable<Vector2> 
         this.worldGraph = new FlatTiledGraph(rawMap);
         this.finder = new IndexedAStarPathFinder<>(worldGraph, true);
         this.heuristic = new TiledMetricHeuristic<>();
+
+        Pixmap pixmap = new Pixmap(TILE_SIZE, 2, Pixmap.Format.RGBA8888);
+        pixmap.setColor(1, 0, 0, 1);
+        pixmap.fill();
+        hpBar[0] = new Texture(pixmap);
+        pixmap.setColor(0.2f, 0.2f, 0.2f, 1);
+        pixmap.fill();
+        hpBar[1] = new Texture(pixmap);
+
 
         // create Body
         BodyDef bodyDef = new BodyDef();
@@ -118,8 +133,8 @@ public abstract class Enemy extends MobGameObject implements Steerable<Vector2> 
     @Override
     public void render(Batch batch) {
         float angle = body.getPosition()
-                        .sub(EntitySystem.instance.getPlayer().getPos())
-                        .angleDeg()
+                .sub(EntitySystem.instance.getPlayer().getPos())
+                .angleDeg()
                 + 180;
         int r = 5;
         if (angle > 20 && angle < 160) {
@@ -156,6 +171,10 @@ public abstract class Enemy extends MobGameObject implements Steerable<Vector2> 
                         1,
                         1,
                         angle);
+        }
+        if (body.isAwake()){
+            batch.draw(hpBar[1], body.getPosition().x - currentAnimation.getKeyFrame(stateTime).originalWidth /3f, body.getPosition().y + currentAnimation.getKeyFrame(stateTime).originalHeight -4f);
+            batch.draw(hpBar[0], body.getPosition().x - currentAnimation.getKeyFrame(stateTime).originalWidth /3f, body.getPosition().y + currentAnimation.getKeyFrame(stateTime).originalHeight -4f, (float) health * hpBar[0].getWidth() / initialHp, hpBar[0].getHeight());
         }
     }
 
@@ -277,7 +296,8 @@ public abstract class Enemy extends MobGameObject implements Steerable<Vector2> 
     }
 
     @Override
-    public void setMaxAngularSpeed(float maxAngularSpeed) {}
+    public void setMaxAngularSpeed(float maxAngularSpeed) {
+    }
 
     @Override
     public float getMaxAngularAcceleration() {
@@ -285,7 +305,8 @@ public abstract class Enemy extends MobGameObject implements Steerable<Vector2> 
     }
 
     @Override
-    public void setMaxAngularAcceleration(float maxAngularAcceleration) {}
+    public void setMaxAngularAcceleration(float maxAngularAcceleration) {
+    }
 
     @Override
     public float getZeroLinearSpeedThreshold() {

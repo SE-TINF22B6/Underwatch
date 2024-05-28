@@ -2,6 +2,7 @@ package de.dhbw.tinf22b6.util;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Vector2;
+import de.dhbw.tinf22b6.weapon.Ak;
 import de.dhbw.tinf22b6.weapon.M4;
 import de.dhbw.tinf22b6.weapon.Shotgun;
 import de.dhbw.tinf22b6.weapon.Weapon;
@@ -29,7 +30,7 @@ public class PlayerStatistics {
 
     public void init() {
         this.weapons = new ArrayList<>();
-        weapons.add(new Shotgun());
+        weapons.add(new Ak());
         this.canSwitchWeapon = true;
         this.hp = 200;
         this.initialHP = hp;
