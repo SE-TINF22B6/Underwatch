@@ -120,7 +120,7 @@ public class PlayerStatistics {
     }
 
     public void hpBox(boolean big) {
-        this.hp = big ? this.initialHP : (int) (this.initialHP * 0.20);
+        this.hp = big ? this.initialHP : Math.max(this.hp + (int) (this.initialHP * 0.20), this.initialHP);
     }
 
     public void setWon() {
