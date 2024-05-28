@@ -132,10 +132,10 @@ public abstract class Enemy extends MobGameObject implements Steerable<Vector2> 
 
     @Override
     public void render(Batch batch) {
-        float angle = body.getPosition()
+        float angle = (body.getPosition()
                 .sub(EntitySystem.instance.getPlayer().getPos())
                 .angleDeg()
-                + 180;
+                + 180) % 360f;
         int r = 5;
         if (angle > 20 && angle < 160) {
             if (body.isAwake())
