@@ -20,7 +20,7 @@ public abstract class InteractionObject extends GameObject {
     protected final Animation<TextureAtlas.AtlasRegion> inactiveAnimation;
     protected final Animation<TextureAtlas.AtlasRegion> activeAnimation;
 
-    public InteractionObject(String region, Vector2 position, Rectangle rectangle) {
+    public InteractionObject(String region, Vector2 position, Rectangle rectangle, boolean hasCollision) {
         super(region, position, Constants.INTERACTION_BIT);
         this.activeAnimation = new Animation<>(0.2f, Assets.instance.getAnimationAtlasRegion(region + "_open"));
         this.inactiveAnimation = currentAnimation;
@@ -38,7 +38,10 @@ public abstract class InteractionObject extends GameObject {
 
         FixtureDef fixtureDef = new FixtureDef();
         fixtureDef.shape = polygonShape;
-        fixtureDef.filter.categoryBits = Constants.WALL_BIT;
+        fixtureDef.filter.categoryBits = Constants.BOX_COLLISION_BIT;
+        if (!hasCollision) {
+            fixtureDef.isSensor = true;
+        }
 
         FixtureDef fixtureActiveArea = new FixtureDef();
         fixtureActiveArea.shape = circleShape;

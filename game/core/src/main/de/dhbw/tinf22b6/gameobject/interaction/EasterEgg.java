@@ -4,26 +4,25 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import de.dhbw.tinf22b6.gameobject.Player;
+import de.dhbw.tinf22b6.util.PlayerStatistics;
 
-public class SpeedBoost extends InteractionObject {
-    private final boolean big;
+public class EasterEgg extends InteractionObject {
 
-    public SpeedBoost(Vector2 position, Rectangle rectangle, boolean big) {
-        super("speed" + (big ? "_big" : "_small"), position, rectangle, false);
-        this.big = big;
+    public EasterEgg(Vector2 position, Rectangle rectangle) {
+        super("chest", position, rectangle, false);
     }
 
     @Override
     public void activate() {
         super.activate();
         Gdx.audio
-                .newSound(Gdx.files.internal("sfx/health_restore.mp3"))
+                .newSound(Gdx.files.internal("sfx/chest_open.mp3"))
                 .play(Gdx.app.getPreferences("Controls").getFloat("sfx"));
     }
 
     @Override
     public void interact(Player player) {
-        player.speedBoost(big);
+        PlayerStatistics.instance.reloadWeapons();
         super.interact(player);
     }
 }

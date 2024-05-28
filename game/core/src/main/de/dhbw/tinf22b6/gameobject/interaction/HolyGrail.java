@@ -10,7 +10,7 @@ import de.dhbw.tinf22b6.util.PlayerStatistics;
 public class HolyGrail extends InteractionObject {
 
     public HolyGrail(Vector2 position, Rectangle rectangle) {
-        super("trophy", position, rectangle);
+        super("trophy", position, rectangle, false);
         this.activeAnimation.setFrameDuration(0.5f);
     }
 
