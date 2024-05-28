@@ -3,19 +3,20 @@ package de.dhbw.tinf22b6.ui.menu;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Preferences;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.scenes.scene2d.ui.Button;
-import com.badlogic.gdx.scenes.scene2d.ui.Label;
-import com.badlogic.gdx.scenes.scene2d.ui.Skin;
-import com.badlogic.gdx.scenes.scene2d.ui.Table;
+import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
+import com.badlogic.gdx.scenes.scene2d.utils.SpriteDrawable;
 import de.dhbw.tinf22b6.screen.GameScreen;
 import de.dhbw.tinf22b6.util.Assets;
 import de.dhbw.tinf22b6.util.MusicPlayer;
 import de.dhbw.tinf22b6.util.PlayerStatistics;
 import de.dhbw.tinf22b6.world.WorldType;
+
 import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
@@ -35,7 +36,11 @@ public class Menu extends Stage {
         dadJoke.setFontScale(0.5f);
         table.add(dadJoke).row();
 
+        Button soundOn = new Button(new SpriteDrawable(new Sprite(Assets.instance.getSprite("volume_on"))));
+        Button soundOff = new Button(new SpriteDrawable(new Sprite(Assets.instance.getSprite("volume_mute"))));
+
         Button btnMute = new Button(skin);
+        btnMute.add(Gdx.app.getPreferences("Controls").getBoolean("muteMusic") ? soundOff : soundOn);
         btnMute.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
@@ -43,6 +48,8 @@ public class Menu extends Stage {
                 preferences.putBoolean("muteMusic", !preferences.getBoolean("muteMusic"));
                 preferences.flush();
                 MusicPlayer.instance.setVolume(preferences.getBoolean("muteMusic") ? 0 : preferences.getFloat("music"));
+                btnMute.clearChildren();
+                btnMute.add(Gdx.app.getPreferences("Controls").getBoolean("muteMusic") ? soundOff : soundOn);
                 super.clicked(event, x, y);
             }
         });
