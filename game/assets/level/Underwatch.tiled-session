@@ -68,11 +68,11 @@
             }
         },
         "Dungeon1.tmx": {
-            "scale": 0.5653,
+            "scale": 0.323,
             "selectedLayer": 7,
             "viewCenter": {
-                "x": 114.09870865027426,
-                "y": 919.8655581107378
+                "x": 772.4458204334364,
+                "y": 1188.8544891640865
             }
         },
         "Dungeon3.tmx": {
@@ -177,8 +177,8 @@
             "scale": 0.8702,
             "selectedLayer": 7,
             "viewCenter": {
-                "x": 399.9080671110089,
-                "y": 399.90806711100896
+                "x": 400.4826476672029,
+                "y": 401.057228223397
             }
         }
     },
@@ -208,6 +208,7 @@
     "project": "Underwatch.tiled-project",
     "property.type": "bool",
     "recentFiles": [
+        "startMap.tmx",
         "Dungeon3.tmx",
         "Demo.tmx",
         "Dungeon1.tmx",
@@ -218,8 +219,7 @@
         "Dungeon_Monsters1.tsx",
         "babo.tsx",
         "50x50MapMitHitbox.tmx",
-        "TeleportTestFixed.tmx",
-        "dungeon1(amogus).tmx"
+        "TeleportTestFixed.tmx"
     ],
     "tileset.lastUsedFormat": "tsx",
     "tileset.tileSize": {
