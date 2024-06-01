@@ -15,7 +15,8 @@ public class Assets implements Disposable, AssetErrorListener {
     private AssetManager assetManager;
 
     // singleton: prevent instantiation from other classes
-    private Assets() {}
+    private Assets() {
+    }
 
     public void init(AssetManager assetManager) {
         this.assetManager = assetManager;
@@ -27,7 +28,8 @@ public class Assets implements Disposable, AssetErrorListener {
         // start loading assets and wait until finished
         assetManager.finishLoading();
         Gdx.app.debug(TAG, "# of assets loaded: " + assetManager.getAssetNames().size);
-        for (String a : assetManager.getAssetNames()) Gdx.app.debug(TAG, "asset: " + a);
+        for (String a : assetManager.getAssetNames())
+            Gdx.app.debug(TAG, "asset: " + a);
     }
 
     public Array<TextureAtlas.AtlasRegion> getAnimationAtlasRegion(String path) {
