@@ -160,8 +160,6 @@ public class WorldParser {
                                 list.add(new HolyGrail(new Vector2(x, y), rectangleObject.getRectangle()));
                                 break;
                             case "ammo":
-                                Gdx.app.debug(
-                                        TAG, rectangleObject.getRectangle().toString());
                                 list.add(new AmmoBox(new Vector2(x, y), rectangleObject.getRectangle()));
                                 break;
                         }
