@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.10" tiledversion="1.10.2" class="outside" orientation="orthogonal" renderorder="right-down" width="50" height="50" tilewidth="16" tileheight="16" infinite="0" nextlayerid="13" nextobjectid="1">
+<map version="1.10" tiledversion="1.10.2" class="outside" orientation="orthogonal" renderorder="right-down" width="50" height="50" tilewidth="16" tileheight="16" infinite="0" nextlayerid="14" nextobjectid="1">
  <properties>
   <property name="inside" type="bool" value="false"/>
  </properties>
@@ -62,9 +62,14 @@
    eJzt2jEOgCAMBVDufxjiEV1kISFGBmvrewsLSfmUjbZGtB59gCKOxZpRhSwVMgwVslTIMFTKAgAAAAAAAFll/rcbcxqrDJFzHE/vcd7/hX7sZrhb37Rbe35D0f3oV+2/zSad8oYflQ==
   </data>
  </layer>
+ <layer id="13" name="ammo" width="50" height="50">
+  <data encoding="base64" compression="zlib">
+   eJzt1sENACAIBDD3H8Up/fsiRoOQdgIkBzgGP5jZBcADe67lHAByucXcJlMAAET5OwJR9gXUYV7PdOxbxzcBtS0cEwal
+  </data>
+ </layer>
  <layer id="4" name="enemy" width="50" height="50">
   <data encoding="base64" compression="zlib">
-   eJzt08sNgCAUBEDatP9GLEAhKMjHN3M1GtldUoJ1HZ3fb/0ejGKr997kEjHLiGdmvhG7s+15nmSvJ1rZ0P/oFOrU3hV3al+6i0XfZfLp5+ssdTXXTvnv9K9clfrLPdN5nmxYTZRNzjpnlHxXJHtKTkj/Cm8=
+   eJzt1rERACAIADHWdP9FrCi1Uw9MJqB4OCIAoK/xegD4hF0jaQEAAPzF3HO6NS0DK+4D1GFf6Urb7EyMCgMi
   </data>
  </layer>
  <layer id="9" name="start" width="50" height="50">
