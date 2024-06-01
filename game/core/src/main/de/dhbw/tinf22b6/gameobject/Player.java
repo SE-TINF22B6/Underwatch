@@ -5,13 +5,6 @@ import static com.badlogic.gdx.math.MathUtils.sinDeg;
 import static de.dhbw.tinf22b6.util.Constants.PLAYER_BIT;
 import static de.dhbw.tinf22b6.util.Constants.TILE_SIZE;
 
-import de.dhbw.tinf22b6.gameobject.enemy.MobGameObject;
-import de.dhbw.tinf22b6.util.Assets;
-import de.dhbw.tinf22b6.util.Constants;
-import de.dhbw.tinf22b6.util.PlayerStatistics;
-import de.dhbw.tinf22b6.weapon.Weapon;
-import de.dhbw.tinf22b6.world.Box2dWorld;
-
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.g2d.Animation;
@@ -22,6 +15,12 @@ import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
+import de.dhbw.tinf22b6.gameobject.enemy.MobGameObject;
+import de.dhbw.tinf22b6.util.Assets;
+import de.dhbw.tinf22b6.util.Constants;
+import de.dhbw.tinf22b6.util.PlayerStatistics;
+import de.dhbw.tinf22b6.weapon.Weapon;
+import de.dhbw.tinf22b6.world.Box2dWorld;
 
 public class Player extends MobGameObject {
     private final Animation<TextureAtlas.AtlasRegion> dodgeAnimation;
@@ -50,8 +49,8 @@ public class Player extends MobGameObject {
 
         PolygonShape boxShape = new PolygonShape();
         boxShape.setAsBox(
-                          currentAnimation.getKeyFrame(0).originalWidth / 4f,
-                          currentAnimation.getKeyFrame(0).originalHeight / 12f);
+                currentAnimation.getKeyFrame(0).originalWidth / 4f,
+                currentAnimation.getKeyFrame(0).originalHeight / 12f);
 
         FixtureDef fixtureDef = new FixtureDef();
         fixtureDef.shape = boxShape;
@@ -60,10 +59,10 @@ public class Player extends MobGameObject {
 
         PolygonShape collisionShape = new PolygonShape();
         collisionShape.setAsBox(
-                                currentAnimation.getKeyFrame(0).originalWidth / 3.5f,
-                                currentAnimation.getKeyFrame(0).originalHeight / 2.5f,
-                                new Vector2(0, currentAnimation.getKeyFrame(0).originalHeight / 3f),
-                                0);
+                currentAnimation.getKeyFrame(0).originalWidth / 3.5f,
+                currentAnimation.getKeyFrame(0).originalHeight / 2.5f,
+                new Vector2(0, currentAnimation.getKeyFrame(0).originalHeight / 3f),
+                0);
 
         FixtureDef collisionFixtureDef = new FixtureDef();
         collisionFixtureDef.shape = collisionShape;
@@ -91,36 +90,36 @@ public class Player extends MobGameObject {
             int r = 5;
             if (angle > 20 && angle < 160) {
                 batch.draw(
-                           weapon.getRegion(),
-                           (pos.x) + r * cosDeg(angle),
-                           (pos.y) + 5 + r * sinDeg(angle),
-                           8,
-                           8,
-                           weapon.getRegion().originalWidth,
-                           weapon.getRegion().originalHeight,
-                           1,
-                           1,
-                           angle);
+                        weapon.getRegion(),
+                        (pos.x) + r * cosDeg(angle),
+                        (pos.y) + 5 + r * sinDeg(angle),
+                        8,
+                        8,
+                        weapon.getRegion().originalWidth,
+                        weapon.getRegion().originalHeight,
+                        1,
+                        1,
+                        angle);
                 batch.draw(
-                           currentAnimation.getKeyFrame(stateTime, true),
-                           body.getPosition().x - currentAnimation.getKeyFrame(0).originalWidth / 2f + 0.5f,
-                           body.getPosition().y - 2);
+                        currentAnimation.getKeyFrame(stateTime, true),
+                        body.getPosition().x - currentAnimation.getKeyFrame(0).originalWidth / 2f + 0.5f,
+                        body.getPosition().y - 2);
             } else {
                 batch.draw(
-                           currentAnimation.getKeyFrame(stateTime, true),
-                           body.getPosition().x - currentAnimation.getKeyFrame(0).originalWidth / 2f + 0.5f,
-                           body.getPosition().y - 2);
+                        currentAnimation.getKeyFrame(stateTime, true),
+                        body.getPosition().x - currentAnimation.getKeyFrame(0).originalWidth / 2f + 0.5f,
+                        body.getPosition().y - 2);
                 batch.draw(
-                           weapon.getRegion(),
-                           (pos.x) + r * cosDeg(angle),
-                           (pos.y) + 5 + r * sinDeg(angle),
-                           8,
-                           8,
-                           weapon.getRegion().originalWidth,
-                           weapon.getRegion().originalHeight,
-                           1,
-                           1,
-                           angle);
+                        weapon.getRegion(),
+                        (pos.x) + r * cosDeg(angle),
+                        (pos.y) + 5 + r * sinDeg(angle),
+                        8,
+                        8,
+                        weapon.getRegion().originalWidth,
+                        weapon.getRegion().originalHeight,
+                        1,
+                        1,
+                        angle);
             }
             return;
         }
@@ -160,19 +159,18 @@ public class Player extends MobGameObject {
 
     public void applyForce(Vector2 motionVector) {
         if (dodging) {
-            if (movedDuringDash)
-                return;
+            if (movedDuringDash) return;
             movedDuringDash = true;
             new Thread(() -> {
-                try {
-                    Thread.sleep(200);
-                    body.setLinearVelocity(motionVector.x * 3000, motionVector.y * 3000);
-                    pos.x = body.getPosition().x - (float) TILE_SIZE / 2;
-                    pos.y = body.getPosition().y - (float) TILE_SIZE / 4;
-                } catch (InterruptedException e) {
-                    throw new RuntimeException(e);
-                }
-            })
+                        try {
+                            Thread.sleep(200);
+                            body.setLinearVelocity(motionVector.x * 3000, motionVector.y * 3000);
+                            pos.x = body.getPosition().x - (float) TILE_SIZE / 2;
+                            pos.y = body.getPosition().y - (float) TILE_SIZE / 4;
+                        } catch (InterruptedException e) {
+                            throw new RuntimeException(e);
+                        }
+                    })
                     .start();
         } else {
             body.setLinearVelocity(motionVector.x * speed, motionVector.y * speed);
@@ -209,17 +207,17 @@ public class Player extends MobGameObject {
         dodgeStateTime = 0;
         this.currentAnimation = dodgeAnimation;
         new Thread(() -> {
-            try {
-                Thread.sleep((long) (dodgeAnimation.getAnimationDuration() * 1000));
-                setIdle();
-                setDirection(Direction.UP);
-                this.dodging = false;
-                this.movedDuringDash = false;
-                this.applyForce(new Vector2(0, 0));
-            } catch (InterruptedException e) {
-                throw new RuntimeException(e);
-            }
-        })
+                    try {
+                        Thread.sleep((long) (dodgeAnimation.getAnimationDuration() * 1000));
+                        setIdle();
+                        setDirection(Direction.UP);
+                        this.dodging = false;
+                        this.movedDuringDash = false;
+                        this.applyForce(new Vector2(0, 0));
+                    } catch (InterruptedException e) {
+                        throw new RuntimeException(e);
+                    }
+                })
                 .start();
     }
 
