@@ -3,7 +3,7 @@
         "height": 4300,
         "width": 2
     },
-    "activeFile": "pathfinding.tmx",
+    "activeFile": "startMap.tmx",
     "expandedProjectPaths": [
     ],
     "file.lastUsedOpenFilter": "All Files (*)",
@@ -42,6 +42,15 @@
         "/Users/martin/repos/Underwatch/game/assets/iso-64x64-building.tsx": {
             "scaleInDock": 1,
             "scaleInEditor": 1
+        },
+        "/Users/martin/repos/Underwatch/game/assets/tileSets/tilesetsAussenwelt/fences.tsx": {
+            "scaleInDock": 1
+        },
+        "/Users/martin/repos/Underwatch/game/assets/tileSets/tilesetsAussenwelt/plains.tsx": {
+            "scaleInDock": 1
+        },
+        "/Users/martin/repos/Underwatch/game/assets/tileSets/tilesetsDungeon/Dungeon_Tileset.tsx": {
+            "scaleInDock": 1
         },
         "2.0Map.tmx": {
             "scale": 0.9133,
@@ -175,7 +184,7 @@
         },
         "startMap.tmx": {
             "scale": 0.8702,
-            "selectedLayer": 7,
+            "selectedLayer": 8,
             "viewCenter": {
                 "x": 401.0572282233969,
                 "y": 400.48264766720297
@@ -192,32 +201,23 @@
     "map.tileWidth": 16,
     "map.width": 50,
     "openFiles": [
-        "Dungeon_Tileset.tsx",
-        "2.0Map.tmx",
         "startMap.tmx",
-        "dungeon1(amogus).tmx",
-        "TeleportTestFixed.tmx",
-        "50x50MapMitHitbox.tmx",
         "babo.tsx",
-        "Dungeon_Monsters1.tsx",
-        "dungeon assets.tsx",
-        "plains.tsx",
-        "fences.tsx",
         "pathfinding.tmx"
     ],
     "project": "Underwatch.tiled-project",
     "property.type": "bool",
     "recentFiles": [
+        "pathfinding.tmx",
+        "babo.tsx",
         "startMap.tmx",
         "Dungeon3.tmx",
         "Demo.tmx",
         "Dungeon1.tmx",
-        "pathfinding.tmx",
         "fences.tsx",
         "plains.tsx",
         "dungeon assets.tsx",
         "Dungeon_Monsters1.tsx",
-        "babo.tsx",
         "50x50MapMitHitbox.tmx",
         "TeleportTestFixed.tmx"
     ],

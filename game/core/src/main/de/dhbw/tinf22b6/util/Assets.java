@@ -51,4 +51,8 @@ public class Assets implements Disposable, AssetErrorListener {
     public TextureAtlas.AtlasRegion getSprite(String path) {
         return assetManager.get(Constants.ATLAS_PATH, TextureAtlas.class).findRegion(path);
     }
+
+    public TextureAtlas getAtlas() {
+        return assetManager.get(Constants.ATLAS_PATH, TextureAtlas.class);
+    }
 }
