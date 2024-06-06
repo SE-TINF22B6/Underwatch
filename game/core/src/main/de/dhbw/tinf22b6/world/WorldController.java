@@ -147,10 +147,6 @@ public class WorldController extends InputAdapter {
     public boolean keyUp(int keycode) {
         // Reset Motion Vector
         pressedKeys.remove(keycode);
-        if (keycode == Input.Keys.R) {
-            game.setScreen(new GameScreen(game, WorldType.PATHFINDING.getMap()));
-            Gdx.app.debug(TAG, "Game world reset");
-        }
         if (keycode == Input.Keys.ENTER) {
             cameraHelper.setTarget(cameraHelper.hasTarget() ? null : player);
             Gdx.app.debug(TAG, "Camera follow enabled: " + cameraHelper.hasTarget());
