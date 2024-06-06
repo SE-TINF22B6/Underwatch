@@ -3,7 +3,7 @@
         "height": 4300,
         "width": 2
     },
-    "activeFile": "startMap.tmx",
+    "activeFile": "Dungeon3.tmx",
     "expandedProjectPaths": [
     ],
     "file.lastUsedOpenFilter": "All Files (*)",
@@ -58,8 +58,18 @@
             "scaleInDock": 1,
             "scaleInEditor": 1
         },
+        "/Users/martin/repos/Underwatch/game/assets/tileSets/tilesetsAussenwelt/fences.tsx": {
+            "scaleInDock": 1
+        },
         "/Users/martin/repos/Underwatch/game/assets/tileSets/tilesetsAussenwelt/plains.tsx": {
+            "scaleInDock": 1,
             "scaleInEditor": 1
+        },
+        "/Users/martin/repos/Underwatch/game/assets/tileSets/tilesetsDungeon/Dungeon_Monster.tsx": {
+            "scaleInDock": 1
+        },
+        "/Users/martin/repos/Underwatch/game/assets/tileSets/tilesetsDungeon/Dungeon_Tileset.tsx": {
+            "scaleInDock": 1
         },
         "2.0Map.tmx": {
             "scale": 0.9133,
@@ -81,32 +91,32 @@
             "scale": 0.7327,
             "selectedLayer": 5,
             "viewCenter": {
-                "x": 436.0584140848915,
-                "y": 451.75378736181256
+                "x": 401.2556298621537,
+                "y": 400.5732223283745
             }
         },
         "Dungeon1.tmx": {
-            "scale": 0.3473,
-            "selectedLayer": 9,
+            "scale": 0.5324,
+            "selectedLayer": 2,
             "viewCenter": {
-                "x": 1066.8010365678088,
-                "y": 912.755542758422
+                "x": 800.1502629601803,
+                "y": 800.1502629601803
             }
         },
         "Dungeon3.tmx": {
-            "scale": 0.7381,
+            "scale": 0.7095,
             "selectedLayer": 5,
             "viewCenter": {
-                "x": 497.90001354829974,
-                "y": 512.1257282211083
+                "x": 486.2579281183932,
+                "y": 453.13601127554614
             }
         },
         "Dungeon6.tmx": {
-            "scale": 0.7177,
-            "selectedLayer": 5,
+            "scale": 1.5533,
+            "selectedLayer": 2,
             "viewCenter": {
-                "x": 339.27824996516654,
-                "y": 316.28814267799913
+                "x": 399.79398699542907,
+                "y": 160.62576450138417
             }
         },
         "Dungeon_Monsters1.tsx": {
@@ -167,11 +177,11 @@
             "scaleInEditor": 1
         },
         "level5.tmx": {
-            "scale": 0.621,
+            "scale": 0.8807,
             "selectedLayer": 5,
             "viewCenter": {
-                "x": 398.5507246376811,
-                "y": 531.400966183575
+                "x": 441.69410696037244,
+                "y": 333.25763597138643
             }
         },
         "neuesTileset.tsx": {
@@ -192,11 +202,11 @@
             "scaleInEditor": 1
         },
         "startMap.tmx": {
-            "scale": 0.9001,
+            "scale": 1.3579,
             "selectedLayer": 5,
             "viewCenter": {
-                "x": 837.1292078657928,
-                "y": 395.511609821131
+                "x": 399.8821709993372,
+                "y": 399.51395537226597
             }
         }
     },
@@ -214,25 +224,22 @@
         "Demo.tmx",
         "Dungeon3.tmx",
         "level5.tmx",
-        "/Users/benny/software-engeneering/Underwatch/game/assets/tileSets/tilesetsAussenwelt/plains.tsx",
-        "/Users/benny/software-engeneering/Underwatch/game/assets/tileSets/tilesetsDungeon/Dungeon_Tileset.tsx",
-        "/Users/benny/software-engeneering/Underwatch/game/assets/tileSets/tilesetsDungeon/Dungeon_Monster.tsx",
         "Dungeon6.tmx",
         "startMap.tmx"
     ],
     "project": "Underwatch.tiled-project",
     "property.type": "bool",
     "recentFiles": [
-        "Demo.tmx",
-        "/Users/martin/repos/Underwatch/game/assets/tileSets/tilesetsAussenwelt/plains.tsx",
         "Dungeon1.tmx",
-        "Dungeon3.tmx",
+        "Demo.tmx",
+        "startMap.tmx",
+        "Dungeon6.tmx",
         "level5.tmx",
+        "Dungeon3.tmx",
+        "/Users/martin/repos/Underwatch/game/assets/tileSets/tilesetsAussenwelt/plains.tsx",
         "/Users/benny/software-engeneering/Underwatch/game/assets/tileSets/tilesetsAussenwelt/plains.tsx",
         "/Users/benny/software-engeneering/Underwatch/game/assets/tileSets/tilesetsDungeon/Dungeon_Tileset.tsx",
         "/Users/benny/software-engeneering/Underwatch/game/assets/tileSets/tilesetsDungeon/Dungeon_Monster.tsx",
-        "Dungeon6.tmx",
-        "startMap.tmx",
         "pathfinding.tmx",
         "fences.tsx"
     ],
