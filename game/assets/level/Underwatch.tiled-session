@@ -83,11 +83,11 @@
             }
         },
         "Dungeon1.tmx": {
-            "scale": 0.9968,
-            "selectedLayer": 1,
+            "scale": 0.5324,
+            "selectedLayer": 2,
             "viewCenter": {
-                "x": 467.49598715890846,
-                "y": 735.8547351524878
+                "x": 661.1570247933885,
+                "y": 624.5304282494366
             }
         },
         "Dungeon3.tmx": {
@@ -99,11 +99,11 @@
             }
         },
         "Dungeon6.tmx": {
-            "scale": 0.6731,
-            "selectedLayer": 3,
+            "scale": 1.5533,
+            "selectedLayer": 2,
             "viewCenter": {
-                "x": 401.1291041450007,
-                "y": 161.19447333234285
+                "x": 206.65679521019763,
+                "y": 193.4590871048735
             }
         },
         "Dungeon_Monsters1.tsx": {
