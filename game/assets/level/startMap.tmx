@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.10" tiledversion="1.10.2" class="outside" orientation="orthogonal" renderorder="right-down" width="50" height="50" tilewidth="16" tileheight="16" infinite="0" nextlayerid="14" nextobjectid="1">
+<map version="1.10" tiledversion="1.10.2" class="outside" orientation="orthogonal" renderorder="right-down" width="50" height="50" tilewidth="16" tileheight="16" infinite="0" nextlayerid="15" nextobjectid="1">
  <properties>
   <property name="inside" type="bool" value="false"/>
  </properties>
@@ -15,22 +15,12 @@
    eJztmL0OgCAMhFk0Ifr+zyujg9byZ6/lhm8hIVyPa0PIKaVMCFGzFXbFWs1+C47CKax96Xzaj4gXnbWg5KhXF+r9oOoi7dlH65m3jKHPXq2P1jpn6kPL0ggPItZE5hA5K9Ib31Pd0hufPfIfnjIjUZOZ6DVHr280Fn7NONNibqLPavbCml73aEHyGkkLscOyt0aebZln5F5Cmp1RPSZ1oGfS81/vXTuiPi2etbfel2c83he9J6tzAf7RV6U=
   </data>
  </layer>
- <layer id="12" name="trophy" width="50" height="50">
-  <data encoding="base64" compression="zlib">
-   eJztzkERAAAIA6D172Q3U+x8CAlIgG/mOgAAAAAAAAAAAAULEU4Avg==
-  </data>
- </layer>
  <layer id="2" name="walls" width="50" height="50">
   <properties>
    <property name="render" value="below"/>
   </properties>
   <data encoding="base64" compression="zlib">
    eJztWY1KAzEMzmuom8Z54mDqe/gLoqiwTfD9X8ILXLGGpE3/zlPugzDWS/Plu6TtypYAcPHH7bi3FYyH297eInZn8CG79+IijKvjoZIP90OYno6njFgI09OREwth1lHKreEmIxbC9HT8l3U+6xgPjxA/354Dz969WFOvR04shFlHKXfNWAizjlLumrGwt7PejirZIoG7FFzHEurdZ9YJ3KX4r30V0rGpyMu5a8ZC+Kmjdt4h7pqxEMbtK/+u9wq2e7hmL14sBF0Hr80hhPej1rUMAcHeV9x3SkCw55biW1KbnLkIbXSEkJqn5M/HEOTcDoQxzbcWSmqIIOd2EvH1OTl/7Lv1meW5A4KcW0zH1ICQV4+W0GoQ6gGEuA43R/O15qL1W41zB2F69cgBQr6OFuc3/WbIuevw3BxS6hHqW81PA3GcGm3F5knvuFZfWdYs56AcLXe7NZs3pfVBHPxdW+e11JG6hohD0nHZ25Vg15HcrDqsa8PqQxyt6pFzflggaSKOsfvK2jMpvUUckg5/P14I450wh3CucFjeU8neSxySDjcu7bfSeIyjVV/5vevnxMdb6ajdW8ThctoI4xYdlpqn1CP3ftqir/g7Ke2rnPWxgXHWR+lvKs6R2ldbYTzEjYIvR+xclO4g/j3E5av11b63D2+cvms6NGCCL8/VCuII7VeUM9exg9/ddzUOrR57+M7bgTRth3Hr/zhdgm+udYMOztMN+e+G3D8Hczro8wswiGno
-  </data>
- </layer>
- <layer id="8" name="chests" width="50" height="50">
-  <data encoding="base64" compression="zlib">
-   eJzt0iEBAAAIxMDvH4aMREAgENzZ2SUAAAAAAAAAAPBDLTtMPHSrAWCaAgs=
   </data>
  </layer>
  <layer id="7" name="stuffOnCeiling" width="50" height="50">
@@ -57,9 +47,9 @@
    eJzt1bENACAIBED3X8Q1LexMbNQIIXclBXm+oTUAAAAAAKijRwcAgGDrL+yb+c1O/srSf5Ycp17nr9BHthtO82S7I4oeYBpfRAkj
   </data>
  </layer>
- <layer id="3" name="animatedObjects" width="50" height="50">
+ <layer id="3" name="coins" width="50" height="50">
   <data encoding="base64" compression="zlib">
-   eJzt2jEOgCAMBVDufxjiEV1kISFGBmvrewsLSfmUjbZGtB59gCKOxZpRhSwVMgwVslTIMFTKAgAAAAAAAFll/rcbcxqrDJFzHE/vcd7/hX7sZrhb37Rbe35D0f3oV+2/zSad8oYflQ==
+   eJzt2TEKgDAQRcHc/zDBI1pomoCIKUz8zjTbCOvDIgRLgQzbxfyihJaEhiahJaGhSWoBAADg4G4HAP/i7AfIkPDfbsWGp+/QP79Cy2jD3XzT6O7Vvkc9d9dJ+2fZAQrJHj0=
   </data>
  </layer>
  <layer id="13" name="ammo" width="50" height="50">
@@ -79,12 +69,12 @@
  </layer>
  <layer id="10" name="hp" width="50" height="50">
   <data encoding="base64" compression="zlib">
-   eJztzgENAAAIA6D3r2NBY1w3SEDCB9MOAAAAAAAAAAAAHLdQTgC0
+   eJztwQENAAAAwqD3T20ON6AAAAAAAAAAAADg3wAnEAAB
   </data>
  </layer>
  <layer id="11" name="speed" width="50" height="50">
   <data encoding="base64" compression="zlib">
-   eJztzjEBAAAMAiD7V1q5RfD0gQQkQHPrAAAAAAAAAAAAUD1jDgC8
+   eJztwQENAAAAwqD3T20ON6AAAAAAAAAAAADg3wAnEAAB
   </data>
  </layer>
 </map>

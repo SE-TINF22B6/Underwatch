@@ -3,7 +3,9 @@ package de.dhbw.tinf22b6.world;
 import static de.dhbw.tinf22b6.util.Constants.VIEWPORT_HEIGHT;
 
 import box2dLight.RayHandler;
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.maps.tiled.TiledMap;
@@ -25,6 +27,7 @@ public class WorldRenderer implements Disposable {
     private final RayHandler rayHandler;
     private final int[] renderBelow;
     private final int[] renderAbove;
+    private boolean inside;
 
     public WorldRenderer(WorldController worldController, TiledMap map, OrthographicCamera camera) {
         this.worldController = worldController;
@@ -55,7 +58,8 @@ public class WorldRenderer implements Disposable {
         this.renderAbove = tmpAbove.stream().mapToInt(i -> i).toArray();
         if (map.getProperties().containsKey("inside")) {
             if ((Boolean) map.getProperties().get("inside")) {
-                rayHandler.setAmbientLight(0.3f, 0.3f, 0.7f, 0.8f);
+                inside = true;
+                rayHandler.setAmbientLight(0.5f, 0.5f, 0.5f, 1f);
             } else {
                 rayHandler.setAmbientLight(1f, 1f, 1f, 0.5f);
             }
@@ -65,6 +69,12 @@ public class WorldRenderer implements Disposable {
     }
 
     public void render() {
+        if (inside) {
+            Gdx.gl.glClearColor(0, 0, 0, 0);
+        } else {
+            Gdx.gl.glClearColor(83 / 255f, 160 / 255f, 58 / 255f, 1);
+        }
+        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         renderer.setView(camera);
 
         renderer.render(renderBelow);

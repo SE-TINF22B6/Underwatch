@@ -5,7 +5,6 @@ import static de.dhbw.tinf22b6.util.Constants.VIEWPORT_WIDTH;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import de.dhbw.tinf22b6.ui.ingame.InGameStageHandler;
@@ -44,10 +43,6 @@ public class GameScreen extends AbstractGameScreen {
             worldController.update(deltaTime);
             PlayerStatistics.instance.incrementGameTime(deltaTime);
         }
-        // Sets the clear screen color to: Cornflower Blue
-        Gdx.gl.glClearColor(0, 0, 0, 0);
-        // Clears the screen
-        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         // Render game world to screen
         worldRenderer.render();
         stageHandler.update();

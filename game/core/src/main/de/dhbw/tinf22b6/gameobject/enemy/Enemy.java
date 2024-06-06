@@ -107,7 +107,7 @@ public abstract class Enemy extends MobGameObject implements Steerable<Vector2> 
         hitboxDef.filter.categoryBits = Constants.ENEMY_BIT;
 
         PolygonShape sightShape = new PolygonShape();
-        sightShape.setAsBox(TILE_SIZE * 5, TILE_SIZE * 5);
+        sightShape.setAsBox(TILE_SIZE * 10, TILE_SIZE * 10);
 
         FixtureDef sightDef = new FixtureDef();
         sightDef.shape = sightShape;
