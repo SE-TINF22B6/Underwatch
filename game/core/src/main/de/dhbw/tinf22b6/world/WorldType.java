@@ -8,7 +8,8 @@ public enum WorldType {
     LEVEL1("level/startMap.tmx"),
     LEVEL2("level/Dungeon1.tmx"),
     LEVEL3("level/Dungeon3.tmx"),
-    PATHFINDING("level/pathfinding.tmx");
+    LEVEL4("level/level5.tmx"),
+    LEVEL5("level/Dungeon6.tmx");
 
     private final String path;
 

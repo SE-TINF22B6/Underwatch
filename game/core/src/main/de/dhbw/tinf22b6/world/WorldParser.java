@@ -127,16 +127,22 @@ public class WorldParser {
                                 list.add(new WeaponBox(new Vector2(x, y), rectangleObject.getRectangle()));
                                 break;
                             case "enemy":
-                                int next = r.nextInt(8);
-                                switch (next) {
-                                    case 0 -> list.add(new Snarg(new Vector2(x, y), rawMap));
-                                    case 1 -> list.add(new Grommok(new Vector2(x, y), rawMap));
-                                    case 2 -> list.add(new Grakor(new Vector2(x, y), rawMap));
-                                    case 3 -> list.add(new Durgosh(new Vector2(x, y), rawMap));
-                                    case 4 -> list.add(new Morglak(new Vector2(x, y), rawMap));
-                                    case 5 -> list.add(new Babo(new Vector2(x, y), rawMap));
-                                    case 6 -> list.add(new Skeleton(new Vector2(x, y), rawMap));
-                                    case 7 -> list.add(new SkeletonHat(new Vector2(x, y), rawMap));
+                                if ((Boolean) map.getProperties().get("inside")) {
+                                    int next = r.nextInt(5);
+                                    switch (next) {
+                                        case 0 -> list.add(new Snarg(new Vector2(x, y), rawMap));
+                                        case 1 -> list.add(new Grommok(new Vector2(x, y), rawMap));
+                                        case 2 -> list.add(new Grakor(new Vector2(x, y), rawMap));
+                                        case 3 -> list.add(new Durgosh(new Vector2(x, y), rawMap));
+                                        case 4 -> list.add(new Morglak(new Vector2(x, y), rawMap));
+                                    }
+                                } else {
+                                    int next = r.nextInt(3);
+                                    switch (next) {
+                                        case 0 -> list.add(new Babo(new Vector2(x, y), rawMap));
+                                        case 1 -> list.add(new Skeleton(new Vector2(x, y), rawMap));
+                                        case 2 -> list.add(new SkeletonHat(new Vector2(x, y), rawMap));
+                                    }
                                 }
                                 break;
                             case "teleporter":
