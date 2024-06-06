@@ -1,12 +1,18 @@
 package de.dhbw.tinf22b6.util;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.math.Rectangle;
+import com.badlogic.gdx.math.Vector2;
 import de.dhbw.tinf22b6.gameobject.GameObject;
 import de.dhbw.tinf22b6.gameobject.Player;
 import java.util.ArrayList;
 import java.util.List;
 
 public class EntitySystem {
+    public enum EntityType {
+        AMMO
+    }
+
     public static final String TAG = EntitySystem.class.getName();
     public static final EntitySystem instance = new EntitySystem();
     private List<GameObject> gameObjects;
@@ -36,5 +42,9 @@ public class EntitySystem {
             if (object instanceof Player) return (Player) object;
         }
         return null;
+    }
+
+    public void spawn(EntityType entityType, Vector2 pos, Rectangle rectangle) {
+        Thread thread = new Thread(() -> {});
     }
 }

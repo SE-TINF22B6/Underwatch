@@ -5,21 +5,19 @@ import static de.dhbw.tinf22b6.gameobject.Direction.LEFT;
 import static de.dhbw.tinf22b6.gameobject.Direction.RIGHT;
 import static de.dhbw.tinf22b6.gameobject.Direction.UP;
 
+import com.badlogic.gdx.graphics.g2d.Animation;
+import com.badlogic.gdx.graphics.g2d.Batch;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.badlogic.gdx.math.Vector2;
 import de.dhbw.tinf22b6.gameobject.DamageNumber;
 import de.dhbw.tinf22b6.gameobject.Direction;
 import de.dhbw.tinf22b6.gameobject.GameObject;
 import de.dhbw.tinf22b6.util.Assets;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-
-import com.badlogic.gdx.graphics.g2d.Animation;
-import com.badlogic.gdx.graphics.g2d.Batch;
-import com.badlogic.gdx.graphics.g2d.TextureAtlas;
-import com.badlogic.gdx.math.Vector2;
 
 public abstract class MobGameObject extends GameObject {
     protected List<DamageNumber> damageNumbers = new ArrayList<>();
@@ -37,22 +35,22 @@ public abstract class MobGameObject extends GameObject {
         this.currentDirection = DOWN;
 
         this.idleAnimations.put(
-                                LEFT, new Animation<>(0.2f, Assets.instance.getAnimationAtlasRegion(region + "_idle_left")));
+                LEFT, new Animation<>(0.2f, Assets.instance.getAnimationAtlasRegion(region + "_idle_left")));
         this.idleAnimations.put(
-                                RIGHT, new Animation<>(0.2f, Assets.instance.getAnimationAtlasRegion(region + "_idle_right")));
+                RIGHT, new Animation<>(0.2f, Assets.instance.getAnimationAtlasRegion(region + "_idle_right")));
         this.idleAnimations.put(
-                                UP, new Animation<>(0.2f, Assets.instance.getAnimationAtlasRegion(region + "_idle_back")));
+                UP, new Animation<>(0.2f, Assets.instance.getAnimationAtlasRegion(region + "_idle_back")));
         this.idleAnimations.put(
-                                DOWN, new Animation<>(0.2f, Assets.instance.getAnimationAtlasRegion(region + "_idle_front")));
+                DOWN, new Animation<>(0.2f, Assets.instance.getAnimationAtlasRegion(region + "_idle_front")));
 
         this.walkingAnimations.put(
-                                   LEFT, new Animation<>(0.15f, Assets.instance.getAnimationAtlasRegion(region + "_walk_left")));
+                LEFT, new Animation<>(0.15f, Assets.instance.getAnimationAtlasRegion(region + "_walk_left")));
         this.walkingAnimations.put(
-                                   RIGHT, new Animation<>(0.15f, Assets.instance.getAnimationAtlasRegion(region + "_walk_right")));
+                RIGHT, new Animation<>(0.15f, Assets.instance.getAnimationAtlasRegion(region + "_walk_right")));
         this.walkingAnimations.put(
-                                   UP, new Animation<>(0.15f, Assets.instance.getAnimationAtlasRegion(region + "_walk_back")));
+                UP, new Animation<>(0.15f, Assets.instance.getAnimationAtlasRegion(region + "_walk_back")));
         this.walkingAnimations.put(
-                                   DOWN, new Animation<>(0.15f, Assets.instance.getAnimationAtlasRegion(region + "_walk_front")));
+                DOWN, new Animation<>(0.15f, Assets.instance.getAnimationAtlasRegion(region + "_walk_front")));
     }
 
     @Override
@@ -77,7 +75,10 @@ public abstract class MobGameObject extends GameObject {
     public void addDamageNumber(float damage) {
         // Assume you have a BitmapFont and color predefined somewhere, e.g.,
         // Assets.instance.font
-        Vector2 position = new Vector2(body.getPosition().x, body.getPosition().y + this.currentAnimation.getKeyFrame(0).originalHeight / 2.5f); // Position above the entity
+        Vector2 position = new Vector2(
+                body.getPosition().x,
+                body.getPosition().y
+                        + this.currentAnimation.getKeyFrame(0).originalHeight / 2.5f); // Position above the entity
         damageNumbers.add(new DamageNumber(String.valueOf(damage), position, toggle));
     }
 
@@ -107,6 +108,5 @@ public abstract class MobGameObject extends GameObject {
     @Override
     public void render(Batch batch) {
         renderDamageNumbers(batch);
-
     }
 }

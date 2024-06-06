@@ -2,7 +2,7 @@ package de.dhbw.tinf22b6.weapon;
 
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.math.Vector2;
-import de.dhbw.tinf22b6.gameobject.bullet.Bullet;
+import de.dhbw.tinf22b6.gameobject.bullet.PlayerBullet;
 import de.dhbw.tinf22b6.util.Assets;
 import de.dhbw.tinf22b6.util.Constants;
 import de.dhbw.tinf22b6.util.EntitySystem;
@@ -21,7 +21,7 @@ public class M4 extends Weapon {
                             Thread.sleep((long) (shootingAnimation.getAnimationDuration() * 1000));
                             float angle = EntitySystem.instance.getPlayer().getAngle();
                             Vector2 pos = EntitySystem.instance.getPlayer().getPos();
-                            EntitySystem.instance.add(new Bullet(
+                            EntitySystem.instance.add(new PlayerBullet(
                                     new Vector2(pos.x + 15 / 2f, pos.y + 5), angle, this.damage, Constants.WEAPON_BIT));
                         } catch (InterruptedException e) {
                             throw new RuntimeException(e);

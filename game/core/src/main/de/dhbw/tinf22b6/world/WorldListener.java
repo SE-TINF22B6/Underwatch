@@ -7,8 +7,8 @@ import com.badlogic.gdx.physics.box2d.*;
 import de.dhbw.tinf22b6.gameobject.Coin;
 import de.dhbw.tinf22b6.gameobject.Player;
 import de.dhbw.tinf22b6.gameobject.Teleporter;
+import de.dhbw.tinf22b6.gameobject.bullet.BouncingBullet;
 import de.dhbw.tinf22b6.gameobject.bullet.Bullet;
-import de.dhbw.tinf22b6.gameobject.bullet.EnemyBullet;
 import de.dhbw.tinf22b6.gameobject.enemy.Enemy;
 import de.dhbw.tinf22b6.gameobject.interaction.InteractionObject;
 import de.dhbw.tinf22b6.screen.GameScreen;
@@ -46,6 +46,15 @@ public class WorldListener implements ContactListener {
                     ((Enemy) fixA.getUserData()).setTagged(false);
                 }
                 break;
+            case WEAPON_BIT | WALL_BIT:
+                if (fixA.getFilterData().categoryBits == WEAPON_BIT) {
+                    if (fixA.getUserData() instanceof BouncingBullet) {
+                        ((BouncingBullet) fixA.getUserData()).leaveWall();
+                    }
+                } else if (fixB.getUserData() instanceof BouncingBullet) {
+                    ((BouncingBullet) fixB.getUserData()).leaveWall();
+                }
+                break;
         }
     }
 
@@ -79,8 +88,18 @@ public class WorldListener implements ContactListener {
                 break;
             case WALL_BIT | WEAPON_BIT:
                 if (fixA.getFilterData().categoryBits == WEAPON_BIT) {
+                    if (fixA.getUserData() instanceof BouncingBullet) {
+                        ((BouncingBullet) fixA.getUserData()).bounce();
+                        return;
+                    }
                     ((Bullet) fixA.getUserData()).setRemove(true);
-                } else ((Bullet) fixB.getUserData()).setRemove(true);
+                } else {
+                    if (fixB.getUserData() instanceof BouncingBullet) {
+                        ((BouncingBullet) fixB.getUserData()).bounce();
+                        return;
+                    }
+                    ((Bullet) fixB.getUserData()).setRemove(true);
+                }
                 // Gdx.audio.newSound(Gdx.files.internal("sfx/arrow-impact.mp3")).play(1);
                 break;
             case ENEMY_BIT | WEAPON_BIT:
@@ -97,11 +116,11 @@ public class WorldListener implements ContactListener {
                 break;
             case WEAPON_ENEMY_BIT | PLAYER_BIT:
                 if (fixA.getFilterData().categoryBits == WEAPON_ENEMY_BIT) {
-                    ((EnemyBullet) fixA.getUserData()).setRemove(true);
-                    PlayerStatistics.instance.hitHP(((EnemyBullet) fixA.getUserData()).getDamage());
+                    ((Bullet) fixA.getUserData()).setRemove(true);
+                    PlayerStatistics.instance.hitHP(((Bullet) fixA.getUserData()).getDamage());
                 } else {
-                    ((EnemyBullet) fixB.getUserData()).setRemove(true);
-                    PlayerStatistics.instance.hitHP(((EnemyBullet) fixB.getUserData()).getDamage());
+                    ((Bullet) fixB.getUserData()).setRemove(true);
+                    PlayerStatistics.instance.hitHP(((Bullet) fixB.getUserData()).getDamage());
                 }
                 Gdx.audio
                         .newSound(Gdx.files.internal("sfx/player_hit.mp3"))
@@ -109,9 +128,9 @@ public class WorldListener implements ContactListener {
                 break;
             case WEAPON_ENEMY_BIT | WALL_BIT:
                 if (fixA.getFilterData().categoryBits == WEAPON_ENEMY_BIT) {
-                    ((EnemyBullet) fixA.getUserData()).setRemove(true);
+                    ((Bullet) fixA.getUserData()).setRemove(true);
                 } else {
-                    ((EnemyBullet) fixB.getUserData()).setRemove(true);
+                    ((Bullet) fixB.getUserData()).setRemove(true);
                 }
                 break;
             case PLAYER_BIT | TELEPORTER_BIT: {

@@ -4,23 +4,6 @@ import static com.badlogic.gdx.math.MathUtils.cosDeg;
 import static com.badlogic.gdx.math.MathUtils.sinDeg;
 import static de.dhbw.tinf22b6.util.Constants.TILE_SIZE;
 
-import de.dhbw.tinf22b6.ai.Box2DLocation;
-import de.dhbw.tinf22b6.ai.EnemySteeringBehaviour;
-import de.dhbw.tinf22b6.gameobject.DamageNumber;
-import de.dhbw.tinf22b6.gameobject.Direction;
-import de.dhbw.tinf22b6.gameobject.Player;
-import de.dhbw.tinf22b6.util.Constants;
-import de.dhbw.tinf22b6.util.EntitySystem;
-import de.dhbw.tinf22b6.util.PlayerStatistics;
-import de.dhbw.tinf22b6.util.SteeringUtils;
-import de.dhbw.tinf22b6.weapon.EnemyWeapon;
-import de.dhbw.tinf22b6.weapon.Weapon;
-import de.dhbw.tinf22b6.world.Box2dWorld;
-import de.dhbw.tinf22b6.world.tiled.FlatTiledGraph;
-import de.dhbw.tinf22b6.world.tiled.FlatTiledNode;
-import de.dhbw.tinf22b6.world.tiled.TiledMetricHeuristic;
-import de.dhbw.tinf22b6.world.tiled.TiledSmoothableGraphPath;
-
 import com.badlogic.gdx.ai.pfa.Heuristic;
 import com.badlogic.gdx.ai.pfa.indexed.IndexedAStarPathFinder;
 import com.badlogic.gdx.ai.steer.Steerable;
@@ -32,11 +15,29 @@ import com.badlogic.gdx.ai.utils.Location;
 import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
+import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.utils.Array;
+import de.dhbw.tinf22b6.ai.Box2DLocation;
+import de.dhbw.tinf22b6.ai.EnemySteeringBehaviour;
+import de.dhbw.tinf22b6.gameobject.Direction;
+import de.dhbw.tinf22b6.gameobject.Player;
+import de.dhbw.tinf22b6.gameobject.interaction.AmmoBox;
+import de.dhbw.tinf22b6.util.Constants;
+import de.dhbw.tinf22b6.util.EntitySystem;
+import de.dhbw.tinf22b6.util.PlayerStatistics;
+import de.dhbw.tinf22b6.util.SteeringUtils;
+import de.dhbw.tinf22b6.weapon.EnemyWeapon;
+import de.dhbw.tinf22b6.weapon.Weapon;
+import de.dhbw.tinf22b6.world.Box2dWorld;
+import de.dhbw.tinf22b6.world.tiled.FlatTiledGraph;
+import de.dhbw.tinf22b6.world.tiled.FlatTiledNode;
+import de.dhbw.tinf22b6.world.tiled.TiledMetricHeuristic;
+import de.dhbw.tinf22b6.world.tiled.TiledSmoothableGraphPath;
+import java.util.concurrent.CompletableFuture;
 
 public abstract class Enemy extends MobGameObject implements Steerable<Vector2> {
     private static final String TAG = Enemy.class.getName();
@@ -85,8 +86,8 @@ public abstract class Enemy extends MobGameObject implements Steerable<Vector2> 
 
         PolygonShape boxShape = new PolygonShape();
         boxShape.setAsBox(
-                          currentAnimation.getKeyFrame(0).originalWidth / 4f,
-                          currentAnimation.getKeyFrame(0).originalHeight / 12f);
+                currentAnimation.getKeyFrame(0).originalWidth / 4f,
+                currentAnimation.getKeyFrame(0).originalHeight / 12f);
 
         FixtureDef fixtureDef = new FixtureDef();
         fixtureDef.shape = boxShape;
@@ -95,10 +96,10 @@ public abstract class Enemy extends MobGameObject implements Steerable<Vector2> 
 
         PolygonShape hitBoxShape = new PolygonShape();
         hitBoxShape.setAsBox(
-                             currentAnimation.getKeyFrame(0).originalWidth / 3.5f,
-                             currentAnimation.getKeyFrame(0).originalHeight / 2.75f,
-                             new Vector2(0, currentAnimation.getKeyFrame(0).originalHeight / 3f),
-                             0);
+                currentAnimation.getKeyFrame(0).originalWidth / 3.5f,
+                currentAnimation.getKeyFrame(0).originalHeight / 2.75f,
+                new Vector2(0, currentAnimation.getKeyFrame(0).originalHeight / 3f),
+                0);
 
         FixtureDef hitboxDef = new FixtureDef();
         hitboxDef.shape = hitBoxShape;
@@ -134,57 +135,57 @@ public abstract class Enemy extends MobGameObject implements Steerable<Vector2> 
     @Override
     public void render(Batch batch) {
         float angle = (body.getPosition()
-                .sub(EntitySystem.instance.getPlayer().getPos())
-                .angleDeg()
-                + 180)
+                                .sub(EntitySystem.instance.getPlayer().getPos())
+                                .angleDeg()
+                        + 180)
                 % 360f;
         int r = 5;
         if (angle > 20 && angle < 160) {
             if (body.isAwake())
                 batch.draw(
-                           weapon.getRegion(),
-                           (pos.x) + r * cosDeg(angle),
-                           (pos.y) + 5 + r * sinDeg(angle),
-                           8,
-                           8,
-                           weapon.getRegion().originalWidth,
-                           weapon.getRegion().originalHeight,
-                           1,
-                           1,
-                           angle);
+                        weapon.getRegion(),
+                        (pos.x) + r * cosDeg(angle),
+                        (pos.y) + 5 + r * sinDeg(angle),
+                        8,
+                        8,
+                        weapon.getRegion().originalWidth,
+                        weapon.getRegion().originalHeight,
+                        1,
+                        1,
+                        angle);
             batch.draw(
-                       currentAnimation.getKeyFrame(stateTime, true),
-                       body.getPosition().x - currentAnimation.getKeyFrame(0).originalWidth / 2f + 0.5f,
-                       body.getPosition().y - 2);
+                    currentAnimation.getKeyFrame(stateTime, true),
+                    body.getPosition().x - currentAnimation.getKeyFrame(0).originalWidth / 2f + 0.5f,
+                    body.getPosition().y - 2);
         } else {
             batch.draw(
-                       currentAnimation.getKeyFrame(stateTime, true),
-                       body.getPosition().x - currentAnimation.getKeyFrame(0).originalWidth / 2f + 0.5f,
-                       body.getPosition().y - 2);
+                    currentAnimation.getKeyFrame(stateTime, true),
+                    body.getPosition().x - currentAnimation.getKeyFrame(0).originalWidth / 2f + 0.5f,
+                    body.getPosition().y - 2);
             if (body.isAwake())
                 batch.draw(
-                           weapon.getRegion(),
-                           (pos.x) + r * cosDeg(angle),
-                           (pos.y) + 5 + r * sinDeg(angle),
-                           8,
-                           8,
-                           weapon.getRegion().originalWidth,
-                           weapon.getRegion().originalHeight,
-                           1,
-                           1,
-                           angle);
+                        weapon.getRegion(),
+                        (pos.x) + r * cosDeg(angle),
+                        (pos.y) + 5 + r * sinDeg(angle),
+                        8,
+                        8,
+                        weapon.getRegion().originalWidth,
+                        weapon.getRegion().originalHeight,
+                        1,
+                        1,
+                        angle);
         }
         if (body.isAwake()) {
             batch.draw(
-                       hpBar[1],
-                       body.getPosition().x - currentAnimation.getKeyFrame(stateTime).originalWidth / 3f,
-                       body.getPosition().y + currentAnimation.getKeyFrame(stateTime).originalHeight - 4f);
+                    hpBar[1],
+                    body.getPosition().x - currentAnimation.getKeyFrame(stateTime).originalWidth / 3f,
+                    body.getPosition().y + currentAnimation.getKeyFrame(stateTime).originalHeight - 4f);
             batch.draw(
-                       hpBar[0],
-                       body.getPosition().x - currentAnimation.getKeyFrame(stateTime).originalWidth / 3f,
-                       body.getPosition().y + currentAnimation.getKeyFrame(stateTime).originalHeight - 4f,
-                       (float) health * hpBar[0].getWidth() / initialHp,
-                       hpBar[0].getHeight());
+                    hpBar[0],
+                    body.getPosition().x - currentAnimation.getKeyFrame(stateTime).originalWidth / 3f,
+                    body.getPosition().y + currentAnimation.getKeyFrame(stateTime).originalHeight - 4f,
+                    (float) health * hpBar[0].getWidth() / initialHp,
+                    hpBar[0].getHeight());
         }
         super.render(batch);
     }
@@ -192,14 +193,10 @@ public abstract class Enemy extends MobGameObject implements Steerable<Vector2> 
     public void hit(int damage) {
         this.health -= damage;
         if (health <= 0) {
-            this.remove = true;
+            this.setRemove(true);
             PlayerStatistics.instance.enemyKilled();
         }
         this.takeDamage(damage);
-        for (DamageNumber number : damageNumbers) {
-            System.out.printf("%s\t", number.toString());
-        }
-
     }
 
     public void update() {
@@ -213,9 +210,10 @@ public abstract class Enemy extends MobGameObject implements Steerable<Vector2> 
         }
         Player player = EntitySystem.instance.getPlayer();
         FlatTiledNode startNode = worldGraph.getNode(
-                                                     (int) this.getBody().getPosition().x / TILE_SIZE,
-                                                     (int) this.getBody().getPosition().y / TILE_SIZE);
-        FlatTiledNode endNode = worldGraph.getNode((int) player.getPos().x / TILE_SIZE, (int) player.getPos().y / TILE_SIZE);
+                (int) this.getBody().getPosition().x / TILE_SIZE,
+                (int) this.getBody().getPosition().y / TILE_SIZE);
+        FlatTiledNode endNode =
+                worldGraph.getNode((int) player.getPos().x / TILE_SIZE, (int) player.getPos().y / TILE_SIZE);
         TiledSmoothableGraphPath<FlatTiledNode> path = new TiledSmoothableGraphPath<>();
         finder.searchNodePath(startNode, endNode, heuristic, path);
         Array<Vector2> vecArray = new Array<>();
@@ -311,8 +309,7 @@ public abstract class Enemy extends MobGameObject implements Steerable<Vector2> 
     }
 
     @Override
-    public void setMaxAngularSpeed(float maxAngularSpeed) {
-    }
+    public void setMaxAngularSpeed(float maxAngularSpeed) {}
 
     @Override
     public float getMaxAngularAcceleration() {
@@ -320,8 +317,7 @@ public abstract class Enemy extends MobGameObject implements Steerable<Vector2> 
     }
 
     @Override
-    public void setMaxAngularAcceleration(float maxAngularAcceleration) {
-    }
+    public void setMaxAngularAcceleration(float maxAngularAcceleration) {}
 
     @Override
     public float getZeroLinearSpeedThreshold() {
@@ -386,5 +382,28 @@ public abstract class Enemy extends MobGameObject implements Steerable<Vector2> 
     @Override
     public Vector2 angleToVector(Vector2 outVector, float angle) {
         return SteeringUtils.angleToVector(outVector, angle);
+    }
+
+    /**
+     * Overwrites the base call by spawning an AmmoBox at the target
+     * location where the Enemy died. Also, I wanted to try out
+     * Java 8s new CompletableFuture feature.
+     *
+     * @param remove specifies whether this Enemy shall be removed
+     */
+    @Override
+    public void setRemove(boolean remove) {
+        Vector2 position = new Vector2(body.getPosition());
+        position.x /= TILE_SIZE;
+        position.y /= TILE_SIZE;
+        CompletableFuture.supplyAsync(() -> {
+            boolean locked;
+            do {
+                locked = Box2dWorld.instance.getWorld().isLocked();
+            } while (locked);
+            EntitySystem.instance.add(new AmmoBox(position, new Rectangle(3, 2, 10, 10)));
+            return true; // we have return something
+        });
+        super.setRemove(remove);
     }
 }

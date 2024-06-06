@@ -48,5 +48,4 @@ public class DamageNumber {
     public boolean isVisible() {
         return duration > 0;
     }
-
 }
