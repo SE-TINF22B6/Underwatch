@@ -31,9 +31,10 @@ MARTIN
 
 ### Pathfinding
 
-JAKOOOOOB
+We implemented the logic for the A*-Pathfinding algorithm based on tiled layers in Java.
+![A*-Algorithm](assets/a_star.png)
 
-### CI/CD
+### CI/CDx
 
 MARTIN
 
