@@ -40,5 +40,10 @@ MARTIN
 
 ### Artstyle
 
-BENJAMIN
+We decided on two different tilesets for the art style. There should be maps in the dungeon and in the outside world. We used a dark TileSet for the maps in the dungeon and one with rock-like textures for the outside world. 
+
+The enemies are skeletons(![skelettHut.png](assets/skelettHut.png)) and orcs(![babo.png](assets/babo.png)), but we fight with modern weapons.(![m4.png](assets/m4.png))
+![map2.png](assets/map2.png)
+![map1.png](assets/map1.png)
+
 
