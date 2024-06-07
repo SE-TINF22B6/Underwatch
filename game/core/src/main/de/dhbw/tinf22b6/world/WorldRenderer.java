@@ -39,8 +39,8 @@ public class WorldRenderer implements Disposable {
         rayHandler.setBlurNum(1);
         WorldParser.parseTorches(map, rayHandler);
         this.camera = camera;
-        camera.position.set(0, 0, 0);
-        camera.update();
+        this.camera.position.set(0, 0, 0);
+        this.camera.update();
         renderer = new OrthogonalTiledMapRenderer(map);
 
         List<Integer> tmpBelow = new ArrayList<>();
@@ -69,6 +69,7 @@ public class WorldRenderer implements Disposable {
     }
 
     public void render() {
+        Gdx.app.debug("Camera", camera.viewportWidth + "x" + camera.viewportHeight);
         if (inside) {
             Gdx.gl.glClearColor(0, 0, 0, 0);
         } else {
