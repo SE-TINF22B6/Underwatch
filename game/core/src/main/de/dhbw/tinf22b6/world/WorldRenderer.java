@@ -69,7 +69,6 @@ public class WorldRenderer implements Disposable {
     }
 
     public void render() {
-        Gdx.app.debug("Camera", camera.viewportWidth + "x" + camera.viewportHeight);
         if (inside) {
             Gdx.gl.glClearColor(0, 0, 0, 0);
         } else {

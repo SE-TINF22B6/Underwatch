@@ -77,22 +77,24 @@ public abstract class Bullet extends GameObject {
 
   @Override
   public void tick(float delta) {
-    super.tick(delta); // play the animation
-    r += delta;
+    if (body != null) {
+      super.tick(delta); // play the animation
+      r += delta;
 
-    if (active) {
-      Vector2 tmp = new Vector2(pos);
-      tmp.y = r * sinDeg(angle);
-      tmp.x = r * cosDeg(angle);
-      tmp.setLength(speed);
+      if (active) {
+        Vector2 tmp = new Vector2(pos);
+        tmp.y = r * sinDeg(angle);
+        tmp.x = r * cosDeg(angle);
+        tmp.setLength(speed);
 
-      pos.add(tmp);
-      body.setTransform(pos.x + width / 2, pos.y + height / 2, 0);
+        pos.add(tmp);
+        body.setTransform(pos.x + width / 2, pos.y + height / 2, 0);
 
-      if (r * speed > range) {
-        // Remove Bullet
-        remove = true;
-        active = false;
+        if (r * speed > range) {
+          // Remove Bullet
+          remove = true;
+          active = false;
+        }
       }
     }
   }
