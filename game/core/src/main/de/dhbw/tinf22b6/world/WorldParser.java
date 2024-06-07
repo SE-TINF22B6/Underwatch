@@ -127,7 +127,7 @@ public class WorldParser {
                                 list.add(new WeaponBox(new Vector2(x, y), rectangleObject.getRectangle()));
                                 break;
                             case "enemy":
-                                if ((Boolean) map.getProperties().get("inside")) {
+                                if (!(Boolean) map.getProperties().get("inside")) {
                                     int next = r.nextInt(5);
                                     switch (next) {
                                         case 0 -> list.add(new Snarg(new Vector2(x, y), rawMap));
