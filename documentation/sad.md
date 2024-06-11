@@ -6,6 +6,37 @@
 ### 1. Introduction
 #### 1.1 Overview
 > What are the selling points of your architecture design?
+**Selling Points of Our Architecture Design: Architectural Patterns*
+
+1. *Model-View-Controller (MVC):*
+   - `Game`: Separates game logic (Model), rendering (View), and user input (Controller), enhancing modularity and maintainability.
+   - `Website`: Uses MVC to segregate data handling, UI, and control flow, making it easier to manage and extend.
+
+2. *Client-Server Architecture:*
+   - `Backend Integration`: Game acts as the client sending high scores to the server, ensuring a clear division between frontend gameplay and backend data processing.
+   - `Scalability`: Enables the backend to scale independently, handling more players and higher loads without modifying the game client.
+
+3. *Layered Architecture:*
+   - `Application Layer`: Manages game logic and user input processing.
+   - `Data Layer`: Interfaces with backend services and databases for persistent storage and retrieval of high scores.
+
+4. *RESTful Architecture:*
+   - `API Design`: Backend provides RESTful APIs for high score data exchange, following standard HTTP methods and stateless operations for simplicity and interoperability.
+
+5. *Service-Oriented Architecture (SOA):*
+   - `High Scores Service`: A dedicated service for managing high score data, allowing for independent scaling and updating without impacting other backend components.
+
+6. *Event-Driven Architecture:*
+   - `Game Events`: Utilizes event-driven mechanisms for gameplay actions (e.g., scoring points, game over), ensuring responsive and decoupled game logic.
+
+7. *Repository Pattern:*
+   - `Data Access`: Encapsulates data access logic within repositories, providing a clean separation of data retrieval and manipulation from business logic.
+
+8. *Singleton Pattern:*
+   - `Game Manager`: Ensures a single instance of core game management classes, controlling the game’s state and lifecycle uniformly.
+
+By incorporating these architectural patterns, our design ensures robust, scalable, and maintainable software that can efficiently support the features and future growth of the project.
+
 #### 1.2 Constraints
 > Any technical or organizational constraints, conventions (Tips: https://docs.arc42.org/section-2/)
 #### 1.2.1 Technical Constraints
