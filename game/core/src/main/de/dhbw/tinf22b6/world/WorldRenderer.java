@@ -39,8 +39,8 @@ public class WorldRenderer implements Disposable {
         rayHandler.setBlurNum(1);
         WorldParser.parseTorches(map, rayHandler);
         this.camera = camera;
-        camera.position.set(0, 0, 0);
-        camera.update();
+        this.camera.position.set(0, 0, 0);
+        this.camera.update();
         renderer = new OrthogonalTiledMapRenderer(map);
 
         List<Integer> tmpBelow = new ArrayList<>();

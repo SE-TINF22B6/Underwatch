@@ -14,8 +14,8 @@ import de.dhbw.tinf22b6.world.Box2dWorld;
 import de.dhbw.tinf22b6.world.WorldParser;
 
 public abstract class Bullet extends GameObject {
-    protected float speed;
     protected final int damage;
+    protected float speed;
     protected boolean active;
     protected float angle;
     protected float r;
@@ -33,24 +33,31 @@ public abstract class Bullet extends GameObject {
         speed = 3;
         width = 3;
         height = 6;
-        // wait until world is unlocked before adding body
-        World world = Box2dWorld.instance.getWorld();
-        boolean isLocked;
-        do {
-            isLocked = world.isLocked();
-        } while (isLocked);
-        body = world.createBody(WorldParser.getDynamicBodyDef(pos.x + width / 2, pos.y + height / 2));
-        PolygonShape polygonShape = new PolygonShape();
-        polygonShape.setAsBox(3 - 2, 3 - 2);
+        // This is arcane wizardry! It might fix the crash which happened at random when
+        // the player gets into the range of multiple enemies at the same time, and they start shooting
+        // in the same tick - effectively locking up the world (inserting body) and causing a data race
+        // this "fix" works for me and needs throughout testing as I suspect it breaking something further
+        // when the #render() call is done and the body is not created yet.
+        new Thread(() -> {
+                    World world = Box2dWorld.instance.getWorld();
+                    boolean isLocked;
+                    do {
+                        isLocked = world.isLocked();
+                    } while (isLocked);
+                    body = world.createBody(WorldParser.getDynamicBodyDef(pos.x + width / 2, pos.y + height / 2));
+                    PolygonShape polygonShape = new PolygonShape();
+                    polygonShape.setAsBox(3 - 2, 3 - 2);
 
-        FixtureDef fixtureDef = new FixtureDef();
-        fixtureDef.shape = polygonShape;
-        fixtureDef.filter.categoryBits = collisionMask;
-        fixtureDef.isSensor = true;
+                    FixtureDef fixtureDef = new FixtureDef();
+                    fixtureDef.shape = polygonShape;
+                    fixtureDef.filter.categoryBits = collisionMask;
+                    fixtureDef.isSensor = true;
 
-        body.createFixture(fixtureDef).setUserData(this);
-        body.setBullet(true);
-        polygonShape.dispose();
+                    body.createFixture(fixtureDef).setUserData(this);
+                    body.setBullet(true);
+                    polygonShape.dispose();
+                })
+                .start();
     }
 
     @Override
@@ -71,22 +78,24 @@ public abstract class Bullet extends GameObject {
 
     @Override
     public void tick(float delta) {
-        super.tick(delta); // play the animation
-        r += delta;
+        if (body != null) {
+            super.tick(delta); // play the animation
+            r += delta;
 
-        if (active) {
-            Vector2 tmp = new Vector2(pos);
-            tmp.y = r * sinDeg(angle);
-            tmp.x = r * cosDeg(angle);
-            tmp.setLength(speed);
+            if (active) {
+                Vector2 tmp = new Vector2(pos);
+                tmp.y = r * sinDeg(angle);
+                tmp.x = r * cosDeg(angle);
+                tmp.setLength(speed);
 
-            pos.add(tmp);
-            body.setTransform(pos.x + width / 2, pos.y + height / 2, 0);
+                pos.add(tmp);
+                body.setTransform(pos.x + width / 2, pos.y + height / 2, 0);
 
-            if (r * speed > range) {
-                // Remove Bullet
-                remove = true;
-                active = false;
+                if (r * speed > range) {
+                    // Remove Bullet
+                    remove = true;
+                    active = false;
+                }
             }
         }
     }

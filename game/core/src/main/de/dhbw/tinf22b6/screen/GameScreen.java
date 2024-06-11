@@ -66,6 +66,7 @@ public class GameScreen extends AbstractGameScreen {
         worldController = new WorldController(game, camera, this);
         worldRenderer = new WorldRenderer(worldController, map, camera);
         stageHandler = new InGameStageHandler(game, this);
+        resize(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
     }
 
     @Override

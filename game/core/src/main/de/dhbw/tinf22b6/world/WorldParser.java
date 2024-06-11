@@ -127,7 +127,17 @@ public class WorldParser {
                                 list.add(new WeaponBox(new Vector2(x, y), rectangleObject.getRectangle()));
                                 break;
                             case "enemy":
-                                if ((Boolean) map.getProperties().get("inside")) {
+                                if (map.getProperties().containsKey("inside")) {
+                                    if ((Boolean) map.getProperties().get("inside")) {
+                                        int next = r.nextInt(3);
+                                        switch (next) {
+                                            case 0 -> list.add(new Babo(new Vector2(x, y), rawMap));
+                                            case 1 -> list.add(new Skeleton(new Vector2(x, y), rawMap));
+                                            case 2 -> list.add(new SkeletonHat(new Vector2(x, y), rawMap));
+                                        }
+                                    }
+                                } else {
+
                                     int next = r.nextInt(5);
                                     switch (next) {
                                         case 0 -> list.add(new Snarg(new Vector2(x, y), rawMap));
@@ -135,13 +145,6 @@ public class WorldParser {
                                         case 2 -> list.add(new Grakor(new Vector2(x, y), rawMap));
                                         case 3 -> list.add(new Durgosh(new Vector2(x, y), rawMap));
                                         case 4 -> list.add(new Morglak(new Vector2(x, y), rawMap));
-                                    }
-                                } else {
-                                    int next = r.nextInt(3);
-                                    switch (next) {
-                                        case 0 -> list.add(new Babo(new Vector2(x, y), rawMap));
-                                        case 1 -> list.add(new Skeleton(new Vector2(x, y), rawMap));
-                                        case 2 -> list.add(new SkeletonHat(new Vector2(x, y), rawMap));
                                     }
                                 }
                                 break;
