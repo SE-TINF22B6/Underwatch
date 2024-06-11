@@ -49,7 +49,7 @@
  </layer>
  <layer id="3" name="coins" width="50" height="50">
   <data encoding="base64" compression="zlib">
-   eJzt2TEKgDAQRcHc/zDBI1pomoCIKUz8zjTbCOvDIgRLgQzbxfyihJaEhiahJaGhSWoBAADg4G4HAP/i7AfIkPDfbsWGp+/QP79Cy2jD3XzT6O7Vvkc9d9dJ+2fZAQrJHj0=
+   eJzt2NEKgCAMhWHf/2Fkj9hN3QiDmtPl4f8gjAjXwSJca4AGc8YT7cyyau6K9TDnPGveiixZtSq/D0uutzuLDQcAANW8f+Hb8Q8UMjwUsihkADIovdMnZhn3Xkr7MDIAAAAAUKXQL1qVYaa39vUZxvuzssz0BaMZVvUiI/NHa1eth1en39f6ZP3TXOgaT70=
   </data>
  </layer>
  <layer id="13" name="ammo" width="50" height="50">
