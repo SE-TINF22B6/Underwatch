@@ -56,10 +56,14 @@ By incorporating these architectural patterns, our design ensures robust, scalab
 | Convention | Background and /or motivation|
 |-|-|
 |Architecture Documentation| We will use the structure according to the lecture Software-Engineering and use the provided templates (sad.md, srs.md, and emmm.org)|
-#### 1.3 Definitions, Acronyms and Abbreviations
-> Definitions of all terms, acronyms, and abbreviations required to properly interpret this document.
-#### 1.4 References
-> A complete list of all documents referenced -- hyperlinks to those documents.
+
+#### 1.3 References
+- [Handout, 11.06.2024, Underwatch](Handout.md)
+- [Relation among classes, 11.06.2024, Underwatch](Relation%20among%20classes.pdf)
+- [Continuous Integration and Continous Deployment, 11.06.2024, Underwatch](CI-CD.md)
+- [EMMM Table, 11.06.2024, Underwatch](emmm.org)
+- [Software Architectural Document, 11.06.2024, Underwatch](sad.md)
+- [Test Report, 11.06.2024, Underwatch](Test%20Report.md)
 
 ### 2. Architecture tactics
 > Reference your architecturally significant requirements from Semester 3.
