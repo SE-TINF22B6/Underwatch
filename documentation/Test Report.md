@@ -120,7 +120,12 @@ We didn't find any major defects or bugs which have to be resolved, however in t
 
 ### 6. Metrics
 > This section provides quantitative data on the testing process, such as the number of defects found, the defect resolution time, and the test coverage achieved.
+> 
+`Depth Inheritance Tree` is a metric which can tell us something about the code reuse within our project. With a higher count being more prone to bugs as well as more logic being reused. According to the tools output we have this metric laying between 1 and 4 which we consider as quite optimal.
 
+`Response for Class` counts the responses a class can generate. Also indexing referenced classes this metric can skyrocket quite quickly. According to research a value between 0-50 is most optimal here. Our calculated rfc lays between 0-42 (with one outlier at 59). This tells us that we're mostly doing good, but should consider refactoring the outlier class.
+
+`Lines of Code` per class tell us something about the complexity of our classes. If this value get's too high we have to consider that we might have created a god class, which is too mighty and often leads to many bugs down the line. According to ck's output we lay between 0-200 which we interpret as being pretty good, since most of the time boilerplate code, such as getters and setters are already eating up a majority of the code lines resulting in the implemented logic being very concise.
 ### 7. Recommendations
 
 To further improve the quality of the software a proper implementation of `libgdx-headless` would be very helpful, however, in order to create this a major amount of time has to be set aside. This is not feasible, therefore we aim on having all play testers play the game with coverage reporting enabled - allowing us to collect metrics as well as find possible bugs which still remain in the game.
