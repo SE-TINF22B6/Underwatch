@@ -1,4 +1,5 @@
 # Underwatch
+
 ## Test Report
 
 ### 1. Introduction
@@ -9,7 +10,7 @@ The Underwatch project is divided into two major and one minor components. Namel
 2. Web Page (major)
 3. Backend (minor)
 
-We chose this classification since the major business logic of our project is implement in either the web page or the game respectively. 
+We chose this classification since the major business logic of our project is implement in either the web page or the game respectively.
 The Backend merely serves as an mostly auto-generated RESTful API which comes with SpringBoot out of the box.
 
 Each component requires a seperate testing methodology which we are going to break down in this document.
@@ -30,7 +31,7 @@ By injecting an in-memory database into the framework we're able to insert, modi
 
 #### Web Page Tests
 
-As the Web Page is a visual representation of code in the browser, unit testing a web page does only provide minimal use. 
+As the Web Page is a visual representation of code in the browser, unit testing a web page does only provide minimal use.
 However, since we taking advantage of the React Library, which comes with a handy `React Testing Library` we are able to at least test the functionality of components.
 
 To make the web page tests complete, there are manual (integration) tests neccessary, before a build gets deployed to production.
@@ -84,7 +85,34 @@ One of the unit tests for the backend looks like this, however, all of the tests
 Their purpose is to check for edge cases which may happen during the filtering of the repository.
 
 #### Web Page
-> Todo @JAWolfs
+
+A unit test in the web page looks like this, here we focus on verfying that actors we place on the page behave as we expect them to.
+
+```js
+test('Play-Now-Button directs to the download-page', async () => {
+    const history = createMemoryHistory();
+    history.push = jest.fn();
+    render(
+        <Router location={history.location} navigator={history}>
+            <App/>
+        </Router>);
+    const button = screen.getByText('Play Now');
+    fireEvent.click(button);
+    expect(history.push).toHaveBeenCalledWith({
+        "hash": "",
+        "pathname": "/download/",
+        "search": "",
+        },
+        undefined,
+        {"preventScrollReset": undefined,
+        "relative": undefined,
+        "replace": false,
+        "state": undefined,
+        "unstable_viewTransition": undefined,});
+})
+```
+
+Since this happens in a virtual browser with no human interpreting the result most tests only target the functionality.
 
 #### Game
 
@@ -110,7 +138,7 @@ For unit testing there is a similar structure in place as for the backend.
 
 For the rest of the game we do end to end integration testing with coverage leveraging IntelliJ's capability to do this during run time.
 
-### 5. Test Results 
+### 5. Test Results
 
 We didn't find any major defects or bugs which have to be resolved, however in the game we found the expected result of the coverage report. Where the static unit tests cannot cover the main game logic (first picture) whereas the integration test (second picture) takes more time but also covers a satisfactory amount of code.
 
@@ -119,13 +147,15 @@ We didn't find any major defects or bugs which have to be resolved, however in t
 ![manual coverage](coverage_manual.png)
 
 ### 6. Metrics
+
 > This section provides quantitative data on the testing process, such as the number of defects found, the defect resolution time, and the test coverage achieved.
-> 
+
 `Depth Inheritance Tree` is a metric which can tell us something about the code reuse within our project. With a higher count being more prone to bugs as well as more logic being reused. According to the tools output we have this metric laying between 1 and 4 which we consider as quite optimal.
 
 `Response for Class` counts the responses a class can generate. Also indexing referenced classes this metric can skyrocket quite quickly. According to research a value between 0-50 is most optimal here. Our calculated rfc lays between 0-42 (with one outlier at 59). This tells us that we're mostly doing good, but should consider refactoring the outlier class.
 
 `Lines of Code` per class tell us something about the complexity of our classes. If this value get's too high we have to consider that we might have created a god class, which is too mighty and often leads to many bugs down the line. According to ck's output we lay between 0-200 which we interpret as being pretty good, since most of the time boilerplate code, such as getters and setters are already eating up a majority of the code lines resulting in the implemented logic being very concise.
+
 ### 7. Recommendations
 
 To further improve the quality of the software a proper implementation of `libgdx-headless` would be very helpful, however, in order to create this a major amount of time has to be set aside. This is not feasible, therefore we aim on having all play testers play the game with coverage reporting enabled - allowing us to collect metrics as well as find possible bugs which still remain in the game.
