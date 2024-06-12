@@ -81,32 +81,32 @@
             "scale": 0.7327,
             "selectedLayer": 5,
             "viewCenter": {
-                "x": 436.7408216186707,
-                "y": 452.43619489559165
+                "x": 436.0584140848915,
+                "y": 451.75378736181256
             }
         },
         "Dungeon1.tmx": {
-            "scale": 0.6124,
-            "selectedLayer": 7,
+            "scale": 0.4123,
+            "selectedLayer": 8,
             "viewCenter": {
-                "x": 772.3709993468319,
-                "y": 733.9973873285434
+                "x": 782.1974290565122,
+                "y": 782.1974290565122
             }
         },
         "Dungeon3.tmx": {
             "scale": 0.3837,
-            "selectedLayer": 7,
+            "selectedLayer": 8,
             "viewCenter": {
-                "x": 328.38154808444096,
-                "y": 400.0521240552514
+                "x": 381.808704717227,
+                "y": 383.1118060985144
             }
         },
         "Dungeon6.tmx": {
-            "scale": 1.279,
-            "selectedLayer": 9,
+            "scale": 1.3474,
+            "selectedLayer": 7,
             "viewCenter": {
-                "x": 869.429241594996,
-                "y": 328.7724784988272
+                "x": 184.42927118895648,
+                "y": 208.5497996140715
             }
         },
         "Dungeon_Monsters1.tsx": {
@@ -167,11 +167,11 @@
             "scaleInEditor": 1
         },
         "level5.tmx": {
-            "scale": 0.6668,
-            "selectedLayer": 4,
+            "scale": 0.7671,
+            "selectedLayer": 9,
             "viewCenter": {
-                "x": 613.377324535093,
-                "y": 443.1613677264548
+                "x": 390.4314952418198,
+                "y": 390.4314952418198
             }
         },
         "neuesTileset.tsx": {
@@ -192,11 +192,11 @@
             "scaleInEditor": 1
         },
         "startMap.tmx": {
-            "scale": 1.0337,
+            "scale": 0.6682,
             "selectedLayer": 7,
             "viewCenter": {
-                "x": 498.2103124697688,
-                "y": 467.7372545225888
+                "x": 400.3292427416941,
+                "y": 401.07752170008973
             }
         }
     },
@@ -223,16 +223,16 @@
     "project": "Underwatch.tiled-project",
     "property.type": "string",
     "recentFiles": [
+        "Dungeon6.tmx",
+        "Dungeon1.tmx",
+        "level5.tmx",
+        "startMap.tmx",
         "Dungeon3.tmx",
         "Demo.tmx",
         "/Users/martin/repos/Underwatch/game/assets/tileSets/tilesetsAussenwelt/plains.tsx",
-        "Dungeon1.tmx",
-        "level5.tmx",
         "/Users/benny/software-engeneering/Underwatch/game/assets/tileSets/tilesetsAussenwelt/plains.tsx",
         "/Users/benny/software-engeneering/Underwatch/game/assets/tileSets/tilesetsDungeon/Dungeon_Tileset.tsx",
         "/Users/benny/software-engeneering/Underwatch/game/assets/tileSets/tilesetsDungeon/Dungeon_Monster.tsx",
-        "Dungeon6.tmx",
-        "startMap.tmx",
         "pathfinding.tmx",
         "fences.tsx"
     ],

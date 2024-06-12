@@ -84,7 +84,7 @@ public class WorldListener implements ContactListener {
                 PlayerStatistics.instance.addCoins(1);
                 Gdx.audio
                         .newSound(Gdx.files.internal("sfx/coin_pickup.mp3"))
-                        .play(Gdx.app.getPreferences("Controls").getFloat("sfx"));
+                        .play(Gdx.app.getPreferences("Controls").getFloat("sfx")*0.175f);
                 break;
             case WALL_BIT | WEAPON_BIT:
                 if (fixA.getFilterData().categoryBits == WEAPON_BIT) {
@@ -160,4 +160,4 @@ public class WorldListener implements ContactListener {
     @Override
     public void postSolve(Contact contact, ContactImpulse impulse) {}
 }
-;
+

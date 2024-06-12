@@ -62,7 +62,7 @@ public class Menu extends Stage {
             public void clicked(InputEvent event, float x, float y) {
                 // initialize player statistics
                 PlayerStatistics.instance.init();
-                game.setScreen(new GameScreen(game, WorldType.LEVEL4.getMap()));
+                game.setScreen(new GameScreen(game, WorldType.LEVEL1.getMap()));
                 Gdx.audio
                         .newSound(Gdx.files.internal("sfx/LevelUp.mp3"))
                         .play(Gdx.app.getPreferences("Controls").getFloat("sfx"));
