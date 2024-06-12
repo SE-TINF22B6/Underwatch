@@ -4,6 +4,6 @@ import com.badlogic.gdx.math.Vector2;
 
 public class Skeleton extends Enemy {
     public Skeleton(Vector2 position, int[][] rawMap) {
-        super("SS", position, rawMap, 50, 300);
+        super("SS", position, rawMap, 25, 300);
     }
 }
