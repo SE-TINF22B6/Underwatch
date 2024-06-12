@@ -21,7 +21,7 @@ public abstract class GameObject {
     protected short collisionMask;
 
     public GameObject(String region, Vector2 position, short collisionMask) {
-        this.currentAnimation = new Animation<>(0.5f, Assets.instance.getAnimationAtlasRegion(region));
+        this.currentAnimation = new Animation<>(0.15f, Assets.instance.getAnimationAtlasRegion(region));
         pos = new Vector2(position.x * TILE_SIZE, position.y * TILE_SIZE);
         this.collisionMask = collisionMask;
     }

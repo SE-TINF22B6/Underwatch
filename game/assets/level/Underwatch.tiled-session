@@ -81,32 +81,32 @@
             "scale": 0.7327,
             "selectedLayer": 5,
             "viewCenter": {
-                "x": 436.0584140848915,
-                "y": 451.75378736181256
+                "x": 436.7408216186707,
+                "y": 452.43619489559165
             }
         },
         "Dungeon1.tmx": {
-            "scale": 0.4123,
-            "selectedLayer": 8,
+            "scale": 0.6124,
+            "selectedLayer": 7,
             "viewCenter": {
-                "x": 808.8770312878971,
-                "y": 846.4710162503033
+                "x": 772.3709993468319,
+                "y": 733.9973873285434
             }
         },
         "Dungeon3.tmx": {
             "scale": 0.3837,
             "selectedLayer": 7,
             "viewCenter": {
-                "x": 327.0784467031534,
-                "y": 398.7490226739641
+                "x": 328.38154808444096,
+                "y": 400.0521240552514
             }
         },
         "Dungeon6.tmx": {
             "scale": 1.279,
             "selectedLayer": 9,
             "viewCenter": {
-                "x": 577.4042220484754,
-                "y": 306.4894448788116
+                "x": 869.429241594996,
+                "y": 328.7724784988272
             }
         },
         "Dungeon_Monsters1.tsx": {
@@ -168,10 +168,10 @@
         },
         "level5.tmx": {
             "scale": 0.6668,
-            "selectedLayer": 8,
+            "selectedLayer": 4,
             "viewCenter": {
-                "x": 411.6676664667067,
-                "y": 259.44811037792454
+                "x": 613.377324535093,
+                "y": 443.1613677264548
             }
         },
         "neuesTileset.tsx": {
@@ -192,11 +192,11 @@
             "scaleInEditor": 1
         },
         "startMap.tmx": {
-            "scale": 0.6682,
-            "selectedLayer": 5,
+            "scale": 1.0337,
+            "selectedLayer": 7,
             "viewCenter": {
-                "x": 177.34211313977846,
-                "y": 354.684226279557
+                "x": 498.2103124697688,
+                "y": 467.7372545225888
             }
         }
     },
@@ -221,7 +221,7 @@
         "startMap.tmx"
     ],
     "project": "Underwatch.tiled-project",
-    "property.type": "bool",
+    "property.type": "string",
     "recentFiles": [
         "Dungeon3.tmx",
         "Demo.tmx",

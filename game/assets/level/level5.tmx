@@ -1,9 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="right-down" width="50" height="50" tilewidth="16" tileheight="16" infinite="0" nextlayerid="11" nextobjectid="1">
+ <properties>
+  <property name="inside" type="bool" value="false"/>
+ </properties>
  <tileset firstgid="1" source="../tileSets/tilesetsAussenwelt/plains.tsx"/>
  <tileset firstgid="73" source="../tileSets/tilesetsDungeon/Dungeon_Tileset.tsx"/>
  <tileset firstgid="173" source="../tileSets/tilesetsDungeon/Dungeon_Monster.tsx"/>
  <layer id="1" name="bottom" width="50" height="50">
+  <properties>
+   <property name="render" value="below"/>
+  </properties>
   <data encoding="csv">
 9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,
 9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,

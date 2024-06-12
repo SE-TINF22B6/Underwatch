@@ -7,6 +7,7 @@
  <tileset firstgid="73" source="../tileSets/tilesetsAussenwelt/fences.tsx"/>
  <tileset firstgid="89" source="babo.tsx"/>
  <tileset firstgid="90" source="../tileSets/tilesetsDungeon/Dungeon_Tileset.tsx"/>
+ <tileset firstgid="190" source="../tileSets/tilesetsDungeon/Dungeon_Monster.tsx"/>
  <layer id="1" name="bottom" width="50" height="50">
   <properties>
    <property name="render" value="below"/>
@@ -49,7 +50,7 @@
  </layer>
  <layer id="3" name="coins" width="50" height="50">
   <data encoding="base64" compression="zlib">
-   eJzt2NEKgCAMhWHf/2Fkj9hN3QiDmtPl4f8gjAjXwSJca4AGc8YT7cyyau6K9TDnPGveiixZtSq/D0uutzuLDQcAANW8f+Hb8Q8UMjwUsihkADIovdMnZhn3Xkr7MDIAAAAAUKXQL1qVYaa39vUZxvuzssz0BaMZVvUiI/NHa1eth1en39f6ZP3TXOgaT70=
+   eJzt2EsKwCAMRVH3v5ossaNOhICfxNTXe6DYQYk+bCmmNUCDOeONTmbJql2xH+bcR9WtyBI1V+X3YcHznc5i3QUAQDXvXzg6foFChpdCFoUMQASld/rGLP3ZS+kcRgYAAAAAqhT6RVkZdnprs2von4/KstMXXM2Q1Ytcqb86d9V+jGT5kwecW05h
   </data>
  </layer>
  <layer id="13" name="ammo" width="50" height="50">
@@ -59,7 +60,7 @@
  </layer>
  <layer id="4" name="enemy" width="50" height="50">
   <data encoding="base64" compression="zlib">
-   eJzt1rERACAIADHWdP9FrCi1Uw9MJqB4OCIAoK/xegD4hF0jaQEAAPzF3HO6NS0DK+4D1GFf6Urb7EyMCgMi
+   eJzt1sEJADAIBDD3H9cJ+u9LaNEWkgnk4NQIAG7J6QEAOGaX18gJgFe4SQAA//C7QT+9myH3XvIGdguCEAeR
   </data>
  </layer>
  <layer id="9" name="start" width="50" height="50">
