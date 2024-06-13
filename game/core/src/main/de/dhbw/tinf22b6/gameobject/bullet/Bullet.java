@@ -19,6 +19,8 @@ public abstract class Bullet extends GameObject {
     protected boolean active;
     protected float angle;
     protected float r;
+    // shitty mutex implementation
+    private static boolean canCreateBullet = true;
     // be careful when adjusting this parameter, as this is not the range in tiles but rather a
     // counting of delta times
     // speed until the "range" is reached
@@ -44,6 +46,11 @@ public abstract class Bullet extends GameObject {
                     do {
                         isLocked = world.isLocked();
                     } while (isLocked);
+                    boolean canCreate;
+                    do {
+                      canCreate = canCreateBullet;
+                    } while (!canCreate);
+                    canCreateBullet = false;
                     body = world.createBody(WorldParser.getDynamicBodyDef(pos.x + width / 2, pos.y + height / 2));
                     PolygonShape polygonShape = new PolygonShape();
                     polygonShape.setAsBox(3 - 2, 3 - 2);
@@ -56,6 +63,7 @@ public abstract class Bullet extends GameObject {
                     body.createFixture(fixtureDef).setUserData(this);
                     body.setBullet(true);
                     polygonShape.dispose();
+                    canCreateBullet = true;
                 })
                 .start();
     }
