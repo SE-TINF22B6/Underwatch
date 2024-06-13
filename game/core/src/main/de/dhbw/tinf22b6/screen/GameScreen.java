@@ -24,6 +24,7 @@ public class GameScreen extends AbstractGameScreen {
     private WorldRenderer worldRenderer;
     private boolean paused;
     private InGameStageHandler stageHandler;
+    private WorldType worldType = WorldType.LEVEL1;
 
     public GameScreen(Game game, TiledMap map) {
         super(game);
@@ -57,7 +58,7 @@ public class GameScreen extends AbstractGameScreen {
 
     @Override
     public void show() {
-        MusicPlayer.instance.setMusic(Gdx.audio.newMusic(Gdx.files.internal("music/downfall.mp3")));
+        MusicPlayer.instance.setMusic(worldType.getMusic());
         Box2dWorld.instance.init();
         WorldParser.parseStaticObjects(map);
         Box2dWorld.instance.getWorld().setContactListener(new WorldListener(this));
@@ -94,6 +95,7 @@ public class GameScreen extends AbstractGameScreen {
     }
 
     public void changeMap(WorldType worldType) {
+        this.worldType = worldType;
         this.map = worldType.getMap();
         this.show();
     }
