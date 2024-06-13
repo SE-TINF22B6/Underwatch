@@ -62,11 +62,11 @@ export default function Download() {
                                 <Typography variant="body1" align="left" style={{
                                     color:theme2.palette.primary.contrastText,
                                 }}>
-                                    v0.0.2-alpha Fast Downlaod:
+                                    v1.0.0 Fast Downlaod:
                                 </Typography>
                             </td>
                             <td>
-                                <Button variant="contained" component="a" href="https://github.com/SE-TINF22B6/Underwatch/releases/download/v0.0.2-alpha/desktop-1.0.jar" style={{
+                                <Button variant="contained" component="a" href="https://github.com/SE-TINF22B6/Underwatch/releases/download/v1.0.0-release/Underwatch-1.0.0-rc1.jar" style={{
                                     fontWeight: 'bold', 
                                     border: '1px solid #F36437', 
                                     marginLeft: "10px", 
