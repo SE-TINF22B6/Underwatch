@@ -4,7 +4,6 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
-import de.dhbw.tinf22b6.util.MusicPlayer;
 
 public enum WorldType {
     MAIN_MENU("level/Demo.tmx", "music/main_menu.mp3"),

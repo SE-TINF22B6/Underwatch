@@ -48,7 +48,7 @@ public abstract class Bullet extends GameObject {
                     } while (isLocked);
                     boolean canCreate;
                     do {
-                      canCreate = canCreateBullet;
+                        canCreate = canCreateBullet;
                     } while (!canCreate);
                     canCreateBullet = false;
                     body = world.createBody(WorldParser.getDynamicBodyDef(pos.x + width / 2, pos.y + height / 2));
