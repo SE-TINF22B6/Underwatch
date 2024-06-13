@@ -48,5 +48,5 @@ test('Download-Button has correct URl', () => {
         </Router>);
     const downloadButton = screen.getByText('Give it to me');
     fireEvent.click(downloadButton);
-    expect(downloadButton).toHaveAttribute('href',"https://github.com/SE-TINF22B6/Underwatch/releases/download/v0.0.2-alpha/desktop-1.0.jar");
+    expect(downloadButton).toHaveAttribute('href',"https://github.com/SE-TINF22B6/Underwatch/releases/download/v1.0.0-release/Underwatch-1.0.0-rc1.jar");
 })
