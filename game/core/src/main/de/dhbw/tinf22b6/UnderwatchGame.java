@@ -11,9 +11,6 @@ import de.dhbw.tinf22b6.util.Controls;
 public class UnderwatchGame extends Game {
     @Override
     public void create() {
-        // Set Libgdx log level
-        Gdx.app.setLogLevel(Application.LOG_DEBUG);
-
         // Write Controls to File if they don't exist
         Controls.setupControls();
 
