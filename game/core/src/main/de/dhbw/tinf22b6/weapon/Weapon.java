@@ -5,6 +5,7 @@ import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import de.dhbw.tinf22b6.util.Assets;
+import de.dhbw.tinf22b6.util.PlayerStatistics;
 
 public abstract class Weapon {
     private static final String TAG = Weapon.class.getName();
@@ -18,6 +19,7 @@ public abstract class Weapon {
     protected Sound sound;
     protected int initialAmmo;
     protected int damage;
+    protected boolean heldByPlayer;
 
     public Weapon(String regionName, int ammo, float weaponCooldown, int damage) {
         this.initialAmmo = ammo;
@@ -29,6 +31,9 @@ public abstract class Weapon {
         this.sound = Gdx.audio.newSound(Gdx.files.internal("sfx/" + regionName + ".mp3"));
     }
 
+    public int getDamage() {
+            return (int) (this.damage + Math.ceil(this.damage * PlayerStatistics.instance.getDamageModifier()));
+    }
     public boolean shoot() {
         if (this.ammo <= 0) {
             Gdx.audio
@@ -75,10 +80,6 @@ public abstract class Weapon {
         return shootingAnimation.getKeyFrame(weaponStateTime, true);
     }
 
-    public void increaseDamage(float increase) {
-        this.damage = (int) (this.damage + Math.ceil(this.damage * increase));
-    }
-
     public boolean canShoot() {
         return ammo > 0 && !isShooting && remainingWeaponCooldown == 0;
     }
@@ -89,5 +90,11 @@ public abstract class Weapon {
 
     public int getAmmo() {
         return ammo;
+    }
+    public boolean isHeldByPlayer() {
+        return heldByPlayer;
+    }
+    public void setHeldByPlayer(boolean heldByPlayer) {
+        this.heldByPlayer = heldByPlayer;
     }
 }

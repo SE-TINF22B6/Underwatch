@@ -22,12 +22,13 @@ public class PlayerStatistics {
     private boolean won;
     private Vector2 startLocation;
     private boolean canSwitchWeapon;
-
+    private float damageModifier;
     // singleton: prevent instantiation from other classes
     private PlayerStatistics() {}
 
     public void init() {
         this.weapons = new ArrayList<>();
+
         weapons.add(new Ak());
         this.canSwitchWeapon = true;
         this.hp = 200;
@@ -37,6 +38,7 @@ public class PlayerStatistics {
         this.gameTime = 0;
         this.coins = 0;
         this.enemies_kills = 0;
+        this.damageModifier = 1f;
         Gdx.app.debug(TAG, "PlayerStatistics initialized " + instance.toString());
     }
 
@@ -145,5 +147,11 @@ public class PlayerStatistics {
 
     public void setStartLocation(Vector2 startLocation) {
         this.startLocation = startLocation;
+    }
+    public void addDamageModifier(float damageModifier) {
+        this.damageModifier += damageModifier;
+    }
+    public float getDamageModifier() {
+        return damageModifier;
     }
 }

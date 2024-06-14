@@ -28,7 +28,7 @@ public class Ak extends Weapon {
                             EntitySystem.instance.add(new PlayerBullet(
                                     new Vector2(pos.x + r * cosDeg(angle), pos.y + 5 + r * sinDeg(angle)),
                                     angle,
-                                    this.damage,
+                                    this.getDamage(),
                                     Constants.WEAPON_BIT));
                         } catch (InterruptedException e) {
                             throw new RuntimeException(e);

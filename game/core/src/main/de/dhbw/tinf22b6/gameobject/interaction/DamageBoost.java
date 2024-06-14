@@ -22,7 +22,7 @@ public class DamageBoost extends InteractionObject {
 
     @Override
     public void interact(Player player) {
-        PlayerStatistics.instance.getCurrentWeapon().increaseDamage(0.2f);
+        PlayerStatistics.instance.addDamageModifier(0.2f);
         super.interact(player);
     }
 }
