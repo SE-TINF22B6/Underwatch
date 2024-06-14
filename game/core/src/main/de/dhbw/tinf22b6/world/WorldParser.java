@@ -99,7 +99,7 @@ public class WorldParser {
         ArrayList<GameObject> list = new ArrayList<>();
         // TODO refactor animated game objects using an enum
         String[] objects = new String[] {
-            "coins", "torch", "chests", "enemy", "teleporter", "start", "hp", "speed", "trophy", "ammo"
+            "coins", "torch", "chests", "enemy", "teleporter", "start", "hp", "speed", "trophy", "ammo", "damage"
         };
         for (String s : objects) {
             TiledMapTileLayer layer = (TiledMapTileLayer) map.getLayers().get(s);
@@ -167,6 +167,9 @@ public class WorldParser {
                                 break;
                             case "ammo":
                                 list.add(new AmmoBox(new Vector2(x, y), rectangleObject.getRectangle()));
+                                break;
+                            case "damage":
+                                list.add(new DamageBoost(new Vector2(x, y), rectangleObject.getRectangle()));
                                 break;
                         }
                     }

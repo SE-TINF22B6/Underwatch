@@ -75,6 +75,10 @@ public abstract class Weapon {
         return shootingAnimation.getKeyFrame(weaponStateTime, true);
     }
 
+    public void increaseDamage(float increase) {
+        this.damage = (int) (this.damage + Math.ceil(this.damage * increase));
+    }
+
     public boolean canShoot() {
         return ammo > 0 && !isShooting && remainingWeaponCooldown == 0;
     }
