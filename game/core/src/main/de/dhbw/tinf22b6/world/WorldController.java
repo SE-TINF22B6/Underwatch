@@ -3,15 +3,22 @@ package de.dhbw.tinf22b6.world;
 import com.badlogic.gdx.*;
 import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.Cursor;
+import com.badlogic.gdx.math.Rectangle;
+import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.physics.box2d.FixtureDef;
+import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
 import de.dhbw.tinf22b6.gameobject.GameObject;
 import de.dhbw.tinf22b6.gameobject.Player;
+import de.dhbw.tinf22b6.gameobject.bullet.Bullet;
+import de.dhbw.tinf22b6.gameobject.interaction.AmmoBox;
 import de.dhbw.tinf22b6.screen.GameScreen;
 import de.dhbw.tinf22b6.util.CameraHelper;
 import de.dhbw.tinf22b6.util.EntitySystem;
 import de.dhbw.tinf22b6.util.PlayerStatistics;
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.List;
 
 public class WorldController extends InputAdapter {
     private static final String TAG = WorldController.class.getName();
@@ -88,6 +95,39 @@ public class WorldController extends InputAdapter {
 
         player.getMotionVector().x = motionX;
         player.getMotionVector().y = motionY;
+
+        List<Bullet> bullets = EntitySystem.instance.getSyncBulletsToBeCreated();
+
+        synchronized (bullets) {
+            bullets.forEach(bullet -> {
+                float width = 3;
+                float height = 6;
+                bullet.setBody(
+                        world.createBody(
+                                WorldParser.getDynamicBodyDef(
+                                        bullet.getPos().x + width / 2,
+                                        bullet.getPos().y + height / 2)));
+                PolygonShape polygonShape = new PolygonShape();
+                polygonShape.setAsBox(3 - 2, 3 - 2);
+
+                FixtureDef fixtureDef = new FixtureDef();
+                fixtureDef.shape = polygonShape;
+                fixtureDef.filter.categoryBits = bullet.getCollisionMask();
+                fixtureDef.isSensor = true;
+
+                bullet.getBody().createFixture(fixtureDef).setUserData(bullet);
+                bullet.getBody().setBullet(true);
+                polygonShape.dispose();
+            });
+            bullets.clear();
+        }
+
+        List<Vector2> ammoBoxPosition = EntitySystem.instance.getSyncAmmoBoxesToBeCreated();
+
+        synchronized (ammoBoxPosition) {
+            ammoBoxPosition.forEach(ammoBox -> EntitySystem.instance.add(new AmmoBox(ammoBox, new Rectangle(3, 2, 10, 10))));
+            ammoBoxPosition.clear();
+        }
 
         world.step(deltaTime, 6, 2);
 

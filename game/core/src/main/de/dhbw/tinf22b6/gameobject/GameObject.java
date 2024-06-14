@@ -41,6 +41,14 @@ public abstract class GameObject {
         return body;
     }
 
+    public void setBody(Body body) {
+        this.body = body;
+    }
+
+    public short getCollisionMask() {
+        return collisionMask;
+    }
+
     public boolean isRemove() {
         return remove;
     }

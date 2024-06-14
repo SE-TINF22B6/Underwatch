@@ -384,26 +384,12 @@ public abstract class Enemy extends MobGameObject implements Steerable<Vector2> 
         return SteeringUtils.angleToVector(outVector, angle);
     }
 
-    /**
-     * Overwrites the base call by spawning an AmmoBox at the target
-     * location where the Enemy died. Also, I wanted to try out
-     * Java 8s new CompletableFuture feature.
-     *
-     * @param remove specifies whether this Enemy shall be removed
-     */
     @Override
     public void setRemove(boolean remove) {
         Vector2 position = new Vector2(body.getPosition());
         position.x /= TILE_SIZE;
         position.y /= TILE_SIZE;
-        CompletableFuture.supplyAsync(() -> {
-            boolean locked;
-            do {
-                locked = Box2dWorld.instance.getWorld().isLocked();
-            } while (locked);
-            EntitySystem.instance.add(new AmmoBox(position, new Rectangle(3, 2, 10, 10)));
-            return true; // we have return something
-        });
+        EntitySystem.instance.addAmmoBoxToQueue(position);
         super.setRemove(remove);
     }
 }
