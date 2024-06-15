@@ -5,6 +5,7 @@ import com.badlogic.gdx.math.Vector2;
 import de.dhbw.tinf22b6.weapon.Ak;
 import de.dhbw.tinf22b6.weapon.M4;
 import de.dhbw.tinf22b6.weapon.Shotgun;
+import de.dhbw.tinf22b6.weapon.Sniper;
 import de.dhbw.tinf22b6.weapon.Weapon;
 import java.util.ArrayList;
 import java.util.List;
@@ -117,6 +118,9 @@ public class PlayerStatistics {
             this.currentWeaponIndex = weapons.size() - 1;
         } else if (this.weapons.size() == 2) { // Player has AK and M4
             this.weapons.add(new Shotgun());
+            this.currentWeaponIndex = weapons.size() - 1;
+        } else if (this.weapons.size() == 3) { // Player has AK and M4 and Shotgun
+            this.weapons.add(new Sniper());
             this.currentWeaponIndex = weapons.size() - 1;
         } else {
             reloadWeapons();
