@@ -9,7 +9,7 @@ import de.dhbw.tinf22b6.util.EntitySystem;
 
 public class Shotgun extends Weapon {
     public Shotgun() {
-        super("shotgun", 25, 0.2f, 50);
+        super("shotgun", 25, 0.5f, 20);
         this.shootingAnimation = new Animation<>(0.06f, Assets.instance.getAnimationAtlasRegion("shotgun"));
     }
 
