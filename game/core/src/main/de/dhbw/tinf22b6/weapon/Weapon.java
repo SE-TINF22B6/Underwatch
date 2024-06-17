@@ -48,7 +48,7 @@ public abstract class Weapon {
         new Thread(() -> {
                     try {
                         Thread.sleep((long) (shootingAnimation.getAnimationDuration() * 1000));
-                        sound.play(Gdx.app.getPreferences("Controls").getFloat("sfx"));
+                        sound.play(Gdx.app.getPreferences("Controls").getFloat("sfx")*4);
                         this.remainingWeaponCooldown = this.weaponCooldown;
                         this.weaponStateTime = 0;
                         this.isShooting = false;
