@@ -10,8 +10,8 @@ import de.dhbw.tinf22b6.util.EntitySystem;
 
 public class MP7 extends Weapon {
     public MP7() {
-        super("mp7", 40, 0.003f, 40);
-        this.shootingAnimation = new Animation<>(0.003f, Assets.instance.getAnimationAtlasRegion("mp7"));
+        super("mp7", 40, 0.05f, 40);
+        this.shootingAnimation = new Animation<>(0.005f, Assets.instance.getAnimationAtlasRegion("mp7"));
     }
 
     @Override

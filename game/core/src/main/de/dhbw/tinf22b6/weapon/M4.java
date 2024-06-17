@@ -9,7 +9,7 @@ import de.dhbw.tinf22b6.util.EntitySystem;
 
 public class M4 extends Weapon {
     public M4() {
-        super("m4", 30, 0.05f, 40);
+        super("m4", 30, 0.2f, 40);
         this.shootingAnimation = new Animation<>(0.001f, Assets.instance.getAnimationAtlasRegion("m4"));
     }
 

@@ -12,7 +12,7 @@ import de.dhbw.tinf22b6.util.EntitySystem;
 
 public class Ak extends Weapon {
     public Ak() {
-        super("ak", 25, 0.2f, 50);
+        super("ak", 25, 0.3f, 50);
         this.shootingAnimation = new Animation<>(0.01f, Assets.instance.getAnimationAtlasRegion("ak"));
     }
 
