@@ -8,12 +8,14 @@
  <tileset firstgid="89" source="babo.tsx"/>
  <tileset firstgid="90" source="../tileSets/tilesetsDungeon/Dungeon_Tileset.tsx"/>
  <tileset firstgid="190" source="../tileSets/tilesetsDungeon/Dungeon_Monster.tsx"/>
+ <tileset firstgid="286" source="bottom.tsx"/>
+ <tileset firstgid="670" source="Decorations.tsx"/>
  <layer id="1" name="bottom" width="50" height="50">
   <properties>
    <property name="render" value="below"/>
   </properties>
   <data encoding="base64" compression="zlib">
-   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
+   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
   </data>
  </layer>
  <layer id="2" name="walls" width="50" height="50">
@@ -45,7 +47,7 @@
    <property name="render" value="below"/>
   </properties>
   <data encoding="base64" compression="zlib">
-   eJzt1bENACAIBED3X8Q1LexMbNQIIXclBXm+oTUAAAAAAKijRwcAgGDrL+yb+c1O/srSf5Ycp17nr9BHthtO82S7I4oeYBpfRAkj
+   eJztmc0OwiAMxxd30CfYycfxraZejF7VvcQeUN3ZLHGRkNLxUUoH+x0xjNLCvy1W1UpJfDapLSiDQw2Pnw3jS2A6O52yh7b+/4btDfIHlS/2wHe2Qv0M2epKq33D5U7fmf0y2fZOoDsvpjVN/lfvyS7hefTRfKk6BfnRFOfQ+Ifc1cZyLrbGXNwotMSX0DriGWg7tL6ui65cCfxpyvs5MenaXC5Jofm50QjJISt5MPzupNT6eETV0KFADdFjIzlWGJ1wux+e9vnWXdy9lwmuvoiblPUwB9xxc9EdCp2+RYif6c719EuhUPYFtr2lTT+j9vm+esil89LzSclcGGJDpQ9YHubYRywo+8NT4LcwLZHWx3L2GPpaIW9ORyI/6rmwN4yP2OYedW7M/iX0zQ8iRh3CDXV9Y6OLUJy56yxqqO3PwR+x9wDpMfZ/g6892LwYuiKVpZ9JF9Q+LNd3kBV/vt4mOAI=
   </data>
  </layer>
  <layer id="3" name="coins" width="50" height="50">

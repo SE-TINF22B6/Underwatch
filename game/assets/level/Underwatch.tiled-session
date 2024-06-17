@@ -150,6 +150,10 @@
             "scaleInDock": 1,
             "scaleInEditor": 10.7
         },
+        "bottom.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
         "dungeon assets.tsx": {
             "scaleInDock": 1,
             "scaleInEditor": 1
@@ -167,11 +171,11 @@
             "scaleInEditor": 1
         },
         "level5.tmx": {
-            "scale": 0.76,
+            "scale": 0.9243,
             "selectedLayer": 9,
             "viewCenter": {
-                "x": 390.1315789473685,
-                "y": 390.7894736842106
+                "x": 410.5809802012334,
+                "y": 504.16531429189655
             }
         },
         "neuesTileset.tsx": {
@@ -192,17 +196,17 @@
             "scaleInEditor": 1
         },
         "startMap.tmx": {
-            "scale": 1.12,
-            "selectedLayer": 8,
+            "scale": 1.8945,
+            "selectedLayer": 4,
             "viewCenter": {
-                "x": 568.3035714285714,
-                "y": 250.89285714285708
+                "x": 681.1823700184746,
+                "y": 611.2430720506729
             }
         }
     },
     "frame.defaultDuration": 1,
     "last.externalTilesetPath": "/Users/martin/repos/Underwatch/game/assets/tileSets/tilesetsDungeon",
-    "last.imagePath": "/Users/benny/software-engeneering/Underwatch/game/assets/tileSets/tilesetsDungeon",
+    "last.imagePath": "/Users/benny/software-engeneering/Underwatch/game/assets/tileSets/tilesetsAussenwelt/PixelWoods/Decorations(main)",
     "map.fixedSize": true,
     "map.height": 20,
     "map.lastUsedFormat": "tmx",
@@ -223,6 +227,7 @@
     "project": "Underwatch.tiled-project",
     "property.type": "string",
     "recentFiles": [
+        "bottom.tsx",
         "Dungeon6.tmx",
         "Dungeon1.tmx",
         "level5.tmx",
@@ -233,12 +238,11 @@
         "/Users/benny/software-engeneering/Underwatch/game/assets/tileSets/tilesetsAussenwelt/plains.tsx",
         "/Users/benny/software-engeneering/Underwatch/game/assets/tileSets/tilesetsDungeon/Dungeon_Tileset.tsx",
         "/Users/benny/software-engeneering/Underwatch/game/assets/tileSets/tilesetsDungeon/Dungeon_Monster.tsx",
-        "pathfinding.tmx",
-        "fences.tsx"
+        "pathfinding.tmx"
     ],
     "tileset.lastUsedFormat": "tsx",
     "tileset.tileSize": {
-        "height": 32,
-        "width": 24
+        "height": 16,
+        "width": 16
     }
 }
