@@ -70,7 +70,7 @@
  </layer>
  <layer id="16" name="chests" width="50" height="50">
   <data encoding="base64" compression="zlib">
-   eJztxUERAAAIA6D1D2NGEyyAJ3xIuGTKAAAAAAAAAAAA3y1Q9AIL
+   eJztxTENAAAIA7D5F4NGJOwmtE8TLpkyAAAAAAAAAADAVwupWwK5
   </data>
  </layer>
  <layer id="9" name="start" width="50" height="50">

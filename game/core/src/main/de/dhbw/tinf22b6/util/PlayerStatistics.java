@@ -2,11 +2,8 @@ package de.dhbw.tinf22b6.util;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Vector2;
-import de.dhbw.tinf22b6.weapon.Ak;
-import de.dhbw.tinf22b6.weapon.M4;
-import de.dhbw.tinf22b6.weapon.Shotgun;
-import de.dhbw.tinf22b6.weapon.Sniper;
-import de.dhbw.tinf22b6.weapon.Weapon;
+import de.dhbw.tinf22b6.weapon.*;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -121,6 +118,9 @@ public class PlayerStatistics {
             this.currentWeaponIndex = weapons.size() - 1;
         } else if (this.weapons.size() == 3) { // Player has AK and M4 and Shotgun
             this.weapons.add(new Sniper());
+            this.currentWeaponIndex = weapons.size() - 1;
+        } else if (this.weapons.size() == 4) { // Player has AK and M4 and Shotgun
+            this.weapons.add(new MP7());
             this.currentWeaponIndex = weapons.size() - 1;
         } else {
             reloadWeapons();

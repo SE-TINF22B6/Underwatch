@@ -225,6 +225,8 @@ public class Player extends MobGameObject {
         PlayerStatistics.instance.getCurrentWeapon().shoot();
     }
 
+
+
     public Vector2 getMotionVector() {
         return motionVector;
     }
