@@ -117,7 +117,8 @@ public class Settings extends Stage {
                 currentEntry.setText(Input.Keys.toString(lastKeyCode));
             }
 
-            currentEntry = (TextButton) event.getTarget().getParent();
+            if (event.getTarget().getParent() instanceof Table) currentEntry = (TextButton) event.getTarget();
+            else currentEntry = (TextButton) event.getTarget().getParent();
             lastKeyCode = Input.Keys.valueOf(currentEntry.getText().toString());
             currentEntry.setText("Press a Button");
             super.clicked(event, x, y);
