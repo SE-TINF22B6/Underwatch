@@ -3,7 +3,6 @@ package de.dhbw.tinf22b6.util;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Vector2;
 import de.dhbw.tinf22b6.weapon.*;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -152,9 +151,11 @@ public class PlayerStatistics {
     public void setStartLocation(Vector2 startLocation) {
         this.startLocation = startLocation;
     }
+
     public void addDamageModifier(float damageModifier) {
         this.damageModifier += damageModifier;
     }
+
     public float getDamageModifier() {
         return damageModifier;
     }

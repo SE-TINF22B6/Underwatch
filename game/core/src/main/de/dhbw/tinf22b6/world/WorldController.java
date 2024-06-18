@@ -102,11 +102,8 @@ public class WorldController extends InputAdapter {
             bullets.forEach(bullet -> {
                 float width = 3;
                 float height = 6;
-                bullet.setBody(
-                        world.createBody(
-                                WorldParser.getDynamicBodyDef(
-                                        bullet.getPos().x + width / 2,
-                                        bullet.getPos().y + height / 2)));
+                bullet.setBody(world.createBody(
+                        WorldParser.getDynamicBodyDef(bullet.getPos().x + width / 2, bullet.getPos().y + height / 2)));
                 PolygonShape polygonShape = new PolygonShape();
                 polygonShape.setAsBox(3 - 2, 3 - 2);
 
@@ -125,7 +122,8 @@ public class WorldController extends InputAdapter {
         List<Vector2> ammoBoxPosition = EntitySystem.instance.getSyncAmmoBoxesToBeCreated();
 
         synchronized (ammoBoxPosition) {
-            ammoBoxPosition.forEach(ammoBox -> EntitySystem.instance.add(new AmmoBox(ammoBox, new Rectangle(3, 2, 10, 10))));
+            ammoBoxPosition.forEach(
+                    ammoBox -> EntitySystem.instance.add(new AmmoBox(ammoBox, new Rectangle(3, 2, 10, 10))));
             ammoBoxPosition.clear();
         }
 

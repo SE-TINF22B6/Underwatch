@@ -7,5 +7,4 @@ public class PlayerBullet extends Bullet {
     public PlayerBullet(Vector2 position, float angle, int damage, short mask) {
         super("bullet7x13", position, angle, damage, mask);
     }
-
 }

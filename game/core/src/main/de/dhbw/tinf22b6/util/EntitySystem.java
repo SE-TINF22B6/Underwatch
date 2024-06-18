@@ -5,7 +5,6 @@ import com.badlogic.gdx.math.Vector2;
 import de.dhbw.tinf22b6.gameobject.GameObject;
 import de.dhbw.tinf22b6.gameobject.Player;
 import de.dhbw.tinf22b6.gameobject.bullet.Bullet;
-
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -46,7 +45,6 @@ public class EntitySystem {
     public List<Bullet> getSyncBulletsToBeCreated() {
         return syncBulletsToBeCreated;
     }
-
 
     public void add(GameObject object) {
         this.gameObjects.add(object);

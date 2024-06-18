@@ -15,7 +15,6 @@ import com.badlogic.gdx.ai.utils.Location;
 import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
-import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
@@ -25,7 +24,6 @@ import de.dhbw.tinf22b6.ai.Box2DLocation;
 import de.dhbw.tinf22b6.ai.EnemySteeringBehaviour;
 import de.dhbw.tinf22b6.gameobject.Direction;
 import de.dhbw.tinf22b6.gameobject.Player;
-import de.dhbw.tinf22b6.gameobject.interaction.AmmoBox;
 import de.dhbw.tinf22b6.util.Constants;
 import de.dhbw.tinf22b6.util.EntitySystem;
 import de.dhbw.tinf22b6.util.PlayerStatistics;
@@ -37,7 +35,6 @@ import de.dhbw.tinf22b6.world.tiled.FlatTiledGraph;
 import de.dhbw.tinf22b6.world.tiled.FlatTiledNode;
 import de.dhbw.tinf22b6.world.tiled.TiledMetricHeuristic;
 import de.dhbw.tinf22b6.world.tiled.TiledSmoothableGraphPath;
-import java.util.concurrent.CompletableFuture;
 
 public abstract class Enemy extends MobGameObject implements Steerable<Vector2> {
     private static final String TAG = Enemy.class.getName();

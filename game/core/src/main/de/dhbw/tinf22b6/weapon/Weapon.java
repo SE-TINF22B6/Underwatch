@@ -31,8 +31,9 @@ public abstract class Weapon {
     }
 
     public int getDamage() {
-            return (int) (this.damage + Math.ceil(this.damage * PlayerStatistics.instance.getDamageModifier()));
+        return (int) (this.damage + Math.ceil(this.damage * PlayerStatistics.instance.getDamageModifier()));
     }
+
     public boolean shoot() {
         if (this.ammo <= 0) {
             Gdx.audio
@@ -47,7 +48,7 @@ public abstract class Weapon {
         new Thread(() -> {
                     try {
                         Thread.sleep((long) (shootingAnimation.getAnimationDuration() * 1000));
-                        sound.play(Gdx.app.getPreferences("Controls").getFloat("sfx")*4);
+                        sound.play(Gdx.app.getPreferences("Controls").getFloat("sfx") * 4);
                         this.remainingWeaponCooldown = this.weaponCooldown;
                         this.weaponStateTime = 0;
                         this.isShooting = false;

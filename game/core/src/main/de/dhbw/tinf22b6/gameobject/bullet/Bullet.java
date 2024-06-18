@@ -5,14 +5,9 @@ import static com.badlogic.gdx.math.MathUtils.sinDeg;
 
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.physics.box2d.FixtureDef;
-import com.badlogic.gdx.physics.box2d.PolygonShape;
-import com.badlogic.gdx.physics.box2d.World;
 import de.dhbw.tinf22b6.gameobject.GameObject;
 import de.dhbw.tinf22b6.util.Constants;
 import de.dhbw.tinf22b6.util.EntitySystem;
-import de.dhbw.tinf22b6.world.Box2dWorld;
-import de.dhbw.tinf22b6.world.WorldParser;
 
 public abstract class Bullet extends GameObject {
     protected final int damage;
