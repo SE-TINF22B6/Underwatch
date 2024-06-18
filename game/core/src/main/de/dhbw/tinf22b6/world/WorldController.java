@@ -30,6 +30,7 @@ public class WorldController extends InputAdapter {
     private final int inventory = prefs.getInteger("inventory", Input.Keys.I);
     private final int interact = prefs.getInteger("interact", Input.Keys.E);
     private final int dodge = prefs.getInteger("dodge", Input.Keys.SPACE);
+    private final int run = prefs.getInteger("run", Input.Keys.SHIFT_LEFT);
     public CameraHelper cameraHelper;
     public boolean debugBox2D = false;
     private Game game;
@@ -134,6 +135,12 @@ public class WorldController extends InputAdapter {
     }
 
     private void handleInput(float deltaTime) {
+        if (Gdx.input.isKeyPressed(run) && PlayerStatistics.instance.canSprint()) {
+            PlayerStatistics.instance.decreaseStamina(deltaTime * 20);
+        }
+        if (Gdx.input.isKeyPressed(run) && !PlayerStatistics.instance.canSprint()) {
+            EntitySystem.instance.getPlayer().stopSprinting();
+        }
         // Camera Controls (move)
         float camMoveSpeed = 32 * deltaTime;
         float camMoveSpeedAccelerationFactor = 5;
@@ -161,6 +168,7 @@ public class WorldController extends InputAdapter {
 
     @Override
     public boolean keyDown(int keycode) {
+        if (keycode == run) EntitySystem.instance.getPlayer().setSprinting();
         // Set Motion Vector
         pressedKeys.add(keycode);
         if (keycode == interact) player.interact(player);
@@ -183,6 +191,8 @@ public class WorldController extends InputAdapter {
 
     @Override
     public boolean keyUp(int keycode) {
+        if (keycode == run) EntitySystem.instance.getPlayer().stopSprinting();
+
         // Reset Motion Vector
         pressedKeys.remove(keycode);
         if (keycode == Input.Keys.ENTER) {

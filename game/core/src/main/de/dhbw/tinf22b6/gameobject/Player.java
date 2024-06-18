@@ -32,6 +32,8 @@ public class Player extends MobGameObject {
     private float dodgeStateTime;
     private boolean movedDuringDash;
     private GameObject interactionTarget;
+    private boolean isSprinting;
+    private float timeToRegenStamina;
 
     public Player(Vector2 position, Camera camera) {
         super("c1", position, Constants.PLAYER_BIT);
@@ -39,6 +41,7 @@ public class Player extends MobGameObject {
         this.dodgeAnimation = new Animation<>(0.1f, Assets.instance.getAnimationAtlasRegion("priest1_dash"));
         this.speed = 75;
         this.motionVector = new Vector2();
+        this.timeToRegenStamina = 3;
 
         // create Body
         BodyDef bodyDef = new BodyDef();
@@ -151,6 +154,12 @@ public class Player extends MobGameObject {
             setDirection(Direction.DOWN);
         }
 
+        if (!isSprinting) timeToRegenStamina -= delta;
+
+        if (!isSprinting && timeToRegenStamina <= 0) {
+            PlayerStatistics.instance.regenerateStamina(delta);
+        }
+
         dodgeStateTime += delta;
         if (!dodging) {
             pos.x = body.getPosition().x - (float) TILE_SIZE / 2;
@@ -177,7 +186,7 @@ public class Player extends MobGameObject {
                     })
                     .start();
         } else {
-            body.setLinearVelocity(motionVector.x * speed, motionVector.y * speed);
+            body.setLinearVelocity(motionVector.x * getSpeed(), motionVector.y * getSpeed());
             pos.x = body.getPosition().x - (float) TILE_SIZE / 2;
             pos.y = body.getPosition().y - (float) TILE_SIZE / 4;
         }
@@ -235,5 +244,18 @@ public class Player extends MobGameObject {
 
     public void pickupWeapon() {
         PlayerStatistics.instance.pickupWeapon();
+    }
+
+    public void setSprinting() {
+        isSprinting = true;
+    }
+
+    public void stopSprinting() {
+        isSprinting = false;
+        timeToRegenStamina = 3;
+    }
+
+    public float getSpeed() {
+        return isSprinting ? speed * 2 : speed;
     }
 }

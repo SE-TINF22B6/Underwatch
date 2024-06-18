@@ -173,4 +173,8 @@ public class PlayerStatistics {
     public void decreaseStamina(float delta) {
         this.stamina -= delta;
     }
+
+    public void regenerateStamina(float delta) {
+        if (stamina <= 100) stamina += delta * 5;
+    }
 }
