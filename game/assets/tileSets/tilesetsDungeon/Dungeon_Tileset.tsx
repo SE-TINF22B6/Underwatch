@@ -161,6 +161,11 @@
    <object id="1" x="4" y="0" width="9" height="16"/>
   </objectgroup>
  </tile>
+ <tile id="96">
+  <objectgroup draworder="index" id="2">
+   <object id="1" x="4" y="8" width="9" height="8"/>
+  </objectgroup>
+ </tile>
  <tile id="97">
   <objectgroup draworder="index" id="2">
    <object id="1" x="3" y="3" width="10" height="11"/>

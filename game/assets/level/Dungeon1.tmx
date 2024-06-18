@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="right-down" width="100" height="100" tilewidth="16" tileheight="16" infinite="0" nextlayerid="13" nextobjectid="1">
+<map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="right-down" width="100" height="100" tilewidth="16" tileheight="16" infinite="0" nextlayerid="14" nextobjectid="1">
  <properties>
   <property name="inside" type="bool" value="true"/>
  </properties>
@@ -57,6 +57,11 @@
  <layer id="6" name="coins" width="100" height="100">
   <data encoding="base64" compression="zlib">
    eJzt3FFygyAUBdDuMtvLUtvP1AGUjOgFz/lxNAniu6AZY/vzA3zjVVlvbX9tXn8VttfeV9v3Xpuldkt93e5jNnt1L21vbSu1u31fbdnqT2197/Oz2ZsfR2rXO45Ly9J8avVvu632+dkcOV/tnRtaY7ZnnrT6U1vf+/yMes71PdePUltHX2+tr3z9AAAAgDsduZfCNXruYXINWUDd6Plgvh13Va1kcpxa5bgiC3n3GVkv39n6mB951CuHLPLIhLv9jb13aZna7spG10wm/dQsx7dZ9GQm53PV6imT+8gin0wAYD1+38khizwfWbw/l1w/Xle7B3Zm3e56xnK2TI4+Hzwyk9G+zeLqZ6f32n/ydfCu59hH7WeFLFf524LZ+vsET8tklbm0gtWz6P3Ol3D8SX0ZYcZMViWLPGrPUzx1bCceryz+LxMk922kpx43fYyTHE+9fiSTBfQxV/LIJIdrSh5Z5DA/8siCRH7jySGLPDIBAAAAAAAAAJJ5liGPTHLMnoX/rZHjrCxkch61HOsXtZ+gxw==
+  </data>
+ </layer>
+ <layer id="13" name="damage" width="100" height="100">
+  <data encoding="base64" compression="zlib">
+   eJzt2jERAAAIA7Faxb8JZhRwcImC39sEAAAAAAAAAACAj2o7AAAAAAAAAAAAAAAAGHz9AQAAAAAA7rDtAAAAAAAAAAAAAAANypQBJA==
   </data>
  </layer>
  <layer id="7" name="torch" width="100" height="100">

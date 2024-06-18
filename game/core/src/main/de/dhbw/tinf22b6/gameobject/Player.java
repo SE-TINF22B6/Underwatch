@@ -6,6 +6,7 @@ import static de.dhbw.tinf22b6.util.Constants.PLAYER_BIT;
 import static de.dhbw.tinf22b6.util.Constants.TILE_SIZE;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Batch;
@@ -155,6 +156,9 @@ public class Player extends MobGameObject {
             pos.x = body.getPosition().x - (float) TILE_SIZE / 2;
             pos.y = body.getPosition().y - (float) TILE_SIZE / 4;
         }
+        if (Gdx.input.isButtonPressed(Input.Buttons.LEFT)) {
+            shoot();
+        }
     }
 
     public void applyForce(Vector2 motionVector) {
@@ -224,6 +228,8 @@ public class Player extends MobGameObject {
     public void shoot() {
         PlayerStatistics.instance.getCurrentWeapon().shoot();
     }
+
+
 
     public Vector2 getMotionVector() {
         return motionVector;

@@ -2,10 +2,8 @@ package de.dhbw.tinf22b6.util;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Vector2;
-import de.dhbw.tinf22b6.weapon.Ak;
-import de.dhbw.tinf22b6.weapon.M4;
-import de.dhbw.tinf22b6.weapon.Shotgun;
-import de.dhbw.tinf22b6.weapon.Weapon;
+import de.dhbw.tinf22b6.weapon.*;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,12 +20,13 @@ public class PlayerStatistics {
     private boolean won;
     private Vector2 startLocation;
     private boolean canSwitchWeapon;
-
+    private float damageModifier;
     // singleton: prevent instantiation from other classes
     private PlayerStatistics() {}
 
     public void init() {
         this.weapons = new ArrayList<>();
+
         weapons.add(new Ak());
         this.canSwitchWeapon = true;
         this.hp = 200;
@@ -37,6 +36,7 @@ public class PlayerStatistics {
         this.gameTime = 0;
         this.coins = 0;
         this.enemies_kills = 0;
+        this.damageModifier = 1f;
         Gdx.app.debug(TAG, "PlayerStatistics initialized " + instance.toString());
     }
 
@@ -69,7 +69,7 @@ public class PlayerStatistics {
     }
 
     public int getScore() {
-        return Math.max(coins * 5 + enemies_kills * 10 + (hasWon() ? 100 : 0) - (int) (gameTime / 60), 0);
+        return Math.max(coins * 2 + enemies_kills * 10 + (hasWon() ? 3000 : 0) - (int) (gameTime / 60), 0);
     }
 
     public float getGameTime() {
@@ -116,6 +116,12 @@ public class PlayerStatistics {
         } else if (this.weapons.size() == 2) { // Player has AK and M4
             this.weapons.add(new Shotgun());
             this.currentWeaponIndex = weapons.size() - 1;
+        } else if (this.weapons.size() == 3) { // Player has AK and M4 and Shotgun
+            this.weapons.add(new Sniper());
+            this.currentWeaponIndex = weapons.size() - 1;
+        } else if (this.weapons.size() == 4) { // Player has AK and M4 and Shotgun
+            this.weapons.add(new MP7());
+            this.currentWeaponIndex = weapons.size() - 1;
         } else {
             reloadWeapons();
         }
@@ -145,5 +151,11 @@ public class PlayerStatistics {
 
     public void setStartLocation(Vector2 startLocation) {
         this.startLocation = startLocation;
+    }
+    public void addDamageModifier(float damageModifier) {
+        this.damageModifier += damageModifier;
+    }
+    public float getDamageModifier() {
+        return damageModifier;
     }
 }

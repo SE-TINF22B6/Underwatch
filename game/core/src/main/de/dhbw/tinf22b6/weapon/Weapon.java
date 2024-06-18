@@ -5,6 +5,7 @@ import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import de.dhbw.tinf22b6.util.Assets;
+import de.dhbw.tinf22b6.util.PlayerStatistics;
 
 public abstract class Weapon {
     private static final String TAG = Weapon.class.getName();
@@ -29,6 +30,9 @@ public abstract class Weapon {
         this.sound = Gdx.audio.newSound(Gdx.files.internal("sfx/" + regionName + ".mp3"));
     }
 
+    public int getDamage() {
+            return (int) (this.damage + Math.ceil(this.damage * PlayerStatistics.instance.getDamageModifier()));
+    }
     public boolean shoot() {
         if (this.ammo <= 0) {
             Gdx.audio
@@ -43,7 +47,7 @@ public abstract class Weapon {
         new Thread(() -> {
                     try {
                         Thread.sleep((long) (shootingAnimation.getAnimationDuration() * 1000));
-                        sound.play(Gdx.app.getPreferences("Controls").getFloat("sfx"));
+                        sound.play(Gdx.app.getPreferences("Controls").getFloat("sfx")*4);
                         this.remainingWeaponCooldown = this.weaponCooldown;
                         this.weaponStateTime = 0;
                         this.isShooting = false;

@@ -9,8 +9,8 @@ import de.dhbw.tinf22b6.util.EntitySystem;
 
 public class Shotgun extends Weapon {
     public Shotgun() {
-        super("shotgun", 25, 0.2f, 50);
-        this.shootingAnimation = new Animation<>(0.06f, Assets.instance.getAnimationAtlasRegion("shotgun"));
+        super("shotgun", 25, 0.5f, 20);
+        this.shootingAnimation = new Animation<>(0.005f, Assets.instance.getAnimationAtlasRegion("shotgun"));
     }
 
     @Override
@@ -22,7 +22,7 @@ public class Shotgun extends Weapon {
                             angle += i;
                             Vector2 pos = EntitySystem.instance.getPlayer().getPos();
                             EntitySystem.instance.add(new PlayerBullet(
-                                    new Vector2(pos.x + 15 / 2f, pos.y + 5), angle, this.damage, Constants.WEAPON_BIT));
+                                    new Vector2(pos.x + 15 / 2f, pos.y + 5), angle, this.getDamage(), Constants.WEAPON_BIT));
                         }
                     })
                     .start();
