@@ -7,7 +7,7 @@ import com.badlogic.gdx.Preferences;
 public class Controls {
     public static void setupControls() {
         Preferences preferences = Gdx.app.getPreferences("Controls");
-        if (preferences.contains("interact")) return;
+        if (preferences.contains("run")) return;
         preferences.putInteger("left", Input.Keys.A);
         preferences.putInteger("right", Input.Keys.D);
         preferences.putInteger("up", Input.Keys.W);
@@ -18,6 +18,7 @@ public class Controls {
         preferences.putFloat("music", 0.5f);
         preferences.putFloat("sfx", 0.5f);
         preferences.putBoolean("muteMusic", false);
+        preferences.putInteger("run", Input.Keys.SHIFT_LEFT);
         preferences.flush();
     }
 }
