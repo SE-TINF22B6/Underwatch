@@ -19,7 +19,6 @@ public abstract class Weapon {
     protected Sound sound;
     protected int initialAmmo;
     protected int damage;
-    protected boolean heldByPlayer;
 
     public Weapon(String regionName, int ammo, float weaponCooldown, int damage) {
         this.initialAmmo = ammo;
@@ -90,11 +89,5 @@ public abstract class Weapon {
 
     public int getAmmo() {
         return ammo;
-    }
-    public boolean isHeldByPlayer() {
-        return heldByPlayer;
-    }
-    public void setHeldByPlayer(boolean heldByPlayer) {
-        this.heldByPlayer = heldByPlayer;
     }
 }

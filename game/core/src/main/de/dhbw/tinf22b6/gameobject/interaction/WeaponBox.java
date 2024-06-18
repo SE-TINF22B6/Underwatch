@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import de.dhbw.tinf22b6.gameobject.Player;
+import de.dhbw.tinf22b6.util.PlayerStatistics;
 
 public class WeaponBox extends InteractionObject {
 
@@ -21,7 +22,12 @@ public class WeaponBox extends InteractionObject {
 
     @Override
     public void interact(Player player) {
-        player.pickupWeapon();
-        super.interact(player);
+        int playerCoins = PlayerStatistics.instance.coins();
+        int costForChest = 10;
+        if (playerCoins >= costForChest) {
+            player.pickupWeapon();
+            PlayerStatistics.instance.removeCoins(costForChest);
+            super.interact(player);
+        }
     }
 }
