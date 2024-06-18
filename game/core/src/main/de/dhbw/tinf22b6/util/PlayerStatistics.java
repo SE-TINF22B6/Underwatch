@@ -20,6 +20,7 @@ public class PlayerStatistics {
     private Vector2 startLocation;
     private boolean canSwitchWeapon;
     private float damageModifier;
+    private float stamina;
     // singleton: prevent instantiation from other classes
     private PlayerStatistics() {}
 
@@ -30,6 +31,7 @@ public class PlayerStatistics {
         this.canSwitchWeapon = true;
         this.hp = 200;
         this.initialHP = hp;
+        this.stamina = 100;
         this.won = false;
         this.currentWeaponIndex = 0;
         this.gameTime = 0;
@@ -158,5 +160,17 @@ public class PlayerStatistics {
 
     public float getDamageModifier() {
         return damageModifier;
+    }
+
+    public boolean canSprint() {
+        return stamina >= 0;
+    }
+
+    public float getStamina() {
+        return stamina;
+    }
+
+    public void decreaseStamina(float delta) {
+        this.stamina -= delta;
     }
 }
