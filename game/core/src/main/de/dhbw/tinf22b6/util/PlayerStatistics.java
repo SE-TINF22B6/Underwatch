@@ -69,7 +69,7 @@ public class PlayerStatistics {
     }
 
     public int getScore() {
-        return Math.max(coins * 5 + enemies_kills * 10 + (hasWon() ? 3000 : 0) - (int) (gameTime / 60), 0);
+        return Math.max(coins * 2 + enemies_kills * 10 + (hasWon() ? 3000 : 0) - (int) (gameTime / 60), 0);
     }
 
     public float getGameTime() {
