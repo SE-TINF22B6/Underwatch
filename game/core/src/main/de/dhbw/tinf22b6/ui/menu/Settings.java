@@ -84,14 +84,14 @@ public class Settings extends Stage {
         btnDodge.addListener(new OptionsClickHandler());
         contentTable.add(btnDodge).row();
 
-        contentTable.add(new Label("Inventory", skin));
-        TextButton btnInventory = new TextButton(Input.Keys.toString(preferences.getInteger("inventory")), skin);
+        contentTable.add(new Label("Run", skin));
+        TextButton btnInventory = new TextButton(Input.Keys.toString(preferences.getInteger("run")), skin);
         btnInventory.addListener(new OptionsClickHandler());
         contentTable.add(btnInventory).row();
 
         contentTable.add(new Label("Interact", skin));
         TextButton btnInteract = new TextButton(Input.Keys.toString(preferences.getInteger("interact")), skin);
-        btnInventory.addListener(new OptionsClickHandler());
+        btnInteract.addListener(new OptionsClickHandler());
         contentTable.add(btnInteract).row();
 
         Button btnBack = new Button(skin);
@@ -117,8 +117,8 @@ public class Settings extends Stage {
                 currentEntry.setText(Input.Keys.toString(lastKeyCode));
             }
 
-            if (event.getTarget().getParent() instanceof Table) currentEntry = (TextButton) event.getTarget();
-            else currentEntry = (TextButton) event.getTarget().getParent();
+            if (event.getTarget().getParent() instanceof TextButton) currentEntry = (TextButton) event.getTarget().getParent();
+            else currentEntry = (TextButton) event.getTarget();
             lastKeyCode = Input.Keys.valueOf(currentEntry.getText().toString());
             currentEntry.setText("Press a Button");
             super.clicked(event, x, y);
